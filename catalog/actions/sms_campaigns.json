@@ -1,0 +1,2089 @@
+[
+  {
+    "id": "sms_campaigns.create_sms_campaign",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Creates an SMS campaign",
+    "intent": "Creates an SMS campaign",
+    "description": "Create a new SMS campaign with the required name, sender, and content fields. The sender name is limited to 11 alphanumeric characters or 15 numeric characters, and the content should stay within 160 characters per SMS segment. If a scheduledAt date is provided, listIds in recipients become mandatory; accounts under validation are limited to 4 total campaigns and campaigns with more than 10 recipients will be saved as draft.",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "description": "Content of the message. The **maximum characters used per SMS is 160**, if used more than that, it will be counted as more than one SMS.\n",
+          "example": "Get a discount by visiting our NY store and saying : Happy Spring!",
+          "type": "string",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "Name of the campaign",
+          "example": "Spring Promo Code",
+          "type": "string",
+          "x-in": "body"
+        },
+        "organisationPrefix": {
+          "description": "A recognizable prefix will ensure your audience knows who you are. Recommended by U.S. carriers. This will be added as your Brand Name before the message content. **Prefer verifying maximum length of 160 characters including this prefix in message content to avoid multiple sending of same sms.**",
+          "example": "MyCompany",
+          "type": "string",
+          "x-in": "body"
+        },
+        "recipients": {
+          "properties": {
+            "exclusionListIds": {
+              "description": "List ids which have to be excluded from a campaign",
+              "items": {
+                "description": "List Id to exclude from the campaign",
+                "example": 15,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "listIds": {
+              "description": "Lists Ids to send the campaign to. **REQUIRED if scheduledAt is not empty**\n",
+              "items": {
+                "description": "List Id to send the campaign to",
+                "example": 54,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "listIds"
+          ],
+          "type": "object",
+          "x-in": "body"
+        },
+        "scheduledAt": {
+          "description": "UTC date-time on which the campaign has to run (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.**\n",
+          "example": "2017-05-05T12:30:00+02:00",
+          "type": "string",
+          "x-in": "body"
+        },
+        "sender": {
+          "description": "Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters**\n",
+          "example": "MyShop",
+          "maxLength": 15,
+          "type": "string",
+          "x-in": "body"
+        },
+        "unicodeEnabled": {
+          "default": false,
+          "description": "Format of the message. It indicates whether the content should be treated as unicode or not.\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "unsubscribeInstruction": {
+          "description": "Instructions to unsubscribe from future communications. Recommended by U.S. carriers. Must include **STOP** keyword. This will be added as instructions after the end of message content. **Prefer verifying maximum length of 160 characters including this instructions in message content to avoid multiple sending of same sms.**",
+          "example": "send Stop if you want to unsubscribe.",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "content",
+        "name",
+        "sender"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create an SMS Campaign",
+        "schema": {
+          "properties": {
+            "content": {
+              "description": "Content of the message. The **maximum characters used per SMS is 160**, if used more than that, it will be counted as more than one SMS.\n",
+              "example": "Get a discount by visiting our NY store and saying : Happy Spring!",
+              "type": "string"
+            },
+            "name": {
+              "description": "Name of the campaign",
+              "example": "Spring Promo Code",
+              "type": "string"
+            },
+            "organisationPrefix": {
+              "description": "A recognizable prefix will ensure your audience knows who you are. Recommended by U.S. carriers. This will be added as your Brand Name before the message content. **Prefer verifying maximum length of 160 characters including this prefix in message content to avoid multiple sending of same sms.**",
+              "example": "MyCompany",
+              "type": "string"
+            },
+            "recipients": {
+              "properties": {
+                "exclusionListIds": {
+                  "description": "List ids which have to be excluded from a campaign",
+                  "items": {
+                    "description": "List Id to exclude from the campaign",
+                    "example": 15,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "listIds": {
+                  "description": "Lists Ids to send the campaign to. **REQUIRED if scheduledAt is not empty**\n",
+                  "items": {
+                    "description": "List Id to send the campaign to",
+                    "example": 54,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "listIds"
+              ],
+              "type": "object"
+            },
+            "scheduledAt": {
+              "description": "UTC date-time on which the campaign has to run (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.**\n",
+              "example": "2017-05-05T12:30:00+02:00",
+              "type": "string"
+            },
+            "sender": {
+              "description": "Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters**\n",
+              "example": "MyShop",
+              "maxLength": 15,
+              "type": "string"
+            },
+            "unicodeEnabled": {
+              "default": false,
+              "description": "Format of the message. It indicates whether the content should be treated as unicode or not.\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "unsubscribeInstruction": {
+              "description": "Instructions to unsubscribe from future communications. Recommended by U.S. carriers. Must include **STOP** keyword. This will be added as instructions after the end of message content. **Prefer verifying maximum length of 160 characters including this instructions in message content to avoid multiple sending of same sms.**",
+              "example": "send Stop if you want to unsubscribe.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "content",
+            "name",
+            "sender"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/smsCampaigns",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "sms_campaigns__create_sms_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createSmsCampaign",
+      "tag": "SMS Campaigns",
+      "ui_area": "Marketing > SMS",
+      "ui_path": "Marketing > SMS > Create"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create an SMS campaign",
+        "ui_path": "Marketing > SMS > Create",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "creates",
+      "sms",
+      "campaign",
+      "sms campaign",
+      "marketing sms",
+      "sms campaigns",
+      "sms blast",
+      "text campaign",
+      "create"
+    ],
+    "related_actions": [],
+    "tags": [
+      "sms_campaigns",
+      "create"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "sms_campaigns.delete_sms_campaign",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Delete an SMS campaign",
+    "intent": "Delete an SMS campaign",
+    "description": "Delete an SMS campaign by its campaign ID. Only campaigns that have not been scheduled or sent can be deleted; attempting to delete a campaign that is queued, in process, or has been sent with recipients will return a 403 permission denied error.",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the SMS campaign"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/smsCampaigns/{campaignId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "sms_campaigns__delete_sms_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deleteSmsCampaign",
+      "tag": "SMS Campaigns",
+      "ui_area": "Marketing > SMS",
+      "ui_path": "Marketing > SMS > Delete"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Delete an SMS campaign",
+        "ui_path": "Marketing > SMS > Delete",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "delete",
+      "sms",
+      "campaign",
+      "sms campaign",
+      "marketing sms",
+      "sms campaigns",
+      "remove sms"
+    ],
+    "related_actions": [],
+    "tags": [
+      "sms_campaigns",
+      "delete"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "sms_campaigns.get_sms_campaign",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Get an SMS campaign",
+    "intent": "Get an SMS campaign",
+    "description": "Retrieve detailed information about a specific SMS campaign by its ID, including campaign content, sender, recipients with list names, statistics (delivered, sent, bounces, unsubscriptions, answered), and tags. Unlike the list endpoint, recipients are returned as objects with id and name fields rather than plain IDs.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the SMS campaign"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "description": "Content of the SMS Campaign",
+            "example": "Visit our Store and get some discount !",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "Creation UTC date-time of the SMS campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-06-01T12:30:00Z",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the SMS Campaign",
+            "example": 2,
+            "format": "int64",
+            "type": "integer"
+          },
+          "modifiedAt": {
+            "description": "UTC date-time of last modification of the SMS campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-05-01T12:30:00Z",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the SMS Campaign",
+            "example": "PROMO CODE",
+            "type": "string"
+          },
+          "organisationPrefix": {
+            "description": "A recognizable prefix added as the Brand Name before the message content. Empty string if not set.",
+            "example": "MyCompany",
+            "type": "string"
+          },
+          "scheduledAt": {
+            "description": "UTC date-time on which SMS campaign is scheduled. Should be in YYYY-MM-DDTHH:mm:ss.SSSZ format. Empty string if not scheduled.",
+            "example": "2017-06-01T12:30:00Z",
+            "type": "string"
+          },
+          "sender": {
+            "description": "Sender of the SMS Campaign",
+            "example": "MyCompany",
+            "type": "string"
+          },
+          "sentDate": {
+            "description": "UTC date-time on which the SMS campaign was sent (YYYY-MM-DDTHH:mm:ss.SSSZ). Only available if the campaign status is 'sent'.",
+            "example": "2017-06-01T12:30:00Z",
+            "type": "string"
+          },
+          "status": {
+            "description": "Status of the SMS Campaign",
+            "enum": [
+              "draft",
+              "sent",
+              "archive",
+              "queued",
+              "suspended",
+              "inProcess"
+            ],
+            "example": "draft",
+            "type": "string"
+          },
+          "unsubscribeInstruction": {
+            "description": "Instructions to unsubscribe from future communications. Empty string if not set.",
+            "example": "send Stop if you want to unsubscribe.",
+            "type": "string"
+          },
+          "recipients": {
+            "description": "Recipients of the SMS campaign. For a single campaign, lists and exclusion lists are returned as objects with id and name.",
+            "properties": {
+              "exclusionLists": {
+                "items": {
+                  "properties": {
+                    "id": {
+                      "description": "ID of the exclusion list",
+                      "example": 13,
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "name": {
+                      "description": "Name of the exclusion list",
+                      "example": "Exclusion List",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "lists": {
+                "items": {
+                  "properties": {
+                    "id": {
+                      "description": "ID of the list",
+                      "example": 21,
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "name": {
+                      "description": "Name of the list",
+                      "example": "Main List",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "statistics": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/getSmsCampaignStats"
+              }
+            ],
+            "type": "object"
+          },
+          "tags": {
+            "description": "Tags (labels) associated with the SMS campaign. Only available when retrieving a single campaign.",
+            "items": {
+              "description": "Tag name",
+              "example": "promo",
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "content",
+          "createdAt",
+          "id",
+          "modifiedAt",
+          "name",
+          "sender",
+          "status",
+          "recipients",
+          "statistics"
+        ]
+      },
+      "example": {
+        "content": "Visit our Store and get some discount !",
+        "createdAt": "2017-06-01T12:30:00Z",
+        "id": 2,
+        "modifiedAt": "2017-05-01T12:30:00Z",
+        "name": "PROMO CODE",
+        "organisationPrefix": "MyCompany",
+        "recipients": {
+          "exclusionLists": [
+            {
+              "id": 13,
+              "name": "Exclusion List"
+            }
+          ],
+          "lists": [
+            {
+              "id": 21,
+              "name": "Main List"
+            }
+          ]
+        },
+        "scheduledAt": "2017-06-01T12:30:00Z",
+        "sender": "MyCompany",
+        "sentDate": "2017-06-01T12:30:00Z",
+        "statistics": {
+          "answered": 2,
+          "delivered": 2987,
+          "hardBounces": 1,
+          "processing": 0,
+          "sent": 3000,
+          "softBounces": 3,
+          "unsubscriptions": 3
+        },
+        "status": "sent",
+        "tags": [],
+        "unsubscribeInstruction": "send Stop if you want to unsubscribe."
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/smsCampaigns/{campaignId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "sms_campaigns__get_sms_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getSmsCampaign",
+      "tag": "SMS Campaigns",
+      "ui_area": "Marketing > SMS",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "sms",
+      "campaign",
+      "sms campaign",
+      "marketing sms",
+      "sms campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "sms_campaigns",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "sms_campaigns.list_sms_campaigns",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Returns the information for all your created SMS campaigns",
+    "intent": "Returns the information for all your created SMS campaigns",
+    "description": "Retrieve a paginated list of all your SMS campaigns with their statistics and recipient information. Results can be filtered by status and date range, with a default limit of 500 and maximum of 1000 per page. The sort order defaults to descending by creation date; date filters are only available when status is not passed or is set to sent.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "suspended",
+            "archive",
+            "sent",
+            "queued",
+            "draft",
+            "inProcess"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Status of campaign."
+        },
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting (urlencoded) UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) to filter the sent SMS campaigns. **Prefer to pass your timezone in date-time format for accurate result.** Only available if `status` is not passed or is set to `sent`. `startDate` …"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending (urlencoded) UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) to filter the sent SMS campaigns. **Prefer to pass your timezone in date-time format for accurate result.** Only available if `status` is not passed or is set to `sent`. `endDate` mu…"
+        },
+        "limit": {
+          "default": 500,
+          "format": "int64",
+          "maximum": 1000,
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Beginning point in the list to retrieve from."
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "status",
+        "startDate",
+        "endDate",
+        "limit",
+        "offset",
+        "sort"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "campaigns": {
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/getSmsCampaignOverview"
+                },
+                {
+                  "properties": {
+                    "recipients": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/getCampaignRecipients"
+                        }
+                      ],
+                      "type": "object"
+                    },
+                    "statistics": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/getSmsCampaignStats"
+                        }
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "recipients",
+                    "statistics"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "count": {
+            "description": "Number of SMS campaigns retrieved",
+            "example": 12,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "campaigns": [
+          {
+            "content": "Visit our Store and get some discount !",
+            "createdAt": "2017-06-01T12:30:00Z",
+            "id": 2,
+            "modifiedAt": "2017-05-01T12:30:00Z",
+            "name": "PROMO CODE",
+            "organisationPrefix": "MyCompany",
+            "recipients": {
+              "exclusionLists": [
+                13
+              ],
+              "lists": [
+                21
+              ]
+            },
+            "scheduledAt": "2017-06-01T12:30:00Z",
+            "sender": "MyCompany",
+            "sentDate": "2017-06-01T12:30:00Z",
+            "statistics": {
+              "answered": 2,
+              "delivered": 2987,
+              "hardBounces": 1,
+              "processing": 0,
+              "sent": 3000,
+              "softBounces": 3,
+              "unsubscriptions": 3
+            },
+            "status": "sent",
+            "unsubscribeInstruction": "send Stop if you want to unsubscribe."
+          },
+          {
+            "content": "Summer Sale is starting tomorrow. Get extra 10% with this code:SUM17",
+            "createdAt": "2017-06-01T12:30:00Z",
+            "id": 10,
+            "modifiedAt": "2017-05-01T12:30:00Z",
+            "name": "SUMMER SALE",
+            "organisationPrefix": "",
+            "recipients": {
+              "exclusionLists": [
+                13
+              ],
+              "lists": [
+                21
+              ]
+            },
+            "scheduledAt": "2017-08-04T12:30:00Z",
+            "sender": "MyCompany",
+            "statistics": {
+              "answered": 2,
+              "delivered": 2987,
+              "hardBounces": 1,
+              "processing": 0,
+              "sent": 3000,
+              "softBounces": 3,
+              "unsubscriptions": 3
+            },
+            "status": "draft",
+            "unsubscribeInstruction": ""
+          }
+        ],
+        "count": 12
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/smsCampaigns",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "sms_campaigns__list_sms_campaigns"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getSmsCampaigns",
+      "tag": "SMS Campaigns",
+      "ui_area": "Marketing > SMS",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "returns",
+      "information",
+      "created",
+      "sms",
+      "campaigns",
+      "sms campaign",
+      "marketing sms",
+      "sms campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "sms_campaigns",
+      "read"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/smsCampaigns?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "read_check"
+    }
+  },
+  {
+    "id": "sms_campaigns.request_sms_recipient_export",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Export an SMS campaign's recipients",
+    "intent": "Export an SMS campaign's recipients",
+    "description": "It returns the background process ID which on completion calls the notify URL that you have set in the input.",
+    "action_type": "export",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the campaign"
+        },
+        "notifyURL": {
+          "description": "URL that will be called once the export process is finished. For reference, https://help.brevo.com/hc/en-us/articles/360007666479",
+          "example": "http://requestb.in/173lyyx1",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        },
+        "recipientsType": {
+          "description": "Filter the recipients based on how they interacted with the campaign",
+          "enum": [
+            "all",
+            "delivered",
+            "answered",
+            "softBounces",
+            "hardBounces",
+            "unsubscribed"
+          ],
+          "example": "answered",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId",
+        "recipientsType"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": false,
+        "media_type": "application/json",
+        "description": "Values to send for a recipient export request",
+        "schema": {
+          "properties": {
+            "notifyURL": {
+              "description": "URL that will be called once the export process is finished. For reference, https://help.brevo.com/hc/en-us/articles/360007666479",
+              "example": "http://requestb.in/173lyyx1",
+              "format": "url",
+              "type": "string"
+            },
+            "recipientsType": {
+              "description": "Filter the recipients based on how they interacted with the campaign",
+              "enum": [
+                "all",
+                "delivered",
+                "answered",
+                "softBounces",
+                "hardBounces",
+                "unsubscribed"
+              ],
+              "example": "answered",
+              "type": "string"
+            }
+          },
+          "required": [
+            "recipientsType"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 202
+    },
+    "response_codes": [
+      202,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Starts an asynchronous export process",
+      "Produces a downloadable file"
+    ],
+    "reversibility": "partially_reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/smsCampaigns/{campaignId}/exportRecipients",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "sms_campaigns__request_sms_recipient_export"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "requestSmsRecipientExport",
+      "tag": "SMS Campaigns",
+      "ui_area": "Marketing > SMS",
+      "ui_path": "Marketing > SMS > Export recipients"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Export SMS recipients",
+        "ui_path": "Marketing > SMS > Export recipients",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "export",
+      "sms",
+      "campaign",
+      "recipients",
+      "sms campaign",
+      "marketing sms",
+      "sms campaigns",
+      "download sms recipients"
+    ],
+    "related_actions": [],
+    "tags": [
+      "sms_campaigns",
+      "export"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "sms_campaigns.schedule_sms_campaign",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Schedule an SMS campaign",
+    "intent": "Set a future send time for an SMS campaign.",
+    "description": "Set a future send time for an SMS campaign.",
+    "action_type": "partial_api_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Partially supported by the API; some steps must be done in the UI"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "api_partial",
+      "endpoint": null,
+      "related_action": "sms_campaigns.update_sms_campaign",
+      "ui_path": "Marketing > SMS > Schedule",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > SMS",
+      "ui_path": "Marketing > SMS > Schedule",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "schedule sms"
+    ],
+    "related_actions": [
+      "sms_campaigns.update_sms_campaign"
+    ],
+    "tags": [
+      "sms_campaigns",
+      "api_partial",
+      "ui"
+    ],
+    "confidence": 0.8,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "sms_campaigns.send_sms_campaign_now",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Send your SMS campaign immediately",
+    "intent": "Send an existing SMS campaign immediately.",
+    "description": "Send an existing SMS campaign immediately by scheduling it for the current time. The system verifies your account''s SMS credit balance before dispatching; if credits are insufficient or the remaining credit is less than the number of recipients, a 402 error is returned. The campaign must have valid recipients and content already configured.",
+    "action_type": "send",
+    "when_to_use": "When an SMS campaign is approved and must go out now.",
+    "when_not_to_use": "Do not use for transactional OTP messages — use transactional_sms.",
+    "preconditions": [
+      "Campaign exists and is sendable",
+      "SMS credits available",
+      "Recipients defined"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the campaign"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      402,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "SMS Campaign could not be sent"
+      },
+      {
+        "status": 402,
+        "meaning": "You don't have enough credit to send your campaign. Please update your plan"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends real SMS messages",
+      "Irreversible",
+      "Consumes SMS credits"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/smsCampaigns/{campaignId}/sendNow",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "sms_campaigns__send_sms_campaign_now"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendSmsCampaignNow",
+      "tag": "SMS Campaigns",
+      "ui_area": "Marketing > SMS",
+      "ui_path": "Marketing > SMS > Send now"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Send an SMS campaign now",
+        "ui_path": "Marketing > SMS > Send now",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "send sms blast",
+      "launch sms campaign",
+      "send",
+      "sms",
+      "campaign",
+      "immediately",
+      "sms campaign",
+      "marketing sms",
+      "send test",
+      "sms campaigns",
+      "launch sms",
+      "now"
+    ],
+    "related_actions": [
+      "sms_campaigns.send_test_sms"
+    ],
+    "tags": [
+      "sms_campaigns",
+      "send"
+    ],
+    "confidence": 0.99,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "sms_campaigns.send_sms_report",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Send an SMS campaign's report",
+    "intent": "Send an SMS campaign's report",
+    "description": "Send report of Sent and Archived campaign, to the specified email addresses, with respective data and a pdf attachment in detail.",
+    "action_type": "send",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404.",
+      "An authenticated sender or verified sending domain."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the campaign"
+        },
+        "email": {
+          "description": "Custom attributes for the report email.",
+          "properties": {
+            "body": {
+              "description": "Custom text message to be presented in the report email.",
+              "example": "Please find attached the report of our last email campaign.",
+              "type": "string"
+            },
+            "to": {
+              "description": "Email addresses of the recipients",
+              "items": {
+                "description": "Email address of the recipient",
+                "example": "jim.suehan@example.com",
+                "format": "email",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "body",
+            "to"
+          ],
+          "type": "object",
+          "x-in": "body"
+        },
+        "language": {
+          "default": "fr",
+          "description": "Language of email content for campaign report sending.",
+          "enum": [
+            "fr",
+            "es",
+            "pt",
+            "it",
+            "de",
+            "en"
+          ],
+          "example": "en",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId",
+        "email"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values for send a report",
+        "schema": {
+          "properties": {
+            "email": {
+              "description": "Custom attributes for the report email.",
+              "properties": {
+                "body": {
+                  "description": "Custom text message to be presented in the report email.",
+                  "example": "Please find attached the report of our last email campaign.",
+                  "type": "string"
+                },
+                "to": {
+                  "description": "Email addresses of the recipients",
+                  "items": {
+                    "description": "Email address of the recipient",
+                    "example": "jim.suehan@example.com",
+                    "format": "email",
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "body",
+                "to"
+              ],
+              "type": "object"
+            },
+            "language": {
+              "default": "fr",
+              "description": "Language of email content for campaign report sending.",
+              "enum": [
+                "fr",
+                "es",
+                "pt",
+                "it",
+                "de",
+                "en"
+              ],
+              "example": "en",
+              "type": "string"
+            }
+          },
+          "required": [
+            "email"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends real messages to recipients",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/smsCampaigns/{campaignId}/sendReport",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "sms_campaigns__send_sms_report"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendSmsReport",
+      "tag": "SMS Campaigns",
+      "ui_area": "Marketing > SMS",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "send",
+      "sms",
+      "campaign",
+      "report",
+      "sms campaign",
+      "marketing sms",
+      "send test",
+      "sms campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "sms_campaigns",
+      "send"
+    ],
+    "confidence": 0.92,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "sms_campaigns.send_test_sms",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Send a test SMS campaign",
+    "intent": "Send a test SMS campaign",
+    "description": "Send a test SMS to a specified phone number to preview the campaign before sending it to all recipients. The phone number must belong to one of your existing contacts in your Brevo account and must not be blacklisted. The number should include the country code (e.g. 33689965433).",
+    "action_type": "send",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404.",
+      "An authenticated sender or verified sending domain."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the SMS campaign"
+        },
+        "phoneNumber": {
+          "description": "Mobile number of the recipient with the country code. This number **must belong to one of your contacts in Brevo account and must not be blacklisted**\n",
+          "example": "33689965433",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Mobile number of the recipient with the country code. This number **must belong to one of your contacts in Brevo account and must not be blacklisted**",
+        "schema": {
+          "properties": {
+            "phoneNumber": {
+              "description": "Mobile number of the recipient with the country code. This number **must belong to one of your contacts in Brevo account and must not be blacklisted**\n",
+              "example": "33689965433",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Test SMS could not be sent to the following email addresses"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends real messages to recipients",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/smsCampaigns/{campaignId}/sendTest",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "sms_campaigns__send_test_sms"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendTestSms",
+      "tag": "SMS Campaigns",
+      "ui_area": "Marketing > SMS",
+      "ui_path": "Marketing > SMS > Send test"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Send a test SMS",
+        "ui_path": "Marketing > SMS > Send test",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "send",
+      "test",
+      "sms",
+      "campaign",
+      "sms campaign",
+      "marketing sms",
+      "send test",
+      "sms campaigns",
+      "test sms"
+    ],
+    "related_actions": [],
+    "tags": [
+      "sms_campaigns",
+      "send"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "sms_campaigns.update_sms_campaign",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Update an SMS campaign",
+    "intent": "Update an SMS campaign",
+    "description": "Update an existing SMS campaign''s properties such as name, sender, content, recipients, scheduled date, organisation prefix, and unsubscribe instructions. The request body must contain at least one valid field to update. The campaign must exist and must be of type SMS; if a scheduledAt is provided, valid recipients must be present either in the request or already configured on the campaign.",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the SMS campaign"
+        },
+        "content": {
+          "description": "Content of the message. The **maximum characters used per SMS is 160**, if used more than that, it will be counted as more than one SMS\n",
+          "example": "Get a discount by visiting our NY store and saying : Happy Spring!",
+          "type": "string",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "Name of the campaign",
+          "example": "Spring Promo Code",
+          "type": "string",
+          "x-in": "body"
+        },
+        "organisationPrefix": {
+          "description": "A recognizable prefix will ensure your audience knows who you are. Recommended by U.S. carriers. This will be added as your Brand Name before the message content. **Prefer verifying maximum length of 160 characters including this prefix in message content to avoid multiple sending of same sms.**",
+          "example": "MyCompany",
+          "type": "string",
+          "x-in": "body"
+        },
+        "recipients": {
+          "properties": {
+            "exclusionListIds": {
+              "description": "List ids which have to be excluded from a campaign",
+              "items": {
+                "description": "List Id to exclude from the campaign",
+                "example": 15,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "listIds": {
+              "description": "Lists Ids to send the campaign to. **REQUIRED if scheduledAt is not empty**\n",
+              "items": {
+                "description": "List Id to send the campaign to",
+                "example": 54,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "listIds"
+          ],
+          "type": "object",
+          "x-in": "body"
+        },
+        "scheduledAt": {
+          "description": "UTC date-time on which the campaign has to run (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.**\n",
+          "example": "2017-05-05T12:30:00+02:00",
+          "type": "string",
+          "x-in": "body"
+        },
+        "sender": {
+          "description": "Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters**\n",
+          "example": "MyShop",
+          "maxLength": 15,
+          "type": "string",
+          "x-in": "body"
+        },
+        "unicodeEnabled": {
+          "default": false,
+          "description": "Format of the message. It indicates whether the content should be treated as unicode or not.\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "unsubscribeInstruction": {
+          "description": "Instructions to unsubscribe from future communications. Recommended by U.S. carriers. Must include **STOP** keyword. This will be added as instructions after the end of message content. **Prefer verifying maximum length of 160 characters including this instructions in message content to avoid multiple sending of same sms.**",
+          "example": "send Stop if you want to unsubscribe.",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to update an SMS Campaign",
+        "schema": {
+          "properties": {
+            "content": {
+              "description": "Content of the message. The **maximum characters used per SMS is 160**, if used more than that, it will be counted as more than one SMS\n",
+              "example": "Get a discount by visiting our NY store and saying : Happy Spring!",
+              "type": "string"
+            },
+            "name": {
+              "description": "Name of the campaign",
+              "example": "Spring Promo Code",
+              "type": "string"
+            },
+            "organisationPrefix": {
+              "description": "A recognizable prefix will ensure your audience knows who you are. Recommended by U.S. carriers. This will be added as your Brand Name before the message content. **Prefer verifying maximum length of 160 characters including this prefix in message content to avoid multiple sending of same sms.**",
+              "example": "MyCompany",
+              "type": "string"
+            },
+            "recipients": {
+              "properties": {
+                "exclusionListIds": {
+                  "description": "List ids which have to be excluded from a campaign",
+                  "items": {
+                    "description": "List Id to exclude from the campaign",
+                    "example": 15,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "listIds": {
+                  "description": "Lists Ids to send the campaign to. **REQUIRED if scheduledAt is not empty**\n",
+                  "items": {
+                    "description": "List Id to send the campaign to",
+                    "example": 54,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "listIds"
+              ],
+              "type": "object"
+            },
+            "scheduledAt": {
+              "description": "UTC date-time on which the campaign has to run (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.**\n",
+              "example": "2017-05-05T12:30:00+02:00",
+              "type": "string"
+            },
+            "sender": {
+              "description": "Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters**\n",
+              "example": "MyShop",
+              "maxLength": 15,
+              "type": "string"
+            },
+            "unicodeEnabled": {
+              "default": false,
+              "description": "Format of the message. It indicates whether the content should be treated as unicode or not.\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "unsubscribeInstruction": {
+              "description": "Instructions to unsubscribe from future communications. Recommended by U.S. carriers. Must include **STOP** keyword. This will be added as instructions after the end of message content. **Prefer verifying maximum length of 160 characters including this instructions in message content to avoid multiple sending of same sms.**",
+              "example": "send Stop if you want to unsubscribe.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/smsCampaigns/{campaignId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "sms_campaigns__update_sms_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "updateSmsCampaign",
+      "tag": "SMS Campaigns",
+      "ui_area": "Marketing > SMS",
+      "ui_path": "Marketing > SMS > Edit"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Update an SMS campaign",
+        "ui_path": "Marketing > SMS > Edit",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "update",
+      "sms",
+      "campaign",
+      "sms campaign",
+      "marketing sms",
+      "sms campaigns",
+      "edit sms"
+    ],
+    "related_actions": [],
+    "tags": [
+      "sms_campaigns",
+      "update"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "sms_campaigns.update_sms_campaign_status",
+    "version": "1.0.0",
+    "domain": "sms_campaigns",
+    "domain_label": "SMS campaigns",
+    "name": "Update a campaign's status",
+    "intent": "Update a campaign's status",
+    "description": "Update the status of an SMS campaign, such as suspending, archiving, or replicating it. Available status values include suspended, archive, darchive, sent, queued, replicate, replicateTemplate, cancel, and draft. Note that the replicateTemplate status is only available for template type campaigns.",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the campaign"
+        },
+        "status": {
+          "description": "Note:- **replicateTemplate** status will be available **only for template type campaigns.**\n",
+          "enum": [
+            "suspended",
+            "archive",
+            "darchive",
+            "sent",
+            "queued",
+            "replicate",
+            "replicateTemplate",
+            "cancel",
+            "draft"
+          ],
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Status of the campaign.",
+        "schema": {
+          "description": "Status of the campaign",
+          "example": "sent",
+          "properties": {
+            "status": {
+              "description": "Note:- **replicateTemplate** status will be available **only for template type campaigns.**\n",
+              "enum": [
+                "suspended",
+                "archive",
+                "darchive",
+                "sent",
+                "queued",
+                "replicate",
+                "replicateTemplate",
+                "cancel",
+                "draft"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "example": "sent"
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/smsCampaigns/{campaignId}/status",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "sms_campaigns__update_sms_campaign_status"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "updateSmsCampaignStatus",
+      "tag": "SMS Campaigns",
+      "ui_area": "Marketing > SMS",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "update",
+      "campaign",
+      "status",
+      "sms campaign",
+      "sms campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "sms_campaigns",
+      "update"
+    ],
+    "confidence": 0.92,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

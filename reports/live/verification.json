@@ -1,0 +1,371 @@
+{
+  "checked_at": "2026-11-21T01:04:11.271Z",
+  "base_url": "https://api.brevo.com/v3",
+  "summary": {
+    "total": 23,
+    "ok": 23,
+    "failed": 0,
+    "plan_gated": 4,
+    "auth_failed": false,
+    "network_failed": false
+  },
+  "results": [
+    {
+      "action_id": "account_admin.get_account",
+      "path": "/account",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 1428
+    },
+    {
+      "action_id": "contacts.get_contacts",
+      "path": "/contacts?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 233
+    },
+    {
+      "action_id": "contacts.get_lists",
+      "path": "/contacts/lists?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 237
+    },
+    {
+      "action_id": "contacts.get_folders",
+      "path": "/contacts/folders?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 239
+    },
+    {
+      "action_id": "contacts.get_attributes",
+      "path": "/contacts/attributes",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 271
+    },
+    {
+      "action_id": "email_campaigns.list_email_campaigns",
+      "path": "/emailCampaigns?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 236
+    },
+    {
+      "action_id": "sms_campaigns.list_sms_campaigns",
+      "path": "/smsCampaigns?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 630
+    },
+    {
+      "action_id": "whatsapp_campaigns.list_whatsapp_campaigns",
+      "path": "/whatsappCampaigns?limit=1",
+      "http_status": 403,
+      "ok": true,
+      "kind": "plan_gated",
+      "latency_ms": 238,
+      "note": "{\"message\":\"plan not eligible for using whatsapp\"}\n"
+    },
+    {
+      "action_id": "templates.list_smtp_templates",
+      "path": "/smtp/templates?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 231
+    },
+    {
+      "action_id": "senders_and_domains.get_senders",
+      "path": "/senders",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 237
+    },
+    {
+      "action_id": "senders_and_domains.get_domains",
+      "path": "/senders/domains",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 250
+    },
+    {
+      "action_id": "webhooks.get_webhooks",
+      "path": "/webhooks?type=marketing",
+      "http_status": 400,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 227,
+      "note": "{\"code\":\"document_not_found\",\"message\":\"Webhook record does not exist\"}\n"
+    },
+    {
+      "action_id": "crm.list_companies",
+      "path": "/companies?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 240
+    },
+    {
+      "action_id": "crm.list_deals",
+      "path": "/crm/deals?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 285
+    },
+    {
+      "action_id": "crm.list_pipelines",
+      "path": "/crm/pipeline/details/all",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 235
+    },
+    {
+      "action_id": "crm.list_tasks",
+      "path": "/crm/tasks?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 234
+    },
+    {
+      "action_id": "crm.list_notes",
+      "path": "/crm/notes?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 234
+    },
+    {
+      "action_id": "coupons.get_coupon_collections",
+      "path": "/couponCollections",
+      "http_status": 403,
+      "ok": true,
+      "kind": "plan_gated",
+      "latency_ms": 230,
+      "note": "{\"message\":\"Forbidden\"}\n"
+    },
+    {
+      "action_id": "ecommerce.list_products",
+      "path": "/products?limit=1",
+      "http_status": 403,
+      "ok": true,
+      "kind": "plan_gated",
+      "latency_ms": 217,
+      "note": "{\"message\":\"Your eCommerce section is not yet activated.\",\"code\":\"permission_denied\"}\n"
+    },
+    {
+      "action_id": "ecommerce.list_orders",
+      "path": "/orders?limit=1",
+      "http_status": 403,
+      "ok": true,
+      "kind": "plan_gated",
+      "latency_ms": 230,
+      "note": "{\"message\":\"Your eCommerce section is not yet activated.\",\"code\":\"permission_denied\"}\n"
+    },
+    {
+      "action_id": "loyalty.get_lplist",
+      "path": "/loyalty/config/programs",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 232
+    },
+    {
+      "action_id": "events.get_events",
+      "path": "/events?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 258
+    },
+    {
+      "action_id": "processes.get_processes",
+      "path": "/processes?limit=1",
+      "http_status": 200,
+      "ok": true,
+      "kind": "ok",
+      "latency_ms": 231
+    }
+  ],
+  "verification": {
+    "account_admin.get_account": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/account",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "contacts.get_contacts": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/contacts?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "contacts.get_lists": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/contacts/lists?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "contacts.get_folders": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/contacts/folders?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "contacts.get_attributes": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/contacts/attributes",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "email_campaigns.list_email_campaigns": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/emailCampaigns?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "sms_campaigns.list_sms_campaigns": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/smsCampaigns?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "whatsapp_campaigns.list_whatsapp_campaigns": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/whatsappCampaigns?limit=1",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"plan not eligible for using whatsapp\"}\n"
+    },
+    "templates.list_smtp_templates": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/smtp/templates?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "senders_and_domains.get_senders": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/senders",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "senders_and_domains.get_domains": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/senders/domains",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "webhooks.get_webhooks": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/webhooks?type=marketing",
+      "http_status": 400,
+      "account_entitlement": "ok",
+      "note": "{\"code\":\"document_not_found\",\"message\":\"Webhook record does not exist\"}\n"
+    },
+    "crm.list_companies": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/companies?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "crm.list_deals": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/crm/deals?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "crm.list_pipelines": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/crm/pipeline/details/all",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "crm.list_tasks": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/crm/tasks?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "crm.list_notes": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/crm/notes?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "coupons.get_coupon_collections": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/couponCollections",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Forbidden\"}\n"
+    },
+    "ecommerce.list_products": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/products?limit=1",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Your eCommerce section is not yet activated.\",\"code\":\"permission_denied\"}\n"
+    },
+    "ecommerce.list_orders": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/orders?limit=1",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Your eCommerce section is not yet activated.\",\"code\":\"permission_denied\"}\n"
+    },
+    "loyalty.get_lplist": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/loyalty/config/programs",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "events.get_events": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/events?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    },
+    "processes.get_processes": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/processes?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok"
+    }
+  }
+}

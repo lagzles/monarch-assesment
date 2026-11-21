@@ -1,0 +1,551 @@
+[
+  {
+    "id": "transactional_whatsapp.get_whatsapp_event_report",
+    "version": "1.0.0",
+    "domain": "transactional_whatsapp",
+    "domain_label": "Transactional WhatsApp",
+    "name": "Get all your WhatsApp activity (unaggregated events)",
+    "intent": "Get all your WhatsApp activity (unaggregated events)",
+    "description": "This endpoint will show the unaggregated statistics for WhatsApp activity (30 days by default if `startDate` and `endDate` or `days` is not passed. The date range can not exceed 90 days)",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "default": 2500,
+          "format": "int64",
+          "maximum": 10000,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number limitation for the result returned"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Beginning point in the list to retrieve from"
+        },
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting date of the report (YYYY-MM-DD). Must be lower than equal to endDate"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending date of the report (YYYY-MM-DD). Must be greater than equal to startDate"
+        },
+        "days": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of days in the past including today (positive integer). _Not compatible with 'startDate' and 'endDate'_"
+        },
+        "contactNumber": {
+          "format": "mobile",
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter results for specific contact (WhatsApp Number with country code. Example, 85264318721)"
+        },
+        "event": {
+          "enum": [
+            "sent",
+            "delivered",
+            "read",
+            "error",
+            "unsubscribe",
+            "reply",
+            "soft-bounce"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter the report for a specific event type"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "limit",
+        "offset",
+        "startDate",
+        "endDate",
+        "days",
+        "contactNumber",
+        "event",
+        "sort"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "events": {
+            "items": {
+              "properties": {
+                "body": {
+                  "description": "Text of the reply (will be there only in case of `reply` event with text)",
+                  "example": "Hi! I am a reply",
+                  "type": "string"
+                },
+                "contactNumber": {
+                  "description": "WhatsApp Number with country code. Example, 85264318721",
+                  "example": 919876543210,
+                  "format": "mobile",
+                  "type": "string"
+                },
+                "date": {
+                  "description": "UTC date-time on which the event has been generated",
+                  "example": "2017-03-12T12:30:00Z",
+                  "type": "string"
+                },
+                "event": {
+                  "description": "Event which occurred",
+                  "enum": [
+                    "sent",
+                    "delivered",
+                    "read",
+                    "error",
+                    "unsubscribe",
+                    "reply",
+                    "soft-bounce"
+                  ],
+                  "example": "delivered",
+                  "type": "string"
+                },
+                "mediaUrl": {
+                  "description": "Url of the media reply (will be there only in case of `reply` event with media)",
+                  "example": "https://example.com/media.png",
+                  "format": "url",
+                  "type": "string"
+                },
+                "messageId": {
+                  "description": "Message ID which generated the event",
+                  "example": "23befbae-1505-47a8-bd27-e30ef739f32c",
+                  "type": "string"
+                },
+                "reason": {
+                  "description": "Reason for the event (will be there in case of `error` and `soft-bounce` events)",
+                  "example": "23befbae-1505-47a8-bd27-e30ef739f32c",
+                  "type": "string"
+                },
+                "senderNumber": {
+                  "description": "WhatsApp Number with country code. Example, 85264318721",
+                  "example": 919876543210,
+                  "format": "mobile",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "contactNumber",
+                "date",
+                "messageId",
+                "event",
+                "senderNumber"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "events": [
+          {
+            "contactNumber": 919876543211,
+            "date": "2017-03-12T12:30:00Z",
+            "event": "sent",
+            "messageId": "23befbae-1505-47a8-bd27-e30ef739f32c",
+            "senderNumber": 919876543210
+          },
+          {
+            "contactNumber": 919876543211,
+            "date": "2017-03-12T12:30:00Z",
+            "event": "error",
+            "messageId": "23befbae-1505-47a8-bd27-e30ef739f32c",
+            "reason": "error reason",
+            "senderNumber": 919876543210
+          },
+          {
+            "contactNumber": 919876543211,
+            "date": "2017-03-12T12:30:00Z",
+            "event": "soft-bounce",
+            "messageId": "23befbae-1505-47a8-bd27-e30ef739f32c",
+            "reason": "invalid whatsapp contact",
+            "senderNumber": 919876543210
+          },
+          {
+            "body": "body only in case of text reply & url will be empty",
+            "contactNumber": 919876543211,
+            "date": "2017-03-12T12:30:00Z",
+            "event": "reply",
+            "mediaUrl": "media url only in case media reply & body will be empty",
+            "messageId": "23befbae-1505-47a8-bd27-e30ef739f32c",
+            "senderNumber": 919876543210
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/whatsapp/statistics/events",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_whatsapp__get_whatsapp_event_report"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getWhatsappEventReport",
+      "tag": "Transactional WhatsApp",
+      "ui_area": "Transactional > WhatsApp",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "whatsapp",
+      "activity",
+      "unaggregated",
+      "events",
+      "transactional whatsapp"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_whatsapp",
+      "read",
+      "transactional_whats_app"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_whatsapp.send_whatsapp_message",
+    "version": "1.0.0",
+    "domain": "transactional_whatsapp",
+    "domain_label": "Transactional WhatsApp",
+    "name": "Send a WhatsApp message",
+    "intent": "Send a transactional WhatsApp message (template or session message) to a contact.",
+    "description": "<Note>You can use this API for WhatsApp only if you have setup your WhatsApp account on Brevo platform. To setup your WhatsApp account, follow the steps in the guide below. [Activating Whatsapp](https://developers.brevo.com/docs/whatsapp-campaigns-1) in your account</Note> This endpoint is used to send a WhatsApp message. <br/>(**The first message you send using the API must contain a Template ID. You must create a template on WhatsApp on the Brevo platform to fetch the Template ID.**)",
+    "action_type": "send",
+    "when_to_use": "For order updates, OTPs and support replies on WhatsApp.",
+    "when_not_to_use": "Do not use for marketing campaigns — use whatsapp_campaigns.",
+    "preconditions": [
+      "WhatsApp business account connected",
+      "Recipient opted in",
+      "Approved template if outside the 24h window"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "oneOf": [
+            {
+              "properties": {
+                "contactNumbers": {
+                  "description": "List of phone numbers of the contacts",
+                  "items": {
+                    "description": "WhatsApp Number with country code. Example, 85264318721",
+                    "example": 919876543210,
+                    "format": "mobile",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "params": {
+                  "description": "Pass the set of attributes to customize the template. For example, {\"FNAME\":\"Joe\", \"LNAME\":\"Doe\"}.",
+                  "example": {
+                    "FNAME": "Joe",
+                    "LNAME": "Doe"
+                  },
+                  "type": "object"
+                },
+                "senderNumber": {
+                  "description": "WhatsApp Number with country code. Example, 85264318721",
+                  "example": 919876543210,
+                  "format": "mobile",
+                  "type": "string"
+                },
+                "templateId": {
+                  "description": "ID of the template to send",
+                  "example": 123,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "senderNumber",
+                "templateId",
+                "contactNumbers"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "contactNumbers": {
+                  "description": "List of phone numbers of the contacts",
+                  "items": {
+                    "description": "WhatsApp Number with country code. Example, 85264318721",
+                    "example": 919876543210,
+                    "format": "mobile",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "senderNumber": {
+                  "description": "WhatsApp Number with country code. Example, 85264318721",
+                  "example": 919876543210,
+                  "format": "mobile",
+                  "type": "string"
+                },
+                "text": {
+                  "description": "Text to be sent as message body (will be overridden if templateId is passed in the same request)",
+                  "example": "Hi! There i am a message",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "senderNumber",
+                "contactNumbers",
+                "text"
+              ],
+              "type": "object"
+            }
+          ],
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "body"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to send WhatsApp message",
+        "schema": {
+          "oneOf": [
+            {
+              "properties": {
+                "contactNumbers": {
+                  "description": "List of phone numbers of the contacts",
+                  "items": {
+                    "description": "WhatsApp Number with country code. Example, 85264318721",
+                    "example": 919876543210,
+                    "format": "mobile",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "params": {
+                  "description": "Pass the set of attributes to customize the template. For example, {\"FNAME\":\"Joe\", \"LNAME\":\"Doe\"}.",
+                  "example": {
+                    "FNAME": "Joe",
+                    "LNAME": "Doe"
+                  },
+                  "type": "object"
+                },
+                "senderNumber": {
+                  "description": "WhatsApp Number with country code. Example, 85264318721",
+                  "example": 919876543210,
+                  "format": "mobile",
+                  "type": "string"
+                },
+                "templateId": {
+                  "description": "ID of the template to send",
+                  "example": 123,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "senderNumber",
+                "templateId",
+                "contactNumbers"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "contactNumbers": {
+                  "description": "List of phone numbers of the contacts",
+                  "items": {
+                    "description": "WhatsApp Number with country code. Example, 85264318721",
+                    "example": 919876543210,
+                    "format": "mobile",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "senderNumber": {
+                  "description": "WhatsApp Number with country code. Example, 85264318721",
+                  "example": 919876543210,
+                  "format": "mobile",
+                  "type": "string"
+                },
+                "text": {
+                  "description": "Text to be sent as message body (will be overridden if templateId is passed in the same request)",
+                  "example": "Hi! There i am a message",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "senderNumber",
+                "contactNumbers",
+                "text"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "messageId": {
+            "description": "messageId of sent message",
+            "example": "23befbae-1505-47a8-bd27-e30ef739f32c",
+            "format": "uuidv4",
+            "type": "string"
+          }
+        },
+        "required": [
+          "messageId"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends a real WhatsApp message",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/whatsapp/sendMessage",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_whatsapp__send_whatsapp_message"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendWhatsappMessage",
+      "tag": "Transactional WhatsApp",
+      "ui_area": "Transactional > WhatsApp",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "whatsapp message",
+      "send whatsapp",
+      "whatsapp notification",
+      "send",
+      "whatsapp",
+      "message",
+      "transactional whatsapp"
+    ],
+    "related_actions": [
+      "whatsapp_campaigns.create_whatsapp_template"
+    ],
+    "tags": [
+      "transactional_whatsapp",
+      "send",
+      "transactional_whats_app"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

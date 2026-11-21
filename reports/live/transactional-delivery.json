@@ -1,0 +1,32 @@
+{
+  "checked_at": "2026-11-21T03:13:47.686Z",
+  "base_url": "https://api.brevo.com/v3",
+  "recipient_domain": "gmail.com",
+  "sender": {
+    "id": 1,
+    "domain": "gmail.com"
+  },
+  "dry_run": false,
+  "accepted": true,
+  "http_status": 201,
+  "message_id": "<202611210312.42738579852@smtp-relay.mailin.fr>",
+  "duration_ms": 7058,
+  "messages": {},
+  "events": {
+    "status": 200,
+    "count": 0,
+    "event_names": [],
+    "delivery_confirmed": false
+  },
+  "note": "accepted; no delivery event observed yet",
+  "verification": {
+    "transactional_email.send_transac_email": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:13:47.686Z",
+      "method": "transactional: POST /smtp/email",
+      "http_status": 201,
+      "note": "accepted; delivery not confirmed",
+      "kind": "transactional_flow"
+    }
+  }
+}

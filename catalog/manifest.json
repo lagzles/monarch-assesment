@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-11-21T03:13:47.686Z",
+  "generator": "scripts/build-catalog.mjs",
+  "catalog_version": "1.0.0",
+  "spec": {
+    "file": "sources/brevo-openapi.yml",
+    "sha256": "cc2890ed25d8a00e9248d4ad78936ef368179b13eb4f92e1d82d80a31b62db72",
+    "openapi": "3.0.1",
+    "paths": 208,
+    "operations": 292
+  },
+  "taxonomy_version": "1.0.0",
+  "overrides_version": "1.0.0",
+  "ids_version": "1.0.0",
+  "ui_inventory_version": "1.0.0",
+  "counts": {
+    "total_actions": 358,
+    "api_actions": 292,
+    "ui_only_actions": 58,
+    "api_partial_actions": 8,
+    "domains": 32,
+    "high_risk_actions": 103,
+    "actions_requiring_confirmation": 103,
+    "actions_with_observed_ui": 21,
+    "observed_internal_endpoints": 137,
+    "write_verified_actions": 20,
+    "transactional_verified_actions": 1,
+    "plan_gated_actions": 1
+  },
+  "unmatched_ui_references": []
+}

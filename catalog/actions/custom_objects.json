@@ -1,0 +1,1264 @@
+[
+  {
+    "id": "custom_objects.batch_delete_object_records",
+    "version": "1.0.0",
+    "domain": "custom_objects",
+    "domain_label": "Custom objects",
+    "name": "Delete multiple object records (up to 1000) asynchronously",
+    "intent": "Delete multiple object records (up to 1000) asynchronously",
+    "description": "Use this endpoint to delete multiple object records of the same object-type in one request. The request is accepted and processed asynchronously. You can track the status of the deletion process using the returned **processId**. **Limitations:** - Each request can contain up to **1000** object record identifiers - Either `ids` or `ext_ids` must be provided, but **not both** in the same request - Deletion of Brevo standard object records is not supported via this endpoint - If more records must be deleted, send multiple batch requests",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "example": "vehicle",
+          "type": "string",
+          "x-in": "path",
+          "description": "Object type for the records to delete"
+        },
+        "identifiers": {
+          "description": "Either `ids` or `ext_ids` must be provided, but not both in the same request.",
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "ids"
+              ],
+              "properties": {
+                "ids": {
+                  "type": "array",
+                  "maxItems": 1000,
+                  "description": "List of object record IDs",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "example": [
+                    101,
+                    102,
+                    103
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "ext_ids"
+              ],
+              "properties": {
+                "ext_ids": {
+                  "type": "array",
+                  "maxItems": 1000,
+                  "description": "List of external record identifiers",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "ext-001",
+                    "ext-002"
+                  ]
+                }
+              }
+            }
+          ],
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "object_type"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "object_type"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "List of object record identifiers to delete",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "identifiers": {
+              "description": "Either `ids` or `ext_ids` must be provided, but not both in the same request.",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "required": [
+                    "ids"
+                  ],
+                  "properties": {
+                    "ids": {
+                      "type": "array",
+                      "maxItems": 1000,
+                      "description": "List of object record IDs",
+                      "items": {
+                        "type": "integer"
+                      },
+                      "example": [
+                        101,
+                        102,
+                        103
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "ext_ids"
+                  ],
+                  "properties": {
+                    "ext_ids": {
+                      "type": "array",
+                      "maxItems": 1000,
+                      "description": "List of external record identifiers",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "ext-001",
+                        "ext-002"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "example": {
+          "identifiers": {
+            "ext_ids": [
+              "ext-001",
+              "ext-002"
+            ]
+          }
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 202,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "processId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Identifier for batch process tracking",
+            "example": 21
+          },
+          "message": {
+            "type": "string",
+            "example": "Batch object records are being processed for deletion"
+          }
+        }
+      }
+    },
+    "response_codes": [
+      202,
+      400,
+      403,
+      500
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Invalid request (e.g., invalid object_type, invalid request body, both ids and ext_ids provided, or exceeds 1000 identifiers limit)"
+      },
+      {
+        "status": 403,
+        "meaning": "Deletion of Brevo standard object records is not supported via this endpoint"
+      },
+      {
+        "status": 500,
+        "meaning": "Internal server error"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/objects/{object_type}/batch/delete",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "custom_objects__batch_delete_object_records"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "batchDeleteObjectRecords",
+      "tag": "Custom Objects",
+      "ui_area": "CRM > Custom objects",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "delete",
+      "multiple",
+      "object",
+      "records",
+      "up",
+      "1000",
+      "asynchronously",
+      "custom object",
+      "object record",
+      "custom objects"
+    ],
+    "related_actions": [],
+    "tags": [
+      "custom_objects",
+      "delete"
+    ],
+    "confidence": 0.92,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "custom_objects.get_associated_records",
+    "version": "1.0.0",
+    "domain": "custom_objects",
+    "domain_label": "Custom objects",
+    "name": "Get the records associated with an object record",
+    "intent": "Get the records associated with an object record",
+    "description": "<Note title=\"Enterprise access only\">Custom objects are only available to Enterprise plans. This feature is in beta. These are subject to change.</Note> Returns the records associated with a single source record. Associations of every type are returned together in one paginated list, ordered by association creation time with the most recently created association first. **Identifying the source record** Provide exactly one of `id`, `ext_id`, `email` or `sms`. Passing none of them, or more than one, returns `400`. `email` and `sms` are only accepted when `object_type` is `contact`; using either…",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "example": "vehicle",
+          "type": "string",
+          "x-in": "path",
+          "description": "Object type of the source record, exactly as defined in your account. Accepts any object type defined in the account, for example a custom object type or `contact`."
+        },
+        "id": {
+          "example": 16789,
+          "format": "int64",
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Internal Brevo ID of the source record. Must be a positive integer. Provide exactly one of `id`, `ext_id`, `email` or `sms`."
+        },
+        "ext_id": {
+          "example": "507f1f77bc",
+          "type": "string",
+          "x-in": "query",
+          "description": "External ID of the source record in your system. Provide exactly one of `id`, `ext_id`, `email` or `sms`."
+        },
+        "email": {
+          "example": "jane.doe@example.com",
+          "type": "string",
+          "x-in": "query",
+          "description": "Email address of the source contact. Only accepted when `object_type` is `contact`. Provide exactly one of `id`, `ext_id`, `email` or `sms`."
+        },
+        "sms": {
+          "example": "33612345678",
+          "type": "string",
+          "x-in": "query",
+          "description": "Phone number of the source contact, including the country code. It may be given with or without a leading `+`; percent-encode the `+` as `%2B`, because a literal `+` in a query string is read as a space. Only accepted when `object_type` is `contact`. Provide exactly one of `id`,…"
+        },
+        "type": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5,
+          "type": "array",
+          "x-in": "query",
+          "description": "Restricts the response to the given associated object types. Repeat the parameter to request several types, for example `?type=contact&type=garage`. Maximum 5 types per call. Associations of every type are returned when omitted."
+        },
+        "offset": {
+          "default": 0,
+          "example": 0,
+          "format": "int64",
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of records to skip before the first record of the page. Defaults to 0. Increase by 20 to fetch the next page."
+        }
+      },
+      "required": [
+        "object_type"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "object_type"
+      ],
+      "query_params": [
+        "id",
+        "ext_id",
+        "email",
+        "sms",
+        "type",
+        "offset"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "has_more": {
+            "description": "`true` when at least one more associated record exists after this page.",
+            "example": true,
+            "type": "boolean"
+          },
+          "items": {
+            "description": "Associated records for this page, up to 20 per page. Fewer when the last page is reached, empty when the source record has no matching associations.",
+            "items": {
+              "properties": {
+                "object": {
+                  "description": "The associated record. `ext_id`, `attributes`, `created_at` and `updated_at` are omitted when they are not available for the record.",
+                  "properties": {
+                    "attributes": {
+                      "description": "Key-value pairs of attribute data for the associated record. Each key is the attribute **key** (e.g., `company_name`, `engine_type`), not the attribute label (e.g., \"Company Name\", \"Engine Type\").\nFor `category` or `multiple_category` attributes, the value is the option **key** (not the option label or option ID).\nFor contacts, attribute keys are returned in lowercase, for example `email`, `first_name`, `last_name`, `sms` and `ext_id`.\n",
+                      "example": {
+                        "name": "Downtown Motors",
+                        "city": "Paris"
+                      },
+                      "type": "object"
+                    },
+                    "created_at": {
+                      "description": "Timestamp when the associated record was created. Not returned for contacts.",
+                      "example": "2026-07-22T10:20:30Z",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "ext_id": {
+                      "description": "External ID of the associated record in your system. Not returned for contacts, whose external ID is available as `attributes.ext_id`.",
+                      "example": "f7e8d9c0ba",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Internal ID of the associated record generated by Brevo.",
+                      "example": 12345,
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "updated_at": {
+                      "description": "Timestamp when the associated record was last updated. Not returned for contacts.",
+                      "example": "2026-07-22T10:20:30Z",
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": {
+                  "description": "Object type of the associated record.",
+                  "example": "garage",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "offset": {
+            "description": "The offset that was requested.",
+            "example": 0,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "items": [
+          {
+            "type": "garage",
+            "object": {
+              "id": 12345,
+              "ext_id": "f7e8d9c0ba",
+              "attributes": {
+                "name": "Downtown Motors",
+                "city": "Paris"
+              },
+              "created_at": "2026-07-22T10:20:30Z",
+              "updated_at": "2026-07-22T10:20:30Z"
+            }
+          },
+          {
+            "type": "contact",
+            "object": {
+              "id": 402,
+              "attributes": {
+                "email": "jane.doe@example.com",
+                "first_name": "Jane",
+                "last_name": "Doe",
+                "ext_id": "crm-4471"
+              }
+            }
+          }
+        ],
+        "offset": 0,
+        "has_more": true
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404,
+      500
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Bad request. Returned when none or several of `id`, `ext_id`, `email` and `sms` are provided, when `email` or `sms` is used with an `object_type` other than `contact`, when `id` or `offset` is not a valid value, when more than 5 values are passed to `type`, or when `object_type`…"
+      },
+      {
+        "status": 404,
+        "meaning": "No record matches the provided `id`, `ext_id`, `email` or `sms` for this object type."
+      },
+      {
+        "status": 500,
+        "meaning": "Internal server error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/objects/{object_type}/associated-records",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "custom_objects__get_associated_records"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getAssociatedRecords",
+      "tag": "Custom Objects",
+      "ui_area": "CRM > Custom objects",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "records",
+      "associated",
+      "object",
+      "record",
+      "custom object",
+      "object record",
+      "custom objects"
+    ],
+    "related_actions": [],
+    "tags": [
+      "custom_objects",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "custom_objects.getrecords",
+    "version": "1.0.0",
+    "domain": "custom_objects",
+    "domain_label": "Custom objects",
+    "name": "Get the list of object records and total records count for an object.",
+    "intent": "Get the list of object records and total records count for an object.",
+    "description": "<Note title=\"Enterprise access only\">Custom objects are only available to Enterprise plans. This feature is in beta. These are subject to change.</Note> This API retrieves a list of object records along with their associated records and provides the total count of records for the specified object. **Note**: Contact as object type is not supported in this endpoint.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "example": "vehicle",
+          "type": "string",
+          "x-in": "path",
+          "description": "Object type for the records to retrieve. Must be a previously created custom object type. Contact as object type is not supported in this endpoint."
+        },
+        "limit": {
+          "format": "int64",
+          "maximum": 1000,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of records returned per page"
+        },
+        "page_num": {
+          "format": "int64",
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Page number for pagination. It's used to fetch the object records on a provided page number. Must be a valid positive integer."
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort order, must be 'asc' or 'desc'. Default to 'desc' if not provided."
+        },
+        "association": {
+          "enum": [
+            "true",
+            "false"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Whether to include associations, must be 'true' or 'false'. Default to 'false' if not provided."
+        }
+      },
+      "required": [
+        "object_type",
+        "limit",
+        "page_num"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "object_type"
+      ],
+      "query_params": [
+        "limit",
+        "page_num",
+        "sort",
+        "association"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "count": {
+            "description": "Total number of object records for an object type.",
+            "example": 350,
+            "format": "int64",
+            "type": "integer"
+          },
+          "records": {
+            "items": {
+              "properties": {
+                "associations": {
+                  "description": "List of associations for the object record. If association query param is true it will return 5 associated records per association.",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "object_type": {
+                            "description": "Type of the associated object",
+                            "example": "garage",
+                            "type": "string"
+                          },
+                          "records": {
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "properties": {
+                                    "identifiers": {
+                                      "description": "Identifiers attached with the associated object record.",
+                                      "properties": {
+                                        "id": {
+                                          "description": "Internal ID of the object record generated by Brevo",
+                                          "example": 12345,
+                                          "type": "integer"
+                                        }
+                                      },
+                                      "type": "object"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                {
+                                  "properties": {
+                                    "identifiers": {
+                                      "description": "Identifiers attached with the associated object record.",
+                                      "properties": {
+                                        "id": {
+                                          "description": "Internal ID of the object record generated by Brevo",
+                                          "example": 45678,
+                                          "type": "integer"
+                                        }
+                                      },
+                                      "type": "object"
+                                    }
+                                  },
+                                  "type": "object"
+                                }
+                              ]
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "object_type": {
+                            "description": "Type of the associated object",
+                            "example": "insurance",
+                            "type": "string"
+                          },
+                          "records": {
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "properties": {
+                                    "identifiers": {
+                                      "description": "Identifiers attached with the associated object record. Only includes the internal ID.",
+                                      "properties": {
+                                        "id": {
+                                          "description": "Internal ID of the insurance object record generated by Brevo",
+                                          "example": 98765,
+                                          "type": "integer"
+                                        }
+                                      },
+                                      "type": "object"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                {
+                                  "properties": {
+                                    "identifiers": {
+                                      "description": "Identifiers attached with the associated object record. Only includes the internal ID.",
+                                      "properties": {
+                                        "id": {
+                                          "description": "Internal ID of the insurance object record generated by Brevo",
+                                          "example": 87654,
+                                          "type": "integer"
+                                        }
+                                      },
+                                      "type": "object"
+                                    }
+                                  },
+                                  "type": "object"
+                                }
+                              ]
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "attributes": {
+                  "description": "Key-value pairs of attribute data for the object record. Each key is the attribute **key** (e.g., `company_name`, `engine_type`), not the attribute label (e.g., \"Company Name\", \"Engine Type\"). Only attributes that already exist in the object schema will be present.\nFor `category` or `multiple_category` attributes, the value is the option **key** (not the option label or option ID).\n",
+                  "example": {
+                    "make": "Toyota",
+                    "model": "Corolla",
+                    "color": "Black",
+                    "year": 2020,
+                    "engine_type": "hybrid"
+                  },
+                  "type": "object"
+                },
+                "createdAt": {
+                  "description": "Timestamp when the object record was created",
+                  "example": "2025-07-22T10:20:30Z",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "identifiers": {
+                  "description": "Identifiers for the object record. Supports `id` (singular, not `ids`) or `ext_id`.\n- `ext_id`: Your external system's identifier for this record.\n- `id`: Internal Brevo record ID.\n",
+                  "properties": {
+                    "ext_id": {
+                      "description": "External ID of the record in your system.",
+                      "example": "507f1f77bc",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Internal ID of the object record generated by Brevo.",
+                      "example": 16789,
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "updatedAt": {
+                  "description": "Timestamp when the object record was last updated",
+                  "example": "2025-07-22T10:20:30Z",
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      403,
+      424,
+      500
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Bad request (e.g., invalid object_type, invalid page number provided)"
+      },
+      {
+        "status": 403,
+        "meaning": "Custom objects are not available on this account."
+      },
+      {
+        "status": 424,
+        "meaning": "primary attribute not found"
+      },
+      {
+        "status": 500,
+        "meaning": "Internal server error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/objects/{object_type}/records",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "custom_objects__getrecords"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getrecords",
+      "tag": "Custom Objects",
+      "ui_area": "CRM > Custom objects",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "list",
+      "object",
+      "records",
+      "total",
+      "count",
+      "custom object",
+      "object record",
+      "custom objects"
+    ],
+    "related_actions": [],
+    "tags": [
+      "custom_objects",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "custom_objects.upsertrecords",
+    "version": "1.0.0",
+    "domain": "custom_objects",
+    "domain_label": "Custom objects",
+    "name": "Create/Update object records in bulk",
+    "intent": "Create/Update object records in bulk",
+    "description": "<Note title=\"Enterprise access only\">Custom objects are only available to Enterprise plans. This feature is in beta. These are subject to change.</Note> Performs bulk create or update (upsert) operations for object records in a single asynchronous request. This endpoint is optimized for high-volume data imports and synchronization scenarios. **How Upsert Works:** - **Create**: Omit `identifiers`, or provide only `ext_id` (if it doesn't already exist). A new record is created with a Brevo-generated `id`. - **Update**: Provide `id` (Brevo internal ID) or an `ext_id` that already exists. The mat…",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "object_type": {
+          "example": "vehicle",
+          "type": "string",
+          "x-in": "path",
+          "description": "Object type for the records to upsert. Must be a previously created custom object type. Only lowercase alphanumeric characters and underscores are allowed (max 32 characters)."
+        },
+        "records": {
+          "description": "List of object records to be upsert. Each record can have attributes, identifiers, and associations.",
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "associations": {
+                    "description": "List of associations for the object record. Maximum 20 total entries allowed, with a maximum of 10 link actions and 10 unlink actions. Each entry specifies an object_type and an action (link or unlink). Unlink is idempotent — removing a non-existing association does not return an error. Both associated records must already exist before creating a link.\n",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "object_type",
+                        "records"
+                      ],
+                      "properties": {
+                        "object_type": {
+                          "type": "string",
+                          "description": "Type of the associated object",
+                          "example": "garage"
+                        },
+                        "action": {
+                          "type": "string",
+                          "enum": [
+                            "link",
+                            "unlink"
+                          ],
+                          "description": "Action to perform on the association. - `link`: Create association between records (default if not provided) - `unlink`: Remove association between records. Idempotent — unlinking a non-existing association is a no-op success.\n",
+                          "example": "link"
+                        },
+                        "records": {
+                          "type": "array",
+                          "maxItems": 100,
+                          "minItems": 1,
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "identifiers": {
+                                "type": "object",
+                                "description": "Identifiers for the associated object record. Provide either `ext_id` or `id`.",
+                                "properties": {
+                                  "ext_id": {
+                                    "type": "string",
+                                    "description": "External ID of the associated record in your system.",
+                                    "example": "9ab4c8d2ef"
+                                  },
+                                  "id": {
+                                    "type": "integer",
+                                    "description": "Internal ID of the associated object record generated by Brevo.",
+                                    "example": 435435
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "maxItems": 10,
+                    "minItems": 0,
+                    "type": "array"
+                  },
+                  "attributes": {
+                    "description": "Key-value pairs of attribute data for the object record. Each key must be the attribute **key** (e.g., `company_name`, `engine_type`), not the attribute label (e.g., \"Company Name\", \"Engine Type\"). Only attributes that already exist in the object schema will be accepted — unknown keys are silently ignored. Minimum 1 attribute is required.\n\nFor `category` or `multiple_category` attributes, set the value to the option **key** (not the option label or option ID). You can find available option keys in the `options` array returned by the GET attributes endpoint, or in the frontend under each attribute's settings.\n\nFor example, use the option key \"hybrid\" not the label \"Hybrid\" — using the label will be silently ignored.\n\nFor `multiple_choice` type, pass an **array of option keys** (not display labels). For example, if options have keys `\"sunroof\"` and `\"leather_seats\"`, pass `[\"sunroof\", \"leather_seats\"]`.\n",
+                    "example": {
+                      "text_attribute": "Metallic gray sedan",
+                      "number_attribute": 18500,
+                      "boolean_attribute": true,
+                      "date_attribute": "2023-10-17T07:54:25.242Z",
+                      "category_attribute": "sedan",
+                      "user_attribute": "user@example.com",
+                      "multiple_choice_attribute": [
+                        "sunroof",
+                        "leather_seats"
+                      ],
+                      "multiple_category_attribute": [
+                        "safety",
+                        "comfort"
+                      ]
+                    },
+                    "type": "object"
+                  },
+                  "identifiers": {
+                    "description": "Identifiers for the object record. Supports `id` (singular, not `ids`) or `ext_id`.\n- `ext_id`: Your external system's identifier for this record.\n- `id`: Internal Brevo record ID — can only be used for **updating** existing records, not for creation.\nNOTE:\n- This is an optional field. If no identifier is provided, Brevo auto-generates an internal ID that you can use for future operations.\n- If both `ext_id` and `id` are provided, `id` takes precedence and the operation is treated as an update. It is recommended to provide only one identifier per record.\n",
+                    "example": {
+                      "ext_id": "507f1f77bc"
+                    },
+                    "properties": {
+                      "ext_id": {
+                        "description": "ext_id is ID of record in the external system that client wants to store in the object system.",
+                        "type": "string"
+                      },
+                      "id": {
+                        "description": "Internal ID of the object record generated by Brevo",
+                        "example": 16789,
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "maxItems": 1000,
+          "minItems": 1,
+          "type": "array",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "object_type",
+        "records"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "object_type"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Payload for batch upsert object records with associations",
+        "schema": {
+          "properties": {
+            "records": {
+              "description": "List of object records to be upsert. Each record can have attributes, identifiers, and associations.",
+              "items": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "associations": {
+                        "description": "List of associations for the object record. Maximum 20 total entries allowed, with a maximum of 10 link actions and 10 unlink actions. Each entry specifies an object_type and an action (link or unlink). Unlink is idempotent — removing a non-existing association does not return an error. Both associated records must already exist before creating a link.\n",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "object_type",
+                            "records"
+                          ],
+                          "properties": {
+                            "object_type": {
+                              "type": "string",
+                              "description": "Type of the associated object",
+                              "example": "garage"
+                            },
+                            "action": {
+                              "type": "string",
+                              "enum": [
+                                "link",
+                                "unlink"
+                              ],
+                              "description": "Action to perform on the association. - `link`: Create association between records (default if not provided) - `unlink`: Remove association between records. Idempotent — unlinking a non-existing association is a no-op success.\n",
+                              "example": "link"
+                            },
+                            "records": {
+                              "type": "array",
+                              "maxItems": 100,
+                              "minItems": 1,
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "identifiers": {
+                                    "type": "object",
+                                    "description": "Identifiers for the associated object record. Provide either `ext_id` or `id`.",
+                                    "properties": {
+                                      "ext_id": {
+                                        "type": "string",
+                                        "description": "External ID of the associated record in your system.",
+                                        "example": "9ab4c8d2ef"
+                                      },
+                                      "id": {
+                                        "type": "integer",
+                                        "description": "Internal ID of the associated object record generated by Brevo.",
+                                        "example": 435435
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "type": "array"
+                      },
+                      "attributes": {
+                        "description": "Key-value pairs of attribute data for the object record. Each key must be the attribute **key** (e.g., `company_name`, `engine_type`), not the attribute label (e.g., \"Company Name\", \"Engine Type\"). Only attributes that already exist in the object schema will be accepted — unknown keys are silently ignored. Minimum 1 attribute is required.\n\nFor `category` or `multiple_category` attributes, set the value to the option **key** (not the option label or option ID). You can find available option keys in the `options` array returned by the GET attributes endpoint, or in the frontend under each attribute's settings.\n\nFor example, use the option key \"hybrid\" not the label \"Hybrid\" — using the label will be silently ignored.\n\nFor `multiple_choice` type, pass an **array of option keys** (not display labels). For example, if options have keys `\"sunroof\"` and `\"leather_seats\"`, pass `[\"sunroof\", \"leather_seats\"]`.\n",
+                        "example": {
+                          "text_attribute": "Metallic gray sedan",
+                          "number_attribute": 18500,
+                          "boolean_attribute": true,
+                          "date_attribute": "2023-10-17T07:54:25.242Z",
+                          "category_attribute": "sedan",
+                          "user_attribute": "user@example.com",
+                          "multiple_choice_attribute": [
+                            "sunroof",
+                            "leather_seats"
+                          ],
+                          "multiple_category_attribute": [
+                            "safety",
+                            "comfort"
+                          ]
+                        },
+                        "type": "object"
+                      },
+                      "identifiers": {
+                        "description": "Identifiers for the object record. Supports `id` (singular, not `ids`) or `ext_id`.\n- `ext_id`: Your external system's identifier for this record.\n- `id`: Internal Brevo record ID — can only be used for **updating** existing records, not for creation.\nNOTE:\n- This is an optional field. If no identifier is provided, Brevo auto-generates an internal ID that you can use for future operations.\n- If both `ext_id` and `id` are provided, `id` takes precedence and the operation is treated as an update. It is recommended to provide only one identifier per record.\n",
+                        "example": {
+                          "ext_id": "507f1f77bc"
+                        },
+                        "properties": {
+                          "ext_id": {
+                            "description": "ext_id is ID of record in the external system that client wants to store in the object system.",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Internal ID of the object record generated by Brevo",
+                            "example": 16789,
+                            "type": "integer"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  }
+                ]
+              },
+              "maxItems": 1000,
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "required": [
+            "records"
+          ],
+          "type": "object"
+        },
+        "example": {
+          "records": [
+            {
+              "identifiers": {
+                "ext_id": "VIN123"
+              },
+              "attributes": {
+                "make": "Toyota",
+                "model": "Camry",
+                "year": 2020,
+                "engine_type": "hybrid"
+              },
+              "associations": [
+                {
+                  "object_type": "garage",
+                  "action": "link",
+                  "records": [
+                    {
+                      "identifiers": {
+                        "id": 435435
+                      }
+                    }
+                  ]
+                },
+                {
+                  "object_type": "garage",
+                  "action": "unlink",
+                  "records": [
+                    {
+                      "identifiers": {
+                        "ext_id": "old-garage-001"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 202,
+      "schema": {
+        "properties": {
+          "message": {
+            "example": "Batch object records are being processed",
+            "type": "string"
+          },
+          "processId": {
+            "description": "Unique Id for the batch process used to track the status of the batch. **How to use this processId:**   Refer to the [Get process status API](https://developers.brevo.com/reference/get-process) to check the execution status of this batch using the returned `processId`.",
+            "example": 21,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      202,
+      400,
+      403,
+      404,
+      500
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Bad request (e.g., invalid organization ID, invalid object_type, records cannot be empty or more than 1000)"
+      },
+      {
+        "status": 403,
+        "meaning": "Custom objects are not available on this account, or upsert of Brevo standard object records is not supported via this endpoint."
+      },
+      {
+        "status": 404,
+        "meaning": "Object not found for the provided organization or object type"
+      },
+      {
+        "status": 500,
+        "meaning": "Internal server error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/objects/{object_type}/batch/upsert",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "custom_objects__upsertrecords"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "upsertrecords",
+      "tag": "Custom Objects",
+      "ui_area": "CRM > Custom objects",
+      "ui_path": "CRM > Custom objects"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create or update a custom object record",
+        "ui_path": "CRM > Custom objects",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "update",
+      "object",
+      "records",
+      "bulk",
+      "custom object",
+      "object record",
+      "custom objects",
+      "custom object record",
+      "custom",
+      "record"
+    ],
+    "related_actions": [],
+    "tags": [
+      "custom_objects",
+      "create"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

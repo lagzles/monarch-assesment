@@ -1,0 +1,540 @@
+[
+  {
+    "id": "payments.create_payment_request",
+    "version": "1.0.0",
+    "domain": "payments",
+    "domain_label": "Payments",
+    "name": "Create a payment request",
+    "intent": "Create a payment request / payment link to collect money from a customer.",
+    "description": "Create a new payment request for a Brevo contact. The request requires a reference (displayed on the payment page), a contact ID, and a cart with currency and amount in cents. You can optionally configure a custom success redirect URL and enable email notifications with reminders. Returns the payment request ID and its public payment URL. A `403` error is returned if Brevo Payments is not activated or the account is not validated.",
+    "action_type": "create",
+    "when_to_use": "When sending a payable link for an order or invoice.",
+    "when_not_to_use": "Do not use for internal bookkeeping — this creates a real payable object.",
+    "preconditions": [
+      "Payments enabled",
+      "Amount, currency and customer reference"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "cart": {
+          "$ref": "#/components/schemas/cart",
+          "x-in": "body"
+        },
+        "configuration": {
+          "$ref": "#/components/schemas/configuration",
+          "x-in": "body"
+        },
+        "contactId": {
+          "description": "Brevo ID of the contact requested to pay.\n",
+          "example": 43,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "body"
+        },
+        "description": {
+          "description": "Description of payment request.\n",
+          "example": "Shipping Cost for sending bottles to NYC",
+          "type": "string",
+          "x-in": "body"
+        },
+        "notification": {
+          "$ref": "#/components/schemas/notification",
+          "x-in": "body"
+        },
+        "reference": {
+          "description": "Reference of the payment request, it will appear on the payment page.\n",
+          "example": "Invoice #INV0001",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "reference",
+        "contactId",
+        "cart"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Create a payment request",
+        "schema": {
+          "properties": {
+            "cart": {
+              "$ref": "#/components/schemas/cart"
+            },
+            "configuration": {
+              "$ref": "#/components/schemas/configuration"
+            },
+            "contactId": {
+              "description": "Brevo ID of the contact requested to pay.\n",
+              "example": 43,
+              "format": "int64",
+              "type": "integer"
+            },
+            "description": {
+              "description": "Description of payment request.\n",
+              "example": "Shipping Cost for sending bottles to NYC",
+              "type": "string"
+            },
+            "notification": {
+              "$ref": "#/components/schemas/notification"
+            },
+            "reference": {
+              "description": "Reference of the payment request, it will appear on the payment page.\n",
+              "example": "Invoice #INV0001",
+              "type": "string"
+            }
+          },
+          "required": [
+            "reference",
+            "contactId",
+            "cart"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "id": {
+            "description": "ID of the object created",
+            "example": 122,
+            "format": "int64",
+            "type": "integer"
+          },
+          "url": {
+            "description": "URL of the payment request created",
+            "example": "https://pay.brevo.com/payment/6d4ec0b2b48ef803df4103ve",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "id": "6d4ec0b2b48ef803df4103ve",
+        "url": "https://pay.brevo.com/payment/6d4ec0b2b48ef803df4103ve"
+      }
+    },
+    "response_codes": [
+      201,
+      400,
+      401,
+      403
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      },
+      {
+        "status": 403,
+        "meaning": "Permission denied. Either you don't have access to Brevo Payments or your Brevo Payments account is not validated."
+      }
+    ],
+    "side_effects": [
+      "Creates a payable link",
+      "Financial side effects when paid"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/payments/requests",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "payments__create_payment_request"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createPaymentRequest",
+      "tag": "Payments",
+      "ui_area": "Commerce > Payments",
+      "ui_path": "Commerce > Payments > Create request"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create a payment request",
+        "ui_path": "Commerce > Payments > Create request",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "payment link",
+      "charge customer",
+      "invoice link",
+      "create",
+      "payment",
+      "request",
+      "payment request",
+      "payments",
+      "charge"
+    ],
+    "related_actions": [
+      "payments.get_payment_request",
+      "payments.delete_payment_request"
+    ],
+    "tags": [
+      "payments",
+      "create"
+    ],
+    "confidence": 0.96,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "payments.delete_payment_request",
+    "version": "1.0.0",
+    "domain": "payments",
+    "domain_label": "Payments",
+    "name": "Delete a payment request.",
+    "intent": "Delete a payment request.",
+    "description": "Delete a payment request by its UUID. Once deleted, the payment request can no longer be accessed or paid. Returns a `404` error if no payment request matches the provided ID, and a `403` error if Brevo Payments is not activated or the account is not validated.",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string",
+          "x-in": "path",
+          "description": "ID of the payment request."
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      401,
+      403,
+      404
+    ],
+    "errors": [
+      {
+        "status": 401,
+        "meaning": "Error"
+      },
+      {
+        "status": 403,
+        "meaning": "Permission denied. Either you don't have access to Brevo Payments or your Brevo Payments account is not validated."
+      },
+      {
+        "status": 404,
+        "meaning": "Payment request not found."
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/payments/requests/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "payments__delete_payment_request"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deletePaymentRequest",
+      "tag": "Payments",
+      "ui_area": "Commerce > Payments",
+      "ui_path": "Commerce > Payments > Delete"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Delete a payment request",
+        "ui_path": "Commerce > Payments > Delete",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "delete",
+      "payment",
+      "request",
+      "payment link",
+      "payment request",
+      "payments",
+      "cancel payment request"
+    ],
+    "related_actions": [],
+    "tags": [
+      "payments",
+      "delete"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "payments.get_payment_request",
+    "version": "1.0.0",
+    "domain": "payments",
+    "domain_label": "Payments",
+    "name": "Get payment request details",
+    "intent": "Get payment request details",
+    "description": "Retrieve the details of a specific payment request by its ID. The response includes the reference, status (created, sent, reminderSent, or paid), cart details, notification configuration, contact ID, and the number of reminders sent. Returns a `404` error if no payment request matches the provided ID.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-in": "path",
+          "description": "Id of the payment Request"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "cart": {
+            "$ref": "#/components/schemas/cart"
+          },
+          "configuration": {
+            "$ref": "#/components/schemas/configuration"
+          },
+          "contactId": {
+            "description": "Brevo ID of the contact requested to pay.\n",
+            "example": 43,
+            "format": "int64",
+            "type": "integer"
+          },
+          "notification": {
+            "$ref": "#/components/schemas/notification"
+          },
+          "numberOfRemindersSent": {
+            "description": "number of reminders sent.\n",
+            "example": 5,
+            "format": "int64",
+            "type": "integer"
+          },
+          "reference": {
+            "description": "Reference of the payment request, it will appear on the payment page.\n",
+            "example": "Invoice #INV0001\n",
+            "type": "string"
+          },
+          "status": {
+            "description": "Status of the payment request.",
+            "enum": [
+              "created",
+              "sent",
+              "reminderSent",
+              "paid"
+            ],
+            "example": "paid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reference",
+          "status",
+          "cart",
+          "notification"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "cart": {
+          "currency": "EUR",
+          "specificAmount": 1200
+        },
+        "configuration": {
+          "customSuccessUrl": "https://my-company.com/payment-success"
+        },
+        "contactId": 43,
+        "notification": {
+          "channel": "email",
+          "text": "Please pay for your yoga class."
+        },
+        "numberOfRemindersSent": 5,
+        "reference": "Invoice #INV0001\n",
+        "status": "paid"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      401,
+      403,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      },
+      {
+        "status": 403,
+        "meaning": "Permission denied. Either you don't have access to Brevo Payments or your Brevo Payments account is not validated."
+      },
+      {
+        "status": 404,
+        "meaning": "Payment request not found."
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/payments/requests/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "payments__get_payment_request"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getPaymentRequest",
+      "tag": "Payments",
+      "ui_area": "Commerce > Payments",
+      "ui_path": "Commerce > Payments"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Get payment request details",
+        "ui_path": "Commerce > Payments",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "get",
+      "payment",
+      "request",
+      "details",
+      "payment link",
+      "payment request",
+      "payments",
+      "payment status"
+    ],
+    "related_actions": [],
+    "tags": [
+      "payments",
+      "read"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

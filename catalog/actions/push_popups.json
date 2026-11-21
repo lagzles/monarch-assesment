@@ -1,0 +1,325 @@
+[
+  {
+    "id": "push_popups.configure_pressure_settings_utm_parameters",
+    "version": "1.0.0",
+    "domain": "push_popups",
+    "domain_label": "Push, pop-ups & in-app",
+    "name": "Configure pressure settings and UTM parameters",
+    "intent": "Control display frequency and attribution for on-site messages.",
+    "description": "Control display frequency and attribution for on-site messages.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Push & Pop-up > Settings",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Push & Pop-up",
+      "ui_path": "Marketing > Push & Pop-up > Settings",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "frequency capping",
+      "utm"
+    ],
+    "related_actions": [],
+    "tags": [
+      "push_popups",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "push_popups.create_pop_up_app_campaign",
+    "version": "1.0.0",
+    "domain": "push_popups",
+    "domain_label": "Push, pop-ups & in-app",
+    "name": "Create a pop-up or in-app campaign",
+    "intent": "Create an on-site pop-up or in-app message.",
+    "description": "Create an on-site pop-up or in-app message.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Push & Pop-up > Create pop-up",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Push & Pop-up",
+      "ui_path": "Marketing > Push & Pop-up > Create pop-up",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "in-app message",
+      "onsite campaign"
+    ],
+    "related_actions": [],
+    "tags": [
+      "push_popups",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "push_popups.create_push_campaign",
+    "version": "1.0.0",
+    "domain": "push_popups",
+    "domain_label": "Push, pop-ups & in-app",
+    "name": "Create a push campaign",
+    "intent": "Compose and send a web push campaign.",
+    "description": "Compose and send a web push campaign.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Push & Pop-up > Create push",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Push & Pop-up",
+      "ui_path": "Marketing > Push & Pop-up > Create push",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "push notification",
+      "web push"
+    ],
+    "related_actions": [],
+    "tags": [
+      "push_popups",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "push_popups.set_up_web_push",
+    "version": "1.0.0",
+    "domain": "push_popups",
+    "domain_label": "Push, pop-ups & in-app",
+    "name": "Set up web push",
+    "intent": "Configure push notifications for a website.",
+    "description": "Configure push notifications for a website.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Push & Pop-up > Setup",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Push & Pop-up",
+      "ui_path": "Marketing > Push & Pop-up > Setup",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "web push setup"
+    ],
+    "related_actions": [],
+    "tags": [
+      "push_popups",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "push_popups.view_push_campaign_reports",
+    "version": "1.0.0",
+    "domain": "push_popups",
+    "domain_label": "Push, pop-ups & in-app",
+    "name": "View push campaign reports",
+    "intent": "Read delivery and engagement for push campaigns.",
+    "description": "Read delivery and engagement for push campaigns.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Push & Pop-up > Reports",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Push & Pop-up",
+      "ui_path": "Marketing > Push & Pop-up > Reports",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "push report"
+    ],
+    "related_actions": [],
+    "tags": [
+      "push_popups",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

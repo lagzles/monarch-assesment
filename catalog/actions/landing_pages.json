@@ -1,0 +1,517 @@
+[
+  {
+    "id": "landing_pages.add_form_landing_page",
+    "version": "1.0.0",
+    "domain": "landing_pages",
+    "domain_label": "Landing pages",
+    "name": "Add a form to a landing page",
+    "intent": "Embed a sign-up form and configure its behavior.",
+    "description": "Embed a sign-up form and configure its behavior.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Landing pages > Form block",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Landing pages",
+      "ui_path": "Marketing > Landing pages > Form block",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "landing page form"
+    ],
+    "related_actions": [],
+    "tags": [
+      "landing_pages",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "landing_pages.create_landing_page",
+    "version": "1.0.0",
+    "domain": "landing_pages",
+    "domain_label": "Landing pages",
+    "name": "Create a landing page",
+    "intent": "Start a new hosted landing page.",
+    "description": "Start a new hosted landing page.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Landing pages > Create",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Landing pages",
+      "ui_path": "Marketing > Landing pages > Create",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "new page",
+      "landing page"
+    ],
+    "related_actions": [],
+    "tags": [
+      "landing_pages",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "landing_pages.duplicate_landing_page",
+    "version": "1.0.0",
+    "domain": "landing_pages",
+    "domain_label": "Landing pages",
+    "name": "Duplicate a landing page",
+    "intent": "Clone an existing landing page.",
+    "description": "Clone an existing landing page.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Landing pages > Duplicate",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Landing pages",
+      "ui_path": "Marketing > Landing pages > Duplicate",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "clone page",
+      "copy page"
+    ],
+    "related_actions": [],
+    "tags": [
+      "landing_pages",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "landing_pages.edit_landing_page_structure_content",
+    "version": "1.0.0",
+    "domain": "landing_pages",
+    "domain_label": "Landing pages",
+    "name": "Edit landing page structure and content",
+    "intent": "Add sections, text, images, buttons and styles.",
+    "description": "Add sections, text, images, buttons and styles.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Landing pages > Editor",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Landing pages",
+      "ui_path": "Marketing > Landing pages > Editor",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "edit landing page"
+    ],
+    "related_actions": [],
+    "tags": [
+      "landing_pages",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "landing_pages.host_landing_page_custom_domain",
+    "version": "1.0.0",
+    "domain": "landing_pages",
+    "domain_label": "Landing pages",
+    "name": "Host a landing page on a custom domain",
+    "intent": "Serve the page from a custom domain or subdomain.",
+    "description": "Serve the page from a custom domain or subdomain.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Landing pages > Settings > Domain",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Landing pages",
+      "ui_path": "Marketing > Landing pages > Settings > Domain",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "custom domain page"
+    ],
+    "related_actions": [],
+    "tags": [
+      "landing_pages",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "landing_pages.manage_sub_pages",
+    "version": "1.0.0",
+    "domain": "landing_pages",
+    "domain_label": "Landing pages",
+    "name": "Manage sub-pages",
+    "intent": "Add and organize sub-pages under a landing page.",
+    "description": "Add and organize sub-pages under a landing page.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Landing pages > Sub-pages",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Landing pages",
+      "ui_path": "Marketing > Landing pages > Sub-pages",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "sub-pages"
+    ],
+    "related_actions": [],
+    "tags": [
+      "landing_pages",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "landing_pages.preview_landing_page",
+    "version": "1.0.0",
+    "domain": "landing_pages",
+    "domain_label": "Landing pages",
+    "name": "Preview a landing page",
+    "intent": "Preview the page on desktop and mobile before publishing.",
+    "description": "Preview the page on desktop and mobile before publishing.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Landing pages > Preview",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Landing pages",
+      "ui_path": "Marketing > Landing pages > Preview",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "preview page"
+    ],
+    "related_actions": [],
+    "tags": [
+      "landing_pages",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "landing_pages.publish_landing_page",
+    "version": "1.0.0",
+    "domain": "landing_pages",
+    "domain_label": "Landing pages",
+    "name": "Publish a landing page",
+    "intent": "Make a landing page publicly available.",
+    "description": "Make a landing page publicly available.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Landing pages > Publish",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Landing pages",
+      "ui_path": "Marketing > Landing pages > Publish",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "go live",
+      "publish page"
+    ],
+    "related_actions": [],
+    "tags": [
+      "landing_pages",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

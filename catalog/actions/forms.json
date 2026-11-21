@@ -1,0 +1,470 @@
+[
+  {
+    "id": "forms.add_captcha_protection",
+    "version": "1.0.0",
+    "domain": "forms",
+    "domain_label": "Forms",
+    "name": "Add CAPTCHA protection",
+    "intent": "Protect a form from bots.",
+    "description": "Protect a form from bots.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Forms > CAPTCHA",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Forms",
+      "ui_path": "Marketing > Forms > CAPTCHA",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "captcha",
+      "bot protection"
+    ],
+    "related_actions": [],
+    "tags": [
+      "forms",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "forms.configure_double_opt",
+    "version": "1.0.0",
+    "domain": "forms",
+    "domain_label": "Forms",
+    "name": "Configure double opt-in",
+    "intent": "Require email confirmation for a sign-up form.",
+    "description": "Require email confirmation for a sign-up form.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Forms > Double opt-in",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Forms",
+      "ui_path": "Marketing > Forms > Double opt-in",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "doi form"
+    ],
+    "related_actions": [],
+    "tags": [
+      "forms",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "forms.create_pop_up_form",
+    "version": "1.0.0",
+    "domain": "forms",
+    "domain_label": "Forms",
+    "name": "Create a pop-up form",
+    "intent": "Build a pop-up sign-up form with display rules.",
+    "description": "Build a pop-up sign-up form with display rules.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Forms > Create pop-up",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Forms",
+      "ui_path": "Marketing > Forms > Create pop-up",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "popup form"
+    ],
+    "related_actions": [],
+    "tags": [
+      "forms",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "forms.create_profile_update_form",
+    "version": "1.0.0",
+    "domain": "forms",
+    "domain_label": "Forms",
+    "name": "Create a profile update form",
+    "intent": "Let contacts update their own details and preferences.",
+    "description": "Let contacts update their own details and preferences.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Forms > Profile update",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Forms",
+      "ui_path": "Marketing > Forms > Profile update",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "preference center"
+    ],
+    "related_actions": [],
+    "tags": [
+      "forms",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "forms.create_sign_up_form",
+    "version": "1.0.0",
+    "domain": "forms",
+    "domain_label": "Forms",
+    "name": "Create a sign-up form",
+    "intent": "Build an embeddable form that subscribes contacts to lists.",
+    "description": "Build an embeddable form that subscribes contacts to lists.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Forms > Create sign-up form",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Forms",
+      "ui_path": "Marketing > Forms > Create sign-up form",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "signup form",
+      "opt-in form"
+    ],
+    "related_actions": [],
+    "tags": [
+      "forms",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    },
+    "observed_ui": [
+      {
+        "observed_id": "observed.forms_api.post_forms_api_forms",
+        "ui_path": "Marketing > Formulários > Criar um formulário de inscrição",
+        "host": "forms-api.brevo.com",
+        "method": "POST",
+        "path": "/forms-api/forms",
+        "equivalence": "ui_only_confirmed",
+        "request_body_captured": false,
+        "captured_at": "2026-11-21T02:09:55.429Z",
+        "note": "No public API equivalent. The observed internal endpoint forms-api /forms-api/forms (201) confirms the UI-only action and its response shape. The request body was not captured (bodySize=0)."
+      }
+    ],
+    "ui_evidence": {
+      "status": "observed_internal",
+      "captured_at": "2026-11-21T02:09:55.429Z",
+      "har_file": ".capture/brevo-pass2.har"
+    }
+  },
+  {
+    "id": "forms.create_unsubscribe_form",
+    "version": "1.0.0",
+    "domain": "forms",
+    "domain_label": "Forms",
+    "name": "Create an unsubscribe form",
+    "intent": "Customize the form contacts use to unsubscribe.",
+    "description": "Customize the form contacts use to unsubscribe.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Forms > Unsubscribe form",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Forms",
+      "ui_path": "Marketing > Forms > Unsubscribe form",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "opt-out form"
+    ],
+    "related_actions": [],
+    "tags": [
+      "forms",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "forms.notify_team_form_submission",
+    "version": "1.0.0",
+    "domain": "forms",
+    "domain_label": "Forms",
+    "name": "Notify the team on form submission",
+    "intent": "Send an internal email when a form is submitted.",
+    "description": "Send an internal email when a form is submitted.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Forms > Notifications",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Forms",
+      "ui_path": "Marketing > Forms > Notifications",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "form notification"
+    ],
+    "related_actions": [],
+    "tags": [
+      "forms",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

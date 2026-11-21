@@ -1,0 +1,131 @@
+[
+  {
+    "id": "phone.buy_phone_number",
+    "version": "1.0.0",
+    "domain": "phone",
+    "domain_label": "Phone",
+    "name": "Buy a phone number",
+    "intent": "Purchase a number for calls and conversations.",
+    "description": "Purchase a number for calls and conversations.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Conversations > Phone > Numbers",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Conversations > Phone",
+      "ui_path": "Conversations > Phone > Numbers",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "phone number"
+    ],
+    "related_actions": [],
+    "tags": [
+      "phone",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "phone.route_make_call",
+    "version": "1.0.0",
+    "domain": "phone",
+    "domain_label": "Phone",
+    "name": "Route or make a call",
+    "intent": "Handle inbound routing or place a call.",
+    "description": "Handle inbound routing or place a call.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Conversations > Phone",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Conversations > Phone",
+      "ui_path": "Conversations > Phone",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "call",
+      "routing"
+    ],
+    "related_actions": [],
+    "tags": [
+      "phone",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

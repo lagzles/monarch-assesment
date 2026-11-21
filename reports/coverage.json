@@ -1,0 +1,970 @@
+{
+  "generated_at": "2026-11-21T03:13:47.686Z",
+  "spec": {
+    "file": "sources/brevo-openapi.yml",
+    "sha256": "cc2890ed25d8a00e9248d4ad78936ef368179b13eb4f92e1d82d80a31b62db72",
+    "openapi": "3.0.1",
+    "paths": 208,
+    "operations": 292
+  },
+  "counts": {
+    "total_actions": 358,
+    "api_actions": 292,
+    "ui_only_actions": 58,
+    "api_partial_actions": 8,
+    "domains": 32,
+    "high_risk_actions": 103,
+    "actions_requiring_confirmation": 103,
+    "actions_with_observed_ui": 21,
+    "observed_internal_endpoints": 137,
+    "write_verified_actions": 20,
+    "transactional_verified_actions": 1,
+    "plan_gated_actions": 1
+  },
+  "ui_coverage": {
+    "total_ui_actions_catalogued": 203,
+    "fully_executable_via_api": 137,
+    "partially_executable_via_api": 8,
+    "ui_only": 58,
+    "full_coverage_rate": 0.675,
+    "full_or_partial_rate": 0.714
+  },
+  "reliability": {
+    "actions_with_input_schema": 275,
+    "write_actions": 176,
+    "write_actions_with_input_schema": 175,
+    "actions_with_documented_errors": 292,
+    "actions_with_examples": 111,
+    "actions_with_ui_path": 202,
+    "actions_with_observed_ui": 21,
+    "observed_internal_endpoints": 137,
+    "live_verified_actions": 67,
+    "write_verified_actions": 20,
+    "transactional_verified_actions": 1,
+    "plan_gated_actions": 1,
+    "live_failed_actions": 0,
+    "spec_only_actions": 224
+  },
+  "confidence_distribution": {
+    "0.90-1.00": 251,
+    "0.80-0.89": 49,
+    "0.70-0.79": 58,
+    "<0.70": 0
+  },
+  "domains": {
+    "account_admin": {
+      "label": "Account administration",
+      "api": 34,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 31,
+      "requires_confirmation": 31,
+      "live_verified": 3,
+      "total": 34
+    },
+    "ad_studio": {
+      "label": "Ad Studio",
+      "api": 0,
+      "partial": 0,
+      "ui_only": 2,
+      "high_risk": 0,
+      "requires_confirmation": 0,
+      "live_verified": 0,
+      "total": 2
+    },
+    "analytics_reports": {
+      "label": "Analytics & reports",
+      "api": 0,
+      "partial": 0,
+      "ui_only": 3,
+      "high_risk": 0,
+      "requires_confirmation": 0,
+      "live_verified": 0,
+      "total": 3
+    },
+    "contacts": {
+      "label": "Contacts & audiences",
+      "api": 35,
+      "partial": 2,
+      "ui_only": 3,
+      "high_risk": 8,
+      "requires_confirmation": 8,
+      "live_verified": 12,
+      "total": 40
+    },
+    "conversations": {
+      "label": "Conversations",
+      "api": 10,
+      "partial": 0,
+      "ui_only": 1,
+      "high_risk": 4,
+      "requires_confirmation": 4,
+      "live_verified": 0,
+      "total": 11
+    },
+    "coupons": {
+      "label": "Coupons",
+      "api": 5,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 1,
+      "requires_confirmation": 1,
+      "live_verified": 1,
+      "total": 5
+    },
+    "crm": {
+      "label": "CRM (companies, deals, tasks, notes)",
+      "api": 38,
+      "partial": 0,
+      "ui_only": 3,
+      "high_risk": 6,
+      "requires_confirmation": 6,
+      "live_verified": 21,
+      "total": 41
+    },
+    "custom_objects": {
+      "label": "Custom objects",
+      "api": 4,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 1,
+      "requires_confirmation": 1,
+      "live_verified": 0,
+      "total": 4
+    },
+    "deliverability": {
+      "label": "Deliverability",
+      "api": 0,
+      "partial": 0,
+      "ui_only": 3,
+      "high_risk": 0,
+      "requires_confirmation": 0,
+      "live_verified": 0,
+      "total": 3
+    },
+    "ecommerce": {
+      "label": "eCommerce",
+      "api": 18,
+      "partial": 0,
+      "ui_only": 1,
+      "high_risk": 0,
+      "requires_confirmation": 0,
+      "live_verified": 2,
+      "total": 19
+    },
+    "email_campaigns": {
+      "label": "Email campaigns",
+      "api": 13,
+      "partial": 3,
+      "ui_only": 1,
+      "high_risk": 6,
+      "requires_confirmation": 6,
+      "live_verified": 8,
+      "total": 17
+    },
+    "events": {
+      "label": "Events & tracking",
+      "api": 3,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 0,
+      "requires_confirmation": 0,
+      "live_verified": 1,
+      "total": 3
+    },
+    "external_feeds": {
+      "label": "External feeds (RSS)",
+      "api": 5,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 1,
+      "requires_confirmation": 1,
+      "live_verified": 0,
+      "total": 5
+    },
+    "forms": {
+      "label": "Forms",
+      "api": 0,
+      "partial": 0,
+      "ui_only": 7,
+      "high_risk": 0,
+      "requires_confirmation": 0,
+      "live_verified": 0,
+      "total": 7
+    },
+    "inbound": {
+      "label": "Inbound email parsing",
+      "api": 3,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 0,
+      "requires_confirmation": 0,
+      "live_verified": 0,
+      "total": 3
+    },
+    "integrations": {
+      "label": "Integrations & plugins",
+      "api": 0,
+      "partial": 0,
+      "ui_only": 5,
+      "high_risk": 2,
+      "requires_confirmation": 2,
+      "live_verified": 0,
+      "total": 5
+    },
+    "landing_pages": {
+      "label": "Landing pages",
+      "api": 0,
+      "partial": 0,
+      "ui_only": 8,
+      "high_risk": 1,
+      "requires_confirmation": 1,
+      "live_verified": 0,
+      "total": 8
+    },
+    "loyalty": {
+      "label": "Loyalty & wallet",
+      "api": 52,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 17,
+      "requires_confirmation": 17,
+      "live_verified": 1,
+      "total": 52
+    },
+    "marketing_automation": {
+      "label": "Marketing automation",
+      "api": 0,
+      "partial": 0,
+      "ui_only": 11,
+      "high_risk": 1,
+      "requires_confirmation": 1,
+      "live_verified": 0,
+      "total": 11
+    },
+    "meetings": {
+      "label": "Meetings",
+      "api": 0,
+      "partial": 0,
+      "ui_only": 2,
+      "high_risk": 0,
+      "requires_confirmation": 0,
+      "live_verified": 0,
+      "total": 2
+    },
+    "payments": {
+      "label": "Payments",
+      "api": 3,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 1,
+      "requires_confirmation": 1,
+      "live_verified": 0,
+      "total": 3
+    },
+    "phone": {
+      "label": "Phone",
+      "api": 0,
+      "partial": 0,
+      "ui_only": 2,
+      "high_risk": 1,
+      "requires_confirmation": 1,
+      "live_verified": 0,
+      "total": 2
+    },
+    "processes": {
+      "label": "Background processes",
+      "api": 2,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 0,
+      "requires_confirmation": 0,
+      "live_verified": 1,
+      "total": 2
+    },
+    "push_popups": {
+      "label": "Push, pop-ups & in-app",
+      "api": 0,
+      "partial": 0,
+      "ui_only": 5,
+      "high_risk": 1,
+      "requires_confirmation": 1,
+      "live_verified": 0,
+      "total": 5
+    },
+    "senders_and_domains": {
+      "label": "Senders, domains & IPs",
+      "api": 12,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 2,
+      "requires_confirmation": 2,
+      "live_verified": 5,
+      "total": 12
+    },
+    "sms_campaigns": {
+      "label": "SMS campaigns",
+      "api": 10,
+      "partial": 1,
+      "ui_only": 0,
+      "high_risk": 5,
+      "requires_confirmation": 5,
+      "live_verified": 1,
+      "total": 11
+    },
+    "templates": {
+      "label": "Templates",
+      "api": 7,
+      "partial": 0,
+      "ui_only": 1,
+      "high_risk": 2,
+      "requires_confirmation": 2,
+      "live_verified": 4,
+      "total": 8
+    },
+    "transactional_email": {
+      "label": "Transactional email",
+      "api": 16,
+      "partial": 2,
+      "ui_only": 0,
+      "high_risk": 6,
+      "requires_confirmation": 6,
+      "live_verified": 1,
+      "total": 18
+    },
+    "transactional_sms": {
+      "label": "Transactional SMS",
+      "api": 5,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 2,
+      "requires_confirmation": 2,
+      "live_verified": 0,
+      "total": 5
+    },
+    "transactional_whatsapp": {
+      "label": "Transactional WhatsApp",
+      "api": 2,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 1,
+      "requires_confirmation": 1,
+      "live_verified": 0,
+      "total": 2
+    },
+    "webhooks": {
+      "label": "Webhooks",
+      "api": 6,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 1,
+      "requires_confirmation": 1,
+      "live_verified": 5,
+      "total": 6
+    },
+    "whatsapp_campaigns": {
+      "label": "WhatsApp campaigns",
+      "api": 9,
+      "partial": 0,
+      "ui_only": 0,
+      "high_risk": 2,
+      "requires_confirmation": 2,
+      "live_verified": 1,
+      "total": 9
+    }
+  },
+  "gaps": [
+    {
+      "domain": "marketing_automation",
+      "label": "Marketing automation",
+      "ui_only": 11,
+      "partial": 0,
+      "api": 0
+    },
+    {
+      "domain": "landing_pages",
+      "label": "Landing pages",
+      "ui_only": 8,
+      "partial": 0,
+      "api": 0
+    },
+    {
+      "domain": "forms",
+      "label": "Forms",
+      "ui_only": 7,
+      "partial": 0,
+      "api": 0
+    },
+    {
+      "domain": "contacts",
+      "label": "Contacts & audiences",
+      "ui_only": 3,
+      "partial": 2,
+      "api": 35
+    },
+    {
+      "domain": "integrations",
+      "label": "Integrations & plugins",
+      "ui_only": 5,
+      "partial": 0,
+      "api": 0
+    },
+    {
+      "domain": "push_popups",
+      "label": "Push, pop-ups & in-app",
+      "ui_only": 5,
+      "partial": 0,
+      "api": 0
+    },
+    {
+      "domain": "email_campaigns",
+      "label": "Email campaigns",
+      "ui_only": 1,
+      "partial": 3,
+      "api": 13
+    },
+    {
+      "domain": "analytics_reports",
+      "label": "Analytics & reports",
+      "ui_only": 3,
+      "partial": 0,
+      "api": 0
+    },
+    {
+      "domain": "crm",
+      "label": "CRM (companies, deals, tasks, notes)",
+      "ui_only": 3,
+      "partial": 0,
+      "api": 38
+    },
+    {
+      "domain": "deliverability",
+      "label": "Deliverability",
+      "ui_only": 3,
+      "partial": 0,
+      "api": 0
+    },
+    {
+      "domain": "ad_studio",
+      "label": "Ad Studio",
+      "ui_only": 2,
+      "partial": 0,
+      "api": 0
+    },
+    {
+      "domain": "meetings",
+      "label": "Meetings",
+      "ui_only": 2,
+      "partial": 0,
+      "api": 0
+    },
+    {
+      "domain": "phone",
+      "label": "Phone",
+      "ui_only": 2,
+      "partial": 0,
+      "api": 0
+    },
+    {
+      "domain": "transactional_email",
+      "label": "Transactional email",
+      "ui_only": 0,
+      "partial": 2,
+      "api": 16
+    },
+    {
+      "domain": "conversations",
+      "label": "Conversations",
+      "ui_only": 1,
+      "partial": 0,
+      "api": 10
+    },
+    {
+      "domain": "ecommerce",
+      "label": "eCommerce",
+      "ui_only": 1,
+      "partial": 0,
+      "api": 18
+    },
+    {
+      "domain": "sms_campaigns",
+      "label": "SMS campaigns",
+      "ui_only": 0,
+      "partial": 1,
+      "api": 10
+    },
+    {
+      "domain": "templates",
+      "label": "Templates",
+      "ui_only": 1,
+      "partial": 0,
+      "api": 7
+    }
+  ],
+  "ui_only_actions": [
+    {
+      "id": "ad_studio.create_static_ad",
+      "domain": "ad_studio",
+      "name": "Create a static ad",
+      "ui_path": "Marketing > Ad Studio > Static ad",
+      "risk_level": "medium"
+    },
+    {
+      "id": "ad_studio.create_video_ad",
+      "domain": "ad_studio",
+      "name": "Create a video ad",
+      "ui_path": "Marketing > Ad Studio > Video ad",
+      "risk_level": "medium"
+    },
+    {
+      "id": "analytics_reports.export_campaign_statistics",
+      "domain": "analytics_reports",
+      "name": "Export campaign statistics",
+      "ui_path": "Analytics > Export",
+      "risk_level": "medium"
+    },
+    {
+      "id": "analytics_reports.view_cross_channel_dashboard",
+      "domain": "analytics_reports",
+      "name": "View the cross-channel dashboard",
+      "ui_path": "Analytics > Dashboard",
+      "risk_level": "low"
+    },
+    {
+      "id": "analytics_reports.view_retention_dashboard",
+      "domain": "analytics_reports",
+      "name": "View the retention dashboard",
+      "ui_path": "Commerce > eCommerce > Retention",
+      "risk_level": "low"
+    },
+    {
+      "id": "contacts.create_saved_view_contacts",
+      "domain": "contacts",
+      "name": "Create a saved view for contacts",
+      "ui_path": "CRM > Contacts > Views",
+      "risk_level": "low"
+    },
+    {
+      "id": "contacts.create_segment",
+      "domain": "contacts",
+      "name": "Create a segment",
+      "ui_path": "CRM > Contacts > Segments > Create segment",
+      "risk_level": "medium"
+    },
+    {
+      "id": "contacts.split_segment_into_lists",
+      "domain": "contacts",
+      "name": "Split a segment into lists",
+      "ui_path": "CRM > Contacts > Segments > Split into lists",
+      "risk_level": "medium"
+    },
+    {
+      "id": "conversations.configure_chat_widget",
+      "domain": "conversations",
+      "name": "Configure a chat widget",
+      "ui_path": "Conversations > Settings > Widget",
+      "risk_level": "medium"
+    },
+    {
+      "id": "crm.create_pipeline",
+      "domain": "crm",
+      "name": "Create a pipeline",
+      "ui_path": "CRM > Settings > Pipelines",
+      "risk_level": "medium"
+    },
+    {
+      "id": "crm.edit_deal_stages",
+      "domain": "crm",
+      "name": "Edit deal stages",
+      "ui_path": "CRM > Settings > Pipelines > Stages",
+      "risk_level": "medium"
+    },
+    {
+      "id": "crm.export_companies",
+      "domain": "crm",
+      "name": "Export companies",
+      "ui_path": "CRM > Companies > Export",
+      "risk_level": "medium"
+    },
+    {
+      "id": "deliverability.clean_contact_list",
+      "domain": "deliverability",
+      "name": "Clean a contact list",
+      "ui_path": "Deliverability > Clean list",
+      "risk_level": "medium"
+    },
+    {
+      "id": "deliverability.view_sender_reputation",
+      "domain": "deliverability",
+      "name": "View sender reputation",
+      "ui_path": "Deliverability > Reputation",
+      "risk_level": "low"
+    },
+    {
+      "id": "deliverability.warm_up_dedicated_ip",
+      "domain": "deliverability",
+      "name": "Warm up a dedicated IP",
+      "ui_path": "Deliverability > Dedicated IP",
+      "risk_level": "medium"
+    },
+    {
+      "id": "ecommerce.view_ecommerce_dashboard",
+      "domain": "ecommerce",
+      "name": "View the eCommerce dashboard",
+      "ui_path": "Commerce > eCommerce > Dashboard",
+      "risk_level": "low"
+    },
+    {
+      "id": "email_campaigns.duplicate_campaign",
+      "domain": "email_campaigns",
+      "name": "Duplicate a campaign",
+      "ui_path": "Marketing > Email campaigns > Duplicate",
+      "risk_level": "low"
+    },
+    {
+      "id": "forms.add_captcha_protection",
+      "domain": "forms",
+      "name": "Add CAPTCHA protection",
+      "ui_path": "Marketing > Forms > CAPTCHA",
+      "risk_level": "low"
+    },
+    {
+      "id": "forms.configure_double_opt",
+      "domain": "forms",
+      "name": "Configure double opt-in",
+      "ui_path": "Marketing > Forms > Double opt-in",
+      "risk_level": "medium"
+    },
+    {
+      "id": "forms.create_pop_up_form",
+      "domain": "forms",
+      "name": "Create a pop-up form",
+      "ui_path": "Marketing > Forms > Create pop-up",
+      "risk_level": "medium"
+    },
+    {
+      "id": "forms.create_profile_update_form",
+      "domain": "forms",
+      "name": "Create a profile update form",
+      "ui_path": "Marketing > Forms > Profile update",
+      "risk_level": "medium"
+    },
+    {
+      "id": "forms.create_sign_up_form",
+      "domain": "forms",
+      "name": "Create a sign-up form",
+      "ui_path": "Marketing > Forms > Create sign-up form",
+      "risk_level": "medium"
+    },
+    {
+      "id": "forms.create_unsubscribe_form",
+      "domain": "forms",
+      "name": "Create an unsubscribe form",
+      "ui_path": "Marketing > Forms > Unsubscribe form",
+      "risk_level": "medium"
+    },
+    {
+      "id": "forms.notify_team_form_submission",
+      "domain": "forms",
+      "name": "Notify the team on form submission",
+      "ui_path": "Marketing > Forms > Notifications",
+      "risk_level": "low"
+    },
+    {
+      "id": "integrations.connect_brevo_mcp_server",
+      "domain": "integrations",
+      "name": "Connect the Brevo MCP server",
+      "ui_path": "Account > SMTP & API > MCP token",
+      "risk_level": "high"
+    },
+    {
+      "id": "integrations.connect_shopify",
+      "domain": "integrations",
+      "name": "Connect Shopify",
+      "ui_path": "Apps & integrations > Shopify",
+      "risk_level": "medium"
+    },
+    {
+      "id": "integrations.connect_woocommerce",
+      "domain": "integrations",
+      "name": "Connect WooCommerce",
+      "ui_path": "Apps & integrations > WooCommerce",
+      "risk_level": "medium"
+    },
+    {
+      "id": "integrations.generate_api_key",
+      "domain": "integrations",
+      "name": "Generate an API key",
+      "ui_path": "Account > SMTP & API > API keys",
+      "risk_level": "high"
+    },
+    {
+      "id": "integrations.install_wordpress_plugin",
+      "domain": "integrations",
+      "name": "Install the WordPress plugin",
+      "ui_path": "Apps & integrations > WordPress",
+      "risk_level": "medium"
+    },
+    {
+      "id": "landing_pages.add_form_landing_page",
+      "domain": "landing_pages",
+      "name": "Add a form to a landing page",
+      "ui_path": "Marketing > Landing pages > Form block",
+      "risk_level": "medium"
+    },
+    {
+      "id": "landing_pages.create_landing_page",
+      "domain": "landing_pages",
+      "name": "Create a landing page",
+      "ui_path": "Marketing > Landing pages > Create",
+      "risk_level": "medium"
+    },
+    {
+      "id": "landing_pages.duplicate_landing_page",
+      "domain": "landing_pages",
+      "name": "Duplicate a landing page",
+      "ui_path": "Marketing > Landing pages > Duplicate",
+      "risk_level": "low"
+    },
+    {
+      "id": "landing_pages.edit_landing_page_structure_content",
+      "domain": "landing_pages",
+      "name": "Edit landing page structure and content",
+      "ui_path": "Marketing > Landing pages > Editor",
+      "risk_level": "low"
+    },
+    {
+      "id": "landing_pages.host_landing_page_custom_domain",
+      "domain": "landing_pages",
+      "name": "Host a landing page on a custom domain",
+      "ui_path": "Marketing > Landing pages > Settings > Domain",
+      "risk_level": "medium"
+    },
+    {
+      "id": "landing_pages.manage_sub_pages",
+      "domain": "landing_pages",
+      "name": "Manage sub-pages",
+      "ui_path": "Marketing > Landing pages > Sub-pages",
+      "risk_level": "low"
+    },
+    {
+      "id": "landing_pages.preview_landing_page",
+      "domain": "landing_pages",
+      "name": "Preview a landing page",
+      "ui_path": "Marketing > Landing pages > Preview",
+      "risk_level": "low"
+    },
+    {
+      "id": "landing_pages.publish_landing_page",
+      "domain": "landing_pages",
+      "name": "Publish a landing page",
+      "ui_path": "Marketing > Landing pages > Publish",
+      "risk_level": "high"
+    },
+    {
+      "id": "marketing_automation.add_automation_trigger",
+      "domain": "marketing_automation",
+      "name": "Add an automation trigger",
+      "ui_path": "Automations > Workflow > Trigger",
+      "risk_level": "medium"
+    },
+    {
+      "id": "marketing_automation.add_condition_rule",
+      "domain": "marketing_automation",
+      "name": "Add a condition or rule",
+      "ui_path": "Automations > Workflow > Condition",
+      "risk_level": "low"
+    },
+    {
+      "id": "marketing_automation.add_delay_wait_step",
+      "domain": "marketing_automation",
+      "name": "Add a delay or wait step",
+      "ui_path": "Automations > Workflow > Wait",
+      "risk_level": "low"
+    },
+    {
+      "id": "marketing_automation.add_send_email_step",
+      "domain": "marketing_automation",
+      "name": "Add a send-email step",
+      "ui_path": "Automations > Workflow > Send email",
+      "risk_level": "medium"
+    },
+    {
+      "id": "marketing_automation.add_sms_whatsapp_step",
+      "domain": "marketing_automation",
+      "name": "Add an SMS or WhatsApp step",
+      "ui_path": "Automations > Workflow > Send SMS/WhatsApp",
+      "risk_level": "medium"
+    },
+    {
+      "id": "marketing_automation.create_automation",
+      "domain": "marketing_automation",
+      "name": "Create an automation",
+      "ui_path": "Automations > Create automation",
+      "risk_level": "medium"
+    },
+    {
+      "id": "marketing_automation.create_automation_aura_ai",
+      "domain": "marketing_automation",
+      "name": "Create an automation with Aura AI",
+      "ui_path": "Automations > Create with Aura",
+      "risk_level": "medium"
+    },
+    {
+      "id": "marketing_automation.manually_enroll_contacts",
+      "domain": "marketing_automation",
+      "name": "Manually enroll contacts",
+      "ui_path": "Automations > Contacts",
+      "risk_level": "medium"
+    },
+    {
+      "id": "marketing_automation.pause_resume_automation",
+      "domain": "marketing_automation",
+      "name": "Pause or resume an automation",
+      "ui_path": "Automations > Workflow > Pause",
+      "risk_level": "high"
+    },
+    {
+      "id": "marketing_automation.use_pre_built_automation",
+      "domain": "marketing_automation",
+      "name": "Use a pre-built automation",
+      "ui_path": "Automations > Templates",
+      "risk_level": "medium"
+    },
+    {
+      "id": "marketing_automation.view_automation_statistics_logs",
+      "domain": "marketing_automation",
+      "name": "View automation statistics and logs",
+      "ui_path": "Automations > Statistics",
+      "risk_level": "low"
+    },
+    {
+      "id": "meetings.book_meeting",
+      "domain": "meetings",
+      "name": "Book a meeting",
+      "ui_path": "Conversations > Meetings > Book",
+      "risk_level": "low"
+    },
+    {
+      "id": "meetings.create_meeting_link",
+      "domain": "meetings",
+      "name": "Create a meeting link",
+      "ui_path": "Conversations > Meetings",
+      "risk_level": "low"
+    },
+    {
+      "id": "phone.buy_phone_number",
+      "domain": "phone",
+      "name": "Buy a phone number",
+      "ui_path": "Conversations > Phone > Numbers",
+      "risk_level": "high"
+    },
+    {
+      "id": "phone.route_make_call",
+      "domain": "phone",
+      "name": "Route or make a call",
+      "ui_path": "Conversations > Phone",
+      "risk_level": "medium"
+    },
+    {
+      "id": "push_popups.configure_pressure_settings_utm_parameters",
+      "domain": "push_popups",
+      "name": "Configure pressure settings and UTM parameters",
+      "ui_path": "Marketing > Push & Pop-up > Settings",
+      "risk_level": "low"
+    },
+    {
+      "id": "push_popups.create_pop_up_app_campaign",
+      "domain": "push_popups",
+      "name": "Create a pop-up or in-app campaign",
+      "ui_path": "Marketing > Push & Pop-up > Create pop-up",
+      "risk_level": "medium"
+    },
+    {
+      "id": "push_popups.create_push_campaign",
+      "domain": "push_popups",
+      "name": "Create a push campaign",
+      "ui_path": "Marketing > Push & Pop-up > Create push",
+      "risk_level": "high"
+    },
+    {
+      "id": "push_popups.set_up_web_push",
+      "domain": "push_popups",
+      "name": "Set up web push",
+      "ui_path": "Marketing > Push & Pop-up > Setup",
+      "risk_level": "medium"
+    },
+    {
+      "id": "push_popups.view_push_campaign_reports",
+      "domain": "push_popups",
+      "name": "View push campaign reports",
+      "ui_path": "Marketing > Push & Pop-up > Reports",
+      "risk_level": "low"
+    },
+    {
+      "id": "templates.create_sms_template",
+      "domain": "templates",
+      "name": "Create an SMS template",
+      "ui_path": "Transactional > SMS > Templates",
+      "risk_level": "medium"
+    }
+  ],
+  "partial_actions": [
+    {
+      "id": "contacts.blocklist_resubscribe_contact",
+      "domain": "contacts",
+      "name": "Blocklist or resubscribe a contact",
+      "related_action": "transactional_email.unblock_or_resubscribe_contact",
+      "ui_path": "CRM > Contacts > Blocklisted contacts"
+    },
+    {
+      "id": "contacts.update_contact_score",
+      "domain": "contacts",
+      "name": "Update a contact score",
+      "related_action": "contacts.update_contact",
+      "ui_path": "CRM > Contacts > Contact details > Score"
+    },
+    {
+      "id": "email_campaigns.create_test_campaign",
+      "domain": "email_campaigns",
+      "name": "Create an A/B test campaign",
+      "related_action": "email_campaigns.create_email_campaign",
+      "ui_path": "Marketing > Email campaigns > A/B test"
+    },
+    {
+      "id": "email_campaigns.pause_resume_campaign",
+      "domain": "email_campaigns",
+      "name": "Pause or resume a campaign",
+      "related_action": "email_campaigns.update_campaign_status",
+      "ui_path": "Marketing > Email campaigns > Status"
+    },
+    {
+      "id": "email_campaigns.schedule_email_campaign",
+      "domain": "email_campaigns",
+      "name": "Schedule an email campaign",
+      "related_action": "email_campaigns.update_email_campaign",
+      "ui_path": "Marketing > Email campaigns > Schedule"
+    },
+    {
+      "id": "sms_campaigns.schedule_sms_campaign",
+      "domain": "sms_campaigns",
+      "name": "Schedule an SMS campaign",
+      "related_action": "sms_campaigns.update_sms_campaign",
+      "ui_path": "Marketing > SMS > Schedule"
+    },
+    {
+      "id": "transactional_email.schedule_transactional_email",
+      "domain": "transactional_email",
+      "name": "Schedule a transactional email",
+      "related_action": "transactional_email.send_transac_email",
+      "ui_path": "Transactional > Email > Schedule"
+    },
+    {
+      "id": "transactional_email.send_batch_transactional_emails",
+      "domain": "transactional_email",
+      "name": "Send a batch of transactional emails",
+      "related_action": "transactional_email.send_transac_email",
+      "ui_path": "Transactional > Email > Batch"
+    }
+  ]
+}

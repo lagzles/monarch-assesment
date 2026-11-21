@@ -1,0 +1,190 @@
+{
+  "version": "1.0.0",
+  "note": "Human-reviewed mapping between endpoints observed in the Brevo UI (internal services) and the public-API catalog actions that accomplish the same business action. Equivalence is about capability, not wire compatibility: host, auth, paths and payloads differ.",
+  "mappings": [
+    {
+      "observed_id": "observed.contacts_api_v2.post_lists_create",
+      "catalog_action": "contacts.create_list",
+      "business_action": "Create a list",
+      "ui_path": "CRM > Listas > Criar uma lista",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI posts to contacts-api-v2 /lists/create (201, {id}). Public API posts to api.brevo.com/v3/contacts/lists. The HAR did not capture the UI request body (bodySize=0)."
+    },
+    {
+      "observed_id": "observed.contacts_api_v2.delete_lists_id",
+      "catalog_action": "contacts.delete_list",
+      "business_action": "Delete a list",
+      "ui_path": "CRM > Listas > Excluir lista",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI deletes via contacts-api-v2 /lists/{id} (204). Public API deletes /contacts/lists/{listId}."
+    },
+    {
+      "observed_id": "observed.contacts_api.post_contact_backend_contacts_add_contact",
+      "catalog_action": "contacts.create_contact",
+      "business_action": "Create a contact",
+      "ui_path": "CRM > Contatos > Adicionar contatos",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI posts to contacts-api /contact/backend/contacts/add-contact (200, {contact_id}). Public API posts /contacts. The HAR did not capture the UI request body (bodySize=0)."
+    },
+    {
+      "observed_id": "observed.contacts_api.delete_contact_backend_contacts_id",
+      "catalog_action": "contacts.delete_contact",
+      "business_action": "Delete a contact",
+      "ui_path": "CRM > Contatos > Excluir definitivamente",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI deletes via contacts-api /contact/backend/contacts/{id} (200). Public API deletes /contacts/{identifier}."
+    },
+    {
+      "observed_id": "observed.contacts_api.post_contact_backend_contacts_lists",
+      "catalog_action": "contacts.add_contact_to_list",
+      "business_action": "Add a contact to one or more lists",
+      "ui_path": "CRM > Contatos > Adicionar contatos > Listas",
+      "equivalence": "partial",
+      "notes": "UI updates contact list membership via contacts-api /contact/backend/contacts/lists. Public API exposes /contacts/lists/{listId}/contacts/add. The UI call may combine membership changes."
+    },
+    {
+      "observed_id": "observed.crm_backend_api.post_crm_backend_company",
+      "catalog_action": "crm.create_company",
+      "business_action": "Create a company",
+      "ui_path": "CRM > Empresas > Criar empresa",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI body: {attributes:{name,owner,domain}, linkedContactsIds, linkedDealsIds, gtm}. Public API posts /companies with a different schema. This is the clearest payload-level difference captured."
+    },
+    {
+      "observed_id": "observed.crm_backend_api.delete_crm_backend_company_id",
+      "catalog_action": "crm.delete_company",
+      "business_action": "Delete a company",
+      "ui_path": "CRM > Empresas > Excluir empresa",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI deletes via crm-backend-api /crm/backend/company/{id} (204). Public API deletes /companies/{id}."
+    },
+    {
+      "observed_id": "observed.contacts_api_v2.get_lists_get_lists",
+      "catalog_action": "contacts.get_lists",
+      "business_action": "List contact lists",
+      "ui_path": "CRM > Listas",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI reads contacts-api-v2 /lists/get-lists. Public API reads GET /contacts/lists."
+    },
+    {
+      "observed_id": "observed.contacts_api_v2.get_lists_get_folders",
+      "catalog_action": "contacts.get_folders",
+      "business_action": "List contact folders",
+      "ui_path": "CRM > Listas > Pastas",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI reads contacts-api-v2 /lists/get-folders. Public API reads GET /contacts/folders."
+    },
+    {
+      "observed_id": "observed.contacts_api.get_contact_backend_contacts_id",
+      "catalog_action": "contacts.get_contact_info",
+      "business_action": "Get a contact's details",
+      "ui_path": "CRM > Contatos > Detalhe do contato",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI reads contacts-api /contact/backend/contacts/{id}. Public API reads GET /contacts/{identifier}."
+    },
+    {
+      "observed_id": "observed.contacts_api.get_contact_backend_settings_get_attributes",
+      "catalog_action": "contacts.get_attributes",
+      "business_action": "List contact attributes",
+      "ui_path": "CRM > Contatos > Configurações > Atributos",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI reads contacts-api /contact/backend/settings/get-attributes. Public API reads GET /contacts/attributes."
+    },
+    {
+      "observed_id": "observed.contacts_api.get_contact_backend_contacts_lists_and_segments",
+      "catalog_action": "contacts.get_lists",
+      "business_action": "List lists and segments for contact assignment",
+      "ui_path": "CRM > Contatos > Adicionar contatos > Listas",
+      "equivalence": "partial",
+      "notes": "UI returns folders, lists and segments in one call. Public API splits this into GET /contacts/lists and GET /contacts/segments."
+    },
+    {
+      "observed_id": "observed.crm_backend_api.get_crm_backend_companies",
+      "catalog_action": "crm.list_companies",
+      "business_action": "List companies",
+      "ui_path": "CRM > Empresas",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI reads crm-backend-api /crm/backend/companies. Public API reads GET /companies."
+    },
+    {
+      "observed_id": "observed.crm_backend_api.get_crm_backend_company_id",
+      "catalog_action": "crm.get_company",
+      "business_action": "Get a company",
+      "ui_path": "CRM > Empresas > Detalhe",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI reads crm-backend-api /crm/backend/company/{id}. Public API reads GET /companies/{id}."
+    },
+    {
+      "observed_id": "observed.crm_backend_api.get_crm_backend_attribute_companies",
+      "catalog_action": "crm.list_company_attributes",
+      "business_action": "List company attributes",
+      "ui_path": "CRM > Empresas > Formulário",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI reads crm-backend-api /crm/backend/attribute/companies. Public API reads GET /crm/attributes/companies."
+    },
+    {
+      "observed_id": "observed.crm_backend_api.get_crm_backend_attributes_deals",
+      "catalog_action": "crm.list_deal_attributes",
+      "business_action": "List deal attributes",
+      "ui_path": "CRM > Oportunidades > Formulário",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI reads crm-backend-api /crm/backend/attributes/deals. Public API reads GET /crm/attributes/deals."
+    },
+    {
+      "observed_id": "observed.segments_api.post_segment_query",
+      "catalog_action": "contacts.get_contacts",
+      "business_action": "Query/search contacts",
+      "ui_path": "CRM > Contatos",
+      "equivalence": "partial",
+      "notes": "UI sends {fe_query, page, limit, force_refresh} to segments-api /segment/query. Public API exposes GET /contacts with different pagination/filter parameters."
+    },
+    {
+      "observed_id": "observed.segments_api.post_segment_count",
+      "catalog_action": "contacts.get_contacts",
+      "business_action": "Count contacts",
+      "ui_path": "CRM > Contatos",
+      "equivalence": "partial",
+      "notes": "UI gets counts from segments-api /segment/count. The public API has no dedicated count endpoint; a caller must paginate GET /contacts."
+    },
+    {
+      "observed_id": "observed.email_campaigns_backend.post_email_campaign_api_regular_setup",
+      "catalog_action": "email_campaigns.create_email_campaign",
+      "business_action": "Create an email campaign",
+      "ui_path": "Marketing > Campanhas > E-mail > Criar campanha",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI setup body: {camp_name, folder_path, tag_ids} -> 201 {id}, then the editor loads the campaign. Public API POST /emailCampaigns takes the full campaign definition (sender, subject, recipients, content) in one call."
+    },
+    {
+      "observed_id": "observed.email_campaigns_backend.delete_email_campaign_api_campaigns",
+      "catalog_action": "email_campaigns.delete_email_campaign",
+      "business_action": "Delete an email campaign",
+      "ui_path": "Marketing > Campanhas > Excluir",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI deletes via email-campaigns-backend /email-campaign/api/campaigns. Public API deletes /emailCampaigns/{campaignId}."
+    },
+    {
+      "observed_id": "observed.unified_templates.post_email_templates",
+      "catalog_action": "templates.create_smtp_template",
+      "business_action": "Create an email template",
+      "ui_path": "Marketing > Modelos > Criar modelo > Modelo de e-mail",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI body includes {name, subject, from_email, from_name, sender_id, content, reply_to, tag, tracking}. Public API POST /smtp/templates uses sender/templateName/subject/htmlContent and a different tracking shape."
+    },
+    {
+      "observed_id": "observed.email_campaigns_backend.delete_email_template_api_templates",
+      "catalog_action": "templates.delete_smtp_template",
+      "business_action": "Delete an email template",
+      "ui_path": "Marketing > Modelos > Excluir",
+      "equivalence": "same_capability_different_surface",
+      "notes": "UI deletes via email-campaigns-backend /email-template/api/templates. Public API deletes /smtp/templates/{templateId}."
+    },
+    {
+      "observed_id": "observed.forms_api.post_forms_api_forms",
+      "catalog_action": "forms.create_sign_up_form",
+      "business_action": "Create a sign-up form",
+      "ui_path": "Marketing > Formulários > Criar um formulário de inscrição",
+      "equivalence": "ui_only_confirmed",
+      "notes": "No public API equivalent. The observed internal endpoint forms-api /forms-api/forms (201) confirms the UI-only action and its response shape. The request body was not captured (bodySize=0)."
+    }
+  ]
+}

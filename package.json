@@ -1,0 +1,27 @@
+{
+  "name": "brevo-agent-catalog",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Agent-ready catalog of Brevo business actions, derived from the public OpenAPI spec and public product documentation (no logged-in session or network capture).",
+  "scripts": {
+    "fetch:spec": "node scripts/fetch-openapi.mjs",
+    "build": "node scripts/build-catalog.mjs",
+    "validate": "node scripts/validate.mjs",
+    "report": "node scripts/coverage-report.mjs",
+    "search": "node scripts/search.mjs",
+    "import:har": "node scripts/import-har.mjs",
+    "compare": "node scripts/compare-surfaces.mjs",
+    "verify": "node scripts/verify-live.mjs",
+    "verify:flows": "node scripts/verify-flows.mjs",
+    "verify:advanced": "node scripts/verify-advanced-flows.mjs",
+    "verify:negative": "node scripts/verify-negative-contracts.mjs",
+    "diagnose:delivery": "node scripts/diagnose-delivery.mjs",
+    "verify:transactional": "node scripts/verify-transactional-delivery.mjs",
+    "all": "npm run build && npm run validate && npm run report"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "js-yaml": "^4.1.0"
+  }
+}

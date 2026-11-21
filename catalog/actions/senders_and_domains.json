@@ -1,0 +1,2342 @@
+[
+  {
+    "id": "senders_and_domains.authenticate_domain",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Authenticate a sender domain",
+    "intent": "Trigger authentication checks for a sender domain (Brevo code, DKIM, DMARC).",
+    "description": "Authenticates a specific domain. Use this to: - Authenticate a domain - Verify DNS record configuration - Complete domain setup for sending - Enable domain for email authentication Key information returned: - Authentication success confirmation - Domain readiness status for email sending",
+    "action_type": "configure",
+    "when_to_use": "After DNS records are configured and before sending production traffic.",
+    "when_not_to_use": "Do not use repeatedly without changing DNS — check the returned configuration first.",
+    "preconditions": [
+      "Domain added to the account",
+      "DNS records configured"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "domainName": {
+          "type": "string",
+          "x-in": "path",
+          "description": "Domain name"
+        }
+      },
+      "required": [
+        "domainName"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "domainName"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "domain_name": {
+            "description": "Domain name that was authenticated",
+            "example": "mycompany.com",
+            "type": "string"
+          },
+          "message": {
+            "description": "Success message confirming authentication",
+            "example": "Domain has been authenticated successfully.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "domain_name",
+          "message"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "domain_name": "mycompany.com",
+        "message": "Domain has been authenticated successfully."
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Runs authentication checks",
+      "Changes domain authentication status"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/senders/domains/{domainName}/authenticate",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__authenticate_domain"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "authenticateDomain",
+      "tag": "Domains",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": "Account > Senders & Domains > Domains > Authenticate"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Authenticate a sender domain",
+        "ui_path": "Account > Senders & Domains > Domains > Authenticate",
+        "status": "covered"
+      },
+      {
+        "name": "Authenticate a domain with DKIM and DMARC",
+        "ui_path": "Deliverability > Domain authentication",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "verify domain",
+      "dkim check",
+      "authenticate sender domain",
+      "authenticate",
+      "sender",
+      "domain",
+      "senders and domains",
+      "dkim",
+      "dmarc",
+      "spf"
+    ],
+    "related_actions": [
+      "senders_and_domains.get_domain_configuration",
+      "senders_and_domains.create_domain"
+    ],
+    "tags": [
+      "senders_and_domains",
+      "configure",
+      "domains"
+    ],
+    "confidence": 0.99,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "senders_and_domains.create_domain",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Create a new sender domain",
+    "intent": "Create a new sender domain",
+    "description": "Creates a new domain in Brevo. Use this to: - Add new domains for sending emails - Set up domain authentication for better deliverability - Configure DNS records for email authentication - Establish domain-based sender identities Key information returned: - Created domain ID and configuration - Required DNS records for authentication - Domain provider detection results - Setup instructions and next steps",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Domain name to be added",
+          "example": "mycompany.com",
+          "type": "string",
+          "format": "hostname",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Domain configuration",
+        "schema": {
+          "properties": {
+            "name": {
+              "description": "Domain name to be added",
+              "example": "mycompany.com",
+              "type": "string",
+              "format": "hostname"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "example": {
+          "name": "mycompany.com"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "id": {
+            "description": "ID of the Domain created",
+            "example": 5,
+            "format": "int64",
+            "type": "integer"
+          },
+          "domain_name": {
+            "description": "Domain name",
+            "example": "mycompany.com",
+            "type": "string"
+          },
+          "domain_provider": {
+            "description": "Detected domain provider",
+            "example": "Cloudflare",
+            "type": "string"
+          },
+          "message": {
+            "description": "Success message with next steps",
+            "example": "Domain added successfully. To authenticate it, add following DNS records",
+            "type": "string"
+          },
+          "dns_records": {
+            "description": "DNS records required for domain authentication",
+            "properties": {
+              "brevo_code": {
+                "description": "Brevo verification code record",
+                "properties": {
+                  "host_name": {
+                    "description": "DNS record hostname",
+                    "example": "@",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "DNS record type",
+                    "example": "TXT",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "DNS record value",
+                    "example": "brevo-code=abc123def456",
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "Whether the record is properly configured",
+                    "example": false,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "host_name",
+                  "type",
+                  "value",
+                  "status"
+                ],
+                "type": "object"
+              },
+              "dkim_record": {
+                "description": "DKIM authentication record",
+                "properties": {
+                  "host_name": {
+                    "description": "DNS record hostname",
+                    "example": "mail._domainkey",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "DNS record type",
+                    "example": "TXT",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "DNS record value",
+                    "example": "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GN...",
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "Whether the record is properly configured",
+                    "example": false,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "host_name",
+                  "type",
+                  "value",
+                  "status"
+                ],
+                "type": "object"
+              },
+              "dmarc_record": {
+                "description": "DMARC policy record",
+                "properties": {
+                  "host_name": {
+                    "description": "DNS record hostname",
+                    "example": "_dmarc",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "DNS record type",
+                    "example": "TXT",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "DNS record value",
+                    "example": "v=DMARC1; p=none; rua=mailto:dmarc@mycompany.com",
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "Whether the record is properly configured",
+                    "example": false,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "host_name",
+                  "type",
+                  "value",
+                  "status"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "brevo_code",
+              "dkim_record",
+              "dmarc_record"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "domain_name",
+          "message"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "id": 5,
+        "domain_name": "mycompany.com",
+        "domain_provider": "Cloudflare",
+        "message": "Domain added successfully. To authenticate it, add following DNS records",
+        "dns_records": {
+          "brevo_code": {
+            "host_name": "@",
+            "type": "TXT",
+            "value": "brevo-code=abc123def456",
+            "status": false
+          },
+          "dkim_record": {
+            "host_name": "mail._domainkey",
+            "type": "TXT",
+            "value": "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GN...",
+            "status": false
+          },
+          "dmarc_record": {
+            "host_name": "_dmarc",
+            "type": "TXT",
+            "value": "v=DMARC1; p=none; rua=mailto:dmarc@mycompany.com",
+            "status": false
+          }
+        }
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/senders/domains",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__create_domain"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createDomain",
+      "tag": "Domains",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": "Account > Senders & Domains > Domains"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create a sender domain",
+        "ui_path": "Account > Senders & Domains > Domains",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "new",
+      "sender",
+      "domain",
+      "senders and domains",
+      "add domain"
+    ],
+    "related_actions": [],
+    "tags": [
+      "senders_and_domains",
+      "create",
+      "domains"
+    ],
+    "confidence": 0.96,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /senders/domains",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    }
+  },
+  {
+    "id": "senders_and_domains.create_sender",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Create email sender",
+    "intent": "Create a sender identity (from name/email) that campaigns and transactional emails can use.",
+    "description": "Creates a new email sender in your Brevo account. **Use this to:** - Add new senders for email campaigns - Configure sender identity (name and email) - Associate dedicated IPs with the sender (for dedicated IP accounts) - Set up domain-based sender configurations **Key information returned:** - Created sender ID - DKIM and SPF configuration status - Success confirmation **Important considerations:** - Verification email sent to specified sender address - DKIM and SPF configuration affects deliverability - Dedicated IP accounts require IP association during creation - IP weights must sum to 10…",
+    "action_type": "create",
+    "when_to_use": "When a new brand, domain or team needs its own From address.",
+    "when_not_to_use": "Do not use if the domain is not authenticated — deliverability will suffer.",
+    "preconditions": [
+      "Access to the mailbox for OTP validation",
+      "Domain ideally authenticated"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "From email to use for the sender. A verification email will be\nsent to this address.",
+          "example": "support@example.com",
+          "format": "email",
+          "type": "string",
+          "x-in": "body"
+        },
+        "ips": {
+          "description": "**Mandatory in case of dedicated IP**. IPs to associate to the\nsender. Not required for standard accounts.",
+          "items": {
+            "properties": {
+              "domain": {
+                "description": "Domain of the IP",
+                "example": "example.com",
+                "type": "string"
+              },
+              "ip": {
+                "description": "Dedicated IP available in your account",
+                "example": "203.0.113.100",
+                "type": "string"
+              },
+              "weight": {
+                "description": "Weight to apply to the IP. Sum of all IP weights must be\n100. Should be passed for either ALL or NONE of the IPs.\nIf it's not passed, the sending will be equally balanced\non all IPs.",
+                "example": 50,
+                "format": "int64",
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "domain",
+              "ip"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "From Name to use for the sender",
+          "example": "Support Team",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "email",
+        "name"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "sender's configuration",
+        "schema": {
+          "properties": {
+            "email": {
+              "description": "From email to use for the sender. A verification email will be\nsent to this address.",
+              "example": "support@example.com",
+              "format": "email",
+              "type": "string"
+            },
+            "ips": {
+              "description": "**Mandatory in case of dedicated IP**. IPs to associate to the\nsender. Not required for standard accounts.",
+              "items": {
+                "properties": {
+                  "domain": {
+                    "description": "Domain of the IP",
+                    "example": "example.com",
+                    "type": "string"
+                  },
+                  "ip": {
+                    "description": "Dedicated IP available in your account",
+                    "example": "203.0.113.100",
+                    "type": "string"
+                  },
+                  "weight": {
+                    "description": "Weight to apply to the IP. Sum of all IP weights must be\n100. Should be passed for either ALL or NONE of the IPs.\nIf it's not passed, the sending will be equally balanced\non all IPs.",
+                    "example": 50,
+                    "format": "int64",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "domain",
+                  "ip"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "name": {
+              "description": "From Name to use for the sender",
+              "example": "Support Team",
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "name"
+          ],
+          "type": "object"
+        },
+        "example": {
+          "email": "support@example.com",
+          "name": "Support Team"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "dkimError": {
+            "description": "Status of DKIM configuration for the sender (true = DKIM not\nwell configured, false = DKIM well configured)",
+            "example": false,
+            "type": "boolean"
+          },
+          "id": {
+            "description": "ID of the Sender created",
+            "example": 15,
+            "format": "int64",
+            "type": "integer"
+          },
+          "spfError": {
+            "description": "Status of SPF configuration for the sender (true = SPF not\nwell configured, false = SPF well configured)",
+            "example": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "id": 15,
+        "dkimError": false,
+        "spfError": false
+      }
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a sender in pending state until validated"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/senders",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__create_sender"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createSender",
+      "tag": "Senders",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": "Account > Senders & Domains > Senders"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create a sender",
+        "ui_path": "Account > Senders & Domains > Senders",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "add sender",
+      "from address",
+      "sender identity",
+      "create",
+      "email",
+      "sender",
+      "senders and domains"
+    ],
+    "related_actions": [
+      "senders_and_domains.validate_sender_otp",
+      "senders_and_domains.authenticate_domain"
+    ],
+    "tags": [
+      "senders_and_domains",
+      "create",
+      "senders"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "senders_and_domains.delete_domain",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Delete a sender domain",
+    "intent": "Delete a sender domain",
+    "description": "Deletes a domain from Brevo. Use this to: - Remove existing domains - Clean up unused domain configurations - Remove test domains Key information returned: - Success confirmation message",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "domainName": {
+          "type": "string",
+          "x-in": "path",
+          "description": "Domain name"
+        }
+      },
+      "required": [
+        "domainName"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "domainName"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/senders/domains/{domainName}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__delete_domain"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deleteDomain",
+      "tag": "Domains",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": "Account > Senders & Domains > Domains"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Delete a sender domain",
+        "ui_path": "Account > Senders & Domains > Domains",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "delete",
+      "sender",
+      "domain",
+      "senders and domains",
+      "remove domain"
+    ],
+    "related_actions": [],
+    "tags": [
+      "senders_and_domains",
+      "delete",
+      "domains"
+    ],
+    "confidence": 0.9,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /senders/domains/{test}",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    }
+  },
+  {
+    "id": "senders_and_domains.delete_sender",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Delete a sender",
+    "intent": "Delete a sender",
+    "description": "Deletes an email sender from your Brevo account. Use this to: - Remove senders that are no longer needed - Clean up sender configurations - Remove duplicate or test senders Key information returned: - Success confirmation message",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "senderId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the sender"
+        }
+      },
+      "required": [
+        "senderId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "senderId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Sender ID not found"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/senders/{senderId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__delete_sender"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deleteSender",
+      "tag": "Senders",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": "Account > Senders & Domains > Senders"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Delete a sender",
+        "ui_path": "Account > Senders & Domains > Senders",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "delete",
+      "sender",
+      "senders and domains",
+      "remove sender"
+    ],
+    "related_actions": [],
+    "tags": [
+      "senders_and_domains",
+      "delete",
+      "senders"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "senders_and_domains.get_domain_configuration",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Get a sender domain configuration",
+    "intent": "Get a sender domain configuration",
+    "description": "Retrieves configuration of a specific domain, to know if the domain is valid or not. Use this to: - Check domain configuration - Validate a domain configuration - Monitor DNS record status - Troubleshoot authentication issues Key information returned: - Domain verification and authentication status - DNS records configuration and validation status - Detailed authentication requirements",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "domainName": {
+          "type": "string",
+          "x-in": "path",
+          "description": "Domain name"
+        }
+      },
+      "required": [
+        "domainName"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "domainName"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "domain": {
+            "description": "Domain name",
+            "example": "mycompany.com",
+            "type": "string"
+          },
+          "verified": {
+            "description": "Status of domain verification (true=verified, false=non\nverified)",
+            "example": true,
+            "type": "boolean"
+          },
+          "authenticated": {
+            "description": "Status of domain authentication (true=authenticated, false=non\nauthenticated)",
+            "example": false,
+            "type": "boolean"
+          },
+          "dns_records": {
+            "description": "DNS records configuration and status",
+            "properties": {
+              "brevo_code": {
+                "description": "Brevo verification code record",
+                "properties": {
+                  "host_name": {
+                    "description": "DNS record hostname",
+                    "example": "@",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "DNS record type",
+                    "example": "TXT",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "DNS record value",
+                    "example": "brevo-code=abc123def456",
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "Whether the record is properly configured",
+                    "example": true,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "host_name",
+                  "type",
+                  "value",
+                  "status"
+                ],
+                "type": "object"
+              },
+              "dkim_record": {
+                "description": "DKIM authentication record",
+                "properties": {
+                  "host_name": {
+                    "description": "DNS record hostname",
+                    "example": "mail._domainkey",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "DNS record type",
+                    "example": "TXT",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "DNS record value",
+                    "example": "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GN...",
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "Whether the record is properly configured",
+                    "example": true,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "host_name",
+                  "type",
+                  "value",
+                  "status"
+                ],
+                "type": "object"
+              },
+              "dmarc_record": {
+                "description": "DMARC policy record",
+                "properties": {
+                  "host_name": {
+                    "description": "DNS record hostname",
+                    "example": "_dmarc",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "DNS record type",
+                    "example": "TXT",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "DNS record value",
+                    "example": "v=DMARC1; p=quarantine; rua=mailto:dmarc@mycompany.com",
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "Whether the record is properly configured",
+                    "example": true,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "host_name",
+                  "type",
+                  "value",
+                  "status"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "brevo_code",
+              "dkim_record",
+              "dmarc_record"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "domain",
+          "verified",
+          "authenticated",
+          "dns_records"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "domain": "mycompany.com",
+        "verified": true,
+        "authenticated": true,
+        "dns_records": {
+          "brevo_code": {
+            "host_name": "@",
+            "type": "TXT",
+            "value": "brevo-code=abc123def456",
+            "status": true
+          },
+          "dkim_record": {
+            "host_name": "mail._domainkey",
+            "type": "TXT",
+            "value": "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GN...",
+            "status": true
+          },
+          "dmarc_record": {
+            "host_name": "_dmarc",
+            "type": "TXT",
+            "value": "v=DMARC1; p=quarantine; rua=mailto:dmarc@mycompany.com",
+            "status": true
+          }
+        }
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/senders/domains/{domainName}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__get_domain_configuration"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getDomainConfiguration",
+      "tag": "Domains",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "sender",
+      "domain",
+      "configuration",
+      "senders and domains"
+    ],
+    "related_actions": [],
+    "tags": [
+      "senders_and_domains",
+      "read",
+      "domains"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /senders/domains/{test}",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    }
+  },
+  {
+    "id": "senders_and_domains.get_domains",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Get the list of all sender domains",
+    "intent": "Get the list of all sender domains",
+    "description": "Retrieves all domains associated with the account. Use this to: - List all domains - Verify domain existence - Check domain authentication and verification status - Monitor domain configuration and provider information - Review domain creation history and ownership Key information returned: - Domain details (ID, name, authentication status) - Verification and authentication states - Associated IP addresses and DNS providers - Creator information and creation timestamps - Pagination information for large domain lists",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "domains": {
+            "description": "List of the domains available in your account",
+            "items": {
+              "properties": {
+                "id": {
+                  "description": "Unique identifier of the domain",
+                  "example": "67e57b40130375f045064c45",
+                  "type": "string"
+                },
+                "domain_name": {
+                  "description": "Domain name",
+                  "example": "mycompany.com",
+                  "type": "string"
+                },
+                "authenticated": {
+                  "description": "Status of domain authentication (true=authenticated,\nfalse=non authenticated)",
+                  "example": true,
+                  "type": "boolean"
+                },
+                "verified": {
+                  "description": "Status of domain verification (true=verified, false=non\nverified)",
+                  "example": true,
+                  "type": "boolean"
+                },
+                "ip": {
+                  "description": "Dedicated IP associated with domain (null if none)",
+                  "example": "192.168.1.100",
+                  "type": "string",
+                  "nullable": true
+                },
+                "provider": {
+                  "description": "DNS provider for the domain",
+                  "example": "Cloudflare",
+                  "type": "string"
+                },
+                "creator": {
+                  "description": "Information about who created the domain",
+                  "properties": {
+                    "id": {
+                      "description": "Creator's user ID",
+                      "example": "62e4fce597550d0b0177cb0c",
+                      "type": "string"
+                    },
+                    "email": {
+                      "description": "Creator's email address",
+                      "example": "admin@mycompany.com",
+                      "type": "string"
+                    },
+                    "creationDate": {
+                      "description": "Domain creation date",
+                      "example": "2025-03-27T16:22:24+00:00",
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "email",
+                    "creationDate"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "id",
+                "domain_name",
+                "authenticated",
+                "verified",
+                "provider",
+                "creator"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "count": {
+            "description": "Total number of domains",
+            "example": 23,
+            "type": "integer"
+          },
+          "current_page": {
+            "description": "Current page number",
+            "example": 1,
+            "type": "integer"
+          },
+          "total_pages": {
+            "description": "Total number of pages",
+            "example": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "domains",
+          "count",
+          "current_page",
+          "total_pages"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "domains": [
+          {
+            "id": "67e57b40130375f045064c45",
+            "domain_name": "mycompany.com",
+            "authenticated": true,
+            "verified": true,
+            "ip": "192.168.1.100",
+            "provider": "Cloudflare",
+            "creator": {
+              "id": "62e4fce597550d0b0177cb0c",
+              "email": "admin@mycompany.com",
+              "creationDate": "2025-03-27T16:22:24+00:00"
+            }
+          },
+          {
+            "id": "67f778570dd65f97c70910ed",
+            "domain_name": "newsletter.mycompany.com",
+            "authenticated": false,
+            "verified": true,
+            "ip": null,
+            "provider": "GoDaddy",
+            "creator": {
+              "id": "62e4fce597550d0b0177cb0c",
+              "email": "admin@mycompany.com",
+              "creationDate": "2025-04-10T07:50:47+00:00"
+            }
+          },
+          {
+            "id": "688cd306d8893504e50ea615",
+            "domain_name": "test.example.com",
+            "authenticated": false,
+            "verified": false,
+            "ip": null,
+            "provider": "Other",
+            "creator": {
+              "id": "62e4fce597550d0b0177cb0c",
+              "email": "admin@mycompany.com",
+              "creationDate": "2025-08-01T14:45:26+00:00"
+            }
+          }
+        ],
+        "count": 3,
+        "current_page": 1,
+        "total_pages": 1
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/senders/domains",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__get_domains"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getDomains",
+      "tag": "Domains",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "list",
+      "sender",
+      "domains",
+      "senders and domains"
+    ],
+    "related_actions": [],
+    "tags": [
+      "senders_and_domains",
+      "read",
+      "domains"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/senders/domains",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "read_check"
+    }
+  },
+  {
+    "id": "senders_and_domains.get_ips",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Get all the dedicated IPs for your account",
+    "intent": "Get all the dedicated IPs for your account",
+    "description": "Retrieves all dedicated IPs associated with your Brevo account. Use this to: - List all your dedicated IPs - Check the status of your dedicated IPs (active/inactive) - Find IP addresses and associated domains for configuration purposes - Monitor your IP reputation and deliverability - Verify available IPs for sender configuration Key information returned: - IP ID and address - Associated domain - Active status - IP configuration details",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "ips": {
+            "description": "Dedicated IP(s) available on your account. Returns empty array\nfor standard accounts without dedicated IPs.",
+            "items": {
+              "properties": {
+                "id": {
+                  "description": "ID of the dedicated IP",
+                  "example": 1,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "active": {
+                  "description": "Status of the IP (true=active, false=inactive)",
+                  "example": true,
+                  "type": "boolean"
+                },
+                "domain": {
+                  "description": "Domain associated to the IP",
+                  "example": "mailing.enterprise.com",
+                  "type": "string"
+                },
+                "ip": {
+                  "description": "Dedicated IP address",
+                  "example": "192.168.1.100",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "active",
+                "domain",
+                "ip"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "ips"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "ips": []
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/senders/ips",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__get_ips"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getIps",
+      "tag": "Senders",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": "Account > Senders & Domains > Dedicated IPs"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "List dedicated IPs",
+        "ui_path": "Account > Senders & Domains > Dedicated IPs",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "get",
+      "dedicated",
+      "ips",
+      "account",
+      "dedicated ip",
+      "senders and domains",
+      "dedicated ips",
+      "list"
+    ],
+    "related_actions": [],
+    "tags": [
+      "senders_and_domains",
+      "read",
+      "senders"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "senders_and_domains.get_ips_from_sender",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Get all the dedicated IPs for a specific sender",
+    "intent": "Get all the dedicated IPs for a specific sender",
+    "description": "Retrieves the dedicated IPs associated with a specific sender. Use this to: - Check IP configuration for a sender - Verify dedicated IP associations - Get IP details for troubleshooting - Monitor sender IP configuration Key information returned: - List of associated dedicated IPs - IP addresses and domain configurations - IP status and settings",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "senderId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the sender"
+        }
+      },
+      "required": [
+        "senderId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "senderId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "ips": {
+            "description": "Dedicated IP(s) linked to a sender. Returns empty array for standard accounts\nwithout dedicated IPs.",
+            "items": {
+              "properties": {
+                "domain": {
+                  "description": "Domain associated to the IP",
+                  "example": "mailing.enterprise.com",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "ID of the dedicated IP",
+                  "example": 3,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "ip": {
+                  "description": "Dedicated IP address",
+                  "example": "192.168.1.100",
+                  "type": "string"
+                },
+                "weight": {
+                  "description": "Weight of the IP for this sender",
+                  "example": 75,
+                  "format": "int64",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "domain",
+                "id",
+                "ip",
+                "weight"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "ips"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "ips": []
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Sender ID not found"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/senders/{senderId}/ips",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__get_ips_from_sender"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getIpsFromSender",
+      "tag": "Senders",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "dedicated",
+      "ips",
+      "specific",
+      "sender",
+      "dedicated ip",
+      "senders and domains"
+    ],
+    "related_actions": [],
+    "tags": [
+      "senders_and_domains",
+      "read",
+      "senders"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "senders_and_domains.get_senders",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Get email senders",
+    "intent": "Get email senders",
+    "description": "Retrieves a list of all email senders from your Brevo account with optional filtering. **Use this to:** - Get all available senders for email campaign setup - Find sender details including ID, name, and email address - Filter senders by IP address for dedicated IP users - Filter senders by domain for domain-specific configurations - Monitor sender configuration and status **Key information returned:** - Sender details (ID, name, email address) - Sender status and verification information - Associated IP addresses and domains (for dedicated IP accounts) - Sender configuration settings **Import…",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "ip": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter your senders for a specific ip. **Available for dedicated IP usage only**"
+        },
+        "domain": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter your senders for a specific domain"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "ip",
+        "domain"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "senders": {
+            "description": "List of the senders available in your account",
+            "items": {
+              "properties": {
+                "active": {
+                  "description": "Status of sender (true=activated, false=deactivated)",
+                  "example": true,
+                  "type": "boolean"
+                },
+                "email": {
+                  "description": "From Email associated to the sender",
+                  "example": "support@example.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "Id of the sender",
+                  "example": 1,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "ips": {
+                  "description": "List of dedicated IP(s) available in the account. This\ndata is displayed only for dedicated IPs. For standard accounts,\nthis will be an empty array.",
+                  "items": {
+                    "properties": {
+                      "domain": {
+                        "description": "Domain of the IP",
+                        "example": "example.com",
+                        "type": "string"
+                      },
+                      "ip": {
+                        "description": "Dedicated IP available in your account",
+                        "example": "203.0.113.100",
+                        "type": "string"
+                      },
+                      "weight": {
+                        "description": "Weight of the IP for this sender",
+                        "example": 50,
+                        "format": "int64",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "domain",
+                      "ip",
+                      "weight"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "name": {
+                  "description": "From Name associated to the sender",
+                  "example": "Support Team",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "active",
+                "email",
+                "id",
+                "name",
+                "ips"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "senders": [
+          {
+            "active": true,
+            "email": "support@example.com",
+            "id": 1,
+            "ips": [],
+            "name": "Support Team"
+          },
+          {
+            "active": false,
+            "email": "hello@example.com",
+            "id": 3,
+            "ips": [],
+            "name": "Customer Service"
+          },
+          {
+            "active": false,
+            "email": "marketing@testcompany.com",
+            "id": 5,
+            "ips": [],
+            "name": "Marketing Team"
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/senders",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__get_senders"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getSenders",
+      "tag": "Senders",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "email",
+      "senders",
+      "senders and domains"
+    ],
+    "related_actions": [],
+    "tags": [
+      "senders_and_domains",
+      "read",
+      "senders"
+    ],
+    "confidence": 0.99,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /senders",
+      "http_status": 200,
+      "note": null,
+      "kind": "write_flow"
+    }
+  },
+  {
+    "id": "senders_and_domains.update_sender",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Update a sender",
+    "intent": "Update a sender",
+    "description": "Updates an existing email sender's configuration. Use this to: - Modify sender display name or email address - Update dedicated IP associations - Change sender configuration settings - Correct sender information Key information returned: - Success confirmation - Updated sender details",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "senderId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the sender"
+        },
+        "email": {
+          "description": "From Email to update the sender",
+          "example": "newsupport@mycompany.com",
+          "format": "email",
+          "type": "string",
+          "x-in": "body"
+        },
+        "ips": {
+          "description": "**Only in case of dedicated IP**. IPs to associate to the\nsender. If passed, will replace all the existing IPs. Not required for standard accounts.",
+          "items": {
+            "properties": {
+              "domain": {
+                "description": "Domain of the IP",
+                "example": "mycompany.com",
+                "type": "string"
+              },
+              "ip": {
+                "description": "Dedicated IP available in your account",
+                "example": "192.168.1.100",
+                "type": "string"
+              },
+              "weight": {
+                "description": "Weight to apply to the IP. Sum of all IP weights must be\n100. Should be passed for either ALL or NONE of the IPs.\nIf it's not passed, the sending will be equally balanced\non all IPs.",
+                "example": 50,
+                "format": "int64",
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "domain",
+              "ip"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "From Name to update the sender",
+          "example": "Support Team",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "senderId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "senderId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": false,
+        "media_type": "application/json",
+        "description": "sender's configuration to update",
+        "schema": {
+          "properties": {
+            "email": {
+              "description": "From Email to update the sender",
+              "example": "newsupport@mycompany.com",
+              "format": "email",
+              "type": "string"
+            },
+            "ips": {
+              "description": "**Only in case of dedicated IP**. IPs to associate to the\nsender. If passed, will replace all the existing IPs. Not required for standard accounts.",
+              "items": {
+                "properties": {
+                  "domain": {
+                    "description": "Domain of the IP",
+                    "example": "mycompany.com",
+                    "type": "string"
+                  },
+                  "ip": {
+                    "description": "Dedicated IP available in your account",
+                    "example": "192.168.1.100",
+                    "type": "string"
+                  },
+                  "weight": {
+                    "description": "Weight to apply to the IP. Sum of all IP weights must be\n100. Should be passed for either ALL or NONE of the IPs.\nIf it's not passed, the sending will be equally balanced\non all IPs.",
+                    "example": 50,
+                    "format": "int64",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "domain",
+                  "ip"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "name": {
+              "description": "From Name to update the sender",
+              "example": "Support Team",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "example": {
+          "name": "New Support Team"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Sender ID not found"
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/senders/{senderId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__update_sender"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "updateSender",
+      "tag": "Senders",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": "Account > Senders & Domains > Senders"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Update a sender",
+        "ui_path": "Account > Senders & Domains > Senders",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "update",
+      "sender",
+      "senders and domains",
+      "edit sender"
+    ],
+    "related_actions": [],
+    "tags": [
+      "senders_and_domains",
+      "update",
+      "senders"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "senders_and_domains.validate_sender_otp",
+    "version": "1.0.0",
+    "domain": "senders_and_domains",
+    "domain_label": "Senders, domains & IPs",
+    "name": "Validate a sender using OTP",
+    "intent": "Validate a sender using OTP",
+    "description": "Validates a sender using the OTP (One-Time Password) received via email. Use this to: - Complete sender verification process - Activate a newly created sender - Verify ownership of the sender email address - Enable the sender for use in email campaigns Key information returned: - Success confirmation of sender verification - Sender activation status",
+    "action_type": "validate",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "senderId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the sender"
+        },
+        "otp": {
+          "description": "6 digit OTP received on email",
+          "example": 123456,
+          "type": "integer",
+          "minimum": 100000,
+          "maximum": 999999,
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "senderId",
+        "otp"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "senderId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "OTP verification code",
+        "schema": {
+          "properties": {
+            "otp": {
+              "description": "6 digit OTP received on email",
+              "example": 123456,
+              "type": "integer",
+              "minimum": 100000,
+              "maximum": 999999
+            }
+          },
+          "required": [
+            "otp"
+          ],
+          "type": "object"
+        },
+        "example": {
+          "otp": 123456
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Sender ID not found"
+      }
+    ],
+    "side_effects": [
+      "Read-only validation"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/senders/{senderId}/validate",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "senders_and_domains__validate_sender_otp"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "validateSenderByOTP",
+      "tag": "Senders",
+      "ui_area": "Account > Senders & Domains",
+      "ui_path": "Account > Senders & Domains > Senders > Validate"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Validate a sender with OTP",
+        "ui_path": "Account > Senders & Domains > Senders > Validate",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "validate",
+      "sender",
+      "using",
+      "otp",
+      "senders and domains",
+      "verify sender",
+      "otp sender"
+    ],
+    "related_actions": [],
+    "tags": [
+      "senders_and_domains",
+      "validate",
+      "senders"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

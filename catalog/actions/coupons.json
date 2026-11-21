@@ -1,0 +1,991 @@
+[
+  {
+    "id": "coupons.create_coupon_collection",
+    "version": "1.0.0",
+    "domain": "coupons",
+    "domain_label": "Coupons",
+    "name": "Create а coupon collection",
+    "intent": "Create a coupon collection that will hold generated discount codes.",
+    "description": "Create a new coupon collection with a name and a default coupon value. You can optionally set an expiration date in RFC3339 format and configure alert thresholds to receive email notifications when remaining coupons or remaining days before expiration fall below a specified number. The collection ID is auto-generated as a UUID and returned in the response.",
+    "action_type": "create",
+    "when_to_use": "Before generating a batch of promo codes.",
+    "when_not_to_use": "Do not use to add codes to an existing collection — use coupons.create_coupons.",
+    "preconditions": [
+      "Collection name",
+      "Default coupon settings"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "defaultCoupon": {
+          "description": "Default coupons collection name",
+          "example": "Winter",
+          "type": "string",
+          "x-in": "body"
+        },
+        "expirationDate": {
+          "description": "Specify an expiration date for the coupon collection in RFC3339 format. Use null to remove the expiration date.",
+          "example": "2022-01-02T00:00:00Z",
+          "format": "date-time",
+          "type": "string",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "Name of the coupons collection",
+          "example": "10%OFF",
+          "type": "string",
+          "x-in": "body"
+        },
+        "remainingCouponsAlert": {
+          "description": "Send a notification alert (email) when the remaining coupons count is equal or fall bellow this number. Use null to disable alerts.",
+          "example": 5,
+          "type": "integer",
+          "x-in": "body"
+        },
+        "remainingDaysAlert": {
+          "description": "Send a notification alert (email) when the remaining days until the expiration date are equal or fall bellow this number. Use null to disable alerts.",
+          "example": 5,
+          "type": "integer",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "name",
+        "defaultCoupon"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create a coupon collection",
+        "schema": {
+          "properties": {
+            "defaultCoupon": {
+              "description": "Default coupons collection name",
+              "example": "Winter",
+              "type": "string"
+            },
+            "expirationDate": {
+              "description": "Specify an expiration date for the coupon collection in RFC3339 format. Use null to remove the expiration date.",
+              "example": "2022-01-02T00:00:00Z",
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "description": "Name of the coupons collection",
+              "example": "10%OFF",
+              "type": "string"
+            },
+            "remainingCouponsAlert": {
+              "description": "Send a notification alert (email) when the remaining coupons count is equal or fall bellow this number. Use null to disable alerts.",
+              "example": 5,
+              "type": "integer"
+            },
+            "remainingDaysAlert": {
+              "description": "Send a notification alert (email) when the remaining days until the expiration date are equal or fall bellow this number. Use null to disable alerts.",
+              "example": 5,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "name",
+            "defaultCoupon"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "id": {
+            "description": "The id of the created collection",
+            "example": "23befbae-1505-47a8-bd27-e30ef739f32c",
+            "format": "uuidv4",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      201,
+      400,
+      401
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a collection"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/couponCollections",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "coupons__create_coupon_collection"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createCouponCollection",
+      "tag": "Coupons",
+      "ui_area": "Commerce > Coupons",
+      "ui_path": "Commerce > Coupons > Create collection"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create a coupon collection",
+        "ui_path": "Commerce > Coupons > Create collection",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "coupon set",
+      "discount collection",
+      "promo collection",
+      "create",
+      "coupon",
+      "collection",
+      "coupons"
+    ],
+    "related_actions": [
+      "coupons.create_coupons"
+    ],
+    "tags": [
+      "coupons",
+      "create"
+    ],
+    "confidence": 0.96,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "coupons.create_coupons",
+    "version": "1.0.0",
+    "domain": "coupons",
+    "domain_label": "Coupons",
+    "name": "Create coupons for a coupon collection",
+    "intent": "Generate a batch of coupon codes inside a collection.",
+    "description": "Add coupons to an existing coupon collection. The `coupons` array must contain between 1 and 10,000 unique coupon code strings, all associated with the specified `collectionId`. Coupon creation is processed asynchronously and a `204` status is returned immediately upon acceptance. Returns a `404` error if the specified coupon collection does not exist.",
+    "action_type": "create",
+    "when_to_use": "For promotions that need many unique codes.",
+    "when_not_to_use": "Do not use if the collection does not exist.",
+    "preconditions": [
+      "Existing coupon collection id",
+      "Number of codes"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "description": "The id of the coupon collection for which the coupons will be created",
+          "example": "23befbae-1505-47a8-bd27-e30ef739f32c",
+          "format": "uuidv4",
+          "type": "string",
+          "x-in": "body"
+        },
+        "coupons": {
+          "items": {
+            "description": "Name of the coupon",
+            "example": "Uf12AF",
+            "type": "string"
+          },
+          "maxItems": 10000,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true,
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "collectionId",
+        "coupons"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create coupons",
+        "schema": {
+          "properties": {
+            "collectionId": {
+              "description": "The id of the coupon collection for which the coupons will be created",
+              "example": "23befbae-1505-47a8-bd27-e30ef739f32c",
+              "format": "uuidv4",
+              "type": "string"
+            },
+            "coupons": {
+              "items": {
+                "description": "Name of the coupon",
+                "example": "Uf12AF",
+                "type": "string"
+              },
+              "maxItems": 10000,
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "collectionId",
+            "coupons"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      401,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Coupon collection not found"
+      }
+    ],
+    "side_effects": [
+      "Creates discount codes",
+      "Codes become redeemable"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/coupons",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "coupons__create_coupons"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createCoupons",
+      "tag": "Coupons",
+      "ui_area": "Commerce > Coupons",
+      "ui_path": "Commerce > Coupons > Generate"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Generate coupons",
+        "ui_path": "Commerce > Coupons > Generate",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "generate coupons",
+      "create promo codes",
+      "discount codes",
+      "create",
+      "coupons",
+      "coupon",
+      "collection",
+      "generate discounts",
+      "generate"
+    ],
+    "related_actions": [
+      "coupons.create_coupon_collection"
+    ],
+    "tags": [
+      "coupons",
+      "create"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "coupons.get_coupon_collection",
+    "version": "1.0.0",
+    "domain": "coupons",
+    "domain_label": "Coupons",
+    "name": "Get a coupon collection by id",
+    "intent": "Get a coupon collection by id",
+    "description": "Retrieve the details of a single coupon collection by its UUID. The response includes the collection name, default coupon value, total and remaining coupon counts, and creation timestamp. Returns a `404` error if no collection matches the provided ID.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuidv4",
+          "type": "string",
+          "x-in": "path",
+          "description": "Id of the collection to return"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "createdAt": {
+            "description": "Datetime on which the collection was created.",
+            "example": "2023-01-06T05:03:47.053000000Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "defaultCoupon": {
+            "description": "The default coupon of the collection.",
+            "example": "10 OFF",
+            "type": "string"
+          },
+          "expirationDate": {
+            "description": "Expiration date for the coupon collection in RFC3339 format.",
+            "example": "2024-01-01T00:00:00Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "description": "The id of the collection.",
+            "example": "23befbae-1505-47a8-bd27-e30ef739f32c",
+            "format": "uuidv4",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the collection.",
+            "example": "SummerPromotions",
+            "type": "string"
+          },
+          "remainingCoupons": {
+            "description": "Number of coupons that have not been sent yet.",
+            "example": 5000,
+            "format": "int64",
+            "type": "integer"
+          },
+          "remainingCouponsAlert": {
+            "description": "If present, an email notification is going to be sent when the total number of available coupons falls below the defined threshold.",
+            "example": 5,
+            "type": "integer"
+          },
+          "remainingDaysAlert": {
+            "description": "If present, an email notification is going to be sent the defined amount of days before to the expiration date.",
+            "example": 5,
+            "type": "integer"
+          },
+          "totalCoupons": {
+            "description": "Total number of coupons in the collection.",
+            "example": 10000,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "defaultCoupon",
+          "createdAt",
+          "totalCoupons",
+          "remainingCoupons"
+        ],
+        "type": "object"
+      },
+      "example": [
+        {
+          "createdAt": "2017-03-12T12:30:00Z",
+          "defaultCoupon": "10 OFF",
+          "id": "23befbae-1505-47a8-bd27-e30ef739f32c",
+          "name": "Summer",
+          "remainingCoupons": 5000,
+          "totalCoupons": 10000
+        }
+      ]
+    },
+    "response_codes": [
+      200,
+      400,
+      401,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Coupon collection not found"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/couponCollections/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "coupons__get_coupon_collection"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getCouponCollection",
+      "tag": "Coupons",
+      "ui_area": "Commerce > Coupons",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "coupon",
+      "collection",
+      "id",
+      "coupons"
+    ],
+    "related_actions": [],
+    "tags": [
+      "coupons",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "coupons.get_coupon_collections",
+    "version": "1.0.0",
+    "domain": "coupons",
+    "domain_label": "Coupons",
+    "name": "Get all your coupon collections",
+    "intent": "Get all your coupon collections",
+    "description": "Retrieve a paginated list of all coupon collections in your Brevo account. Results can be sorted by creation date, remaining coupons count, or expiration date, in ascending or descending order. Pagination defaults to 50 collections per page (maximum 100).",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "default": 50,
+          "format": "int64",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents returned per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document on the page"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results by creation time in ascending/descending order"
+        },
+        "sortBy": {
+          "default": "createdAt",
+          "enum": [
+            "createdAt",
+            "remainingCoupons",
+            "expirationDate"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "The field used to sort coupon collections"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "limit",
+        "offset",
+        "sort",
+        "sortBy"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "createdAt": {
+            "description": "Datetime on which the collection was created.",
+            "example": "2023-01-06T05:03:47.053000000Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "defaultCoupon": {
+            "description": "The default coupon of the collection.",
+            "example": "10 OFF",
+            "type": "string"
+          },
+          "expirationDate": {
+            "description": "Expiration date for the coupon collection in RFC3339 format.",
+            "example": "2024-01-01T00:00:00Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "description": "The id of the collection.",
+            "example": "23befbae-1505-47a8-bd27-e30ef739f32c",
+            "format": "uuidv4",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the collection.",
+            "example": "SummerPromotions",
+            "type": "string"
+          },
+          "remainingCoupons": {
+            "description": "Number of coupons that have not been sent yet.",
+            "example": 5000,
+            "format": "int64",
+            "type": "integer"
+          },
+          "remainingCouponsAlert": {
+            "description": "If present, an email notification is going to be sent when the total number of available coupons falls below the defined threshold.",
+            "example": 5,
+            "type": "integer"
+          },
+          "remainingDaysAlert": {
+            "description": "If present, an email notification is going to be sent the defined amount of days before to the expiration date.",
+            "example": 5,
+            "type": "integer"
+          },
+          "totalCoupons": {
+            "description": "Total number of coupons in the collection.",
+            "example": 10000,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "defaultCoupon",
+          "createdAt",
+          "totalCoupons",
+          "remainingCoupons"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "collections": [
+          {
+            "createdAt": "2017-03-12T12:30:00Z",
+            "defaultCoupon": "10 OFF",
+            "id": "23befbae-1505-47a8-bd27-e30ef739f32c",
+            "name": "Summer",
+            "remainingCoupons": 5000,
+            "totalCoupons": 10000
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      401
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/couponCollections",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "coupons__get_coupon_collections"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getCouponCollections",
+      "tag": "Coupons",
+      "ui_area": "Commerce > Coupons",
+      "ui_path": "Commerce > Coupons"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "List coupon collections",
+        "ui_path": "Commerce > Coupons",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "get",
+      "coupon",
+      "collections",
+      "coupons",
+      "browse coupons",
+      "list"
+    ],
+    "related_actions": [],
+    "tags": [
+      "coupons",
+      "read"
+    ],
+    "confidence": 0.98,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/couponCollections",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Forbidden\"}\n",
+      "kind": "read_check"
+    }
+  },
+  {
+    "id": "coupons.update_coupon_collection",
+    "version": "1.0.0",
+    "domain": "coupons",
+    "domain_label": "Coupons",
+    "name": "Update a coupon collection by id",
+    "intent": "Update a coupon collection by id",
+    "description": "Update an existing coupon collection by its UUID. You can modify the default coupon value, set or remove the expiration date (pass `null` to remove), and configure or disable alert thresholds for remaining coupons or remaining days. Only the fields included in the request body are updated; omitted fields remain unchanged.",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuidv4",
+          "type": "string",
+          "x-in": "path",
+          "description": "Id of the collection to update"
+        },
+        "defaultCoupon": {
+          "description": "A default coupon to be used in case there are no coupons left",
+          "example": "10 OFF",
+          "type": "string",
+          "x-in": "body"
+        },
+        "expirationDate": {
+          "description": "Specify an expiration date for the coupon collection in RFC3339 format. Use null to remove the expiration date.",
+          "example": "2024-01-01T00:00:00Z",
+          "format": "date-time",
+          "type": "string",
+          "x-in": "body"
+        },
+        "remainingCouponsAlert": {
+          "description": "Send a notification alert (email) when the remaining coupons count is equal or fall bellow this number. Use null to disable alerts.",
+          "example": 5,
+          "type": "integer",
+          "x-in": "body"
+        },
+        "remainingDaysAlert": {
+          "description": "Send a notification alert (email) when the remaining days until the expiration date are equal or fall bellow this number. Use null to disable alerts.",
+          "example": 5,
+          "type": "integer",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": false,
+        "media_type": "application/json",
+        "description": "Values to update the coupon collection",
+        "schema": {
+          "properties": {
+            "defaultCoupon": {
+              "description": "A default coupon to be used in case there are no coupons left",
+              "example": "10 OFF",
+              "type": "string"
+            },
+            "expirationDate": {
+              "description": "Specify an expiration date for the coupon collection in RFC3339 format. Use null to remove the expiration date.",
+              "example": "2024-01-01T00:00:00Z",
+              "format": "date-time",
+              "type": "string"
+            },
+            "remainingCouponsAlert": {
+              "description": "Send a notification alert (email) when the remaining coupons count is equal or fall bellow this number. Use null to disable alerts.",
+              "example": 5,
+              "type": "integer"
+            },
+            "remainingDaysAlert": {
+              "description": "Send a notification alert (email) when the remaining days until the expiration date are equal or fall bellow this number. Use null to disable alerts.",
+              "example": 5,
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "defaultCoupon": {
+            "description": "The default coupon of the collection",
+            "example": "10 OFF",
+            "type": "string"
+          },
+          "id": {
+            "description": "The id of the collection",
+            "example": "23befbae-1505-47a8-bd27-e30ef739f32c",
+            "format": "uuidv4",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the collection",
+            "example": "SummerPromotions",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "defaultCoupon"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      401
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PATCH",
+        "path": "/couponCollections/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "coupons__update_coupon_collection"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "updateCouponCollection",
+      "tag": "Coupons",
+      "ui_area": "Commerce > Coupons",
+      "ui_path": "Commerce > Coupons > Edit"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Update a coupon collection",
+        "ui_path": "Commerce > Coupons > Edit",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "update",
+      "coupon",
+      "collection",
+      "id",
+      "coupons",
+      "edit coupons"
+    ],
+    "related_actions": [],
+    "tags": [
+      "coupons",
+      "update"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

@@ -1,0 +1,196 @@
+[
+  {
+    "id": "deliverability.clean_contact_list",
+    "version": "1.0.0",
+    "domain": "deliverability",
+    "domain_label": "Deliverability",
+    "name": "Clean a contact list",
+    "intent": "Remove invalid or disengaged contacts to improve deliverability.",
+    "description": "Remove invalid or disengaged contacts to improve deliverability.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Deliverability > Clean list",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Deliverability",
+      "ui_path": "Deliverability > Clean list",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "list cleaning",
+      "hygiene"
+    ],
+    "related_actions": [],
+    "tags": [
+      "deliverability",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "deliverability.view_sender_reputation",
+    "version": "1.0.0",
+    "domain": "deliverability",
+    "domain_label": "Deliverability",
+    "name": "View sender reputation",
+    "intent": "Monitor reputation and deliverability signals.",
+    "description": "Monitor reputation and deliverability signals.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Deliverability > Reputation",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Deliverability",
+      "ui_path": "Deliverability > Reputation",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "reputation",
+      "deliverability score"
+    ],
+    "related_actions": [],
+    "tags": [
+      "deliverability",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "deliverability.warm_up_dedicated_ip",
+    "version": "1.0.0",
+    "domain": "deliverability",
+    "domain_label": "Deliverability",
+    "name": "Warm up a dedicated IP",
+    "intent": "Gradually increase sending volume on a new dedicated IP.",
+    "description": "Gradually increase sending volume on a new dedicated IP.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Deliverability > Dedicated IP",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Deliverability",
+      "ui_path": "Deliverability > Dedicated IP",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "ip warmup"
+    ],
+    "related_actions": [],
+    "tags": [
+      "deliverability",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

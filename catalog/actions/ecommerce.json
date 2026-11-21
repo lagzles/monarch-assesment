@@ -1,0 +1,4096 @@
+[
+  {
+    "id": "ecommerce.activate_ecommerce_app",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Activate the eCommerce app",
+    "intent": "Activate the eCommerce app",
+    "description": "Getting access to Brevo eCommerce.",
+    "action_type": "configure",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200
+    },
+    "response_codes": [
+      200,
+      401,
+      404
+    ],
+    "errors": [
+      {
+        "status": 401,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Changes account or delivery configuration"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/ecommerce/activate",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__activate_ecommerce_app"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Activate"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Activate the eCommerce app",
+        "ui_path": "Commerce > eCommerce > Activate",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "activate",
+      "ecommerce",
+      "app",
+      "enable ecommerce"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "configure"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.create_batch_categories",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Create categories in batch",
+    "intent": "Create categories in batch",
+    "description": "Create or update multiple ecommerce categories in a single request. The `categories` array accepts up to 100 category objects, each requiring a unique `id`. When `updateEnabled` is `false` (the default), all categories are inserted as new; if any ID already exists, a `400` error is returned. When `updateEnabled` is `true`, existing categories are updated and new ones are created via upsert. Duplicate IDs within the same request payload are rejected. The response returns the count of created and updated categories.",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "description": "array of categories objects",
+          "items": {
+            "properties": {
+              "deletedAt": {
+                "description": "UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of the category deleted from the shop's database",
+                "example": "2017-05-12T12:30:00Z",
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique Category ID as saved in the shop\n",
+                "example": "CAT123",
+                "type": "string"
+              },
+              "isDeleted": {
+                "description": "category deleted from the shop's database",
+                "example": true,
+                "type": "boolean"
+              },
+              "name": {
+                "description": "**Mandatory in case of creation**. Name of the Category, as displayed in the shop\n",
+                "example": "Electronics",
+                "type": "string"
+              },
+              "url": {
+                "description": "URL to the category",
+                "example": "http://mydomain.com/category/electronics",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "updateEnabled": {
+          "description": "Facilitate to update the existing categories in the same request (updateEnabled = true)",
+          "type": "boolean",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "categories"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create a batch of categories",
+        "schema": {
+          "properties": {
+            "categories": {
+              "description": "array of categories objects",
+              "items": {
+                "properties": {
+                  "deletedAt": {
+                    "description": "UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of the category deleted from the shop's database",
+                    "example": "2017-05-12T12:30:00Z",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "Unique Category ID as saved in the shop\n",
+                    "example": "CAT123",
+                    "type": "string"
+                  },
+                  "isDeleted": {
+                    "description": "category deleted from the shop's database",
+                    "example": true,
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "description": "**Mandatory in case of creation**. Name of the Category, as displayed in the shop\n",
+                    "example": "Electronics",
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "URL to the category",
+                    "example": "http://mydomain.com/category/electronics",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "updateEnabled": {
+              "description": "Facilitate to update the existing categories in the same request (updateEnabled = true)",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "categories"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "createdCount": {
+            "description": "Number of the new created categories",
+            "example": 7,
+            "format": "int64",
+            "type": "integer"
+          },
+          "updatedCount": {
+            "description": "Number of the existing categories updated",
+            "example": 5,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "createdCount": 2,
+        "updatedCount": 7
+      }
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/categories/batch",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__create_batch_categories"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createUpdateBatchCategory",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Categories > Batch"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create categories in batch",
+        "ui_path": "Commerce > eCommerce > Categories > Batch",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "categories",
+      "batch",
+      "ecommerce",
+      "bulk categories"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "create"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.create_batch_order",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Create orders in batch",
+    "intent": "Create orders in batch",
+    "description": "Create multiple orders at one time instead of one order at a time",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "historical": {
+          "default": true,
+          "description": "Defines whether you want your orders to be considered as live data or as historical data (import of past data, synchronising data). True: orders will not trigger any automation workflows. False: orders will trigger workflows as usual.",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "notifyUrl": {
+          "description": "Webhook URL to receive the status of the batch request",
+          "example": "https://en.wikipedia.org/wiki/Webhook",
+          "type": "string",
+          "x-in": "body"
+        },
+        "orders": {
+          "description": "array of order objects",
+          "items": {
+            "$ref": "#/components/schemas/order"
+          },
+          "type": "array",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "orders"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "properties": {
+            "historical": {
+              "default": true,
+              "description": "Defines whether you want your orders to be considered as live data or as historical data (import of past data, synchronising data). True: orders will not trigger any automation workflows. False: orders will trigger workflows as usual.",
+              "example": true,
+              "type": "boolean"
+            },
+            "notifyUrl": {
+              "description": "Webhook URL to receive the status of the batch request",
+              "example": "https://en.wikipedia.org/wiki/Webhook",
+              "type": "string"
+            },
+            "orders": {
+              "description": "array of order objects",
+              "items": {
+                "$ref": "#/components/schemas/order"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "orders"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 202,
+      "schema": {
+        "properties": {
+          "batchId": {
+            "description": "Batch ID of the request",
+            "example": "1",
+            "type": "number"
+          },
+          "count": {
+            "description": "Number of orders",
+            "example": 17655,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "batchId"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      202,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/orders/status/batch",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__create_batch_order"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createBatchOrder",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Orders > Batch"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create orders in batch",
+        "ui_path": "Commerce > eCommerce > Orders > Batch",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "orders",
+      "batch",
+      "ecommerce",
+      "bulk orders"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "create"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.create_batch_products",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Create products in batch",
+    "intent": "Create products in batch",
+    "description": "Create or update multiple ecommerce products in a single request. The `products` array accepts up to 100 product objects for creation (or up to 1000 when `updateEnabled` is `true` and the account has an increased limit). Each product requires a unique `id` and `name` (name is mandatory for creation only). When `updateEnabled` is `false`, all products are inserted as new; if any ID already exists, a `400` error is returned. When `updateEnabled` is `true`, existing products are updated and new ones are created via upsert. Duplicate IDs within the same request payload are rejected. The response …",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "products": {
+          "description": "array of products objects",
+          "items": {
+            "properties": {
+              "brand": {
+                "description": "Brand of the product",
+                "example": "Adidas",
+                "type": "string",
+                "maxLength": 128
+              },
+              "categories": {
+                "description": "Category ID-s of the product",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "deletedAt": {
+                "description": "UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of the product deleted from the shop's database",
+                "example": "2017-05-12T12:30:00Z",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description of the product",
+                "example": "Shoes for sports",
+                "type": "string",
+                "maxLength": 3000
+              },
+              "id": {
+                "description": "Product ID for which you requested the details",
+                "example": "P11",
+                "format": "string",
+                "type": "string"
+              },
+              "imageUrl": {
+                "description": "Absolute URL to the cover image of the product",
+                "example": "http://mydomain.com/product-absoulte-url/img.jpeg",
+                "format": "string",
+                "type": "string"
+              },
+              "isDeleted": {
+                "description": "product deleted from the shop's database",
+                "example": true,
+                "type": "boolean"
+              },
+              "metaInfo": {
+                "additionalProperties": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "description": "Meta data of product such as description, vendor, producer, stock level. The total characters of cumulative metaInfo shall not exceed **20000 characters**.",
+                "example": {
+                  "brand": "addidas",
+                  "description": "Shoes for sports"
+                },
+                "type": "object"
+              },
+              "name": {
+                "description": "**Mandatory in case of creation**. Name of the product, as displayed in the shop",
+                "example": "Iphone 11",
+                "type": "string"
+              },
+              "parentId": {
+                "description": "Parent product id of the product",
+                "format": "string",
+                "type": "string"
+              },
+              "price": {
+                "description": "Price of the product",
+                "format": "float",
+                "type": "number"
+              },
+              "alternativePrice": {
+                "description": "Alternative price of the product",
+                "format": "float",
+                "type": "number"
+              },
+              "sku": {
+                "description": "Product identifier from the shop",
+                "format": "string",
+                "type": "string"
+              },
+              "stock": {
+                "description": "Current stock value of the product from the shop's database",
+                "example": 100,
+                "type": "number"
+              },
+              "url": {
+                "description": "URL to the product",
+                "example": "http://mydomain.com/product/electronics/product1",
+                "format": "string",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "updateEnabled": {
+          "description": "Facilitate to update the existing products in the same request (updateEnabled = true)",
+          "type": "boolean",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "products"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create a batch of products",
+        "schema": {
+          "properties": {
+            "products": {
+              "description": "array of products objects",
+              "items": {
+                "properties": {
+                  "brand": {
+                    "description": "Brand of the product",
+                    "example": "Adidas",
+                    "type": "string",
+                    "maxLength": 128
+                  },
+                  "categories": {
+                    "description": "Category ID-s of the product",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "deletedAt": {
+                    "description": "UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of the product deleted from the shop's database",
+                    "example": "2017-05-12T12:30:00Z",
+                    "type": "string"
+                  },
+                  "description": {
+                    "description": "Description of the product",
+                    "example": "Shoes for sports",
+                    "type": "string",
+                    "maxLength": 3000
+                  },
+                  "id": {
+                    "description": "Product ID for which you requested the details",
+                    "example": "P11",
+                    "format": "string",
+                    "type": "string"
+                  },
+                  "imageUrl": {
+                    "description": "Absolute URL to the cover image of the product",
+                    "example": "http://mydomain.com/product-absoulte-url/img.jpeg",
+                    "format": "string",
+                    "type": "string"
+                  },
+                  "isDeleted": {
+                    "description": "product deleted from the shop's database",
+                    "example": true,
+                    "type": "boolean"
+                  },
+                  "metaInfo": {
+                    "additionalProperties": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    "description": "Meta data of product such as description, vendor, producer, stock level. The total characters of cumulative metaInfo shall not exceed **20000 characters**.",
+                    "example": {
+                      "brand": "addidas",
+                      "description": "Shoes for sports"
+                    },
+                    "type": "object"
+                  },
+                  "name": {
+                    "description": "**Mandatory in case of creation**. Name of the product, as displayed in the shop",
+                    "example": "Iphone 11",
+                    "type": "string"
+                  },
+                  "parentId": {
+                    "description": "Parent product id of the product",
+                    "format": "string",
+                    "type": "string"
+                  },
+                  "price": {
+                    "description": "Price of the product",
+                    "format": "float",
+                    "type": "number"
+                  },
+                  "alternativePrice": {
+                    "description": "Alternative price of the product",
+                    "format": "float",
+                    "type": "number"
+                  },
+                  "sku": {
+                    "description": "Product identifier from the shop",
+                    "format": "string",
+                    "type": "string"
+                  },
+                  "stock": {
+                    "description": "Current stock value of the product from the shop's database",
+                    "example": 100,
+                    "type": "number"
+                  },
+                  "url": {
+                    "description": "URL to the product",
+                    "example": "http://mydomain.com/product/electronics/product1",
+                    "format": "string",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "updateEnabled": {
+              "description": "Facilitate to update the existing products in the same request (updateEnabled = true)",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "products"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "createdCount": {
+            "description": "Number of the new created products",
+            "example": 7,
+            "format": "int64",
+            "type": "integer"
+          },
+          "updatedCount": {
+            "description": "Number of the existing products updated",
+            "example": 5,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "createdCount": 2,
+        "updatedCount": 7
+      }
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/products/batch",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__create_batch_products"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createUpdateBatchProducts",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Products > Batch"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create products in batch",
+        "ui_path": "Commerce > eCommerce > Products > Batch",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "products",
+      "batch",
+      "ecommerce",
+      "bulk products"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "create"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.create_or_update_category",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Create/Update a category",
+    "intent": "Create/Update a category",
+    "description": "Create a new ecommerce category or update an existing one, identified by the mandatory `id` field. When `updateEnabled` is set to `false` (the default), the endpoint performs an insert and returns `201`; if the category ID already exists, a `400` error is returned. When `updateEnabled` is `true`, the endpoint performs an upsert, returning `201` for a new category or `204` when an existing category is updated. The `name` field is mandatory for creation but optional for updates.",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "deletedAt": {
+          "description": "UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of the category deleted from the shop's database",
+          "example": "2017-05-12T12:30:00Z",
+          "type": "string",
+          "x-in": "body"
+        },
+        "id": {
+          "description": "Unique Category ID as saved in the shop\n",
+          "example": "CAT123",
+          "type": "string",
+          "x-in": "body"
+        },
+        "isDeleted": {
+          "description": "category deleted from the shop's database",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "**Mandatory in case of creation**. Name of the Category, as displayed in the shop\n",
+          "example": "Electronics",
+          "type": "string",
+          "x-in": "body"
+        },
+        "updateEnabled": {
+          "default": false,
+          "description": "Facilitate to update the existing category in the same request (updateEnabled = true)",
+          "example": false,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "url": {
+          "description": "URL to the category",
+          "example": "http://mydomain.com/category/electronics",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create/update a category",
+        "schema": {
+          "properties": {
+            "deletedAt": {
+              "description": "UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of the category deleted from the shop's database",
+              "example": "2017-05-12T12:30:00Z",
+              "type": "string"
+            },
+            "id": {
+              "description": "Unique Category ID as saved in the shop\n",
+              "example": "CAT123",
+              "type": "string"
+            },
+            "isDeleted": {
+              "description": "category deleted from the shop's database",
+              "example": true,
+              "type": "boolean"
+            },
+            "name": {
+              "description": "**Mandatory in case of creation**. Name of the Category, as displayed in the shop\n",
+              "example": "Electronics",
+              "type": "string"
+            },
+            "updateEnabled": {
+              "default": false,
+              "description": "Facilitate to update the existing category in the same request (updateEnabled = true)",
+              "example": false,
+              "type": "boolean"
+            },
+            "url": {
+              "description": "URL to the category",
+              "example": "http://mydomain.com/category/electronics",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "id": {
+            "description": "ID of the category when a new category is created",
+            "example": "CAT123",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "id": 21
+      }
+    },
+    "response_codes": [
+      201,
+      204,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/categories",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__create_or_update_category"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createUpdateCategory",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Categories"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create or update a category",
+        "ui_path": "Commerce > eCommerce > Categories",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "update",
+      "category",
+      "ecommerce",
+      "sync category"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "create"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.create_or_update_product",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Create/Update a product",
+    "intent": "Create/Update a product",
+    "description": "Create a new ecommerce product or update an existing one, identified by the mandatory `id` field. When `updateEnabled` is `false` (the default), the endpoint inserts a new product and returns `201`; if the product ID already exists, a `400` error is returned. When `updateEnabled` is `true`, the endpoint performs an upsert, returning `201` for a new product or `204` for an update. The `name` field is mandatory for creation but optional for updates. Product images are downloaded, validated (max 5 MB, formats: jpeg, jpg, png, bmp, gif, webp), and re-hosted on S3. The `metaInfo` object supports u…",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "brand": {
+          "description": "Brand of the product",
+          "example": "Adidas",
+          "type": "string",
+          "maxLength": 128,
+          "x-in": "body"
+        },
+        "categories": {
+          "description": "Category ID-s of the product",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "deletedAt": {
+          "description": "UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of the product deleted from the shop's database",
+          "example": "2017-05-12T12:30:00Z",
+          "type": "string",
+          "x-in": "body"
+        },
+        "description": {
+          "description": "Description of the product",
+          "example": "Shoes for sports",
+          "type": "string",
+          "maxLength": 3000,
+          "x-in": "body"
+        },
+        "id": {
+          "description": "Product ID for which you requested the details",
+          "example": "P11",
+          "format": "string",
+          "type": "string",
+          "x-in": "body"
+        },
+        "imageUrl": {
+          "description": "Absolute URL to the cover image of the product",
+          "example": "http://mydomain.com/product-absoulte-url/img.jpeg",
+          "format": "string",
+          "type": "string",
+          "x-in": "body"
+        },
+        "isDeleted": {
+          "description": "product deleted from the shop's database",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "metaInfo": {
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "description": "Meta data of product such as description, vendor, producer, stock level. The total characters of cumulative metaInfo shall not exceed **20000 characters**.",
+          "example": {
+            "brand": "addidas",
+            "description": "Shoes for sports"
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "**Mandatory in case of creation**. Name of the product, as displayed in the shop",
+          "example": "Iphone 11",
+          "type": "string",
+          "x-in": "body"
+        },
+        "parentId": {
+          "description": "Parent product id of the product",
+          "format": "string",
+          "type": "string",
+          "x-in": "body"
+        },
+        "price": {
+          "description": "Price of the product",
+          "format": "float",
+          "type": "number",
+          "x-in": "body"
+        },
+        "alternativePrice": {
+          "description": "Alternative price of the product",
+          "format": "float",
+          "type": "number",
+          "x-in": "body"
+        },
+        "sku": {
+          "description": "Product identifier from the shop",
+          "format": "string",
+          "type": "string",
+          "x-in": "body"
+        },
+        "stock": {
+          "description": "Current stock value of the product from the shop's database",
+          "example": 100,
+          "type": "number",
+          "x-in": "body"
+        },
+        "updateEnabled": {
+          "default": false,
+          "description": "Facilitate to update the existing product in the same request (updateEnabled = true)",
+          "example": false,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "url": {
+          "description": "URL to the product",
+          "example": "http://mydomain.com/product/electronics/product1",
+          "format": "string",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create/update a product",
+        "schema": {
+          "properties": {
+            "brand": {
+              "description": "Brand of the product",
+              "example": "Adidas",
+              "type": "string",
+              "maxLength": 128
+            },
+            "categories": {
+              "description": "Category ID-s of the product",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "deletedAt": {
+              "description": "UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of the product deleted from the shop's database",
+              "example": "2017-05-12T12:30:00Z",
+              "type": "string"
+            },
+            "description": {
+              "description": "Description of the product",
+              "example": "Shoes for sports",
+              "type": "string",
+              "maxLength": 3000
+            },
+            "id": {
+              "description": "Product ID for which you requested the details",
+              "example": "P11",
+              "format": "string",
+              "type": "string"
+            },
+            "imageUrl": {
+              "description": "Absolute URL to the cover image of the product",
+              "example": "http://mydomain.com/product-absoulte-url/img.jpeg",
+              "format": "string",
+              "type": "string"
+            },
+            "isDeleted": {
+              "description": "product deleted from the shop's database",
+              "example": true,
+              "type": "boolean"
+            },
+            "metaInfo": {
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "description": "Meta data of product such as description, vendor, producer, stock level. The total characters of cumulative metaInfo shall not exceed **20000 characters**.",
+              "example": {
+                "brand": "addidas",
+                "description": "Shoes for sports"
+              },
+              "type": "object"
+            },
+            "name": {
+              "description": "**Mandatory in case of creation**. Name of the product, as displayed in the shop",
+              "example": "Iphone 11",
+              "type": "string"
+            },
+            "parentId": {
+              "description": "Parent product id of the product",
+              "format": "string",
+              "type": "string"
+            },
+            "price": {
+              "description": "Price of the product",
+              "format": "float",
+              "type": "number"
+            },
+            "alternativePrice": {
+              "description": "Alternative price of the product",
+              "format": "float",
+              "type": "number"
+            },
+            "sku": {
+              "description": "Product identifier from the shop",
+              "format": "string",
+              "type": "string"
+            },
+            "stock": {
+              "description": "Current stock value of the product from the shop's database",
+              "example": 100,
+              "type": "number"
+            },
+            "updateEnabled": {
+              "default": false,
+              "description": "Facilitate to update the existing product in the same request (updateEnabled = true)",
+              "example": false,
+              "type": "boolean"
+            },
+            "url": {
+              "description": "URL to the product",
+              "example": "http://mydomain.com/product/electronics/product1",
+              "format": "string",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "id": {
+            "description": "ID of the product when a new product is created",
+            "example": "P11",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "id": 21
+      }
+    },
+    "response_codes": [
+      201,
+      204,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 7200,
+      "requests_per_second": 2
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/products",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__create_or_update_product"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createUpdateProduct",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Products"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create or update a product",
+        "ui_path": "Commerce > eCommerce > Products",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "update",
+      "product",
+      "ecommerce",
+      "sync product",
+      "add product"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "create"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.create_order",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Managing the status of the order",
+    "intent": "Create or update an order and its status in the eCommerce data model.",
+    "description": "Manages the transactional status of the order",
+    "action_type": "create",
+    "when_to_use": "When syncing store orders so Brevo can attribute revenue and trigger automations.",
+    "when_not_to_use": "Do not use for payment collection — use payments.",
+    "preconditions": [
+      "Matching contact identity",
+      "Order id, amount, products"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "Total amount of the order, including all shipping expenses, tax and the price of items.",
+          "example": 308.42,
+          "type": "number",
+          "x-in": "body"
+        },
+        "billing": {
+          "description": "Billing details of an order.",
+          "properties": {
+            "address": {
+              "description": "Full billing address.",
+              "example": "15 Somewhere Road, Brynmenyn",
+              "type": "string"
+            },
+            "city": {
+              "description": "Exact city of the address.",
+              "example": "Basel",
+              "type": "string"
+            },
+            "country": {
+              "description": "Billing country name.",
+              "example": "Canada",
+              "type": "string"
+            },
+            "countryCode": {
+              "description": "Billing country 2-letter ISO code.",
+              "example": "CA",
+              "type": "string"
+            },
+            "paymentMethod": {
+              "description": "How the visitor will pay for the item(s), e.g. paypal, check, etc.",
+              "example": "PayPal",
+              "type": "string"
+            },
+            "phone": {
+              "description": "Billing phone number.",
+              "example": "01559 032133",
+              "type": "string"
+            },
+            "postCode": {
+              "description": "Postcode for delivery and billing.",
+              "example": "4052",
+              "type": "string"
+            },
+            "region": {
+              "description": "Exact region (state/province) for delivery and billing.",
+              "example": "Northwestern Switzerland",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "coupons": {
+          "description": "Coupons applied to the order. Stored case insensitive.",
+          "example": [
+            "EASTER15OFF"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "createdAt": {
+          "description": "Event occurrence UTC date-time (YYYY-MM-DDTHH:mm:ssZ), when order is actually created.",
+          "example": "2021-07-29T20:59:23.383Z",
+          "type": "string",
+          "x-in": "body"
+        },
+        "id": {
+          "description": "Unique ID of the order.",
+          "example": "14",
+          "type": "string",
+          "x-in": "body"
+        },
+        "identifiers": {
+          "description": "Identifies the contact associated with the order.",
+          "properties": {
+            "email_id": {
+              "description": "Email of the contact associated with the order",
+              "example": "example@brevo.com",
+              "type": "string"
+            },
+            "ext_id": {
+              "description": "ext_id associated with the order",
+              "example": "ext_id_1",
+              "type": "string"
+            },
+            "loyalty_subscription_id": {
+              "description": "loyalty_subscription_id associated with the order",
+              "example": "loyalty_id_1",
+              "type": "string"
+            },
+            "phone_id": {
+              "description": "Phone number of the contact associated with the order",
+              "example": "01559 032133",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "metaInfo": {
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "description": "Meta data of order to store additional detail such as custom message, customer type, source.",
+          "example": {
+            "customer_loyalty_tier": "Gold",
+            "gift_message": "Happy Birthday!",
+            "order_source": "Website"
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "products": {
+          "items": {
+            "description": "Details for the Products in an order.",
+            "properties": {
+              "price": {
+                "description": "The price of a unit of product",
+                "example": 99.99,
+                "type": "number"
+              },
+              "productId": {
+                "description": "ID of the product.",
+                "example": "P1",
+                "type": "string"
+              },
+              "variantId": {
+                "description": "Product ID of the red color shirts.",
+                "example": "P100",
+                "type": "string"
+              },
+              "quantity": {
+                "description": "**Required if quantityFloat is empty.**\n\nNumber of product units added to the cart (whole numbers only, e.g., 10)\n",
+                "example": 10,
+                "type": "integer"
+              },
+              "quantityFloat": {
+                "description": "**Required if quantity is empty.**\n\nNumber of product units added to the cart(supports decimals, e.g., 20.52)\n",
+                "example": 20.52,
+                "type": "number"
+              }
+            },
+            "required": [
+              "productId",
+              "price"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "status": {
+          "description": "State of the order.",
+          "example": "completed",
+          "type": "string",
+          "x-in": "body"
+        },
+        "storeId": {
+          "description": "ID of store where the order is placed",
+          "example": "ST-21",
+          "type": "string",
+          "x-in": "body"
+        },
+        "updatedAt": {
+          "description": "Event updated UTC date-time (YYYY-MM-DDTHH:mm:ssZ), when the status of the order is actually changed/updated.",
+          "example": "2021-07-30T10:59:23.383Z",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "status",
+        "amount",
+        "products"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "properties": {
+            "amount": {
+              "description": "Total amount of the order, including all shipping expenses, tax and the price of items.",
+              "example": 308.42,
+              "type": "number"
+            },
+            "billing": {
+              "description": "Billing details of an order.",
+              "properties": {
+                "address": {
+                  "description": "Full billing address.",
+                  "example": "15 Somewhere Road, Brynmenyn",
+                  "type": "string"
+                },
+                "city": {
+                  "description": "Exact city of the address.",
+                  "example": "Basel",
+                  "type": "string"
+                },
+                "country": {
+                  "description": "Billing country name.",
+                  "example": "Canada",
+                  "type": "string"
+                },
+                "countryCode": {
+                  "description": "Billing country 2-letter ISO code.",
+                  "example": "CA",
+                  "type": "string"
+                },
+                "paymentMethod": {
+                  "description": "How the visitor will pay for the item(s), e.g. paypal, check, etc.",
+                  "example": "PayPal",
+                  "type": "string"
+                },
+                "phone": {
+                  "description": "Billing phone number.",
+                  "example": "01559 032133",
+                  "type": "string"
+                },
+                "postCode": {
+                  "description": "Postcode for delivery and billing.",
+                  "example": "4052",
+                  "type": "string"
+                },
+                "region": {
+                  "description": "Exact region (state/province) for delivery and billing.",
+                  "example": "Northwestern Switzerland",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "coupons": {
+              "description": "Coupons applied to the order. Stored case insensitive.",
+              "example": [
+                "EASTER15OFF"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "createdAt": {
+              "description": "Event occurrence UTC date-time (YYYY-MM-DDTHH:mm:ssZ), when order is actually created.",
+              "example": "2021-07-29T20:59:23.383Z",
+              "type": "string"
+            },
+            "id": {
+              "description": "Unique ID of the order.",
+              "example": "14",
+              "type": "string"
+            },
+            "identifiers": {
+              "description": "Identifies the contact associated with the order.",
+              "properties": {
+                "email_id": {
+                  "description": "Email of the contact associated with the order",
+                  "example": "example@brevo.com",
+                  "type": "string"
+                },
+                "ext_id": {
+                  "description": "ext_id associated with the order",
+                  "example": "ext_id_1",
+                  "type": "string"
+                },
+                "loyalty_subscription_id": {
+                  "description": "loyalty_subscription_id associated with the order",
+                  "example": "loyalty_id_1",
+                  "type": "string"
+                },
+                "phone_id": {
+                  "description": "Phone number of the contact associated with the order",
+                  "example": "01559 032133",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "metaInfo": {
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "description": "Meta data of order to store additional detail such as custom message, customer type, source.",
+              "example": {
+                "customer_loyalty_tier": "Gold",
+                "gift_message": "Happy Birthday!",
+                "order_source": "Website"
+              },
+              "type": "object"
+            },
+            "products": {
+              "items": {
+                "description": "Details for the Products in an order.",
+                "properties": {
+                  "price": {
+                    "description": "The price of a unit of product",
+                    "example": 99.99,
+                    "type": "number"
+                  },
+                  "productId": {
+                    "description": "ID of the product.",
+                    "example": "P1",
+                    "type": "string"
+                  },
+                  "variantId": {
+                    "description": "Product ID of the red color shirts.",
+                    "example": "P100",
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "description": "**Required if quantityFloat is empty.**\n\nNumber of product units added to the cart (whole numbers only, e.g., 10)\n",
+                    "example": 10,
+                    "type": "integer"
+                  },
+                  "quantityFloat": {
+                    "description": "**Required if quantity is empty.**\n\nNumber of product units added to the cart(supports decimals, e.g., 20.52)\n",
+                    "example": 20.52,
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "productId",
+                  "price"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "State of the order.",
+              "example": "completed",
+              "type": "string"
+            },
+            "storeId": {
+              "description": "ID of store where the order is placed",
+              "example": "ST-21",
+              "type": "string"
+            },
+            "updatedAt": {
+              "description": "Event updated UTC date-time (YYYY-MM-DDTHH:mm:ssZ), when the status of the order is actually changed/updated.",
+              "example": "2021-07-30T10:59:23.383Z",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "createdAt",
+            "updatedAt",
+            "status",
+            "amount",
+            "products"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Updates eCommerce attribution data",
+      "Can trigger order-based automations"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 18000,
+      "requests_per_second": 5
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/orders/status",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__create_order"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createOrder",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Orders"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Update order status",
+        "ui_path": "Commerce > eCommerce > Orders",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "sync order",
+      "order status",
+      "ecommerce order",
+      "managing",
+      "status",
+      "order",
+      "ecommerce",
+      "update"
+    ],
+    "related_actions": [
+      "ecommerce.create_batch_order",
+      "contacts.create_contact"
+    ],
+    "tags": [
+      "ecommerce",
+      "create"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.create_product_alert",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Create a product alert for a contact",
+    "intent": "Create a product alert for a contact",
+    "description": "Register a contact to receive an alert for a specific product event, such as `back_in_stock`. At least one contact identifier (`ext_id`, `email`, or `sms`) must be provided; when multiple are given, priority is `ext_id` > `email` > `sms`. Returns a `404` error if the product ID does not exist, and a `403` error if product alerts are not enabled for the account.",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-in": "path",
+          "description": "Product ID"
+        },
+        "type": {
+          "enum": [
+            "back_in_stock"
+          ],
+          "type": "string",
+          "x-in": "path",
+          "description": "Alert type"
+        },
+        "contactIdentifiers": {
+          "properties": {
+            "email": {
+              "description": "Email address of the contact",
+              "example": "elly@example.com",
+              "format": "email",
+              "type": "string"
+            },
+            "ext_id": {
+              "description": "Contact ID in your system",
+              "example": "ExternalId",
+              "type": "string"
+            },
+            "sms": {
+              "description": "Sms of the contact",
+              "example": "+91xxxxxxxxxx",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id",
+        "type"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Contact identifier to associate the alert with (at least one is required). Priority is given to `ext_id` > `email` > `sms`",
+        "schema": {
+          "properties": {
+            "contactIdentifiers": {
+              "properties": {
+                "email": {
+                  "description": "Email address of the contact",
+                  "example": "elly@example.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "ext_id": {
+                  "description": "Contact ID in your system",
+                  "example": "ExternalId",
+                  "type": "string"
+                },
+                "sms": {
+                  "description": "Sms of the contact",
+                  "example": "+91xxxxxxxxxx",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      401,
+      403,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Product alert could not be created"
+      },
+      {
+        "status": 401,
+        "meaning": "unauthorized"
+      },
+      {
+        "status": 403,
+        "meaning": "Product alerts is not allowed for this account"
+      },
+      {
+        "status": 404,
+        "meaning": "Product ID not found"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/products/{id}/alerts/{type}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__create_product_alert"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createProductAlert",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Product alerts"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create a product alert",
+        "ui_path": "Commerce > eCommerce > Product alerts",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "product",
+      "alert",
+      "contact",
+      "ecommerce",
+      "stock alert",
+      "price alert"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "create"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.get_attributed_product_sales",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Get attributed product sales for a single Brevo campaign or workflow",
+    "intent": "Get attributed product sales for a single Brevo campaign or workflow",
+    "description": "Retrieve the list of products whose sales have been attributed to a specific Brevo campaign or automation workflow. Each product entry includes its ID, name, SKU, image URL, product URL, price, revenue, and orders count. The conversion source type must be one of `email_campaign`, `sms_campaign`, `automation_workflow_email`, or `automation_workflow_sms`.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "conversionSource": {
+          "enum": [
+            "email_campaign",
+            "sms_campaign",
+            "automation_workflow_email",
+            "automation_workflow_sms"
+          ],
+          "type": "string",
+          "x-in": "path",
+          "description": "The Brevo campaign or automation workflow type for which data will be retrieved"
+        },
+        "conversionSourceId": {
+          "example": "sale",
+          "type": "string",
+          "x-in": "path",
+          "description": "The Brevo campaign or automation workflow id for which data will be retrieved"
+        }
+      },
+      "required": [
+        "conversionSource",
+        "conversionSourceId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "conversionSource",
+        "conversionSourceId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "products": {
+            "description": "List of attributed products",
+            "items": {
+              "properties": {
+                "id": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "imageUrl": {
+                  "example": "http://mydomain.com/product-absoulte-url/img.jpeg",
+                  "type": "string"
+                },
+                "name": {
+                  "example": "Milky Way Galaxy",
+                  "type": "string"
+                },
+                "ordersCount": {
+                  "example": 200,
+                  "type": "integer"
+                },
+                "price": {
+                  "example": 1000,
+                  "format": "float",
+                  "type": "number"
+                },
+                "revenue": {
+                  "example": 999.99,
+                  "format": "float",
+                  "type": "number"
+                },
+                "sku": {
+                  "example": "sku-1",
+                  "type": "string"
+                },
+                "url": {
+                  "example": "https://mydomain.com/products/alpina-panoma-classic",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "products"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/ecommerce/attribution/products/{conversionSource}/{conversionSourceId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__get_attributed_product_sales"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "attributed",
+      "product",
+      "sales",
+      "single",
+      "brevo",
+      "campaign",
+      "workflow",
+      "ecommerce"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.get_attribution_metrics",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Get attribution metrics for one or more Brevo campaigns or workflows",
+    "intent": "Get attribution metrics for one or more Brevo campaigns or workflows",
+    "description": "Retrieve aggregated ecommerce attribution metrics for one or more Brevo email campaigns, SMS campaigns, or automation workflows. You can optionally filter by a date range using `periodFrom` and `periodTo` in RFC3339 format. The response includes per-source metrics (orders count, revenue, and average basket) as well as aggregated totals across all requested sources.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "periodFrom": {
+          "example": "2022-01-02T00:00:00Z",
+          "format": "date-time",
+          "type": "string",
+          "x-in": "query",
+          "description": "When getting metrics for a specific period, define the starting datetime in RFC3339 format"
+        },
+        "periodTo": {
+          "example": "2022-01-03T00:00:00Z",
+          "format": "date-time",
+          "type": "string",
+          "x-in": "query",
+          "description": "When getting metrics for a specific period, define the end datetime in RFC3339 format"
+        },
+        "emailCampaignId[]": {
+          "items": {
+            "example": "sale",
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "The email campaign ID(s) to get metrics for"
+        },
+        "smsCampaignId[]": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "The SMS campaign ID(s) to get metrics for"
+        },
+        "automationWorkflowEmailId[]": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "The automation workflow ID(s) to get email attribution metrics for"
+        },
+        "automationWorkflowSmsId[]": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "The automation workflow ID(s) to get SMS attribution metrics for"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "periodFrom",
+        "periodTo",
+        "emailCampaignId[]",
+        "smsCampaignId[]",
+        "automationWorkflowEmailId[]",
+        "automationWorkflowSmsId[]"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "results": {
+            "description": "List of conversion attribution metrics",
+            "example": [
+              {
+                "averageBasket": 3,
+                "conversionSource": "email_campaign",
+                "id": "sale01",
+                "ordersCount": 300,
+                "revenue": 900
+              },
+              {
+                "averageBasket": 4,
+                "conversionSource": "email_campaign",
+                "id": "sale02",
+                "ordersCount": 200,
+                "revenue": 800
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/ConversionSourceMetrics"
+            },
+            "type": "array"
+          },
+          "totals": {
+            "description": "Attribution list aggregated totals",
+            "example": {
+              "averageBasket": 3.4,
+              "ordersCount": 500,
+              "revenue": 1700
+            },
+            "properties": {
+              "averageBasket": {
+                "format": "float",
+                "type": "number"
+              },
+              "ordersCount": {
+                "format": "integer",
+                "type": "number"
+              },
+              "revenue": {
+                "format": "float",
+                "type": "number"
+              }
+            },
+            "required": [
+              "ordersCount",
+              "revenue",
+              "averageBasket"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "results",
+          "totals"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/ecommerce/attribution/metrics",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__get_attribution_metrics"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Attribution"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "View attribution metrics",
+        "ui_path": "Commerce > eCommerce > Attribution",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "get",
+      "attribution",
+      "metrics",
+      "one",
+      "more",
+      "brevo",
+      "campaigns",
+      "workflows",
+      "ecommerce",
+      "revenue metrics",
+      "view"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "read"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.get_category",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Get a category details",
+    "intent": "Get a category details",
+    "description": "Retrieve the full details of a single ecommerce category by its unique ID. The response includes the category name, URL, creation and modification timestamps, and deletion status. Returns a `404` error if no category matches the provided ID.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-in": "path",
+          "description": "Category ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "createdAt": {
+            "description": "Creation UTC date-time of the category (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-05-12T12:30:00Z",
+            "type": "string"
+          },
+          "id": {
+            "description": "Category ID for which you requested the details",
+            "example": "C11",
+            "format": "string",
+            "type": "string"
+          },
+          "isDeleted": {
+            "description": "category deleted from the shop's database",
+            "example": true,
+            "type": "boolean"
+          },
+          "modifiedAt": {
+            "description": "Last modification UTC date-time of the category (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-05-12T12:30:00Z",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the category for which you requested the details",
+            "example": "Electronics",
+            "format": "string",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL to the category",
+            "example": "http://mydomain.com/category/clothing",
+            "format": "string",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdAt",
+          "modifiedAt",
+          "isDeleted"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/categories/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__get_category"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getCategoryInfo",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "category",
+      "details",
+      "ecommerce"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.get_detailed_attribution_metrics",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Get detailed attribution metrics for a single Brevo campaign or workflow",
+    "intent": "Get detailed attribution metrics for a single Brevo campaign or workflow",
+    "description": "Retrieve detailed attribution metrics for a single Brevo campaign or automation workflow, identified by its conversion source type and ID. The response includes orders count, revenue, average basket value, and the number of new customers attributed to that specific campaign or workflow.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "conversionSource": {
+          "enum": [
+            "email_campaign",
+            "sms_campaign",
+            "automation_workflow_email",
+            "automation_workflow_sms"
+          ],
+          "type": "string",
+          "x-in": "path",
+          "description": "The Brevo campaign type or workflow type for which data will be retrieved"
+        },
+        "conversionSourceId": {
+          "example": "sale",
+          "type": "string",
+          "x-in": "path",
+          "description": "The Brevo campaign or automation workflow id for which data will be retrieved"
+        }
+      },
+      "required": [
+        "conversionSource",
+        "conversionSourceId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "conversionSource",
+        "conversionSourceId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "averageBasket": {
+            "format": "float",
+            "type": "number"
+          },
+          "conversionSource": {
+            "enum": [
+              "email_campaign",
+              "sms_campaign",
+              "automation_workflow_email",
+              "automation_workflow_sms"
+            ],
+            "type": "string"
+          },
+          "id": {
+            "format": "integer",
+            "type": "number"
+          },
+          "ordersCount": {
+            "format": "integer",
+            "type": "number"
+          },
+          "revenue": {
+            "format": "float",
+            "type": "number"
+          },
+          "newCustomersCount": {
+            "format": "integer",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "conversionSource",
+          "ordersCount",
+          "revenue",
+          "averageBasket",
+          "newCustomersCount"
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/ecommerce/attribution/metrics/{conversionSource}/{conversionSourceId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__get_detailed_attribution_metrics"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "detailed",
+      "attribution",
+      "metrics",
+      "single",
+      "brevo",
+      "campaign",
+      "workflow",
+      "ecommerce"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.get_display_currency",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Get the ISO 4217 compliant display currency code for your Brevo account",
+    "intent": "Get the ISO 4217 compliant display currency code for your Brevo account",
+    "description": "Retrieve the ISO 4217 display currency code currently configured for your Brevo ecommerce account. This currency is used to display monetary values across the ecommerce dashboard and reports. Returns a `403` error if ecommerce is not activated on the account.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "code": {
+            "description": "ISO 4217 compliant display currency code",
+            "example": "EUR",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      401,
+      403
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      },
+      {
+        "status": 403,
+        "meaning": "Permission denied. eCommerce is not activated."
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/ecommerce/config/displayCurrency",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__get_display_currency"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "iso",
+      "4217",
+      "compliant",
+      "display",
+      "currency",
+      "code",
+      "brevo",
+      "account",
+      "ecommerce"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.get_product",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Get a product's details",
+    "intent": "Get a product's details",
+    "description": "Retrieve the full details of a single ecommerce product by its unique ID. The response includes the product name, price, SKU, URL, image URLs (original and thumbnails), categories, stock level, meta information, creation and modification timestamps, and deletion status. Returns a `404` error if no product matches the provided ID.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-in": "path",
+          "description": "Product ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "brand": {
+            "description": "Brand of the product",
+            "example": "Adidas",
+            "type": "string",
+            "maxLength": 128
+          },
+          "categories": {
+            "description": "Category ID-s of the product",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createdAt": {
+            "description": "Creation UTC date-time of the product (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-05-12T12:30:00Z",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the product",
+            "example": "Shoes for sports",
+            "type": "string",
+            "maxLength": 3000
+          },
+          "id": {
+            "description": "Product ID for which you requested the details",
+            "example": "P11",
+            "format": "string",
+            "type": "string"
+          },
+          "imageUrl": {
+            "description": "Absolute URL to the cover image of the product",
+            "example": "http://mydomain.com/product-absoulte-url/img.jpeg",
+            "format": "string",
+            "type": "string"
+          },
+          "isDeleted": {
+            "description": "Product deleted from the shop's database but not from Brevo",
+            "example": true,
+            "type": "boolean"
+          },
+          "metaInfo": {
+            "description": "Meta data of product such as description, vendor, producer, stock level, etc.",
+            "example": {
+              "brand": "addidas",
+              "description": "Shoes for sports"
+            },
+            "type": "object"
+          },
+          "modifiedAt": {
+            "description": "Last modification UTC date-time of the product (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-05-12T12:30:00Z",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the product for which you requested the details",
+            "example": "Iphone 11",
+            "format": "string",
+            "type": "string"
+          },
+          "parentId": {
+            "description": "Parent product id of the product",
+            "format": "string",
+            "type": "string"
+          },
+          "price": {
+            "description": "Price of the product",
+            "format": "float",
+            "type": "number"
+          },
+          "alternativePrice": {
+            "description": "Alternative price of the product",
+            "format": "float",
+            "type": "number"
+          },
+          "s3Original": {
+            "description": "S3 url of original image",
+            "format": "string",
+            "type": "string"
+          },
+          "s3ThumbAnalytics": {
+            "description": "S3 thumbnail url of original image in 120x120 dimension for analytics section",
+            "format": "string",
+            "type": "string"
+          },
+          "s3ThumbEditor": {
+            "description": "S3 thumbnail url of original image in 600x400 dimension for editor section",
+            "format": "string",
+            "type": "string"
+          },
+          "sku": {
+            "description": "Product identifier from the shop",
+            "format": "string",
+            "type": "string"
+          },
+          "stock": {
+            "description": "Current stock value of the product from the shop's database",
+            "example": 100,
+            "type": "number"
+          },
+          "url": {
+            "description": "URL to the product",
+            "example": "http://mydomain.com/product/electronics/product1",
+            "format": "string",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdAt",
+          "modifiedAt",
+          "s3ThumbAnalytics",
+          "s3ThumbEditor"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Product's id not found"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/products/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__get_product"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getProductInfo",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "product",
+      "details",
+      "ecommerce"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.list_categories",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Return all your categories",
+    "intent": "Return all your categories",
+    "description": "Retrieve a paginated list of all ecommerce categories stored in your Brevo account. Results are sorted by creation date in descending order by default, and can be filtered by category IDs, name, modification date, creation date, or deletion status. The response includes a `count` field with the total number of matching categories, and pagination defaults to 50 categories per page (maximum 100).",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "default": 50,
+          "format": "int64",
+          "maximum": 100,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document in the page"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        },
+        "ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "Filter by category ids"
+        },
+        "name": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter by category name"
+        },
+        "modifiedSince": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter (urlencoded) the categories modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.**"
+        },
+        "createdSince": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter (urlencoded) the categories created after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.**"
+        },
+        "isDeleted": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter categories by their deletion status. If `false` is passed, only categories that are not deleted will be returned."
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "limit",
+        "offset",
+        "sort",
+        "ids",
+        "name",
+        "modifiedSince",
+        "createdSince",
+        "isDeleted"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "categories": {
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/getCategoryDetails"
+                }
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "count": {
+            "description": "Number of categories",
+            "example": 17655,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "categories",
+          "count"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "categories": [
+          {
+            "createdAt": "2021-12-31T11:42:35.638Z",
+            "id": "C19",
+            "isDeleted": true,
+            "modifiedAt": "2022-03-03T14:48:31.867Z",
+            "name": "Food",
+            "url": "http://mydomain.com/category/food"
+          },
+          {
+            "createdAt": "2021-12-31T11:42:35.638Z",
+            "id": "C20",
+            "isDeleted": true,
+            "modifiedAt": "2022-03-03T14:48:31.867Z",
+            "name": "clothing",
+            "url": "http://mydomain.com/category/clothing"
+          }
+        ],
+        "count": 2
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/categories",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__list_categories"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getCategories",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "return",
+      "categories",
+      "ecommerce"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.list_orders",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Get order details",
+    "intent": "Get order details",
+    "description": "Get all the orders",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "default": 50,
+          "format": "int64",
+          "maximum": 100,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document in the page"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        },
+        "secondarySortByModifiedAt": {
+          "default": false,
+          "type": "boolean",
+          "x-in": "query",
+          "description": "When `true`, orders with the same `createdAt` are then ordered by their `updatedAt`, in the same direction as `sort`. Use it to get a stable order when paging through the results with `limit` and `offset`. Default is `false`."
+        },
+        "modifiedSince": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter (urlencoded) the orders modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.**"
+        },
+        "createdSince": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter (urlencoded) the orders created after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.**"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "limit",
+        "offset",
+        "sort",
+        "secondarySortByModifiedAt",
+        "modifiedSince",
+        "createdSince"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {},
+      "example": {
+        "count": 1,
+        "orders": [
+          {
+            "amount": 2000,
+            "billing": {
+              "address": "Sec 62, Noida",
+              "city": "Noida",
+              "country": "India",
+              "countryCode": "IN",
+              "paymentMethod": "Net banking",
+              "phone": 9238283982,
+              "postCode": 110001,
+              "region": "North India"
+            },
+            "contact_id": 2,
+            "coupons": [
+              "flat50",
+              "flat40"
+            ],
+            "createdAt": "2021-12-31T11:42:35.638Z",
+            "email": "testvisitor@sendinblue.com",
+            "id": "order1803",
+            "identifiers": {
+              "ext_id": "ab12",
+              "loyalty_subscription_id": "1234"
+            },
+            "products": [
+              {
+                "price": 100,
+                "productId": 21,
+                "quantity": 2,
+                "quantityFloat": 0,
+                "variantId": "P100"
+              },
+              {
+                "price": 100,
+                "productId": 21,
+                "quantity": 0,
+                "quantityFloat": 2.52,
+                "variantId": "P15756"
+              }
+            ],
+            "status": "complete",
+            "storeId": "123",
+            "updatedAt": "2022-03-03T14:48:31.867Z"
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/orders",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__list_orders"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getOrders",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "order",
+      "details",
+      "ecommerce"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "read"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/orders?limit=1",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Your eCommerce section is not yet activated.\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
+    }
+  },
+  {
+    "id": "ecommerce.list_products",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Return all your products",
+    "intent": "Return all your products",
+    "description": "Retrieve a paginated list of all ecommerce products stored in your Brevo account. Results are sorted by creation date in descending order by default, and can be filtered by product IDs, name (minimum 3 characters), price range, category IDs, modification date, creation date, or deletion status. Use the `search` parameter to query across SKU, name, and ID simultaneously — results are prioritized as exact SKU match > SKU prefix match > name match > ID match. Pagination defaults to 50 products per page (maximum 1000), and the response includes a `count` field with the total number of matching pr…",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "default": 50,
+          "format": "int64",
+          "maximum": 1000,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document in the page"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        },
+        "ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "Filter by product ids"
+        },
+        "search": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Search products simultaneously across SKU, name, and ID fields. Results are returned in the following priority order: **exact SKU match** > **SKU prefix match** > **name match** > **ID match**. For example, `?search=123` on products with `{sku: \"123\"}` and `{sku: \"123456\"}` retu…"
+        },
+        "name": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter by product name, minimum 3 characters should be present for search."
+        },
+        "price[lte]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Price filter for products less than and equals to particular amount"
+        },
+        "price[gte]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Price filter for products greater than and equals to particular amount"
+        },
+        "price[lt]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Price filter for products less than particular amount"
+        },
+        "price[gt]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Price filter for products greater than particular amount"
+        },
+        "price[eq]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Price filter for products equals to particular amount"
+        },
+        "price[ne]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Price filter for products not equals to particular amount"
+        },
+        "alternativePrice[lte]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Alternative price filter for products less than and equals to particular amount"
+        },
+        "alternativePrice[gte]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Alternative price filter for products greater than and equals to particular amount"
+        },
+        "alternativePrice[lt]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Alternative price filter for products less than particular amount"
+        },
+        "alternativePrice[gt]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Alternative price filter for products greater than particular amount"
+        },
+        "alternativePrice[eq]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Alternative price filter for products equals to particular amount"
+        },
+        "alternativePrice[ne]": {
+          "type": "number",
+          "x-in": "query",
+          "description": "Alternative price filter for products not equals to particular amount"
+        },
+        "categories": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "Filter by categories ids"
+        },
+        "modifiedSince": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter (urlencoded) the products modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.**"
+        },
+        "createdSince": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter (urlencoded) the products created after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.**"
+        },
+        "sortByField": {
+          "enum": [
+            "created_at",
+            "name",
+            "price",
+            "id"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results by a specific field. Default sort field is `created_at` when not passed."
+        },
+        "isDeleted": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter products by their deletion status. If `false` is passed, only products that are not deleted will be returned."
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "limit",
+        "offset",
+        "sort",
+        "ids",
+        "search",
+        "name",
+        "price[lte]",
+        "price[gte]",
+        "price[lt]",
+        "price[gt]",
+        "price[eq]",
+        "price[ne]",
+        "alternativePrice[lte]",
+        "alternativePrice[gte]",
+        "alternativePrice[lt]",
+        "alternativePrice[gt]",
+        "alternativePrice[eq]",
+        "alternativePrice[ne]",
+        "categories",
+        "modifiedSince",
+        "createdSince",
+        "sortByField",
+        "isDeleted"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "count": {
+            "description": "Number of products",
+            "example": 17655,
+            "format": "int64",
+            "type": "integer"
+          },
+          "products": {
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/getProductDetails"
+                }
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "products",
+          "count"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "count": 2,
+        "products": [
+          {
+            "categories": [
+              "279638835374",
+              "279502848174"
+            ],
+            "createdAt": "2022-06-30T10:29:16.078Z",
+            "id": 7498033266862,
+            "imageUrl": "http://mydomain.com/product-absoulte-url/img.jpeg",
+            "isDeleted": true,
+            "modifiedAt": "2022-06-30T10:29:16.078Z",
+            "name": "Alpina Panoma Classic",
+            "price": 49.95,
+            "alternativePrice": 39.95,
+            "s3Original": "https://img-ecom.mailinblue.com/path-to-original/img.jpg",
+            "s3ThumbAnalytics": "https://img-ecom.mailinblue.com/path-to-analytics/img.jpg",
+            "s3ThumbEditor": "https://img-ecom.mailinblue.com/path-to-editor/img.jpg",
+            "sku": "186622-9",
+            "stock": 100,
+            "url": "https://mydomain.com/products/alpina-panoma-classic"
+          },
+          {
+            "categories": [
+              "2d79638835374",
+              "27d9502848174"
+            ],
+            "createdAt": "2022-06-30T10:29:16.078Z",
+            "id": 7498033266862,
+            "imageUrl": "http://mydomain.com/product-absoulte-url/img.jpeg",
+            "isDeleted": true,
+            "metaInfo": {
+              "brand": "addidas",
+              "description": "Shoes for sports"
+            },
+            "modifiedAt": "2022-06-30T10:29:16.078Z",
+            "name": "Alpina Panoma Classic2",
+            "price": 49.95,
+            "alternativePrice": 44.95,
+            "s3Original": "https://img-ecom.mailinblue.com/path-to-original/img.jpg",
+            "s3ThumbAnalytics": "https://img-ecom.mailinblue.com/path-to-analytics/img.jpg",
+            "s3ThumbEditor": "https://img-ecom.mailinblue.com/path-to-editor/img.jpg",
+            "sku": "186622-9",
+            "stock": 350,
+            "url": "https://mydomain.com/products/alpina-panoma-classic2"
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/products",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__list_products"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getProducts",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "return",
+      "products",
+      "ecommerce"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "read"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/products?limit=1",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Your eCommerce section is not yet activated.\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
+    }
+  },
+  {
+    "id": "ecommerce.set_display_currency",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "Set the ISO 4217 compliant display currency code for your Brevo account",
+    "intent": "Set the ISO 4217 compliant display currency code for your Brevo account",
+    "description": "Set or update the ISO 4217 display currency code for your Brevo ecommerce account. This currency determines how monetary values are displayed in the ecommerce dashboard and reports. The provided currency code must be a valid ISO 4217 code; invalid codes result in a `422` error. Returns a `403` error if ecommerce is not activated on the account.",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "ISO 4217 compliant display currency code",
+          "example": "EUR",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": false,
+        "media_type": "application/json",
+        "description": "set ISO 4217 compliant display currency code payload",
+        "schema": {
+          "properties": {
+            "code": {
+              "description": "ISO 4217 compliant display currency code",
+              "example": "EUR",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "code": {
+            "description": "ISO 4217 compliant display currency code",
+            "example": "EUR",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      401,
+      403,
+      422
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      },
+      {
+        "status": 403,
+        "meaning": "Permission denied. eCommerce is not activated."
+      },
+      {
+        "status": 422,
+        "meaning": "Invalid ISO 4217 currency code."
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/ecommerce/config/displayCurrency",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "ecommerce__set_display_currency"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "setConfigDisplayCurrency",
+      "tag": "Ecommerce",
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Settings"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Set display currency",
+        "ui_path": "Commerce > eCommerce > Settings",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "set",
+      "iso",
+      "4217",
+      "compliant",
+      "display",
+      "currency",
+      "code",
+      "brevo",
+      "account",
+      "ecommerce",
+      "currency setting"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "update"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "ecommerce.view_ecommerce_dashboard",
+    "version": "1.0.0",
+    "domain": "ecommerce",
+    "domain_label": "eCommerce",
+    "name": "View the eCommerce dashboard",
+    "intent": "Analyze product performance and revenue.",
+    "description": "Analyze product performance and revenue.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Commerce > eCommerce > Dashboard",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Commerce > eCommerce",
+      "ui_path": "Commerce > eCommerce > Dashboard",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "ecommerce dashboard"
+    ],
+    "related_actions": [],
+    "tags": [
+      "ecommerce",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

@@ -1,0 +1,4411 @@
+[
+  {
+    "id": "email_campaigns.create_email_campaign",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Create an email campaign",
+    "intent": "Create an email marketing campaign with sender, subject, content and recipient targeting.",
+    "description": "Create a new email campaign. The campaign requires at minimum a name and sender details, and is created in draft status by default. You must provide email content via one of three mutually exclusive options: htmlContent (inline HTML), htmlUrl (remote URL), or templateId (existing template); additionally, A/B testing can be enabled by setting abTesting to true with subjectA and subjectB, but this is incompatible with sendAtBestTime.",
+    "action_type": "create",
+    "when_to_use": "When preparing a newsletter or promotional email to a list or segment.",
+    "when_not_to_use": "Do not use for one-to-one transactional messages — use transactional_email.send_transac_email.",
+    "preconditions": [
+      "An authenticated sender or verified domain",
+      "At least one target list or segment",
+      "Email content"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "abTesting": {
+          "default": false,
+          "description": "Status of A/B Test. abTesting = false means it is disabled & abTesting = true means it is enabled. **subjectA, subjectB, splitRule, winnerCriteria & winnerDelay** will be considered when abTesting is set to true. subjectA & subjectB are mandatory together & subject if passed is ignored. **Can be set to true only if sendAtBestTime is false**. You will be able to set up two subject lines for your campaign and send them to a random sample of your total recipients. Half of the test group will receive version A, and the other half will receive version B\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "attachmentUrl": {
+          "description": "Absolute url of the attachment (no local file). Extension allowed: #### xlsx, xls, ods, docx, docm, doc, csv, pdf, txt, gif, jpg, jpeg, png, tif, tiff, rtf, bmp, cgm, css, shtml, html, htm, zip, xml, ppt, pptx, tar, ez, ics, mobi, msg, pub and eps\n",
+          "example": "https://attachment.domain.com",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        },
+        "emailExpirationDate": {
+          "description": "To reduce your carbon footprint, set an expiration date for your email. If supported, it will be automatically deleted from the recipient’s inbox, saving storage space and energy. Learn more about setting an email expiration date. For reference , ``https://help.brevo.com/hc/en-us/articles/4413566705298-Create-an-email-campaign``",
+          "properties": {
+            "duration": {
+              "description": "Duration of the email expiry. maximum duration can be 3600 days or 480 weeks or 120 months.",
+              "example": 30,
+              "format": "int64",
+              "maximum": 3600,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "unit": {
+              "description": "unit of the duration",
+              "enum": [
+                "days",
+                "weeks",
+                "months"
+              ],
+              "example": "weeks",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "footer": {
+          "description": "Footer of the email campaign",
+          "example": "[DEFAULT_FOOTER]",
+          "type": "string",
+          "x-in": "body"
+        },
+        "header": {
+          "description": "Header of the email campaign",
+          "example": "[DEFAULT_HEADER]",
+          "type": "string",
+          "x-in": "body"
+        },
+        "htmlContent": {
+          "description": "**Mandatory if htmlUrl and templateId are empty.** Body of the message (HTML). Must have more than 10 characters and be less than 1MB in size. Cannot be used together with `htmlUrl` or `templateId`.\n",
+          "example": "<!DOCTYPE html> <html> <body> <h1>Confirm you email</h1> <p>Please confirm your email address by clicking on the link below</p> </body> </html>",
+          "type": "string",
+          "x-in": "body"
+        },
+        "htmlUrl": {
+          "description": "**Mandatory if htmlContent and templateId are empty.** URL to the message (HTML). Cannot be used together with `htmlContent` or `templateId`. For example: **https://html.domain.com**\n",
+          "example": "https://html.domain.com",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        },
+        "increaseRate": {
+          "description": "**Mandatory if ipWarmupEnable is set to true**. Set a percentage increase rate for warming up your ip. We recommend you set the increase rate to 30% per day. If you want to send the same number of emails every day, set the daily increase value to 0%.\n",
+          "example": 70,
+          "format": "int64",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "body"
+        },
+        "initialQuota": {
+          "description": "**Mandatory if ipWarmupEnable is set to true**. Set an initial quota greater than 1 for warming up your ip. We recommend you set a value of 3000.\n",
+          "example": 3000,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "body"
+        },
+        "inlineImageActivation": {
+          "default": false,
+          "description": "Use true to embedded the images in your email. Final size of the email should be less than **4MB**. Campaigns with embedded images can _not be sent to more than 5000 contacts_\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "ipWarmupEnable": {
+          "default": false,
+          "description": "**Available for dedicated ip clients**. Set this to true if you wish to warm up your ip.\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "mirrorActive": {
+          "description": "Use true to enable the mirror link",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "Name of the campaign",
+          "example": "Newsletter - May 2017",
+          "type": "string",
+          "x-in": "body"
+        },
+        "params": {
+          "additionalProperties": {},
+          "description": "Pass the set of attributes to customize the type classic campaign. For example: **{\"FNAME\":\"Joe\", \"LNAME\":\"Doe\"}**. Only available if **type** is **classic**. It's considered only if campaign is in _New Template Language format_. The New Template Language is dependent on the values of **subject, htmlContent/htmlUrl, sender.name & toField**\n",
+          "example": {
+            "FNAME": "Joe",
+            "LNAME": "Doe"
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "previewText": {
+          "description": "Preview text or preheader of the email campaign",
+          "example": "Thanks for your order!",
+          "type": "string",
+          "x-in": "body"
+        },
+        "recipients": {
+          "description": "Segment ids and List ids to include/exclude from campaign",
+          "properties": {
+            "exclusionListIds": {
+              "description": "List ids to exclude from the campaign",
+              "items": {
+                "example": 8,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "exclusionSegmentIds": {
+              "description": "Segment ids which have to be excluded from a campaign.\n",
+              "items": {
+                "example": 13,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "listIds": {
+              "description": "**Mandatory if scheduledAt is not empty**. List Ids to send the campaign to\n",
+              "items": {
+                "example": 32,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "segmentIds": {
+              "description": "**Mandatory if listIds are not used**. Segment ids to send the campaign to.\n",
+              "items": {
+                "example": 23,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "replyTo": {
+          "description": "Email on which the campaign recipients will be able to reply to",
+          "example": "support@myshop.com",
+          "format": "email",
+          "type": "string",
+          "x-in": "body"
+        },
+        "scheduledAt": {
+          "description": "Sending UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result**. If sendAtBestTime is set to true, your campaign will be sent according to the date passed (ignoring the time part). For example: **2017-06-01T12:30:00+02:00**\n",
+          "example": "2017-06-01T12:30:00+02:00",
+          "type": "string",
+          "x-in": "body"
+        },
+        "sendAtBestTime": {
+          "default": false,
+          "description": "Set this to true if you want to send your campaign at best time.",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "sender": {
+          "description": "Sender details including id or email and name (optional). Only one of either Sender’s email or Sender’s ID shall be passed in one request at a time. Passing both `email` and `id` will result in an error. For example: **{\"name\":\"xyz\", \"email\":\"example@abc.com\"}** or **{\"name\":\"xyz\", \"id\":123}**\n",
+          "properties": {
+            "email": {
+              "description": "Sender email. Must be a valid email address. Cannot be used together with `id` in the same request.\n",
+              "example": "newsletter@myshop.com",
+              "format": "email",
+              "type": "string"
+            },
+            "id": {
+              "description": "Select the sender for the campaign on the basis of sender id. Cannot be used together with `email` in the same request. _In order to select a sender with a specific pool of IPs, dedicated IP users shall pass id (instead of email)._\n",
+              "example": 3,
+              "format": "int64",
+              "type": "integer"
+            },
+            "name": {
+              "description": "Sender Name",
+              "example": "Mary from MyShop",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "splitRule": {
+          "description": "Add the size of your test groups. **Mandatory if abTesting = true & 'recipients' is passed**. We'll send version A and B to a random sample of recipients, and then the winning version to everyone else\n",
+          "example": 50,
+          "format": "int64",
+          "maximum": 50,
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "body"
+        },
+        "subject": {
+          "description": "Subject of the campaign. **Mandatory if abTesting is false**. Ignored if abTesting is true.\n",
+          "example": "Discover the New Collection !",
+          "type": "string",
+          "x-in": "body"
+        },
+        "subjectA": {
+          "description": "Subject A of the campaign. **Mandatory if abTesting = true**. subjectA & subjectB should have unique value\n",
+          "example": "Discover the New Collection!",
+          "type": "string",
+          "x-in": "body"
+        },
+        "subjectB": {
+          "description": "Subject B of the campaign. **Mandatory if abTesting = true**. subjectA & subjectB should have unique value\n",
+          "example": "Want to discover the New Collection?",
+          "type": "string",
+          "x-in": "body"
+        },
+        "tag": {
+          "description": "Tag of the campaign",
+          "example": "Newsletter",
+          "type": "string",
+          "x-in": "body"
+        },
+        "templateId": {
+          "description": "**Mandatory if htmlContent and htmlUrl are empty.** Id of the transactional email template with status _active_. Used to copy only its content fetched from htmlContent/htmlUrl to an email campaign for RSS feature. Cannot be used together with `htmlContent` or `htmlUrl`.\n",
+          "format": "int64",
+          "type": "integer",
+          "x-in": "body"
+        },
+        "toField": {
+          "description": "To personalize the **To** Field. If you want to include the first name and last name of your recipient, add **{FNAME} {LNAME}**. These contact attributes must already exist in your Brevo account. If input parameter **params** used please use **{{contact.FNAME}} {{contact.LNAME}}** for personalization\n",
+          "example": "{FNAME} {LNAME}",
+          "type": "string",
+          "x-in": "body"
+        },
+        "unsubscriptionPageId": {
+          "description": "Enter an unsubscription page id. The page id is a 24 digit alphanumeric id that can be found in the URL when editing the page. If not entered, then the default unsubscription page will be used.\n",
+          "example": "62cbb7fabbe85021021aac52",
+          "type": "string",
+          "x-in": "body"
+        },
+        "updateFormId": {
+          "description": "**Mandatory if templateId is used containing the {{ update_profile }} tag**. Enter an update profile form id. The form id is a 24 digit alphanumeric id that can be found in the URL when editing the form. If not entered, then the default update profile form will be used.\n",
+          "example": "6313436b9ad40e23b371d095",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmCampaign": {
+          "description": "Customize the utm_campaign value. If this field is empty, the campaign name will be used. Only alphanumeric characters and spaces are allowed",
+          "example": "NL_05_2017",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmContent": {
+          "description": "Customize the utm_content value. Appears on outgoing tracking links alongside utm_campaign. Only alphanumeric characters and spaces are allowed",
+          "example": "hero_button",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmId": {
+          "description": "Customize the utm_id value. Appears on outgoing tracking links alongside utm_campaign. When omitted or empty, the utm_id entry from the account's global utm_settings is used if enabled; otherwise no utm_id parameter is emitted.",
+          "example": "promo_042",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmMedium": {
+          "description": "Customize the utm_medium value. When omitted or empty, the utm_medium entry from the account's global utm_settings is used if set; otherwise the default `email` is used.",
+          "example": "email",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmSource": {
+          "description": "Customize the utm_source value. When omitted or empty, the utm_source entry from the account's global utm_settings is used if set; otherwise the account default (`brevo` or `sendinblue`) is used.",
+          "example": "brevo",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmTerm": {
+          "description": "Customize the utm_term value. Appears on outgoing tracking links alongside utm_campaign. Only alphanumeric characters and spaces are allowed",
+          "example": "summer_sale",
+          "type": "string",
+          "x-in": "body"
+        },
+        "winnerCriteria": {
+          "description": "Choose the metrics that will determinate the winning version. **Mandatory if _splitRule_ >= 1 and < 50**. If splitRule = 50, `winnerCriteria` is ignored if passed\n",
+          "enum": [
+            "open",
+            "click"
+          ],
+          "example": "open",
+          "type": "string",
+          "x-in": "body"
+        },
+        "winnerDelay": {
+          "description": "Choose the duration of the test in hours. Maximum is 7 days, pass 24*7 = 168 hours. The winning version will be sent at the end of the test. **Mandatory if _splitRule_ >= 1 and < 50**. If splitRule = 50, `winnerDelay` is ignored if passed\n",
+          "example": 50,
+          "format": "int64",
+          "maximum": 168,
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "name",
+        "sender"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create a campaign",
+        "schema": {
+          "properties": {
+            "abTesting": {
+              "default": false,
+              "description": "Status of A/B Test. abTesting = false means it is disabled & abTesting = true means it is enabled. **subjectA, subjectB, splitRule, winnerCriteria & winnerDelay** will be considered when abTesting is set to true. subjectA & subjectB are mandatory together & subject if passed is ignored. **Can be set to true only if sendAtBestTime is false**. You will be able to set up two subject lines for your campaign and send them to a random sample of your total recipients. Half of the test group will receive version A, and the other half will receive version B\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "attachmentUrl": {
+              "description": "Absolute url of the attachment (no local file). Extension allowed: #### xlsx, xls, ods, docx, docm, doc, csv, pdf, txt, gif, jpg, jpeg, png, tif, tiff, rtf, bmp, cgm, css, shtml, html, htm, zip, xml, ppt, pptx, tar, ez, ics, mobi, msg, pub and eps\n",
+              "example": "https://attachment.domain.com",
+              "format": "url",
+              "type": "string"
+            },
+            "emailExpirationDate": {
+              "description": "To reduce your carbon footprint, set an expiration date for your email. If supported, it will be automatically deleted from the recipient’s inbox, saving storage space and energy. Learn more about setting an email expiration date. For reference , ``https://help.brevo.com/hc/en-us/articles/4413566705298-Create-an-email-campaign``",
+              "properties": {
+                "duration": {
+                  "description": "Duration of the email expiry. maximum duration can be 3600 days or 480 weeks or 120 months.",
+                  "example": 30,
+                  "format": "int64",
+                  "maximum": 3600,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "unit": {
+                  "description": "unit of the duration",
+                  "enum": [
+                    "days",
+                    "weeks",
+                    "months"
+                  ],
+                  "example": "weeks",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "footer": {
+              "description": "Footer of the email campaign",
+              "example": "[DEFAULT_FOOTER]",
+              "type": "string"
+            },
+            "header": {
+              "description": "Header of the email campaign",
+              "example": "[DEFAULT_HEADER]",
+              "type": "string"
+            },
+            "htmlContent": {
+              "description": "**Mandatory if htmlUrl and templateId are empty.** Body of the message (HTML). Must have more than 10 characters and be less than 1MB in size. Cannot be used together with `htmlUrl` or `templateId`.\n",
+              "example": "<!DOCTYPE html> <html> <body> <h1>Confirm you email</h1> <p>Please confirm your email address by clicking on the link below</p> </body> </html>",
+              "type": "string"
+            },
+            "htmlUrl": {
+              "description": "**Mandatory if htmlContent and templateId are empty.** URL to the message (HTML). Cannot be used together with `htmlContent` or `templateId`. For example: **https://html.domain.com**\n",
+              "example": "https://html.domain.com",
+              "format": "url",
+              "type": "string"
+            },
+            "increaseRate": {
+              "description": "**Mandatory if ipWarmupEnable is set to true**. Set a percentage increase rate for warming up your ip. We recommend you set the increase rate to 30% per day. If you want to send the same number of emails every day, set the daily increase value to 0%.\n",
+              "example": 70,
+              "format": "int64",
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "initialQuota": {
+              "description": "**Mandatory if ipWarmupEnable is set to true**. Set an initial quota greater than 1 for warming up your ip. We recommend you set a value of 3000.\n",
+              "example": 3000,
+              "format": "int64",
+              "type": "integer"
+            },
+            "inlineImageActivation": {
+              "default": false,
+              "description": "Use true to embedded the images in your email. Final size of the email should be less than **4MB**. Campaigns with embedded images can _not be sent to more than 5000 contacts_\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "ipWarmupEnable": {
+              "default": false,
+              "description": "**Available for dedicated ip clients**. Set this to true if you wish to warm up your ip.\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "mirrorActive": {
+              "description": "Use true to enable the mirror link",
+              "example": true,
+              "type": "boolean"
+            },
+            "name": {
+              "description": "Name of the campaign",
+              "example": "Newsletter - May 2017",
+              "type": "string"
+            },
+            "params": {
+              "additionalProperties": {},
+              "description": "Pass the set of attributes to customize the type classic campaign. For example: **{\"FNAME\":\"Joe\", \"LNAME\":\"Doe\"}**. Only available if **type** is **classic**. It's considered only if campaign is in _New Template Language format_. The New Template Language is dependent on the values of **subject, htmlContent/htmlUrl, sender.name & toField**\n",
+              "example": {
+                "FNAME": "Joe",
+                "LNAME": "Doe"
+              },
+              "type": "object"
+            },
+            "previewText": {
+              "description": "Preview text or preheader of the email campaign",
+              "example": "Thanks for your order!",
+              "type": "string"
+            },
+            "recipients": {
+              "description": "Segment ids and List ids to include/exclude from campaign",
+              "properties": {
+                "exclusionListIds": {
+                  "description": "List ids to exclude from the campaign",
+                  "items": {
+                    "example": 8,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "exclusionSegmentIds": {
+                  "description": "Segment ids which have to be excluded from a campaign.\n",
+                  "items": {
+                    "example": 13,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "listIds": {
+                  "description": "**Mandatory if scheduledAt is not empty**. List Ids to send the campaign to\n",
+                  "items": {
+                    "example": 32,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "segmentIds": {
+                  "description": "**Mandatory if listIds are not used**. Segment ids to send the campaign to.\n",
+                  "items": {
+                    "example": 23,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "replyTo": {
+              "description": "Email on which the campaign recipients will be able to reply to",
+              "example": "support@myshop.com",
+              "format": "email",
+              "type": "string"
+            },
+            "scheduledAt": {
+              "description": "Sending UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result**. If sendAtBestTime is set to true, your campaign will be sent according to the date passed (ignoring the time part). For example: **2017-06-01T12:30:00+02:00**\n",
+              "example": "2017-06-01T12:30:00+02:00",
+              "type": "string"
+            },
+            "sendAtBestTime": {
+              "default": false,
+              "description": "Set this to true if you want to send your campaign at best time.",
+              "example": true,
+              "type": "boolean"
+            },
+            "sender": {
+              "description": "Sender details including id or email and name (optional). Only one of either Sender’s email or Sender’s ID shall be passed in one request at a time. Passing both `email` and `id` will result in an error. For example: **{\"name\":\"xyz\", \"email\":\"example@abc.com\"}** or **{\"name\":\"xyz\", \"id\":123}**\n",
+              "properties": {
+                "email": {
+                  "description": "Sender email. Must be a valid email address. Cannot be used together with `id` in the same request.\n",
+                  "example": "newsletter@myshop.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "Select the sender for the campaign on the basis of sender id. Cannot be used together with `email` in the same request. _In order to select a sender with a specific pool of IPs, dedicated IP users shall pass id (instead of email)._\n",
+                  "example": 3,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "name": {
+                  "description": "Sender Name",
+                  "example": "Mary from MyShop",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "splitRule": {
+              "description": "Add the size of your test groups. **Mandatory if abTesting = true & 'recipients' is passed**. We'll send version A and B to a random sample of recipients, and then the winning version to everyone else\n",
+              "example": 50,
+              "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "subject": {
+              "description": "Subject of the campaign. **Mandatory if abTesting is false**. Ignored if abTesting is true.\n",
+              "example": "Discover the New Collection !",
+              "type": "string"
+            },
+            "subjectA": {
+              "description": "Subject A of the campaign. **Mandatory if abTesting = true**. subjectA & subjectB should have unique value\n",
+              "example": "Discover the New Collection!",
+              "type": "string"
+            },
+            "subjectB": {
+              "description": "Subject B of the campaign. **Mandatory if abTesting = true**. subjectA & subjectB should have unique value\n",
+              "example": "Want to discover the New Collection?",
+              "type": "string"
+            },
+            "tag": {
+              "description": "Tag of the campaign",
+              "example": "Newsletter",
+              "type": "string"
+            },
+            "templateId": {
+              "description": "**Mandatory if htmlContent and htmlUrl are empty.** Id of the transactional email template with status _active_. Used to copy only its content fetched from htmlContent/htmlUrl to an email campaign for RSS feature. Cannot be used together with `htmlContent` or `htmlUrl`.\n",
+              "format": "int64",
+              "type": "integer"
+            },
+            "toField": {
+              "description": "To personalize the **To** Field. If you want to include the first name and last name of your recipient, add **{FNAME} {LNAME}**. These contact attributes must already exist in your Brevo account. If input parameter **params** used please use **{{contact.FNAME}} {{contact.LNAME}}** for personalization\n",
+              "example": "{FNAME} {LNAME}",
+              "type": "string"
+            },
+            "unsubscriptionPageId": {
+              "description": "Enter an unsubscription page id. The page id is a 24 digit alphanumeric id that can be found in the URL when editing the page. If not entered, then the default unsubscription page will be used.\n",
+              "example": "62cbb7fabbe85021021aac52",
+              "type": "string"
+            },
+            "updateFormId": {
+              "description": "**Mandatory if templateId is used containing the {{ update_profile }} tag**. Enter an update profile form id. The form id is a 24 digit alphanumeric id that can be found in the URL when editing the form. If not entered, then the default update profile form will be used.\n",
+              "example": "6313436b9ad40e23b371d095",
+              "type": "string"
+            },
+            "utmCampaign": {
+              "description": "Customize the utm_campaign value. If this field is empty, the campaign name will be used. Only alphanumeric characters and spaces are allowed",
+              "example": "NL_05_2017",
+              "type": "string"
+            },
+            "utmContent": {
+              "description": "Customize the utm_content value. Appears on outgoing tracking links alongside utm_campaign. Only alphanumeric characters and spaces are allowed",
+              "example": "hero_button",
+              "type": "string"
+            },
+            "utmId": {
+              "description": "Customize the utm_id value. Appears on outgoing tracking links alongside utm_campaign. When omitted or empty, the utm_id entry from the account's global utm_settings is used if enabled; otherwise no utm_id parameter is emitted.",
+              "example": "promo_042",
+              "type": "string"
+            },
+            "utmMedium": {
+              "description": "Customize the utm_medium value. When omitted or empty, the utm_medium entry from the account's global utm_settings is used if set; otherwise the default `email` is used.",
+              "example": "email",
+              "type": "string"
+            },
+            "utmSource": {
+              "description": "Customize the utm_source value. When omitted or empty, the utm_source entry from the account's global utm_settings is used if set; otherwise the account default (`brevo` or `sendinblue`) is used.",
+              "example": "brevo",
+              "type": "string"
+            },
+            "utmTerm": {
+              "description": "Customize the utm_term value. Appears on outgoing tracking links alongside utm_campaign. Only alphanumeric characters and spaces are allowed",
+              "example": "summer_sale",
+              "type": "string"
+            },
+            "winnerCriteria": {
+              "description": "Choose the metrics that will determinate the winning version. **Mandatory if _splitRule_ >= 1 and < 50**. If splitRule = 50, `winnerCriteria` is ignored if passed\n",
+              "enum": [
+                "open",
+                "click"
+              ],
+              "example": "open",
+              "type": "string"
+            },
+            "winnerDelay": {
+              "description": "Choose the duration of the test in hours. Maximum is 7 days, pass 24*7 = 168 hours. The winning version will be sent at the end of the test. **Mandatory if _splitRule_ >= 1 and < 50**. If splitRule = 50, `winnerDelay` is ignored if passed\n",
+              "example": 50,
+              "format": "int64",
+              "maximum": 168,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "name",
+            "sender"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201
+    },
+    "response_codes": [
+      201,
+      400,
+      405
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 405,
+        "meaning": "Method not allowed. Returned when using sendAtBestTime or abTesting features without the required premium plan."
+      }
+    ],
+    "side_effects": [
+      "Creates a draft campaign",
+      "If scheduledAt is set, scheduling begins",
+      "Consumes no credits until sent"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/emailCampaigns",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__create_email_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createEmailCampaign",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Create"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create an email campaign",
+        "ui_path": "Marketing > Email campaigns > Create",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create newsletter",
+      "email blast",
+      "marketing email",
+      "campaign draft",
+      "create",
+      "email",
+      "campaign",
+      "email campaign",
+      "email campaigns",
+      "newsletter",
+      "new campaign"
+    ],
+    "related_actions": [
+      "email_campaigns.update_email_campaign",
+      "email_campaigns.send_email_campaign_now",
+      "email_campaigns.send_test_email"
+    ],
+    "tags": [
+      "email_campaigns",
+      "create"
+    ],
+    "confidence": 0.99,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: POST /emailCampaigns",
+      "http_status": 201,
+      "note": null,
+      "kind": "write_flow"
+    },
+    "observed_ui": [
+      {
+        "observed_id": "observed.email_campaigns_backend.post_email_campaign_api_regular_setup",
+        "ui_path": "Marketing > Campanhas > E-mail > Criar campanha",
+        "host": "email-campaigns-backend.brevo.com",
+        "method": "POST",
+        "path": "/email-campaign/api/regular/setup",
+        "equivalence": "same_capability_different_surface",
+        "request_body_captured": true,
+        "captured_at": "2026-11-21T02:09:55.429Z",
+        "note": "UI setup body: {camp_name, folder_path, tag_ids} -> 201 {id}, then the editor loads the campaign. Public API POST /emailCampaigns takes the full campaign definition (sender, subject, recipients, content) in one call."
+      }
+    ],
+    "ui_evidence": {
+      "status": "observed_internal",
+      "captured_at": "2026-11-21T02:09:55.429Z",
+      "har_file": ".capture/brevo-pass2.har"
+    }
+  },
+  {
+    "id": "email_campaigns.create_test_campaign",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Create an A/B test campaign",
+    "intent": "Configure two variants and test settings for a campaign.",
+    "description": "Configure two variants and test settings for a campaign.",
+    "action_type": "partial_api_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Partially supported by the API; some steps must be done in the UI"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "api_partial",
+      "endpoint": null,
+      "related_action": "email_campaigns.create_email_campaign",
+      "ui_path": "Marketing > Email campaigns > A/B test",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > A/B test",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "ab test",
+      "split test"
+    ],
+    "related_actions": [
+      "email_campaigns.create_email_campaign"
+    ],
+    "tags": [
+      "email_campaigns",
+      "api_partial",
+      "ui"
+    ],
+    "confidence": 0.8,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "email_campaigns.delete_email_campaign",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Delete an email campaign",
+    "intent": "Delete an email campaign",
+    "description": "Delete an email campaign by its campaign ID. Only campaigns that have not been scheduled can be deleted; attempting to delete a campaign that has already been scheduled will return a 403 permission denied error. Related data in templates, newsletter builder, and schedule collections is also cleaned up.",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the campaign"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      403,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 403,
+        "meaning": "Permission denied. A campaign that has already been scheduled cannot be deleted."
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/emailCampaigns/{campaignId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__delete_email_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deleteEmailCampaign",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "delete",
+      "email",
+      "campaign",
+      "email campaign",
+      "marketing email",
+      "email campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "email_campaigns",
+      "delete"
+    ],
+    "confidence": 0.89,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: DELETE /emailCampaigns/10",
+      "http_status": 204,
+      "note": null,
+      "kind": "write_flow"
+    },
+    "observed_ui": [
+      {
+        "observed_id": "observed.email_campaigns_backend.delete_email_campaign_api_campaigns",
+        "ui_path": "Marketing > Campanhas > Excluir",
+        "host": "email-campaigns-backend.brevo.com",
+        "method": "DELETE",
+        "path": "/email-campaign/api/campaigns",
+        "equivalence": "same_capability_different_surface",
+        "request_body_captured": false,
+        "captured_at": "2026-11-21T02:09:55.429Z",
+        "note": "UI deletes via email-campaigns-backend /email-campaign/api/campaigns. Public API deletes /emailCampaigns/{campaignId}."
+      }
+    ],
+    "ui_evidence": {
+      "status": "observed_internal",
+      "captured_at": "2026-11-21T02:09:55.429Z",
+      "har_file": ".capture/brevo-pass2.har"
+    }
+  },
+  {
+    "id": "email_campaigns.duplicate_campaign",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Duplicate a campaign",
+    "intent": "Clone an existing campaign as a starting point.",
+    "description": "Clone an existing campaign as a starting point.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Marketing > Email campaigns > Duplicate",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Duplicate",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "clone campaign",
+      "copy campaign"
+    ],
+    "related_actions": [],
+    "tags": [
+      "email_campaigns",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "email_campaigns.email_export_recipients",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Export the recipients of an email campaign",
+    "intent": "Export the recipients of an email campaign",
+    "description": "Export the recipients of a sent email campaign as an asynchronous process, filtered by recipient type (e.g. openers, clickers, hardBounces). The recipientsType field is required and determines which subset of recipients to export. An optional notifyURL webhook will be called once the export is complete, and the response returns a processId to track the export status.",
+    "action_type": "export",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the campaign"
+        },
+        "notifyURL": {
+          "description": "Webhook called once the export process is finished. For reference, https://help.brevo.com/hc/en-us/articles/360007666479",
+          "example": "http://requestb.in/173lyyx1",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        },
+        "recipientsType": {
+          "description": "Type of recipients to export for a campaign",
+          "enum": [
+            "all",
+            "nonClickers",
+            "nonOpeners",
+            "clickers",
+            "openers",
+            "softBounces",
+            "hardBounces",
+            "unsubscribed"
+          ],
+          "example": "openers",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId",
+        "recipientsType"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": false,
+        "media_type": "application/json",
+        "description": "Values to send for a recipient export request",
+        "schema": {
+          "properties": {
+            "notifyURL": {
+              "description": "Webhook called once the export process is finished. For reference, https://help.brevo.com/hc/en-us/articles/360007666479",
+              "example": "http://requestb.in/173lyyx1",
+              "format": "url",
+              "type": "string"
+            },
+            "recipientsType": {
+              "description": "Type of recipients to export for a campaign",
+              "enum": [
+                "all",
+                "nonClickers",
+                "nonOpeners",
+                "clickers",
+                "openers",
+                "softBounces",
+                "hardBounces",
+                "unsubscribed"
+              ],
+              "example": "openers",
+              "type": "string"
+            }
+          },
+          "required": [
+            "recipientsType"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 202
+    },
+    "response_codes": [
+      202,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Starts an asynchronous export process",
+      "Produces a downloadable file"
+    ],
+    "reversibility": "partially_reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/emailCampaigns/{campaignId}/exportRecipients",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__email_export_recipients"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "emailExportRecipients",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Export recipients"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Export campaign recipients",
+        "ui_path": "Marketing > Email campaigns > Export recipients",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "export",
+      "recipients",
+      "email",
+      "campaign",
+      "email campaign",
+      "marketing email",
+      "email campaigns",
+      "download recipients"
+    ],
+    "related_actions": [],
+    "tags": [
+      "email_campaigns",
+      "export"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "email_campaigns.get_ab_test_campaign_result",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Get an A/B test email campaign results",
+    "intent": "Get an A/B test email campaign results",
+    "description": "Obtain winning version of an A/B test email campaign",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the A/B test campaign"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "clickRate": {
+            "description": "Click rate for current winning version",
+            "example": "70%",
+            "type": "string"
+          },
+          "clickedLinks": {
+            "properties": {
+              "Version A": {
+                "$ref": "#/components/schemas/abTestVersionClicks"
+              },
+              "Version B": {
+                "$ref": "#/components/schemas/abTestVersionClicks"
+              }
+            },
+            "required": [
+              "Version A",
+              "Version B"
+            ],
+            "type": "object"
+          },
+          "openRate": {
+            "description": "Open rate for current winning version",
+            "example": "70%",
+            "type": "string"
+          },
+          "statistics": {
+            "properties": {
+              "clicks": {
+                "$ref": "#/components/schemas/abTestVersionStats"
+              },
+              "complaints": {
+                "$ref": "#/components/schemas/abTestVersionStats"
+              },
+              "hardBounces": {
+                "$ref": "#/components/schemas/abTestVersionStats"
+              },
+              "openers": {
+                "$ref": "#/components/schemas/abTestVersionStats"
+              },
+              "softBounces": {
+                "$ref": "#/components/schemas/abTestVersionStats"
+              },
+              "unsubscribed": {
+                "$ref": "#/components/schemas/abTestVersionStats"
+              }
+            },
+            "required": [
+              "clicks",
+              "complaints",
+              "hardBounces",
+              "openers",
+              "softBounces",
+              "unsubscribed"
+            ],
+            "type": "object"
+          },
+          "winningCriteria": {
+            "description": "Criteria chosen for winning version (Open/Click)",
+            "enum": [
+              "Open",
+              "Click"
+            ],
+            "example": "Open",
+            "type": "string"
+          },
+          "winningSubjectLine": {
+            "description": "Subject Line of current winning version",
+            "example": "Subject Line A",
+            "type": "string"
+          },
+          "winningVersion": {
+            "description": "Winning Campaign Info. pending = Campaign has been picked for sending and winning version is yet to be decided, tie = A tie happened between both the versions, notAvailable = Campaign has not yet been picked for sending.",
+            "enum": [
+              "notAvailable",
+              "pending",
+              "tie",
+              "A",
+              "B"
+            ],
+            "example": "A",
+            "type": "string"
+          },
+          "winningVersionRate": {
+            "description": "Open/Click rate for the winner version",
+            "example": "70%",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "clickRate": "50%",
+        "clickedLinks": {
+          "Version A": [
+            {
+              "clickRate": "0%",
+              "clicksCount": 0,
+              "link": "https://google.com"
+            },
+            {
+              "clickRate": "0%",
+              "clicksCount": 0,
+              "link": "https://youtube.com"
+            }
+          ],
+          "Version B": [
+            {
+              "clickRate": "40%",
+              "clicksCount": 2,
+              "link": "http://www.github.com"
+            },
+            {
+              "clickRate": "60%",
+              "clicksCount": 3,
+              "link": "http://www.stackoverflow.com"
+            }
+          ]
+        },
+        "openRate": "100%",
+        "statistics": {
+          "clicks": {
+            "Version A": "0%",
+            "Version B": "50%"
+          },
+          "complaints": {
+            "Version A": "0%",
+            "Version B": "0%"
+          },
+          "hardBounces": {
+            "Version A": "0%",
+            "Version B": "0%"
+          },
+          "openers": {
+            "Version A": "20%",
+            "Version B": "100%"
+          },
+          "softBounces": {
+            "Version A": "0%",
+            "Version B": "0%"
+          },
+          "unsubscribed": {
+            "Version A": "20%",
+            "Version B": "0%"
+          }
+        },
+        "winningCriteria": "Click",
+        "winningVersion": "B",
+        "winningVersionRate": "0%"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "A/B test Email Campaign not found"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/emailCampaigns/{campaignId}/abTestCampaignResult",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__get_ab_test_campaign_result"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getAbTestCampaignResult",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "test",
+      "email",
+      "campaign",
+      "results",
+      "email campaign",
+      "marketing email",
+      "send test",
+      "a/b test",
+      "email campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "email_campaigns",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "email_campaigns.get_email_campaign",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Get an email campaign report",
+    "intent": "Get an email campaign report",
+    "description": "Retrieve detailed information about a specific email campaign by its ID, including recipients, statistics, and HTML content. Use the statistics query parameter to select which statistics to include (globalStats, linksStats, statsByDomain, statsByDevice, or statsByBrowser); statsByDevice and statsByBrowser are only available on this single-campaign endpoint. You can exclude HTML content from the response by setting excludeHtmlContent to true.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the campaign"
+        },
+        "statistics": {
+          "enum": [
+            "globalStats",
+            "linksStats",
+            "statsByDomain",
+            "statsByDevice",
+            "statsByBrowser"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter on the type of statistics required. Example: **globalStats** value will only fetch globalStats info of the campaign in the returned response. `statsByDevice` and `statsByBrowser` are only available when retrieving a single campaign (not in the list endpoint)."
+        },
+        "excludeHtmlContent": {
+          "enum": [
+            true,
+            false
+          ],
+          "type": "boolean",
+          "x-in": "query",
+          "description": "Use this flag to exclude htmlContent from the response body. If set to **true**, htmlContent field will be returned as empty string in the response body"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [
+        "statistics",
+        "excludeHtmlContent"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "attachmentFile": {
+            "description": "Url of the attachment file. Only available if the campaign has an attachment.",
+            "example": "http://mydomain.com/campaign/attachment/file.pdf",
+            "type": "string"
+          },
+          "abTesting": {
+            "description": "Status of A/B Test for the campaign. abTesting = false means it is disabled, & abTesting = true means it is enabled.",
+            "example": true,
+            "type": "boolean"
+          },
+          "id": {
+            "description": "ID of the campaign",
+            "example": 12,
+            "format": "int64",
+            "type": "integer"
+          },
+          "name": {
+            "description": "Name of the campaign",
+            "example": "EN - Sales Summer 2017",
+            "type": "string"
+          },
+          "previewText": {
+            "description": "Preview text or preheader of the email campaign",
+            "example": "Thanks for your order!",
+            "type": "string"
+          },
+          "scheduledAt": {
+            "description": "UTC date-time on which campaign is scheduled (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-06-01T12:30:00Z",
+            "type": "string"
+          },
+          "sendAtBestTime": {
+            "description": "It is true if you have chosen to send your campaign at best time, otherwise it is false",
+            "example": true,
+            "type": "boolean"
+          },
+          "splitRule": {
+            "description": "The size of your ab-test groups. Only available if `abTesting` flag of the campaign is `true`",
+            "example": 25,
+            "type": "integer"
+          },
+          "status": {
+            "description": "Status of the campaign",
+            "enum": [
+              "draft",
+              "sent",
+              "archive",
+              "queued",
+              "suspended",
+              "in_process",
+              "in_review",
+              "cancelling",
+              "cancelled"
+            ],
+            "example": "sent",
+            "type": "string"
+          },
+          "subject": {
+            "description": "Subject of the campaign. Only available if `abTesting` flag of the campaign is `false`",
+            "example": "20% OFF for 2017 Summer Sales",
+            "type": "string"
+          },
+          "subjectA": {
+            "description": "Subject A of the ab-test campaign. Only available if `abTesting` flag of the campaign is `true`",
+            "example": "Discover the New Collection!",
+            "type": "string"
+          },
+          "subjectB": {
+            "description": "Subject B of the ab-test campaign. Only available if `abTesting` flag of the campaign is `true`",
+            "example": "Want to discover the New Collection?",
+            "type": "string"
+          },
+          "type": {
+            "description": "Type of campaign",
+            "enum": [
+              "classic",
+              "trigger"
+            ],
+            "example": "classic",
+            "type": "string"
+          },
+          "winnerCriteria": {
+            "description": "Criteria for the winning version. Only available if `abTesting` flag of the campaign is `true`",
+            "example": "open",
+            "type": "string"
+          },
+          "winnerDelay": {
+            "description": "The duration of the test in hours at the end of which the winning version will be sent. Only available if `abTesting` flag of the campaign is `true`",
+            "example": 50,
+            "type": "integer"
+          },
+          "attachmentUrl": {
+            "description": "URL of the attachment file associated with the campaign. Empty string if no attachment is present.",
+            "example": "https://attachment.domain.com/file.pdf",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "Creation UTC date-time of the campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-05-01T12:30:00Z",
+            "type": "string"
+          },
+          "emailExpirationDate": {
+            "description": "Expiration date configuration for the email campaign, if set. Contains the duration and unit of the email expiry.",
+            "properties": {
+              "duration": {
+                "description": "Duration of the email expiry",
+                "example": 30,
+                "format": "int64",
+                "type": "integer"
+              },
+              "unit": {
+                "description": "Unit of the duration",
+                "enum": [
+                  "days",
+                  "weeks",
+                  "months"
+                ],
+                "example": "weeks",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "footer": {
+            "description": "Footer of the campaign",
+            "example": "[DEFAULT_FOOTER]",
+            "type": "string"
+          },
+          "header": {
+            "description": "Header of the campaign",
+            "example": "[DEFAULT_HEADER]",
+            "type": "string"
+          },
+          "htmlContent": {
+            "description": "HTML content of the campaign",
+            "example": "This is my HTML Content",
+            "type": "string"
+          },
+          "inlineImageActivation": {
+            "description": "Status of inline image. inlineImageActivation = false means image can’t be embedded, & inlineImageActivation = true means image can be embedded, in the email.",
+            "example": true,
+            "type": "boolean"
+          },
+          "mirrorActive": {
+            "description": "Status of mirror links in campaign. mirrorActive = false means mirror links are deactivated, & mirrorActive = true means mirror links are activated, in the campaign",
+            "example": true,
+            "type": "boolean"
+          },
+          "modifiedAt": {
+            "description": "UTC date-time of last modification of the campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-05-01T12:30:00Z",
+            "type": "string"
+          },
+          "recurring": {
+            "description": "FOR TRIGGER ONLY ! Type of trigger campaign.recurring = false means contact can receive the same Trigger campaign only once, & recurring = true means contact can receive the same Trigger campaign several times",
+            "example": true,
+            "type": "boolean"
+          },
+          "replyTo": {
+            "description": "Email defined as the \"Reply to\" of the campaign",
+            "example": "replyto@domain.com",
+            "format": "email",
+            "type": "string"
+          },
+          "returnBounce": {
+            "description": "Total number of non-delivered campaigns for a particular campaign id.",
+            "example": 5,
+            "format": "int64",
+            "type": "integer"
+          },
+          "sender": {
+            "properties": {
+              "email": {
+                "description": "Sender email of the campaign",
+                "example": "marketing@mycompany.com",
+                "format": "email",
+                "type": "string"
+              },
+              "id": {
+                "description": "Sender id of the campaign",
+                "example": 43,
+                "format": "int64",
+                "type": "integer"
+              },
+              "name": {
+                "description": "Sender name of the campaign",
+                "example": "Marketing",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "sentDate": {
+            "description": "Sent UTC date-time of the campaign (YYYY-MM-DDTHH:mm:ss.SSSZ). Only available if 'status' of the campaign is 'sent'",
+            "example": "2018-12-01T16:30:00Z",
+            "type": "string"
+          },
+          "shareLink": {
+            "description": "Link to share the campaign on social media. For trigger campaigns, this returns a descriptive message instead of a URL. For classic campaigns that have not been sent, this also returns a descriptive message.",
+            "example": "http://dhh.brevo.com/fhsgccc.html?t=9865448900",
+            "type": "string"
+          },
+          "tag": {
+            "description": "Tag of the campaign",
+            "example": "Newsletter",
+            "type": "string"
+          },
+          "tags": {
+            "description": "List of tags of the campaign",
+            "example": [
+              "tag1",
+              "tag2"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "testSent": {
+            "description": "Retrieved the status of test email sending. (true=Test email has been sent  false=Test email has not been sent)",
+            "example": true,
+            "type": "boolean"
+          },
+          "toField": {
+            "description": "Customisation of the \"to\" field of the campaign",
+            "example": "{FNAME} {LNAME}",
+            "type": "string"
+          },
+          "utmCampaignValue": {
+            "description": "The utm_campaign value applied to the campaign's tracking links. Falls back to your account's global UTM settings when no custom value was set on the campaign, or the campaign name if neither is configured. Only returned when UTM tracking is enabled on the campaign.",
+            "example": "NL_05_2017",
+            "type": "string"
+          },
+          "utmContent": {
+            "description": "The utm_content value applied to the campaign's tracking links. Falls back to your account's global UTM settings when no custom value was set on the campaign. Only returned when UTM tracking is enabled on the campaign and a value is set at one of these levels.",
+            "example": "hero_button",
+            "type": "string"
+          },
+          "utmID": {
+            "description": "Legacy numeric utm_id value applied to the campaign's tracking links. Present only when UTM tracking is enabled on the campaign and the resolved utm_id is numeric (typically the campaign's ID). For customer-supplied non-numeric values (for example `promo_042`), read `utmId` (string) instead. Kept for backward compatibility.",
+            "example": 10,
+            "format": "int64",
+            "type": "integer"
+          },
+          "utmId": {
+            "description": "The utm_id value applied to the campaign's tracking links, returned verbatim as a string. Falls back to your account's global UTM settings when no custom value was set on the campaign. Only returned when UTM tracking is enabled on the campaign and a value is set at one of these levels. Preferred field for new consumers — covers both numeric IDs and customer-supplied non-numeric strings.",
+            "example": "promo_042",
+            "type": "string"
+          },
+          "utmMedium": {
+            "description": "The utm_medium value applied to the campaign's tracking links. Falls back to your account's global UTM settings when no custom value was set on the campaign, or the default `email` if neither is configured. Case is preserved verbatim. Only returned when UTM tracking is enabled on the campaign.",
+            "example": "email",
+            "type": "string"
+          },
+          "utmSource": {
+            "description": "The utm_source value applied to the campaign's tracking links. Falls back to your account's global UTM settings when no custom value was set on the campaign, or the account default (`brevo` or `sendinblue`) if neither is configured. Case is preserved verbatim. Only returned when UTM tracking is enabled on the campaign.",
+            "example": "brevo",
+            "type": "string"
+          },
+          "utmTerm": {
+            "description": "The utm_term value applied to the campaign's tracking links. Falls back to your account's global UTM settings when no custom value was set on the campaign. Only returned when UTM tracking is enabled on the campaign and a value is set at one of these levels.",
+            "example": "summer_sale",
+            "type": "string"
+          },
+          "recipients": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/getCampaignRecipients"
+              }
+            ],
+            "type": "object"
+          },
+          "statistics": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/getExtendedCampaignStats"
+              }
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "status",
+          "type",
+          "createdAt",
+          "footer",
+          "header",
+          "htmlContent",
+          "modifiedAt",
+          "replyTo",
+          "sender",
+          "testSent",
+          "recipients",
+          "statistics"
+        ]
+      },
+      "example": {
+        "createdAt": "2017-05-01T12:30:00Z",
+        "footer": "[DEFAULT_FOOTER]",
+        "header": "[DEFAULT_HEADER]",
+        "htmlContent": "This is my HTML Content",
+        "id": 22,
+        "inlineImageActivation": true,
+        "mirrorActive": true,
+        "modifiedAt": "2017-05-01T12:30:00Z",
+        "name": "Weekly - 1",
+        "previewText": "your weekly newsletter",
+        "recipients": {
+          "exclusionLists": [
+            45
+          ],
+          "lists": [
+            22
+          ]
+        },
+        "recurring": false,
+        "replyTo": "replyto@domain.com",
+        "scheduledAt": "2017-09-22T12:30:00Z",
+        "sender": {
+          "email": "newsletter@mycompany.com",
+          "id": 26,
+          "name": "Newsletter"
+        },
+        "attachmentFile": "http://img.mailinblue.com/{clientID-campaignID}/attachments/{fileName}",
+        "shareLink": "http://dhh.brevo.com/fhsgccc.html?t=9865448900",
+        "statistics": {
+          "campaignStats": [
+            {
+              "clickers": 2665,
+              "complaints": 1,
+              "deferred": 30,
+              "delivered": 19765,
+              "hardBounces": 87,
+              "listId": 22,
+              "sent": 19887,
+              "softBounces": 100,
+              "trackableViews": 5661,
+              "uniqueClicks": 2300,
+              "uniqueViews": 7779,
+              "unsubscriptions": 2,
+              "viewed": 8999
+            }
+          ],
+          "globalStats": {
+            "appleMppOpens": 10,
+            "clickers": 2665,
+            "complaints": 1,
+            "delivered": 19765,
+            "estimatedViews": 560,
+            "hardBounces": 87,
+            "opensRate": 24.59,
+            "sent": 19887,
+            "softBounces": 100,
+            "trackableViews": 5661,
+            "trackableViewsRate": 23.45,
+            "uniqueClicks": 2300,
+            "uniqueViews": 7779,
+            "unsubscriptions": 2,
+            "viewed": 8999
+          },
+          "linksStats": {
+            "http://myUrl1.domain.com": {
+              "nbClick": 80
+            },
+            "http://myUrl2.domain.com": {
+              "nbClick": 80
+            },
+            "http://myUrl3.domain.com": {
+              "nbClick": 80
+            }
+          },
+          "mirrorClick": 120,
+          "remaining": 1000,
+          "statsByBrowser": {
+            "internetExplorer": {
+              "clickers": 0,
+              "uniqueClicks": 0,
+              "uniqueViews": 0,
+              "viewed": 1
+            },
+            "safari": {
+              "clickers": 1,
+              "uniqueClicks": 0,
+              "uniqueViews": 0,
+              "viewed": 1
+            },
+            "thunderbird": {
+              "clickers": 1,
+              "uniqueClicks": 0,
+              "uniqueViews": 0,
+              "viewed": 1
+            }
+          },
+          "statsByDevice": {
+            "desktop": {
+              "mac": {
+                "clickers": 1,
+                "uniqueClicks": 0,
+                "uniqueViews": 1,
+                "viewed": 2
+              }
+            },
+            "mobile": {
+              "androidMobile": {
+                "clickers": 1,
+                "uniqueClicks": 0,
+                "uniqueViews": 0,
+                "viewed": 1
+              },
+              "iPhone": {
+                "clickers": 1,
+                "uniqueClicks": 0,
+                "uniqueViews": 0,
+                "viewed": 2
+              }
+            }
+          },
+          "statsByDomain": {
+            "gmail": {
+              "clickers": 2665,
+              "complaints": 1,
+              "deferred": 30,
+              "delivered": 19765,
+              "hardBounces": 87,
+              "sent": 19887,
+              "softBounces": 100,
+              "uniqueClicks": 2300,
+              "uniqueViews": 7779,
+              "unsubscriptions": 2,
+              "viewed": 8999
+            }
+          }
+        },
+        "status": "draft",
+        "subject": "Week 1 - Newsletter",
+        "tag": "Newsletter",
+        "tags": [
+          "Newsletter",
+          "Weekly"
+        ],
+        "testSent": false,
+        "toField": "{FNAME} {LNAME}",
+        "type": "classic"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/emailCampaigns/{campaignId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__get_email_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getEmailCampaign",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Reports"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "View campaign statistics",
+        "ui_path": "Marketing > Email campaigns > Reports",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "get",
+      "email",
+      "campaign",
+      "report",
+      "email campaign",
+      "marketing email",
+      "email campaigns",
+      "campaign stats",
+      "campaign report",
+      "view",
+      "statistics"
+    ],
+    "related_actions": [],
+    "tags": [
+      "email_campaigns",
+      "read"
+    ],
+    "confidence": 0.98,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /emailCampaigns/10",
+      "http_status": 200,
+      "note": null,
+      "kind": "write_flow"
+    }
+  },
+  {
+    "id": "email_campaigns.get_shared_template_url",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Get a shared template url",
+    "intent": "Get a shared template url",
+    "description": "Get a unique URL to share & import an email template from one Brevo account to another.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the campaign or template"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "sharedUrl": {
+            "description": "A unique URL for the email campaign or transactional template. This URL can be shared with other Brevo users.",
+            "example": "https://my.brevo.com/pt2YU7R5W_guXlowgumy_VX4pFsKu._zd0Gjj96x1_GMmzc1Qps5ZIpj6nx-",
+            "format": "url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sharedUrl"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "sharedUrl": "https://my.brevo.com/pt2YU7R5W_guXlowgumy_VX4pFsKu._zd0Gjj96x1_GMmzc1Qps5ZIpj6nx-"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404,
+      405
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Campaign/Template ID not found"
+      },
+      {
+        "status": 405,
+        "meaning": "Only email campaigns or templates are allowed"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/emailCampaigns/{campaignId}/sharedUrl",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__get_shared_template_url"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getSharedTemplateUrl",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "shared",
+      "template",
+      "url",
+      "email campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "email_campaigns",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "email_campaigns.list_email_campaigns",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Return all your created email campaigns",
+    "intent": "Return all your created email campaigns",
+    "description": "<Note>The response payload for this endpoint has changed You now need to specify which type of statistics you would like to retrieve. For more information visit [this page](https://developers.brevo.com/changelog/get-all-marketing-campaigns).</Note>",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "classic",
+            "trigger"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter on the type of the campaigns"
+        },
+        "status": {
+          "enum": [
+            "suspended",
+            "archive",
+            "sent",
+            "queued",
+            "draft",
+            "inProcess",
+            "inReview",
+            "cancelling",
+            "cancelled"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter on the status of the campaign"
+        },
+        "statistics": {
+          "enum": [
+            "globalStats",
+            "linksStats",
+            "statsByDomain"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter on the type of statistics required. Example: **globalStats** value will only fetch globalStats info of the campaign in the returned response. This option only returns data for events that occurred in the last 6 months. For older campaigns, it is advisable to use the **Get…"
+        },
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting (urlencoded) UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) to filter the sent email campaigns. **Prefer to pass your timezone in date-time format for accurate result.** Only available if `status` is not passed or is set to `sent`. The date r…"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending (urlencoded) UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) to filter the sent email campaigns. **Prefer to pass your timezone in date-time format for accurate result.** Only available if `status` is not passed or is set to `sent`. The date r…"
+        },
+        "limit": {
+          "default": 50,
+          "format": "int64",
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document in the page"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        },
+        "excludeHtmlContent": {
+          "enum": [
+            true,
+            false
+          ],
+          "type": "boolean",
+          "x-in": "query",
+          "description": "Use this flag to exclude htmlContent from the response body. If set to **true**, the htmlContent field will be returned as an empty string in the response body."
+        },
+        "excludePdfAttachment": {
+          "enum": [
+            true,
+            false
+          ],
+          "type": "boolean",
+          "x-in": "query",
+          "description": "Use this flag to filter out campaigns that have a PDF attachment. If set to **true**, only campaigns without a PDF attachment (or with no attachment at all) will be returned."
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "type",
+        "status",
+        "statistics",
+        "startDate",
+        "endDate",
+        "limit",
+        "offset",
+        "sort",
+        "excludeHtmlContent",
+        "excludePdfAttachment"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "campaigns": {
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/getExtendedCampaignOverview"
+                },
+                {
+                  "properties": {
+                    "recipients": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/getCampaignRecipients"
+                        }
+                      ],
+                      "type": "object"
+                    },
+                    "shareLink": {
+                      "description": "Link to share the campaign on social medias",
+                      "example": "http://dhh.brevo.com/fhsgccc.html?t=9865448900",
+                      "format": "url",
+                      "type": "string"
+                    },
+                    "statistics": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/getExtendedCampaignStats"
+                        }
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "recipients",
+                    "statistics"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "count": {
+            "description": "Number of Email campaigns retrieved",
+            "example": 24,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "campaigns": [
+          {
+            "createdAt": "2017-05-01T12:30:00Z",
+            "footer": "[DEFAULT_FOOTER]",
+            "header": "[DEFAULT_HEADER]",
+            "htmlContent": "This is my HTML Content",
+            "id": 12,
+            "inlineImageActivation": true,
+            "mirrorActive": true,
+            "modifiedAt": "2017-05-01T12:30:00Z",
+            "name": "EN - Sales Summer 2017",
+            "previewText": "Don't miss the sale!",
+            "recipients": {
+              "exclusionLists": [
+                13
+              ],
+              "lists": [
+                5
+              ]
+            },
+            "recurring": false,
+            "replyTo": "replyto@domain.com",
+            "scheduledAt": "2017-06-01T12:30:00Z",
+            "sender": {
+              "email": "marketing@mycompany.com",
+              "id": 26,
+              "name": "Marketing"
+            },
+            "shareLink": "http://example.com/fhsgccc.html?t=9865448900",
+            "statistics": {
+              "campaignStats": [
+                {
+                  "clickers": 2665,
+                  "complaints": 1,
+                  "deferred": 30,
+                  "delivered": 19765,
+                  "hardBounces": 87,
+                  "listId": 5,
+                  "sent": 19887,
+                  "softBounces": 100,
+                  "trackableViews": 5661,
+                  "uniqueClicks": 2300,
+                  "uniqueViews": 7779,
+                  "unsubscriptions": 2,
+                  "viewed": 8999
+                }
+              ],
+              "globalStats": {
+                "appleMppOpens": 10,
+                "clickers": 2665,
+                "complaints": 1,
+                "delivered": 19765,
+                "estimatedViews": 560,
+                "hardBounces": 87,
+                "opensRate": 29.54,
+                "sent": 19887,
+                "softBounces": 100,
+                "trackableViews": 5661,
+                "trackableViewsRate": 23.45,
+                "uniqueClicks": 2300,
+                "uniqueViews": 7779,
+                "unsubscriptions": 2,
+                "viewed": 8999
+              },
+              "linksStats": {
+                "http://myUrl1.domain.com": 80
+              },
+              "mirrorClick": 120,
+              "remaining": 1000,
+              "statsByDomain": {
+                "hotmail.co.uk": {
+                  "clickers": 2720,
+                  "complaints": 5,
+                  "delivered": 117056,
+                  "hardBounces": 0,
+                  "sent": 117055,
+                  "softBounces": 111,
+                  "uniqueClicks": 1970,
+                  "uniqueViews": 21111,
+                  "unsubscriptions": 105,
+                  "viewed": 35251
+                },
+                "yahoo.com": {
+                  "clickers": 533,
+                  "complaints": 0,
+                  "delivered": 25596,
+                  "hardBounces": 0,
+                  "sent": 25601,
+                  "softBounces": 5,
+                  "uniqueClicks": 298,
+                  "uniqueViews": 3527,
+                  "unsubscriptions": 17,
+                  "viewed": 5255
+                }
+              }
+            },
+            "status": "sent",
+            "subject": "20% OFF for 2017 Summer Sales",
+            "tag": "Newsletter",
+            "testSent": true,
+            "toField": "{FNAME} {LNAME}",
+            "type": "classic"
+          },
+          {
+            "createdAt": "2017-05-01T12:30:00Z",
+            "footer": "[DEFAULT_FOOTER]",
+            "header": "[DEFAULT_HEADER]",
+            "htmlContent": "This is my HTML Content",
+            "id": 22,
+            "inlineImageActivation": true,
+            "mirrorActive": true,
+            "modifiedAt": "2017-05-01T12:30:00Z",
+            "name": "Weekly - 1",
+            "previewText": "your weekly newsletter!",
+            "recipients": {
+              "exclusionLists": [
+                45
+              ],
+              "lists": [
+                10
+              ]
+            },
+            "recurring": false,
+            "replyTo": "replyto@domain.com",
+            "scheduledAt": "",
+            "sender": {
+              "email": "newsletter@mycompany.com",
+              "id": 26,
+              "name": "Newsletter"
+            },
+            "shareLink": "http://example.com/fhsgccc.html?t=9865448900",
+            "attachmentFile": "http://img.mailinblue.com/{clientID-campaignID}/attachments/{fileName}",
+            "statistics": {
+              "campaignStats": [
+                {
+                  "clickers": 2665,
+                  "complaints": 1,
+                  "deferred": 30,
+                  "delivered": 19765,
+                  "hardBounces": 87,
+                  "listId": 10,
+                  "sent": 19887,
+                  "softBounces": 100,
+                  "trackableViews": 5661,
+                  "uniqueClicks": 2300,
+                  "uniqueViews": 7779,
+                  "unsubscriptions": 2,
+                  "viewed": 8999
+                }
+              ],
+              "globalStats": {
+                "appleMppOpens": 10,
+                "clickers": 2665,
+                "complaints": 1,
+                "delivered": 19765,
+                "estimatedViews": 560,
+                "hardBounces": 87,
+                "opensRate": 29.42,
+                "sent": 19887,
+                "softBounces": 100,
+                "trackableViews": 5661,
+                "trackableViewsRate": 23.45,
+                "uniqueClicks": 2300,
+                "uniqueViews": 7779,
+                "unsubscriptions": 2,
+                "viewed": 8999
+              },
+              "linksStats": {
+                "http://myUrl1.domain.com": {
+                  "nbClick": 80
+                },
+                "http://myUrl2.domain.com": {
+                  "nbClick": 80
+                },
+                "http://myUrl3.domain.com": {
+                  "nbClick": 80
+                }
+              },
+              "mirrorClick": 120,
+              "remaining": 1000,
+              "statsByDomain": {
+                "aol": {
+                  "clickers": 2665,
+                  "complaints": 1,
+                  "deferred": 30,
+                  "delivered": 19765,
+                  "hardBounces": 87,
+                  "sent": 19887,
+                  "softBounces": 100,
+                  "uniqueClicks": 2300,
+                  "uniqueViews": 7779,
+                  "unsubscriptions": 2,
+                  "viewed": 8999
+                },
+                "gmail": {
+                  "clickers": 2665,
+                  "complaints": 1,
+                  "deferred": 30,
+                  "delivered": 19765,
+                  "hardBounces": 87,
+                  "sent": 19887,
+                  "softBounces": 100,
+                  "uniqueClicks": 2300,
+                  "uniqueViews": 7779,
+                  "unsubscriptions": 2,
+                  "viewed": 8999
+                }
+              }
+            },
+            "status": "draft",
+            "subject": "Week 1 - Newsletter",
+            "tag": "Newsletter",
+            "tags": [
+              "Newsletter",
+              "Weekly"
+            ],
+            "testSent": false,
+            "toField": "{FNAME} {LNAME}",
+            "type": "Classic"
+          }
+        ],
+        "count": 2
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/emailCampaigns",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__list_email_campaigns"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getEmailCampaigns",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "return",
+      "created",
+      "email",
+      "campaigns",
+      "email campaign",
+      "marketing email",
+      "email campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "email_campaigns",
+      "read"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/emailCampaigns?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "read_check"
+    }
+  },
+  {
+    "id": "email_campaigns.pause_resume_campaign",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Pause or resume a campaign",
+    "intent": "Suspend or resume sending of a campaign.",
+    "description": "Suspend or resume sending of a campaign.",
+    "action_type": "partial_api_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Partially supported by the API; some steps must be done in the UI"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "api_partial",
+      "endpoint": null,
+      "related_action": "email_campaigns.update_campaign_status",
+      "ui_path": "Marketing > Email campaigns > Status",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Status",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "pause campaign",
+      "resume campaign"
+    ],
+    "related_actions": [
+      "email_campaigns.update_campaign_status"
+    ],
+    "tags": [
+      "email_campaigns",
+      "api_partial",
+      "ui"
+    ],
+    "confidence": 0.8,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "email_campaigns.schedule_email_campaign",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Schedule an email campaign",
+    "intent": "Choose a future date and time for a campaign to be sent.",
+    "description": "Choose a future date and time for a campaign to be sent.",
+    "action_type": "partial_api_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Partially supported by the API; some steps must be done in the UI"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "api_partial",
+      "endpoint": null,
+      "related_action": "email_campaigns.update_email_campaign",
+      "ui_path": "Marketing > Email campaigns > Schedule",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Schedule",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "schedule newsletter",
+      "send later"
+    ],
+    "related_actions": [
+      "email_campaigns.update_email_campaign"
+    ],
+    "tags": [
+      "email_campaigns",
+      "api_partial",
+      "ui"
+    ],
+    "confidence": 0.8,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "email_campaigns.send_email_campaign_now",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Send an email campaign immediately, based on campaignId",
+    "intent": "Send an existing email campaign immediately, ignoring its scheduled time.",
+    "description": "Send an existing email campaign immediately by scheduling it for the current time. The campaign must have valid recipients and content configured before sending. The system verifies your account''s send limit and credit balance before dispatching; if credits are insufficient, a 402 error is returned.",
+    "action_type": "send",
+    "when_to_use": "When a campaign is ready and must go out now.",
+    "when_not_to_use": "Do not use to send a test — use email_campaigns.send_test_email. Irreversible once sending starts.",
+    "preconditions": [
+      "Campaign must exist and be sendable",
+      "Sender/domain authenticated",
+      "Recipients defined"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the campaign"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      402,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Campaign could not be sent"
+      },
+      {
+        "status": 402,
+        "meaning": "You don't have enough credit to send your campaign. Please update your plan"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends real emails to the whole audience",
+      "Irreversible",
+      "Consumes email credits"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/emailCampaigns/{campaignId}/sendNow",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__send_email_campaign_now"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendEmailCampaignNow",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Send now"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Send an email campaign now",
+        "ui_path": "Marketing > Email campaigns > Send now",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "send campaign",
+      "blast now",
+      "launch newsletter",
+      "send",
+      "email",
+      "campaign",
+      "immediately",
+      "based",
+      "campaignid",
+      "email campaign",
+      "marketing email",
+      "send test",
+      "email campaigns",
+      "launch campaign",
+      "send newsletter",
+      "now"
+    ],
+    "related_actions": [
+      "email_campaigns.send_test_email",
+      "email_campaigns.update_email_campaign"
+    ],
+    "tags": [
+      "email_campaigns",
+      "send"
+    ],
+    "confidence": 0.99,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /emailCampaigns/14/sendNow",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": "HTTP 204 accepted, but campaign status=suspended and globalStats sent=0/delivered=0; delivery not confirmed.",
+      "kind": "advanced_flow"
+    }
+  },
+  {
+    "id": "email_campaigns.send_report",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Send the report of a campaign",
+    "intent": "Send the report of a campaign",
+    "description": "A PDF will be sent to the specified email addresses",
+    "action_type": "send",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404.",
+      "An authenticated sender or verified sending domain."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the campaign"
+        },
+        "email": {
+          "description": "Custom attributes for the report email.",
+          "properties": {
+            "body": {
+              "description": "Custom text message to be presented in the report email.",
+              "example": "Please find attached the report of our last email campaign.",
+              "type": "string"
+            },
+            "to": {
+              "description": "Email addresses of the recipients",
+              "items": {
+                "description": "Email address of the recipient",
+                "example": "jim.suehan@example.com",
+                "format": "email",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "body",
+            "to"
+          ],
+          "type": "object",
+          "x-in": "body"
+        },
+        "language": {
+          "default": "fr",
+          "description": "Language of email content for campaign report sending.",
+          "enum": [
+            "fr",
+            "es",
+            "pt",
+            "it",
+            "de",
+            "en"
+          ],
+          "example": "en",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId",
+        "email"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values for send a report",
+        "schema": {
+          "properties": {
+            "email": {
+              "description": "Custom attributes for the report email.",
+              "properties": {
+                "body": {
+                  "description": "Custom text message to be presented in the report email.",
+                  "example": "Please find attached the report of our last email campaign.",
+                  "type": "string"
+                },
+                "to": {
+                  "description": "Email addresses of the recipients",
+                  "items": {
+                    "description": "Email address of the recipient",
+                    "example": "jim.suehan@example.com",
+                    "format": "email",
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "body",
+                "to"
+              ],
+              "type": "object"
+            },
+            "language": {
+              "default": "fr",
+              "description": "Language of email content for campaign report sending.",
+              "enum": [
+                "fr",
+                "es",
+                "pt",
+                "it",
+                "de",
+                "en"
+              ],
+              "example": "en",
+              "type": "string"
+            }
+          },
+          "required": [
+            "email"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends real messages to recipients",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/emailCampaigns/{campaignId}/sendReport",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__send_report"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendReport",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Send report"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Send a campaign report",
+        "ui_path": "Marketing > Email campaigns > Send report",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "send",
+      "report",
+      "campaign",
+      "email campaign",
+      "send test",
+      "email campaigns",
+      "email report",
+      "campaign report"
+    ],
+    "related_actions": [],
+    "tags": [
+      "email_campaigns",
+      "send"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "email_campaigns.send_test_email",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Send an email campaign to your test list",
+    "intent": "Send a test version of a campaign to a small list of test addresses.",
+    "description": "Send a test version of an email campaign to specified email addresses or your entire test list. If the emailTo array is left empty, the test mail will be sent to all addresses in your test list. You can send a maximum of 50 test emails per day.",
+    "action_type": "send",
+    "when_to_use": "Before launching, to verify rendering, links and personalization.",
+    "when_not_to_use": "Do not use for production delivery.",
+    "preconditions": [
+      "Campaign exists",
+      "Test email addresses provided"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the campaign"
+        },
+        "emailTo": {
+          "description": "List of the email addresses of the recipients whom you wish to send the test mail. _If left empty, the test mail will be sent to your entire test list. You can not send more than 50 test emails per day_.\n",
+          "items": {
+            "description": "Email addres of the recipient",
+            "example": "helen.jurger@example.com",
+            "format": "email",
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "properties": {
+            "emailTo": {
+              "description": "List of the email addresses of the recipients whom you wish to send the test mail. _If left empty, the test mail will be sent to your entire test list. You can not send more than 50 test emails per day_.\n",
+              "items": {
+                "description": "Email addres of the recipient",
+                "example": "helen.jurger@example.com",
+                "format": "email",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Test email could not be sent to the following email addresses"
+      },
+      {
+        "status": 404,
+        "meaning": "Campaign ID not found"
+      }
+    ],
+    "side_effects": [
+      "Sends a small number of emails",
+      "Reversible/no production impact"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/emailCampaigns/{campaignId}/sendTest",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__send_test_email"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendTestEmail",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Send test"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Send a test email",
+        "ui_path": "Marketing > Email campaigns > Send test",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "test campaign",
+      "preview send",
+      "seed test",
+      "send",
+      "email",
+      "campaign",
+      "test",
+      "list",
+      "email campaign",
+      "marketing email",
+      "send test",
+      "a/b test",
+      "email campaigns",
+      "test send",
+      "preview email"
+    ],
+    "related_actions": [
+      "email_campaigns.send_email_campaign_now"
+    ],
+    "tags": [
+      "email_campaigns",
+      "send"
+    ],
+    "confidence": 0.99,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /emailCampaigns/13/sendTest",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": "HTTP 204 accepted, but campaign status=suspended and globalStats sent=0/delivered=0; delivery not confirmed.",
+      "kind": "advanced_flow"
+    }
+  },
+  {
+    "id": "email_campaigns.update_campaign_status",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Update an email campaign status",
+    "intent": "Update an email campaign status",
+    "description": "Update the status of an email campaign, such as suspending, archiving, or replicating it. Available status values include suspended, archive, darchive, sent, queued, replicate, replicateTemplate, cancel, and draft. Note that the replicateTemplate status is only available for template type campaigns.",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the campaign"
+        },
+        "status": {
+          "description": "Note:- **replicateTemplate** status will be available **only for template type campaigns.**\n",
+          "enum": [
+            "suspended",
+            "archive",
+            "darchive",
+            "sent",
+            "queued",
+            "replicate",
+            "replicateTemplate",
+            "cancel",
+            "draft"
+          ],
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Status of the campaign",
+        "schema": {
+          "description": "Status of the campaign",
+          "example": "sent",
+          "properties": {
+            "status": {
+              "description": "Note:- **replicateTemplate** status will be available **only for template type campaigns.**\n",
+              "enum": [
+                "suspended",
+                "archive",
+                "darchive",
+                "sent",
+                "queued",
+                "replicate",
+                "replicateTemplate",
+                "cancel",
+                "draft"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "example": "sent"
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/emailCampaigns/{campaignId}/status",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__update_campaign_status"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "updateCampaignStatus",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "update",
+      "email",
+      "campaign",
+      "status",
+      "email campaign",
+      "marketing email",
+      "email campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "email_campaigns",
+      "update"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: PUT /emailCampaigns/15/status",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    }
+  },
+  {
+    "id": "email_campaigns.update_email_campaign",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Update an email campaign",
+    "intent": "Update a draft or scheduled email campaign (content, recipients, sender, schedule).",
+    "description": "Update an existing email campaign''s properties such as name, subject, content, sender, recipients, schedule, and A/B testing configuration. The campaign must exist and the request body must contain at least one valid field to update. Only draft or scheduled campaigns can be modified; if sendAtBestTime is enabled, IP warmup will be automatically disabled.",
+    "action_type": "update",
+    "when_to_use": "When editing a campaign that has not been sent yet, or rescheduling it.",
+    "when_not_to_use": "Do not expect to edit a campaign already sending; check its status first.",
+    "preconditions": [
+      "Campaign must be in draft/scheduled/queued state"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the campaign"
+        },
+        "abTesting": {
+          "default": false,
+          "description": "Status of A/B Test. abTesting = false means it is disabled & abTesting = true means it is enabled. **subjectA, subjectB, splitRule, winnerCriteria & winnerDelay** will be considered when abTesting is set to true. subjectA & subjectB are mandatory together & subject if passed is ignored. **Can be set to true only if sendAtBestTime is false**. You will be able to set up two subject lines for your campaign and send them to a random sample of your total recipients. Half of the test group will receive version A, and the other half will receive version B\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "attachmentUrl": {
+          "description": "Absolute url of the attachment (no local file). Extension allowed: #### xlsx, xls, ods, docx, docm, doc, csv, pdf, txt, gif, jpg, jpeg, png, tif, tiff, rtf, bmp, cgm, css, shtml, html, htm, zip, xml, ppt, pptx, tar, ez, ics, mobi, msg, pub and eps'\n",
+          "example": "https://attachment.domain.com",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        },
+        "emailExpirationDate": {
+          "description": "To reduce your carbon footprint, set an expiration date for your email. If supported, it will be automatically deleted from the recipient’s inbox, saving storage space and energy.",
+          "properties": {
+            "duration": {
+              "description": "Duration of the email expiry. maximum duration can be 3600 days or 480 weeks or 120 months.",
+              "example": 30,
+              "format": "int64",
+              "maximum": 3600,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "unit": {
+              "description": "unit of the duration",
+              "enum": [
+                "days",
+                "weeks",
+                "months"
+              ],
+              "example": "weeks",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "footer": {
+          "description": "Footer of the email campaign",
+          "example": "[DEFAULT_FOOTER]",
+          "type": "string",
+          "x-in": "body"
+        },
+        "header": {
+          "description": "Header of the email campaign",
+          "example": "[DEFAULT_HEADER]",
+          "type": "string",
+          "x-in": "body"
+        },
+        "htmlContent": {
+          "description": "Body of the message (HTML version). If the campaign is designed using Drag & Drop editor via HTML content, then the design page will not have Drag & Drop editor access for that campaign. **REQUIRED if htmlUrl is empty**\n",
+          "example": "<!DOCTYPE html> <html> <body> <h1>Confirm you email</h1> <p>Please confirm your email address by clicking on the link below</p> </body> </html>",
+          "type": "string",
+          "x-in": "body"
+        },
+        "htmlUrl": {
+          "description": "Url which contents the body of the email message. **REQUIRED if htmlContent is empty**\n",
+          "example": "https://html.domain.com",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        },
+        "increaseRate": {
+          "description": "Set a percentage increase rate for warming up your ip. We recommend you set the increase rate to 30% per day. If you want to send the same number of emails every day, set the daily increase value to 0%.\n",
+          "example": 70,
+          "format": "int64",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "body"
+        },
+        "initialQuota": {
+          "description": "Set an initial quota greater than 1 for warming up your ip. We recommend you set a value of 3000.\n",
+          "example": 3000,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "body"
+        },
+        "inlineImageActivation": {
+          "default": false,
+          "description": "Status of inline image. inlineImageActivation = false means image can’t be embedded, & inlineImageActivation = true means image can be embedded, in the email. You cannot send a campaign of more than **4MB** with images embedded in the email. Campaigns with the images embedded in the email _must be sent to less than 5000 contacts_.\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "ipWarmupEnable": {
+          "default": false,
+          "description": "**Available for dedicated ip clients**. Set this to true if you wish to warm up your ip.\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "mirrorActive": {
+          "description": "Status of mirror links in campaign. mirrorActive = false means mirror links are deactivated, & mirrorActive = true means mirror links are activated, in the campaign",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "Name of the campaign",
+          "example": "Newsletter - May 2017",
+          "type": "string",
+          "x-in": "body"
+        },
+        "params": {
+          "additionalProperties": {},
+          "description": "Pass the set of attributes to customize the type classic campaign. For example: **{\"FNAME\":\"Joe\", \"LNAME\":\"Doe\"}**. Only available if **type** is **classic**. It's considered only if campaign is in _New Template Language format_. The New Template Language is dependent on the values of **subject, htmlContent/htmlUrl, sender.name & toField**\n",
+          "example": {
+            "FNAME": "Joe",
+            "LNAME": "Doe"
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "previewText": {
+          "description": "Preview text or preheader of the email campaign",
+          "example": "Thanks for your order!",
+          "type": "string",
+          "x-in": "body"
+        },
+        "recipients": {
+          "description": "Segment ids and List ids to include/exclude from campaign",
+          "properties": {
+            "exclusionListIds": {
+              "description": "List ids which have to be excluded from a campaign",
+              "items": {
+                "example": 8,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "exclusionSegmentIds": {
+              "description": "Segment ids which have to be excluded from a campaign.\n",
+              "items": {
+                "example": 13,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "listIds": {
+              "description": "Lists Ids to send the campaign to. **Campaign should only be updated with listIds if listIds were used to create it. REQUIRED if already not present in campaign and scheduledAt is not empty**\n",
+              "items": {
+                "example": 32,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "segmentIds": {
+              "description": "**Mandatory if listIds are not used. Campaign should only be updated with segmentIds if segmentIds were used to create it.** Segment ids to send the campaign to.\n",
+              "items": {
+                "example": 23,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "recurring": {
+          "default": false,
+          "description": "**FOR TRIGGER ONLY !** Type of trigger campaign.recurring = false means contact can receive the same Trigger campaign only once, & recurring = true means contact can receive the same Trigger campaign several times\n",
+          "example": false,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "replyTo": {
+          "description": "Email on which campaign recipients will be able to reply to",
+          "example": "support@myshop.com",
+          "format": "email",
+          "type": "string",
+          "x-in": "body"
+        },
+        "scheduledAt": {
+          "description": "UTC date-time on which the campaign has to run (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.** If sendAtBestTime is set to true, your campaign will be sent according to the date passed (ignoring the time part).\n",
+          "example": "2017-06-01T12:30:00+02:00",
+          "type": "string",
+          "x-in": "body"
+        },
+        "sendAtBestTime": {
+          "description": "Set this to true if you want to send your campaign at best time. Note:- **if true, warmup ip will be disabled.**\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "sender": {
+          "description": "Sender details including id or email and name (optional). Only one of either Sender's email or Sender's ID shall be passed in one request at a time. For example: **{\"name\":\"xyz\", \"email\":\"example@abc.com\"}** **{\"name\":\"xyz\", \"id\":123}**\n",
+          "properties": {
+            "email": {
+              "description": "Sender email from which the campaign emails are sent",
+              "example": "newsletter@myshop.com",
+              "format": "email",
+              "type": "string"
+            },
+            "id": {
+              "description": "Select the sender for the campaign on the basis of sender id. **In order to select a sender with specific pool of IP’s, dedicated ip users shall pass id (instead of email)**.\n",
+              "example": 3,
+              "format": "int64",
+              "type": "integer"
+            },
+            "name": {
+              "description": "Sender Name from which the campaign emails are sent",
+              "example": "Mary from MyShop",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "splitRule": {
+          "description": "Add the size of your test groups. **Mandatory if abTesting = true & 'recipients' is passed**. We'll send version A and B to a random sample of recipients, and then the winning version to everyone else\n",
+          "example": 50,
+          "format": "int64",
+          "maximum": 50,
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "body"
+        },
+        "subject": {
+          "description": "Subject of the campaign",
+          "example": "Discover the New Collection !",
+          "type": "string",
+          "x-in": "body"
+        },
+        "subjectA": {
+          "description": "Subject A of the campaign. **Mandatory if abTesting = true**. subjectA & subjectB should have unique value\n",
+          "example": "Discover the New Collection!",
+          "type": "string",
+          "x-in": "body"
+        },
+        "subjectB": {
+          "description": "Subject B of the campaign. **Mandatory if abTesting = true**. subjectA & subjectB should have unique value\n",
+          "example": "Want to discover the New Collection?",
+          "type": "string",
+          "x-in": "body"
+        },
+        "tag": {
+          "description": "Tag of the campaign",
+          "example": "Newsletter",
+          "type": "string",
+          "x-in": "body"
+        },
+        "toField": {
+          "description": "To personalize the **To** Field. If you want to include the first name and last name of your recipient, add **{FNAME} {LNAME}**. These contact attributes must already exist in your Brevo account. If input parameter **params** used please use **{{contact.FNAME}} {{contact.LNAME}}** for personalization\n",
+          "example": "{FNAME} {LNAME}",
+          "type": "string",
+          "x-in": "body"
+        },
+        "unsubscriptionPageId": {
+          "description": "Enter an unsubscription page id. The page id is a 24 digit alphanumeric id that can be found in the URL when editing the page.\n",
+          "example": "62cbb7fabbe85021021aac52",
+          "type": "string",
+          "x-in": "body"
+        },
+        "updateFormId": {
+          "description": "**Mandatory if templateId is used containing the {{ update_profile }} tag**. Enter an update profile form id. The form id is a 24 digit alphanumeric id that can be found in the URL when editing the form.\n",
+          "example": "6313436b9ad40e23b371d095",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmCampaign": {
+          "description": "Customize the utm_campaign value. If this field is empty, the campaign name will be used. Only alphanumeric characters and spaces are allowed",
+          "example": "NL_05_2017",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmContent": {
+          "description": "Customize the utm_content value. Appears on outgoing tracking links alongside utm_campaign. Only alphanumeric characters and spaces are allowed",
+          "example": "hero_button",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmId": {
+          "description": "Customize the utm_id value. Appears on outgoing tracking links alongside utm_campaign. When omitted or empty, the utm_id entry from the account's global utm_settings is used if enabled; otherwise no utm_id parameter is emitted.",
+          "example": "promo_042",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmMedium": {
+          "description": "Customize the utm_medium value. When omitted or empty, the utm_medium entry from the account's global utm_settings is used if set; otherwise the default `email` is used.",
+          "example": "email",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmSource": {
+          "description": "Customize the utm_source value. When omitted or empty, the utm_source entry from the account's global utm_settings is used if set; otherwise the account default (`brevo` or `sendinblue`) is used.",
+          "example": "brevo",
+          "type": "string",
+          "x-in": "body"
+        },
+        "utmTerm": {
+          "description": "Customize the utm_term value. Appears on outgoing tracking links alongside utm_campaign. Only alphanumeric characters and spaces are allowed",
+          "example": "summer_sale",
+          "type": "string",
+          "x-in": "body"
+        },
+        "winnerCriteria": {
+          "description": "Choose the metrics that will determinate the winning version. **Mandatory if _splitRule_ >= 1 and < 50**. If splitRule = 50, `winnerCriteria` is ignored if passed\n",
+          "enum": [
+            "open",
+            "click"
+          ],
+          "example": "open",
+          "type": "string",
+          "x-in": "body"
+        },
+        "winnerDelay": {
+          "description": "Choose the duration of the test in hours. Maximum is 7 days, pass 24*7 = 168 hours. The winning version will be sent at the end of the test. **Mandatory if _splitRule_ >= 1 and < 50**. If splitRule = 50, `winnerDelay` is ignored if passed\n",
+          "example": 50,
+          "format": "int64",
+          "maximum": 168,
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to update a campaign",
+        "schema": {
+          "properties": {
+            "abTesting": {
+              "default": false,
+              "description": "Status of A/B Test. abTesting = false means it is disabled & abTesting = true means it is enabled. **subjectA, subjectB, splitRule, winnerCriteria & winnerDelay** will be considered when abTesting is set to true. subjectA & subjectB are mandatory together & subject if passed is ignored. **Can be set to true only if sendAtBestTime is false**. You will be able to set up two subject lines for your campaign and send them to a random sample of your total recipients. Half of the test group will receive version A, and the other half will receive version B\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "attachmentUrl": {
+              "description": "Absolute url of the attachment (no local file). Extension allowed: #### xlsx, xls, ods, docx, docm, doc, csv, pdf, txt, gif, jpg, jpeg, png, tif, tiff, rtf, bmp, cgm, css, shtml, html, htm, zip, xml, ppt, pptx, tar, ez, ics, mobi, msg, pub and eps'\n",
+              "example": "https://attachment.domain.com",
+              "format": "url",
+              "type": "string"
+            },
+            "emailExpirationDate": {
+              "description": "To reduce your carbon footprint, set an expiration date for your email. If supported, it will be automatically deleted from the recipient’s inbox, saving storage space and energy.",
+              "properties": {
+                "duration": {
+                  "description": "Duration of the email expiry. maximum duration can be 3600 days or 480 weeks or 120 months.",
+                  "example": 30,
+                  "format": "int64",
+                  "maximum": 3600,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "unit": {
+                  "description": "unit of the duration",
+                  "enum": [
+                    "days",
+                    "weeks",
+                    "months"
+                  ],
+                  "example": "weeks",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "footer": {
+              "description": "Footer of the email campaign",
+              "example": "[DEFAULT_FOOTER]",
+              "type": "string"
+            },
+            "header": {
+              "description": "Header of the email campaign",
+              "example": "[DEFAULT_HEADER]",
+              "type": "string"
+            },
+            "htmlContent": {
+              "description": "Body of the message (HTML version). If the campaign is designed using Drag & Drop editor via HTML content, then the design page will not have Drag & Drop editor access for that campaign. **REQUIRED if htmlUrl is empty**\n",
+              "example": "<!DOCTYPE html> <html> <body> <h1>Confirm you email</h1> <p>Please confirm your email address by clicking on the link below</p> </body> </html>",
+              "type": "string"
+            },
+            "htmlUrl": {
+              "description": "Url which contents the body of the email message. **REQUIRED if htmlContent is empty**\n",
+              "example": "https://html.domain.com",
+              "format": "url",
+              "type": "string"
+            },
+            "increaseRate": {
+              "description": "Set a percentage increase rate for warming up your ip. We recommend you set the increase rate to 30% per day. If you want to send the same number of emails every day, set the daily increase value to 0%.\n",
+              "example": 70,
+              "format": "int64",
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "initialQuota": {
+              "description": "Set an initial quota greater than 1 for warming up your ip. We recommend you set a value of 3000.\n",
+              "example": 3000,
+              "format": "int64",
+              "type": "integer"
+            },
+            "inlineImageActivation": {
+              "default": false,
+              "description": "Status of inline image. inlineImageActivation = false means image can’t be embedded, & inlineImageActivation = true means image can be embedded, in the email. You cannot send a campaign of more than **4MB** with images embedded in the email. Campaigns with the images embedded in the email _must be sent to less than 5000 contacts_.\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "ipWarmupEnable": {
+              "default": false,
+              "description": "**Available for dedicated ip clients**. Set this to true if you wish to warm up your ip.\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "mirrorActive": {
+              "description": "Status of mirror links in campaign. mirrorActive = false means mirror links are deactivated, & mirrorActive = true means mirror links are activated, in the campaign",
+              "example": true,
+              "type": "boolean"
+            },
+            "name": {
+              "description": "Name of the campaign",
+              "example": "Newsletter - May 2017",
+              "type": "string"
+            },
+            "params": {
+              "additionalProperties": {},
+              "description": "Pass the set of attributes to customize the type classic campaign. For example: **{\"FNAME\":\"Joe\", \"LNAME\":\"Doe\"}**. Only available if **type** is **classic**. It's considered only if campaign is in _New Template Language format_. The New Template Language is dependent on the values of **subject, htmlContent/htmlUrl, sender.name & toField**\n",
+              "example": {
+                "FNAME": "Joe",
+                "LNAME": "Doe"
+              },
+              "type": "object"
+            },
+            "previewText": {
+              "description": "Preview text or preheader of the email campaign",
+              "example": "Thanks for your order!",
+              "type": "string"
+            },
+            "recipients": {
+              "description": "Segment ids and List ids to include/exclude from campaign",
+              "properties": {
+                "exclusionListIds": {
+                  "description": "List ids which have to be excluded from a campaign",
+                  "items": {
+                    "example": 8,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "exclusionSegmentIds": {
+                  "description": "Segment ids which have to be excluded from a campaign.\n",
+                  "items": {
+                    "example": 13,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "listIds": {
+                  "description": "Lists Ids to send the campaign to. **Campaign should only be updated with listIds if listIds were used to create it. REQUIRED if already not present in campaign and scheduledAt is not empty**\n",
+                  "items": {
+                    "example": 32,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "segmentIds": {
+                  "description": "**Mandatory if listIds are not used. Campaign should only be updated with segmentIds if segmentIds were used to create it.** Segment ids to send the campaign to.\n",
+                  "items": {
+                    "example": 23,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "recurring": {
+              "default": false,
+              "description": "**FOR TRIGGER ONLY !** Type of trigger campaign.recurring = false means contact can receive the same Trigger campaign only once, & recurring = true means contact can receive the same Trigger campaign several times\n",
+              "example": false,
+              "type": "boolean"
+            },
+            "replyTo": {
+              "description": "Email on which campaign recipients will be able to reply to",
+              "example": "support@myshop.com",
+              "format": "email",
+              "type": "string"
+            },
+            "scheduledAt": {
+              "description": "UTC date-time on which the campaign has to run (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.** If sendAtBestTime is set to true, your campaign will be sent according to the date passed (ignoring the time part).\n",
+              "example": "2017-06-01T12:30:00+02:00",
+              "type": "string"
+            },
+            "sendAtBestTime": {
+              "description": "Set this to true if you want to send your campaign at best time. Note:- **if true, warmup ip will be disabled.**\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "sender": {
+              "description": "Sender details including id or email and name (optional). Only one of either Sender's email or Sender's ID shall be passed in one request at a time. For example: **{\"name\":\"xyz\", \"email\":\"example@abc.com\"}** **{\"name\":\"xyz\", \"id\":123}**\n",
+              "properties": {
+                "email": {
+                  "description": "Sender email from which the campaign emails are sent",
+                  "example": "newsletter@myshop.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "Select the sender for the campaign on the basis of sender id. **In order to select a sender with specific pool of IP’s, dedicated ip users shall pass id (instead of email)**.\n",
+                  "example": 3,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "name": {
+                  "description": "Sender Name from which the campaign emails are sent",
+                  "example": "Mary from MyShop",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "splitRule": {
+              "description": "Add the size of your test groups. **Mandatory if abTesting = true & 'recipients' is passed**. We'll send version A and B to a random sample of recipients, and then the winning version to everyone else\n",
+              "example": 50,
+              "format": "int64",
+              "maximum": 50,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "subject": {
+              "description": "Subject of the campaign",
+              "example": "Discover the New Collection !",
+              "type": "string"
+            },
+            "subjectA": {
+              "description": "Subject A of the campaign. **Mandatory if abTesting = true**. subjectA & subjectB should have unique value\n",
+              "example": "Discover the New Collection!",
+              "type": "string"
+            },
+            "subjectB": {
+              "description": "Subject B of the campaign. **Mandatory if abTesting = true**. subjectA & subjectB should have unique value\n",
+              "example": "Want to discover the New Collection?",
+              "type": "string"
+            },
+            "tag": {
+              "description": "Tag of the campaign",
+              "example": "Newsletter",
+              "type": "string"
+            },
+            "toField": {
+              "description": "To personalize the **To** Field. If you want to include the first name and last name of your recipient, add **{FNAME} {LNAME}**. These contact attributes must already exist in your Brevo account. If input parameter **params** used please use **{{contact.FNAME}} {{contact.LNAME}}** for personalization\n",
+              "example": "{FNAME} {LNAME}",
+              "type": "string"
+            },
+            "unsubscriptionPageId": {
+              "description": "Enter an unsubscription page id. The page id is a 24 digit alphanumeric id that can be found in the URL when editing the page.\n",
+              "example": "62cbb7fabbe85021021aac52",
+              "type": "string"
+            },
+            "updateFormId": {
+              "description": "**Mandatory if templateId is used containing the {{ update_profile }} tag**. Enter an update profile form id. The form id is a 24 digit alphanumeric id that can be found in the URL when editing the form.\n",
+              "example": "6313436b9ad40e23b371d095",
+              "type": "string"
+            },
+            "utmCampaign": {
+              "description": "Customize the utm_campaign value. If this field is empty, the campaign name will be used. Only alphanumeric characters and spaces are allowed",
+              "example": "NL_05_2017",
+              "type": "string"
+            },
+            "utmContent": {
+              "description": "Customize the utm_content value. Appears on outgoing tracking links alongside utm_campaign. Only alphanumeric characters and spaces are allowed",
+              "example": "hero_button",
+              "type": "string"
+            },
+            "utmId": {
+              "description": "Customize the utm_id value. Appears on outgoing tracking links alongside utm_campaign. When omitted or empty, the utm_id entry from the account's global utm_settings is used if enabled; otherwise no utm_id parameter is emitted.",
+              "example": "promo_042",
+              "type": "string"
+            },
+            "utmMedium": {
+              "description": "Customize the utm_medium value. When omitted or empty, the utm_medium entry from the account's global utm_settings is used if set; otherwise the default `email` is used.",
+              "example": "email",
+              "type": "string"
+            },
+            "utmSource": {
+              "description": "Customize the utm_source value. When omitted or empty, the utm_source entry from the account's global utm_settings is used if set; otherwise the account default (`brevo` or `sendinblue`) is used.",
+              "example": "brevo",
+              "type": "string"
+            },
+            "utmTerm": {
+              "description": "Customize the utm_term value. Appears on outgoing tracking links alongside utm_campaign. Only alphanumeric characters and spaces are allowed",
+              "example": "summer_sale",
+              "type": "string"
+            },
+            "winnerCriteria": {
+              "description": "Choose the metrics that will determinate the winning version. **Mandatory if _splitRule_ >= 1 and < 50**. If splitRule = 50, `winnerCriteria` is ignored if passed\n",
+              "enum": [
+                "open",
+                "click"
+              ],
+              "example": "open",
+              "type": "string"
+            },
+            "winnerDelay": {
+              "description": "Choose the duration of the test in hours. Maximum is 7 days, pass 24*7 = 168 hours. The winning version will be sent at the end of the test. **Mandatory if _splitRule_ >= 1 and < 50**. If splitRule = 50, `winnerDelay` is ignored if passed\n",
+              "example": 50,
+              "format": "int64",
+              "maximum": 168,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404,
+      405
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      },
+      {
+        "status": 405,
+        "meaning": "Method not allowed. Returned when using sendAtBestTime or abTesting features without the required premium plan."
+      }
+    ],
+    "side_effects": [
+      "Changes campaign configuration",
+      "A new scheduledAt reschedules delivery"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/emailCampaigns/{campaignId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__update_email_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "updateEmailCampaign",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Edit"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Update an email campaign",
+        "ui_path": "Marketing > Email campaigns > Edit",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "edit campaign",
+      "reschedule campaign",
+      "change newsletter",
+      "update",
+      "email",
+      "campaign",
+      "email campaign",
+      "marketing email",
+      "email campaigns"
+    ],
+    "related_actions": [
+      "email_campaigns.create_email_campaign",
+      "email_campaigns.send_email_campaign_now"
+    ],
+    "tags": [
+      "email_campaigns",
+      "update"
+    ],
+    "confidence": 0.99,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: PUT /emailCampaigns/12",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    }
+  },
+  {
+    "id": "email_campaigns.upload_image_to_gallery",
+    "version": "1.0.0",
+    "domain": "email_campaigns",
+    "domain_label": "Email campaigns",
+    "name": "Upload an image to your account's image gallery",
+    "intent": "Upload an image to your account's image gallery",
+    "description": "Upload an image to your account''s image gallery by providing an absolute URL to the image. The maximum allowed image size is 2MB and supported formats are jpeg, jpg, png, bmp, and gif; local file uploads are not supported.",
+    "action_type": "upload",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "imageUrl": {
+          "description": "The absolute url of the image (**no local file**). Maximum allowed size for image is **2MB**. Allowed extensions for images are: #### jpeg, jpg, png, bmp, gif.\n",
+          "example": "https://somedomain.com/image1.jpg",
+          "type": "string",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "Name shown in your Brevo image gallery. Include the file extension, e.g. product-banner.png",
+          "example": "product-banner.png",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "imageUrl"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Parameters to upload an image",
+        "schema": {
+          "properties": {
+            "imageUrl": {
+              "description": "The absolute url of the image (**no local file**). Maximum allowed size for image is **2MB**. Allowed extensions for images are: #### jpeg, jpg, png, bmp, gif.\n",
+              "example": "https://somedomain.com/image1.jpg",
+              "type": "string"
+            },
+            "name": {
+              "description": "Name shown in your Brevo image gallery. Include the file extension, e.g. product-banner.png",
+              "example": "product-banner.png",
+              "type": "string"
+            }
+          },
+          "required": [
+            "imageUrl"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "url": {
+            "description": "URL of the image uploaded",
+            "example": "https://img.mailinblue.com/100000/images/rnb/original/62casdase8wewq9df1c2f27c.jpeg",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "url": "https://img.mailinblue.com/100000/images/rnb/original/62casdase8wewq9df1c2f27c.jpeg"
+      }
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Stores a file in the account"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/emailCampaigns/images",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "email_campaigns__upload_image_to_gallery"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "uploadImageToGallery",
+      "tag": "Email Campaigns",
+      "ui_area": "Marketing > Email campaigns",
+      "ui_path": "Marketing > Email campaigns > Image gallery"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Upload an image to the gallery",
+        "ui_path": "Marketing > Email campaigns > Image gallery",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "upload",
+      "image",
+      "account",
+      "gallery",
+      "email campaigns",
+      "upload image",
+      "image gallery"
+    ],
+    "related_actions": [],
+    "tags": [
+      "email_campaigns",
+      "upload"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

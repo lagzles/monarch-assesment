@@ -1,0 +1,567 @@
+{
+  "checked_at": "2026-11-21T02:39:27.987Z",
+  "base_url": "https://api.brevo.com/v3",
+  "sender": {
+    "name": "LAG"
+  },
+  "summary": {
+    "steps": 28,
+    "ok": 28,
+    "failed": 0,
+    "skipped": 0
+  },
+  "results": [
+    {
+      "action_id": "account_admin.get_account",
+      "step": "preflight account",
+      "method": "GET",
+      "path": "/account",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 764,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.get_senders",
+      "step": "preflight senders",
+      "method": "GET",
+      "path": "/senders",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 246,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_folders",
+      "step": "preflight folders",
+      "method": "GET",
+      "path": "/contacts/folders?limit=50",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 235,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_list",
+      "step": "create list",
+      "method": "POST",
+      "path": "/contacts/lists",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "http_status": 201,
+      "duration_ms": 234,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_list",
+      "step": "get list",
+      "method": "GET",
+      "path": "/contacts/lists/13",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 805,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_list",
+      "step": "cleanup list",
+      "method": "DELETE",
+      "path": "/contacts/lists/13",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "http_status": 204,
+      "duration_ms": 266,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_list",
+      "step": "create a list",
+      "method": "POST",
+      "path": "/contacts/lists",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "http_status": 201,
+      "duration_ms": 288,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_list",
+      "step": "create b list",
+      "method": "POST",
+      "path": "/contacts/lists",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "http_status": 201,
+      "duration_ms": 241,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_contact",
+      "step": "create contact",
+      "method": "POST",
+      "path": "/contacts",
+      "expected": [
+        201,
+        204
+      ],
+      "ok": true,
+      "http_status": 201,
+      "duration_ms": 421,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_contact_info",
+      "step": "get contact",
+      "method": "GET",
+      "path": "/contacts/{email}",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 256,
+      "note": null
+    },
+    {
+      "action_id": "contacts.add_contact_to_list",
+      "step": "add contact to list",
+      "method": "POST",
+      "path": "/contacts/lists/15/contacts/add",
+      "expected": [
+        201,
+        204,
+        200
+      ],
+      "ok": true,
+      "http_status": 201,
+      "duration_ms": 235,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_contact",
+      "step": "cleanup contact",
+      "method": "DELETE",
+      "path": "/contacts/{email}",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "http_status": 204,
+      "duration_ms": 294,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_list",
+      "step": "cleanup b list",
+      "method": "DELETE",
+      "path": "/contacts/lists/15",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "http_status": 204,
+      "duration_ms": 238,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_list",
+      "step": "cleanup a list",
+      "method": "DELETE",
+      "path": "/contacts/lists/14",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "http_status": 204,
+      "duration_ms": 336,
+      "note": null
+    },
+    {
+      "action_id": "crm.create_company",
+      "step": "create company",
+      "method": "POST",
+      "path": "/companies",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 657,
+      "note": null
+    },
+    {
+      "action_id": "crm.get_company",
+      "step": "get company",
+      "method": "GET",
+      "path": "/companies/6b010410f61b7b8b59f9be6f",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 292,
+      "note": null
+    },
+    {
+      "action_id": "crm.delete_company",
+      "step": "cleanup company",
+      "method": "DELETE",
+      "path": "/companies/6b010410f61b7b8b59f9be6f",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "http_status": 204,
+      "duration_ms": 288,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_list",
+      "step": "create campaign list",
+      "method": "POST",
+      "path": "/contacts/lists",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "http_status": 201,
+      "duration_ms": 298,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_contact",
+      "step": "create campaign recipient",
+      "method": "POST",
+      "path": "/contacts",
+      "expected": [
+        201,
+        204
+      ],
+      "ok": true,
+      "http_status": 201,
+      "duration_ms": 347,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_contacts_from_list",
+      "step": "verify campaign recipient",
+      "method": "GET",
+      "path": "/contacts/lists/16/contacts?limit=1",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 292,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.create_email_campaign",
+      "step": "create campaign",
+      "method": "POST",
+      "path": "/emailCampaigns",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "http_status": 201,
+      "duration_ms": 293,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.get_email_campaign",
+      "step": "get campaign",
+      "method": "GET",
+      "path": "/emailCampaigns/10",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 312,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.delete_email_campaign",
+      "step": "cleanup campaign",
+      "method": "DELETE",
+      "path": "/emailCampaigns/10",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "http_status": 204,
+      "duration_ms": 264,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_contact",
+      "step": "cleanup campaign contact",
+      "method": "DELETE",
+      "path": "/contacts/{email}",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "http_status": 204,
+      "duration_ms": 306,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_list",
+      "step": "cleanup campaign list",
+      "method": "DELETE",
+      "path": "/contacts/lists/16",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "http_status": 204,
+      "duration_ms": 246,
+      "note": null
+    },
+    {
+      "action_id": "templates.create_smtp_template",
+      "step": "create template",
+      "method": "POST",
+      "path": "/smtp/templates",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "http_status": 201,
+      "duration_ms": 337,
+      "note": null
+    },
+    {
+      "action_id": "templates.get_smtp_template",
+      "step": "get template",
+      "method": "GET",
+      "path": "/smtp/templates/11",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 225,
+      "note": null
+    },
+    {
+      "action_id": "templates.delete_smtp_template",
+      "step": "cleanup template",
+      "method": "DELETE",
+      "path": "/smtp/templates/11",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "http_status": 204,
+      "duration_ms": 276,
+      "note": null
+    }
+  ],
+  "verification": {
+    "account_admin.get_account": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /account",
+      "http_status": 200,
+      "kind": "write_flow",
+      "note": null
+    },
+    "senders_and_domains.get_senders": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /senders",
+      "http_status": 200,
+      "kind": "write_flow",
+      "note": null
+    },
+    "contacts.get_folders": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /contacts/folders?limit=50",
+      "http_status": 200,
+      "kind": "write_flow",
+      "note": null
+    },
+    "contacts.create_list": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: POST /contacts/lists",
+      "http_status": 201,
+      "kind": "write_flow",
+      "note": null
+    },
+    "contacts.get_list": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /contacts/lists/13",
+      "http_status": 200,
+      "kind": "write_flow",
+      "note": null
+    },
+    "contacts.delete_list": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: DELETE /contacts/lists/16",
+      "http_status": 204,
+      "kind": "write_flow",
+      "note": null
+    },
+    "contacts.create_contact": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: POST /contacts",
+      "http_status": 201,
+      "kind": "write_flow",
+      "note": null
+    },
+    "contacts.get_contact_info": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /contacts/{email}",
+      "http_status": 200,
+      "kind": "write_flow",
+      "note": null
+    },
+    "contacts.add_contact_to_list": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: POST /contacts/lists/15/contacts/add",
+      "http_status": 201,
+      "kind": "write_flow",
+      "note": null
+    },
+    "contacts.delete_contact": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: DELETE /contacts/{email}",
+      "http_status": 204,
+      "kind": "write_flow",
+      "note": null
+    },
+    "crm.create_company": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: POST /companies",
+      "http_status": 200,
+      "kind": "write_flow",
+      "note": null
+    },
+    "crm.get_company": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /companies/6b010410f61b7b8b59f9be6f",
+      "http_status": 200,
+      "kind": "write_flow",
+      "note": null
+    },
+    "crm.delete_company": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: DELETE /companies/6b010410f61b7b8b59f9be6f",
+      "http_status": 204,
+      "kind": "write_flow",
+      "note": null
+    },
+    "contacts.get_contacts_from_list": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /contacts/lists/16/contacts?limit=1",
+      "http_status": 200,
+      "kind": "write_flow",
+      "note": null
+    },
+    "email_campaigns.create_email_campaign": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: POST /emailCampaigns",
+      "http_status": 201,
+      "kind": "write_flow",
+      "note": null
+    },
+    "email_campaigns.get_email_campaign": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /emailCampaigns/10",
+      "http_status": 200,
+      "kind": "write_flow",
+      "note": null
+    },
+    "email_campaigns.delete_email_campaign": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: DELETE /emailCampaigns/10",
+      "http_status": 204,
+      "kind": "write_flow",
+      "note": null
+    },
+    "templates.create_smtp_template": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: POST /smtp/templates",
+      "http_status": 201,
+      "kind": "write_flow",
+      "note": null
+    },
+    "templates.get_smtp_template": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: GET /smtp/templates/11",
+      "http_status": 200,
+      "kind": "write_flow",
+      "note": null
+    },
+    "templates.delete_smtp_template": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:39:27.987Z",
+      "method": "flow: DELETE /smtp/templates/11",
+      "http_status": 204,
+      "kind": "write_flow",
+      "note": null
+    }
+  },
+  "duration_ms": 9294
+}

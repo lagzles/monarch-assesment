@@ -1,0 +1,4017 @@
+[
+  {
+    "id": "templates.post_preview_smtp_email_templates",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Generate the rendered preview of transactional template",
+    "intent": "Generate the rendered preview of transactional template",
+    "description": "Generate a fully rendered preview of a transactional email template by resolving dynamic variables. Provide either an `email` address (to populate variables from the contact''s attributes) or a `params` object with key-value pairs for manual substitution; at least one of these is required alongside the mandatory `templateId`. The response includes the rendered HTML, subject, sender details, preview text, and any feed names used in the template.",
+    "action_type": "execute",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "Email of the contact.(Required if params not provided)",
+          "example": "john.doe@example.com",
+          "type": "string",
+          "x-in": "body"
+        },
+        "params": {
+          "description": "Key-value pairs of dynamic parameters for template rendering.(Required if email not provided) For example: **{\"Firstname\":\"John\", \"Lastname\":\"Doe\"}**\n",
+          "properties": {
+            "Firstname": {
+              "description": "firstname of the contact. **Dynamic parameter**\n",
+              "example": "John",
+              "type": "string"
+            },
+            "Lastname": {
+              "description": "Lastname of the contact. **Dynamic parameter**",
+              "example": "Doe",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "templateId": {
+          "description": "Id of the template.",
+          "example": 22,
+          "type": "integer",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "templateId"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to fetch Template preview",
+        "schema": {
+          "anyOf": [
+            {
+              "required": [
+                "email"
+              ]
+            },
+            {
+              "required": [
+                "params"
+              ]
+            }
+          ],
+          "properties": {
+            "email": {
+              "description": "Email of the contact.(Required if params not provided)",
+              "example": "john.doe@example.com",
+              "type": "string"
+            },
+            "params": {
+              "description": "Key-value pairs of dynamic parameters for template rendering.(Required if email not provided) For example: **{\"Firstname\":\"John\", \"Lastname\":\"Doe\"}**\n",
+              "properties": {
+                "Firstname": {
+                  "description": "firstname of the contact. **Dynamic parameter**\n",
+                  "example": "John",
+                  "type": "string"
+                },
+                "Lastname": {
+                  "description": "Lastname of the contact. **Dynamic parameter**",
+                  "example": "Doe",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "templateId": {
+              "description": "Id of the template.",
+              "example": 22,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "templateId"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "fromEmail": {
+            "description": "Sender email address",
+            "example": "nikon.doe@example.com",
+            "type": "string"
+          },
+          "fromName": {
+            "description": "Sender Name",
+            "example": "Nikon doe",
+            "type": "string"
+          },
+          "html": {
+            "description": "Html content of the template",
+            "example": "<!DOCTYPE html><html><head><title>Preview html content</title></head><body><p>html content,feed_1_value, feed_2_value </p></body></html>",
+            "type": "string"
+          },
+          "previewText": {
+            "description": "Preview text of the template",
+            "example": "Preview text",
+            "type": "string"
+          },
+          "subject": {
+            "description": "subject of the template",
+            "example": "Template preview subject",
+            "type": "string"
+          },
+          "usedFeedNames": {
+            "example": [
+              "feed_1",
+              "feed_2"
+            ],
+            "items": {
+              "description": "feeds alias used in the template",
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "fromEmail": "nikon.doe@example.com",
+        "fromName": "Nikon Doe",
+        "html": "<!DOCTYPE html><html><head><title>Preview html content</title></head><body><p>html content</p></body></html>",
+        "previewText": "Preview text",
+        "subject": "Template preview subject",
+        "usedFeedNames": "[\"feed_1\",\"feed_2\"]"
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Performs an operation with side effects"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/smtp/template/preview",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "templates__post_preview_smtp_email_templates"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "postPreviewSmtpEmailTemplates",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Templates > Preview"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Preview a rendered template",
+        "ui_path": "Transactional > Templates > Preview",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "generate",
+      "rendered",
+      "preview",
+      "transactional",
+      "template",
+      "transactional email",
+      "render preview",
+      "template preview"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "execute",
+      "transactional_emails"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.block_new_domain",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Add a new domain to the list of blocked domains",
+    "intent": "Add a new domain to the list of blocked domains",
+    "description": "Blocks a new domain in order to avoid messages being sent to the same",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "domain": {
+          "description": "name of the domain to be blocked",
+          "example": "example.com",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "domain"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Name of the domain to be blocked",
+        "schema": {
+          "properties": {
+            "domain": {
+              "description": "name of the domain to be blocked",
+              "example": "example.com",
+              "type": "string"
+            }
+          },
+          "required": [
+            "domain"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/smtp/blockedDomains",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__block_new_domain"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "blockNewDomain",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Settings > Blocked domains"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Block a domain",
+        "ui_path": "Transactional > Settings > Blocked domains",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "add",
+      "new",
+      "domain",
+      "list",
+      "blocked",
+      "domains",
+      "blocklist",
+      "transactional email",
+      "block domain",
+      "email blocklist",
+      "block"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "update",
+      "transactional_emails"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.delete_blocked_domain",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Unblock an existing domain from the list of blocked domains",
+    "intent": "Unblock an existing domain from the list of blocked domains",
+    "description": "Unblocks an existing domain from the list of blocked domains",
+    "action_type": "configure",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "x-in": "path",
+          "description": "The name of the domain to be deleted"
+        }
+      },
+      "required": [
+        "domain"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "domain"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Domain not found"
+      }
+    ],
+    "side_effects": [
+      "Changes account or delivery configuration"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/smtp/blockedDomains/{domain}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__delete_blocked_domain"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deleteBlockedDomain",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Settings > Blocked domains"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Unblock a domain",
+        "ui_path": "Transactional > Settings > Blocked domains",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "unblock",
+      "existing",
+      "domain",
+      "from",
+      "list",
+      "blocked",
+      "domains",
+      "blocklist",
+      "transactional email",
+      "unblock domain"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "configure",
+      "transactional_emails"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.delete_hardbounces",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Delete hardbounces",
+    "intent": "Delete hardbounces",
+    "description": "Delete hardbounces. To use carefully (e.g. in case of temporary ISP failures)",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "contactEmail": {
+          "description": "Target a specific email address",
+          "example": "alex76@example.com",
+          "format": "email",
+          "type": "string",
+          "x-in": "body"
+        },
+        "endDate": {
+          "description": "Ending date (YYYY-MM-DD) of the time period for deletion. The hardbounces until this date will be deleted. Must be greater than or equal to the startDate",
+          "example": "2017-01-31",
+          "type": "string",
+          "x-in": "body"
+        },
+        "startDate": {
+          "description": "Starting date (YYYY-MM-DD) of the time period for deletion. The hardbounces occurred after this date will be deleted. Must be less than or equal to the endDate",
+          "example": "2016-12-31",
+          "type": "string",
+          "x-in": "body"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": false,
+        "media_type": "application/json",
+        "description": "values to delete hardbounces",
+        "schema": {
+          "properties": {
+            "contactEmail": {
+              "description": "Target a specific email address",
+              "example": "alex76@example.com",
+              "format": "email",
+              "type": "string"
+            },
+            "endDate": {
+              "description": "Ending date (YYYY-MM-DD) of the time period for deletion. The hardbounces until this date will be deleted. Must be greater than or equal to the startDate",
+              "example": "2017-01-31",
+              "type": "string"
+            },
+            "startDate": {
+              "description": "Starting date (YYYY-MM-DD) of the time period for deletion. The hardbounces occurred after this date will be deleted. Must be less than or equal to the endDate",
+              "example": "2016-12-31",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 200
+    },
+    "response_codes": [
+      200,
+      204,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/smtp/deleteHardbounces",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__delete_hardbounces"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deleteHardbounces",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Settings > Hard bounces"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Delete hard bounces",
+        "ui_path": "Transactional > Settings > Hard bounces",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "delete",
+      "hardbounces",
+      "transactional email",
+      "clean bounces",
+      "remove hard bounces",
+      "hard",
+      "bounces"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "delete",
+      "transactional_emails"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.delete_scheduled_email_by_id",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Delete scheduled emails by batchId or messageId",
+    "intent": "Delete scheduled emails by batchId or messageId",
+    "description": "Delete scheduled batch of emails by batchId or single scheduled email by messageId",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "x-in": "path",
+          "description": "The `batchId` of scheduled emails batch (must be a valid UUIDv4) or the `messageId` of scheduled email (enclosed in angle brackets with @ sign, e.g. `<...@domain>`)."
+        }
+      },
+      "required": [
+        "identifier"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "identifier"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/smtp/email/{identifier}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__delete_scheduled_email_by_id"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deleteScheduledEmailById",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Email > Scheduled"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Delete a scheduled transactional email",
+        "ui_path": "Transactional > Email > Scheduled",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "delete",
+      "scheduled",
+      "emails",
+      "batchid",
+      "messageid",
+      "transactional email",
+      "cancel scheduled email",
+      "transactional",
+      "email"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "delete",
+      "transactional_emails"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.delete_smtp_transactional_log",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Delete an SMTP transactional log",
+    "intent": "Delete an SMTP transactional log",
+    "description": "Delete SMTP transactional log entries identified by a message ID (enclosed in angle brackets with an @ sign) or a valid email address. Optionally narrow the deletion to a specific date range using `from_date` and `to_date` query parameters (YYYY-MM-DD format). The operation also removes any associated stored email preview content.",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "x-in": "path",
+          "description": "MessageId or email address of the transactional log(s) to delete. Must be a valid message ID (enclosed in angle brackets with @ sign) or a valid email address."
+        },
+        "from_date": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Starting date (YYYY-MM-DD) to narrow down logs for deletion"
+        },
+        "to_date": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Ending date (YYYY-MM-DD) to narrow down logs for deletion"
+        }
+      },
+      "required": [
+        "identifier"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "identifier"
+      ],
+      "query_params": [
+        "from_date",
+        "to_date"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Message ID not found"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/smtp/log/{identifier}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__delete_smtp_transactional_log"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "delete",
+      "smtp",
+      "transactional",
+      "log",
+      "transactional email"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "delete",
+      "transactional_emails"
+    ],
+    "confidence": 0.86,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.get_aggregated_smtp_report",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Get your transactional email activity aggregated over a period of time",
+    "intent": "Get your transactional email activity aggregated over a period of time",
+    "description": "This endpoint will show the aggregated stats for past 90 days by default if `startDate` and `endDate` OR `days` is not passed. The date range can not exceed 90 days",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting date of the report (YYYY-MM-DD). Must be lower than equal to endDate"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending date of the report (YYYY-MM-DD). Must be greater than equal to startDate"
+        },
+        "days": {
+          "format": "int64",
+          "maximum": 90,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of days in the past including today (positive integer, maximum 90). _Not compatible with 'startDate' and 'endDate'_. Defaults to 90 if neither dates nor days are provided."
+        },
+        "tag": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Tag of the emails"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "startDate",
+        "endDate",
+        "days",
+        "tag"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "blocked": {
+            "description": "Number of blocked contact emails for the timeframe",
+            "example": 2,
+            "format": "int64",
+            "type": "integer"
+          },
+          "clicks": {
+            "description": "Number of clicks for the timeframe",
+            "example": 12,
+            "format": "int64",
+            "type": "integer"
+          },
+          "delivered": {
+            "description": "Number of delivered emails for the timeframe",
+            "example": 249,
+            "format": "int64",
+            "type": "integer"
+          },
+          "hardBounces": {
+            "description": "Number of hardbounces for the timeframe",
+            "example": 1,
+            "format": "int64",
+            "type": "integer"
+          },
+          "invalid": {
+            "description": "Number of invalid emails for the timeframe",
+            "example": 0,
+            "format": "int64",
+            "type": "integer"
+          },
+          "opens": {
+            "description": "Number of openings for the timeframe",
+            "example": 47,
+            "format": "int64",
+            "type": "integer"
+          },
+          "range": {
+            "description": "Time frame of the report",
+            "example": "2016-09-08|2017-04-06",
+            "type": "string"
+          },
+          "requests": {
+            "description": "Number of requests for the timeframe",
+            "example": 263,
+            "format": "int64",
+            "type": "integer"
+          },
+          "softBounces": {
+            "description": "Number of softbounces for the timeframe",
+            "example": 4,
+            "format": "int64",
+            "type": "integer"
+          },
+          "spamReports": {
+            "description": "Number of complaint (spam report) for the timeframe",
+            "example": 0,
+            "format": "int64",
+            "type": "integer"
+          },
+          "uniqueClicks": {
+            "description": "Number of unique clicks for the timeframe",
+            "example": 8,
+            "format": "int64",
+            "type": "integer"
+          },
+          "uniqueOpens": {
+            "description": "Number of unique openings for the timeframe",
+            "example": 37,
+            "format": "int64",
+            "type": "integer"
+          },
+          "unsubscribed": {
+            "description": "Number of unsubscribed emails for the timeframe",
+            "example": 0,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "blocked": 2,
+        "clicks": 9987,
+        "delivered": 18996,
+        "hardBounces": 234,
+        "invalid": 0,
+        "opens": 17654,
+        "range": "2016-09-08|2017-04-28",
+        "requests": 19887,
+        "softBounces": 1533,
+        "spamReports": 1,
+        "uniqueClicks": 8766,
+        "uniqueOpens": 13688,
+        "unsubscribed": 2
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/smtp/statistics/aggregatedReport",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__get_aggregated_smtp_report"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getAggregatedSmtpReport",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "transactional",
+      "email",
+      "activity",
+      "aggregated",
+      "over",
+      "period",
+      "time",
+      "transactional email"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "read",
+      "transactional_emails"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.get_blocked_domains",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Get the list of blocked domains",
+    "intent": "Get the list of blocked domains",
+    "description": "Get the list of blocked domains",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "domains": {
+            "description": "List of all blocked domains",
+            "items": {
+              "description": "name of blocked domain",
+              "example": "contact.com",
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "domains"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "domains": [
+          "example.com",
+          "testdomain.com"
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/smtp/blockedDomains",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__get_blocked_domains"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getBlockedDomains",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "list",
+      "blocked",
+      "domains",
+      "blocklist",
+      "transactional email"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "read",
+      "transactional_emails"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.get_email_event_report",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Get all your transactional email activity (unaggregated events)",
+    "intent": "Get all your transactional email activity (unaggregated events)",
+    "description": "This endpoint will show the aggregated stats for past 30 days by default if `startDate` and `endDate` OR `days` is not passed. The date range can not exceed 90 days",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "default": 2500,
+          "format": "int64",
+          "maximum": 5000,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number limitation for the result returned"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Beginning point in the list to retrieve from."
+        },
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting date of the report (YYYY-MM-DD). Must be lower than equal to endDate"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending date of the report (YYYY-MM-DD). Must be greater than equal to startDate"
+        },
+        "days": {
+          "format": "int64",
+          "maximum": 90,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of days in the past including today (positive integer, maximum 90). _Not compatible with 'startDate' and 'endDate'_. Defaults to 30 if neither dates nor days are provided."
+        },
+        "email": {
+          "format": "email",
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter the report for a specific email addresses"
+        },
+        "event": {
+          "enum": [
+            "bounces",
+            "hardBounces",
+            "softBounces",
+            "delivered",
+            "spam",
+            "requests",
+            "opened",
+            "clicks",
+            "invalid",
+            "deferred",
+            "blocked",
+            "unsubscribed",
+            "error",
+            "loadedByProxy"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter the report for a specific event type"
+        },
+        "tags": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter the report for tags (serialized and urlencoded array)"
+        },
+        "messageId": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter on a specific message id"
+        },
+        "templateId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Filter on a specific template id"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "limit",
+        "offset",
+        "startDate",
+        "endDate",
+        "days",
+        "email",
+        "event",
+        "tags",
+        "messageId",
+        "templateId",
+        "sort"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "events": {
+            "items": {
+              "properties": {
+                "date": {
+                  "description": "UTC date-time on which the event has been generated",
+                  "example": "2017-03-12T12:30:00Z",
+                  "type": "string"
+                },
+                "email": {
+                  "description": "Email address which generates the event",
+                  "example": "john.smith@example.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "event": {
+                  "description": "Event which occurred",
+                  "enum": [
+                    "bounces",
+                    "hardBounces",
+                    "softBounces",
+                    "delivered",
+                    "spam",
+                    "requests",
+                    "opened",
+                    "clicks",
+                    "invalid",
+                    "deferred",
+                    "blocked",
+                    "unsubscribed",
+                    "error",
+                    "loadedByProxy"
+                  ],
+                  "example": "delivered",
+                  "type": "string"
+                },
+                "from": {
+                  "description": "Sender email from which the emails are sent",
+                  "example": "john@example.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "ip": {
+                  "description": "IP from which the user has opened the email or clicked on the link (only available if the event is opened or clicks)",
+                  "example": "165.87.3.15",
+                  "type": "string"
+                },
+                "link": {
+                  "description": "The link which is sent to the user (only available if the event is requests or opened or clicks)",
+                  "example": "https://www.someexamplelink.com",
+                  "type": "string"
+                },
+                "messageId": {
+                  "description": "Message ID which generated the event",
+                  "example": "<201798300811.5787683@relay.domain.com>",
+                  "type": "string"
+                },
+                "reason": {
+                  "description": "Reason of bounce (only available if the event is hardbounce or softbounce)",
+                  "example": "Error connection timeout",
+                  "type": "string"
+                },
+                "subject": {
+                  "description": "Subject of the event",
+                  "example": "Sib client test",
+                  "type": "string"
+                },
+                "tag": {
+                  "description": "Tag of the email which generated the event",
+                  "example": "OrderConfirmation",
+                  "type": "string"
+                },
+                "templateId": {
+                  "description": "ID of the template (only available if the email is template based)",
+                  "example": 4,
+                  "format": "int64",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "date",
+                "email",
+                "event",
+                "messageId"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "events": [
+          {
+            "date": "2017-03-12T12:30:00Z",
+            "email": "john.smith@example.com",
+            "event": "deferred",
+            "from": "john@example.com",
+            "messageId": "<201798300811.5787683@example.domain.com>",
+            "reason": "Error connection timeout",
+            "tag": "OrderConfirmation",
+            "templateId": 4
+          },
+          {
+            "date": "2017-03-13T16:30:00Z",
+            "email": "john.smith@example.com",
+            "event": "delivered",
+            "from": "john@example.com",
+            "messageId": "<201798300811.5787683@example.domain.com>",
+            "tag": "OrderConfirmation",
+            "templateId": 5
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/smtp/statistics/events",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__get_email_event_report"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getEmailEventReport",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Email > Statistics"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "View transactional email statistics",
+        "ui_path": "Transactional > Email > Statistics",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "get",
+      "transactional",
+      "email",
+      "activity",
+      "unaggregated",
+      "events",
+      "transactional email",
+      "transactional stats",
+      "view",
+      "statistics"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "read",
+      "transactional_emails"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.get_scheduled_email_by_id",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Fetch scheduled emails by batchId or messageId",
+    "intent": "Fetch scheduled emails by batchId or messageId",
+    "description": "Fetch scheduled batch of emails by batchId or single scheduled email by messageId (Can retrieve data upto 30 days old)",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "x-in": "path",
+          "description": "The `batchId` of scheduled emails batch (must be a valid UUIDv4) or the `messageId` of scheduled email (enclosed in angle brackets with @ sign, e.g. `<...@domain>`). When using `messageId`, the `limit`, `offset`, `sort`, and `status` query parameters are ignored."
+        },
+        "startDate": {
+          "format": "date",
+          "type": "string",
+          "x-in": "query",
+          "description": "Mandatory if `endDate` is used. Starting date (YYYY-MM-DD) from which you want to fetch the list. Cannot be more than 30 days older than the current date."
+        },
+        "endDate": {
+          "format": "date",
+          "type": "string",
+          "x-in": "query",
+          "description": "Mandatory if `startDate` is used. Ending date (YYYY-MM-DD) till which you want to fetch the list. Maximum time period that can be selected is one month."
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed. Not valid when identifier is `messageId`."
+        },
+        "status": {
+          "enum": [
+            "processed",
+            "inProgress",
+            "queued"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter the records by `status` of the scheduled email batch or message. Not valid when identifier is `messageId`."
+        },
+        "limit": {
+          "default": 100,
+          "format": "int64",
+          "maximum": 500,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents returned per page. Not valid when identifier is `messageId`."
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document on the page. Not valid when identifier is `messageId`."
+        }
+      },
+      "required": [
+        "identifier"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "identifier"
+      ],
+      "query_params": [
+        "startDate",
+        "endDate",
+        "sort",
+        "status",
+        "limit",
+        "offset"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "oneOf": [
+          {
+            "properties": {
+              "batches": {
+                "items": {
+                  "properties": {
+                    "createdAt": {
+                      "description": "Datetime on which the batch was scheduled",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "scheduledAt": {
+                      "description": "Datetime for which the batch was scheduled",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "Current status of the scheduled batch",
+                      "enum": [
+                        "inProgress",
+                        "queued",
+                        "processed",
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "scheduledAt",
+                    "createdAt",
+                    "status"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "count": {
+                "description": "Total number of batches",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          {
+            "properties": {
+              "createdAt": {
+                "description": "Datetime on which the email was scheduled",
+                "format": "date-time",
+                "type": "string"
+              },
+              "scheduledAt": {
+                "description": "Datetime for which the email was scheduled",
+                "format": "date-time",
+                "type": "string"
+              },
+              "status": {
+                "description": "Current status of the scheduled email",
+                "enum": [
+                  "inProgress",
+                  "queued",
+                  "processed",
+                  "error"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "scheduledAt",
+              "createdAt",
+              "status"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "example": {
+        "batches": [
+          {
+            "createdAt": "2022-02-26T11:36:43.576000000Z",
+            "scheduledAt": "2022-02-28T11:36:43.576000000Z",
+            "status": "queued"
+          },
+          {
+            "createdAt": "2022-02-24T11:36:43.576000000Z",
+            "scheduledAt": "2022-02-25T11:36:43.576000000Z",
+            "status": "processed"
+          },
+          {
+            "createdAt": "2022-02-25T11:36:43.576000000Z",
+            "scheduledAt": "2022-02-26T11:36:43.576000000Z",
+            "status": "inProgress"
+          }
+        ],
+        "count": 3
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/smtp/emailStatus/{identifier}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__get_scheduled_email_by_id"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getScheduledEmailById",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Email > Scheduled"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Check scheduled email status",
+        "ui_path": "Transactional > Email > Scheduled",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "fetch",
+      "scheduled",
+      "emails",
+      "batchid",
+      "messageid",
+      "transactional email",
+      "email status",
+      "check",
+      "email",
+      "status"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "read",
+      "transactional_emails"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.get_smtp_report",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Get your transactional email activity aggregated per day",
+    "intent": "Get your transactional email activity aggregated per day",
+    "description": "This endpoint will show the aggregated stats per day for the past 10 days by default if `startDate` and `endDate` OR `days` is not passed. The date range can not exceed 30 days.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "default": 10,
+          "format": "int64",
+          "maximum": 30,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents returned per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document on the page"
+        },
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting date of the report (YYYY-MM-DD)"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending date of the report (YYYY-MM-DD)"
+        },
+        "days": {
+          "format": "int64",
+          "maximum": 30,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of days in the past including today (positive integer, maximum 30). _Not compatible with 'startDate' and 'endDate'_"
+        },
+        "tag": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Tag of the emails"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "limit",
+        "offset",
+        "startDate",
+        "endDate",
+        "days",
+        "tag",
+        "sort"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "reports": {
+            "items": {
+              "properties": {
+                "blocked": {
+                  "description": "Number of blocked emails for the date",
+                  "example": 0,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "clicks": {
+                  "description": "Number of clicks for the date",
+                  "example": 6,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "date": {
+                  "description": "Date of the statistics",
+                  "example": "2017-04-06",
+                  "format": "date",
+                  "type": "string"
+                },
+                "delivered": {
+                  "description": "Number of delivered emails for the date",
+                  "example": 63,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "hardBounces": {
+                  "description": "Number of hardbounces for the date",
+                  "example": 1,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "invalid": {
+                  "description": "Number of invalid emails for the date",
+                  "example": 0,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "opens": {
+                  "description": "Number of openings for the date",
+                  "example": 58,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "requests": {
+                  "description": "Number of requests for the date",
+                  "example": 65,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "softBounces": {
+                  "description": "Number of softbounces for the date",
+                  "example": 1,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "spamReports": {
+                  "description": "Number of complaints (spam reports) for the date",
+                  "example": 0,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "uniqueClicks": {
+                  "description": "Number of unique clicks for the date",
+                  "example": 5,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "uniqueOpens": {
+                  "description": "Number of unique openings for the date",
+                  "example": 52,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "unsubscribed": {
+                  "description": "Number of unsubscribed emails for the date",
+                  "example": 0,
+                  "format": "int64",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "blocked",
+                "clicks",
+                "date",
+                "delivered",
+                "hardBounces",
+                "invalid",
+                "opens",
+                "requests",
+                "softBounces",
+                "spamReports",
+                "uniqueClicks",
+                "uniqueOpens",
+                "unsubscribed"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "reports": [
+          {
+            "blocked": 519,
+            "clicks": 1026,
+            "date": "2017-04-30",
+            "delivered": 10103,
+            "hardBounces": 21,
+            "invalid": 1,
+            "opens": 5091,
+            "requests": 10756,
+            "softBounces": 137,
+            "spamReports": 0,
+            "uniqueClicks": 720,
+            "uniqueOpens": 2318,
+            "unsubscribed": 0
+          },
+          {
+            "blocked": 920,
+            "clicks": 1514,
+            "date": "2017-05-01",
+            "delivered": 17499,
+            "hardBounces": 34,
+            "invalid": 2,
+            "opens": 10089,
+            "requests": 18812,
+            "softBounces": 254,
+            "spamReports": 0,
+            "uniqueClicks": 1090,
+            "uniqueOpens": 4393,
+            "unsubscribed": 3
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/smtp/statistics/reports",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__get_smtp_report"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getSmtpReport",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "transactional",
+      "email",
+      "activity",
+      "aggregated",
+      "per",
+      "day",
+      "transactional email"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "read",
+      "transactional_emails"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.get_transac_blocked_contacts",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Get the list of blocked or unsubscribed transactional contacts",
+    "intent": "Get the list of blocked or unsubscribed transactional contacts",
+    "description": "Retrieve a paginated list of transactional contacts that have been blocked or unsubscribed, along with the reason for blocking (e.g. hard bounce, admin blocked, spam complaint, or unsubscription via email/API/Marketing Automation). Both `startDate` and `endDate` must be provided together when filtering by date range, and neither date can be in the future. Results default to 50 per page (max 100) and are sorted in descending order of record creation unless overridden with the `sort` parameter.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting date (YYYY-MM-DD) from which you want to fetch the blocked or unsubscribed contacts"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending date (YYYY-MM-DD) till which you want to fetch the blocked or unsubscribed contacts"
+        },
+        "limit": {
+          "default": 50,
+          "format": "int64",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents returned per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document on the page"
+        },
+        "senders": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "Comma separated list of emails of the senders from which contacts are blocked or unsubscribed"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "startDate",
+        "endDate",
+        "limit",
+        "offset",
+        "senders",
+        "sort"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "contacts": {
+            "items": {
+              "properties": {
+                "blockedAt": {
+                  "description": "Date when the contact was blocked or unsubscribed on",
+                  "example": "2017-05-01T12:30:00Z",
+                  "type": "string"
+                },
+                "email": {
+                  "description": "Email address of the blocked or unsubscribed contact",
+                  "example": "john.smith@example.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "reason": {
+                  "description": "Reason for blocking / unsubscribing",
+                  "example": "Admin blocked",
+                  "properties": {
+                    "code": {
+                      "description": "Reason code for blocking / unsubscribing (This code is safe for comparison)",
+                      "enum": [
+                        "unsubscribedViaMA",
+                        "unsubscribedViaEmail",
+                        "adminBlocked",
+                        "unsubscribedViaApi",
+                        "hardBounce",
+                        "contactFlaggedAsSpam"
+                      ],
+                      "example": "AdminBlocked",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Reason for blocking / unsubscribing (This string is not safe for comparison)",
+                      "example": "Admin blocked",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "senderEmail": {
+                  "description": "Sender email address of the blocked or unsubscribed contact",
+                  "example": "john.smith@example.com",
+                  "format": "email",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "blockedAt",
+                "email",
+                "reason",
+                "senderEmail"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "count": {
+            "description": "Count of blocked or unsubscribed contact",
+            "example": 1,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "contacts": [
+          {
+            "blockedAt": "2017-05-01T12:30:00Z",
+            "email": "abc@xyz.com",
+            "reason": {
+              "code": "adminBlocked",
+              "message": "Admin blocked"
+            },
+            "senderEmail": "ez312@gmal.com"
+          }
+        ],
+        "count": 1
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 3600000,
+      "requests_per_second": 1000,
+      "notes": "Dedicated high-throughput limit."
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/smtp/blockedContacts",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__get_transac_blocked_contacts"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getTransacBlockedContacts",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "list",
+      "blocked",
+      "unsubscribed",
+      "transactional",
+      "contacts",
+      "transactional email",
+      "blocklist"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "read",
+      "transactional_emails"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.get_transac_email_content",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Get the personalized content of a sent transactional email",
+    "intent": "Get the personalized content of a sent transactional email",
+    "description": "<Note title=\"How to get uuid\">You can get the uuid using either of the following methods: Send a GET request to https://api.brevo.com/v3/smtp/emails and pass the message_id in the url. Use your api-key to authenticate the request and you will get your uuid as a response. The uuid can also be fetched from the transactional logs page in your Brevo account, from the address URL.</Note>",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "x-in": "path",
+          "description": "Unique id of the transactional email that has been sent to a particular contact"
+        }
+      },
+      "required": [
+        "uuid"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "uuid"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "attachmentCount": {
+            "description": "Count of the attachments that were sent in the email",
+            "example": 2,
+            "format": "int64",
+            "type": "integer"
+          },
+          "body": {
+            "description": "Actual content of the transactional email that has been sent",
+            "example": "<!DOCTYPE html> <html> <body> <h1>Greetings from the team</h1> <p>This is the actual html content sent</p> </body> </html>",
+            "type": "string"
+          },
+          "date": {
+            "description": "Date on which transactional email was sent",
+            "example": "2017-03-12T12:30:00Z",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email address to which transactional email has been sent",
+            "example": "abc@example.com",
+            "format": "email",
+            "type": "string"
+          },
+          "events": {
+            "description": "Series of events which occurred on the transactional email",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "Name of the event that occurred on the sent email",
+                  "example": "delivered",
+                  "type": "string"
+                },
+                "time": {
+                  "description": "Time at which the event occurred",
+                  "example": "2017-03-12T12:30:00Z",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "time"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "subject": {
+            "description": "Subject of the sent email",
+            "example": "Summer Camp",
+            "type": "string"
+          },
+          "templateId": {
+            "description": "Id of the template",
+            "example": 2,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "date",
+          "email",
+          "events",
+          "subject"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "body": "<!DOCTYPE html> <html> <body> <h1>Greetings from the team</h1> <p>This is the actual html content sent</p> </body> </html>",
+        "date": "2016-02-25T11:53:26Z",
+        "email": "abc@example.com",
+        "events": [
+          {
+            "name": "sent",
+            "time": "2016-02-25T11:53:26Z"
+          },
+          {
+            "name": "delivered",
+            "time": "2016-02-25T11:55:26Z"
+          },
+          {
+            "name": "opened",
+            "time": "2016-02-26T09:53:26Z"
+          }
+        ],
+        "subject": "Summer Camps",
+        "templateId": 12
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/smtp/emails/{uuid}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__get_transac_email_content"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getTransacEmailContent",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Email logs"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Get the content of a sent email",
+        "ui_path": "Transactional > Email logs",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "get",
+      "personalized",
+      "content",
+      "sent",
+      "transactional",
+      "email",
+      "transactional email",
+      "email preview",
+      "sent content"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "read",
+      "transactional_emails"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.get_transac_emails_list",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Get the list of transactional emails on the basis of allowed filters",
+    "intent": "Get the list of transactional emails on the basis of allowed filters",
+    "description": "This endpoint will show the list of emails for past 30 days by default. To retrieve emails before that time, please pass startDate and endDate in query filters.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if templateId and messageId are not passed in query filters.** Email address to which transactional email has been sent."
+        },
+        "templateId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "**Mandatory if email and messageId are not passed in query filters.** Id of the template that was used to compose transactional email."
+        },
+        "messageId": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if templateId and email are not passed in query filters.** Message ID of the transactional email sent."
+        },
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting date (YYYY-MM-DD) from which you want to fetch the list. **Maximum time period that can be selected is one month**."
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending date (YYYY-MM-DD) till which you want to fetch the list. **Maximum time period that can be selected is one month.**"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        },
+        "limit": {
+          "default": 500,
+          "format": "int64",
+          "maximum": 1000,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents returned per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document in the page"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "email",
+        "templateId",
+        "messageId",
+        "startDate",
+        "endDate",
+        "sort",
+        "limit",
+        "offset"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "count": {
+            "description": "Total number of transactional emails available on your account according to the passed filter",
+            "example": 5,
+            "format": "int64",
+            "type": "integer"
+          },
+          "transactionalEmails": {
+            "items": {
+              "properties": {
+                "date": {
+                  "description": "Date on which transactional email was sent",
+                  "example": "2017-03-12T12:30:00Z",
+                  "type": "string"
+                },
+                "email": {
+                  "description": "Email address to which transactional email has been sent",
+                  "example": "john.smith@example.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "from": {
+                  "description": "Email address of the sender from which the email was sent",
+                  "example": "diana.doe@example.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "messageId": {
+                  "description": "Message Id of the sent email",
+                  "example": "<201798300811.5700093@relay.domain.com>",
+                  "type": "string"
+                },
+                "subject": {
+                  "description": "Subject of the sent email",
+                  "example": "Summer Camp",
+                  "type": "string"
+                },
+                "tags": {
+                  "description": "Tags used for your email",
+                  "items": {
+                    "example": "tag1",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "templateId": {
+                  "description": "Id of the template",
+                  "example": 2,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "uuid": {
+                  "description": "Unique id of the email sent to a particular contact",
+                  "example": "5a78c-209ok98262910-s99a341",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "date",
+                "email",
+                "messageId",
+                "subject",
+                "uuid"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "count": 120,
+        "transactionalEmails": [
+          {
+            "date": "2019-05-25T11:53:26Z",
+            "email": "abc@xyz.com",
+            "messageId": "<201798300811.5787683@relay.domain.com>",
+            "subject": "summer camp",
+            "templateId": 15,
+            "uuid": "5a78c-209ok98262910-std2341"
+          },
+          {
+            "date": "2019-05-25T07:28:11Z",
+            "email": "test@test.com",
+            "messageId": "<201798300811.5700093@relay.domain.com>",
+            "subject": "details verification",
+            "templateId": 15,
+            "uuid": "5a78c-209ok98262910-s99a341"
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 7200,
+      "requests_per_second": 2
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/smtp/emails",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__get_transac_emails_list"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getTransacEmailsList",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Email > Logs"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "View transactional logs",
+        "ui_path": "Transactional > Email > Logs",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "get",
+      "list",
+      "transactional",
+      "emails",
+      "basis",
+      "allowed",
+      "filters",
+      "transactional email",
+      "blocklist",
+      "email logs",
+      "view",
+      "logs"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "read",
+      "transactional_emails"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.schedule_transactional_email",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Schedule a transactional email",
+    "intent": "Set a future delivery time for a transactional email.",
+    "description": "Set a future delivery time for a transactional email.",
+    "action_type": "partial_api_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Partially supported by the API; some steps must be done in the UI"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "api_partial",
+      "endpoint": null,
+      "related_action": "transactional_email.send_transac_email",
+      "ui_path": "Transactional > Email > Schedule",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Email > Schedule",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "send later",
+      "scheduled email"
+    ],
+    "related_actions": [
+      "transactional_email.send_transac_email"
+    ],
+    "tags": [
+      "transactional_email",
+      "api_partial",
+      "ui"
+    ],
+    "confidence": 0.8,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.send_batch_transactional_emails",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Send a batch of transactional emails",
+    "intent": "Send personalized messages to many recipients in one request.",
+    "description": "Send personalized messages to many recipients in one request.",
+    "action_type": "partial_api_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Partially supported by the API; some steps must be done in the UI"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "api_partial",
+      "endpoint": null,
+      "related_action": "transactional_email.send_transac_email",
+      "ui_path": "Transactional > Email > Batch",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Email > Batch",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "batch email",
+      "bulk transactional"
+    ],
+    "related_actions": [
+      "transactional_email.send_transac_email"
+    ],
+    "tags": [
+      "transactional_email",
+      "api_partial",
+      "ui"
+    ],
+    "confidence": 0.8,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_email.send_transac_email",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Send a transactional email",
+    "intent": "Send a transactional email to one recipient, optionally using a template, attachments and scheduling.",
+    "description": "Send a transactional email to one or more recipients, either using inline HTML content or a pre-built template via `templateId`. You can schedule emails for future delivery using `scheduledAt` (UTC, up to 5-minute delay), send multiple personalized versions with `messageVersions` (max 2000 total recipients, 99 per version), and attach files via URL or base64-encoded content. A `sender` and `subject` are required when no `templateId` is provided; when a `templateId` is used, the template''s sender and subject are applied unless overridden.",
+    "action_type": "send",
+    "when_to_use": "For password resets, order confirmations, receipts and any 1:1 triggered email.",
+    "when_not_to_use": "Do not use for bulk marketing — use email_campaigns.",
+    "preconditions": [
+      "Authenticated sender/domain",
+      "Valid recipient email",
+      "Template or htmlContent"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "attachment": {
+          "description": "Array of attachment objects. Each attachment must include either an absolute URL (no local file paths) or base64-encoded content, along with the attachment filename. The `name` field is required when `content` is provided. Supported file extensions: xlsx, xls, ods, docx, docm, doc, csv, pdf, txt, gif, jpg, jpeg, png, tif, tiff, rtf, bmp, cgm, css, shtml, html, htm, zip, xml, ppt, pptx, tar, ez, ics, mobi, msg, pub, eps, odt, mp3, m4a, m4v, wma, ogg, flac, wav, aif, aifc, aiff, mp4, mov, avi, mkv, mpeg, mpg, wmv, pkpass, xlsm. When `templateId` is specified: if the template uses the New Template Language format, both `url` and `content` attachment types are supported; if the template uses the Old Template Language format, the `attachment` parameter is ignored.\n",
+          "items": {
+            "properties": {
+              "content": {
+                "description": "Base64-encoded attachment data",
+                "example": "b3JkZXIucGRm",
+                "format": "byte",
+                "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+                "type": "string"
+              },
+              "name": {
+                "description": "Attachment filename. Required when `content` is provided.\n",
+                "example": "myAttachment.png",
+                "type": "string"
+              },
+              "url": {
+                "description": "Absolute URL of the attachment. Local file paths are not supported.\n",
+                "example": "https://attachment.domain.com/myAttachmentFromUrl.jpg",
+                "format": "url",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "batchId": {
+          "description": "UUIDv4 identifier for the scheduled batch of transactional emails. If omitted, a valid UUIDv4 batch identifier is automatically generated.",
+          "example": "5c6cfa04-eed9-42c2-8b5c-6d470d978e9d",
+          "type": "string",
+          "x-in": "body"
+        },
+        "bcc": {
+          "description": "Array of BCC recipient objects. Each object contains an email address and an optional name.\n",
+          "items": {
+            "properties": {
+              "contactPixelTrackingConsent": {
+                "description": "Consent of the recipient in bcc for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                "example": true,
+                "type": "boolean"
+              },
+              "email": {
+                "description": "BCC recipient email address",
+                "example": "helen9766@example.com",
+                "format": "email",
+                "type": "string"
+              },
+              "name": {
+                "description": "Display name of the BCC recipient. Maximum length is 70 characters.\n",
+                "example": "Helen",
+                "type": "string"
+              },
+              "removeTrackingPixel": {
+                "description": "Pass `true` to send the recipient in bcc no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                "example": false,
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "email"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "cc": {
+          "description": "Array of CC recipient objects. Each object contains an email address and an optional name.\n",
+          "items": {
+            "properties": {
+              "contactPixelTrackingConsent": {
+                "description": "Consent of the recipient in cc for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                "example": true,
+                "type": "boolean"
+              },
+              "email": {
+                "description": "CC recipient email address",
+                "example": "ann6533@example.com",
+                "format": "email",
+                "type": "string"
+              },
+              "name": {
+                "description": "Display name of the CC recipient. Maximum length is 70 characters.\n",
+                "example": "Ann",
+                "type": "string"
+              },
+              "removeTrackingPixel": {
+                "description": "Pass `true` to send the recipient in cc no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                "example": false,
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "email"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "headers": {
+          "additionalProperties": {},
+          "description": "Custom email headers (non-standard headers) to include in the email. The `sender.ip` header can be set to specify the IP address used for sending transactional emails (dedicated IP users only). Header names must use Title-Case-Format (words separated by hyphens with the first letter of each word capitalized). Headers not in this format are automatically converted. Standard email headers are not supported. Example: `{\"sender.ip\":\"1.2.3.4\", \"X-Mailin-custom\":\"some_custom_value\", \"IdempotencyKey\":\"abc-123\"}`\n",
+          "example": {
+            "X-Mailin-custom": "some_custom_header",
+            "idempotencyKey": "abc-123",
+            "sender.ip": "1.2.3.4"
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "htmlContent": {
+          "description": "HTML body content of the email. Required when `templateId` is not provided. Ignored when `templateId` is provided.\n",
+          "example": "<!DOCTYPE html> <html> <body> <h1>Confirm you email</h1> <p>Please confirm your email address by clicking on the link below</p> </body> </html>",
+          "type": "string",
+          "x-in": "body"
+        },
+        "messageVersions": {
+          "description": "Array of message version objects for sending customized email variants. The `templateId` can be customized per version only if a global `templateId` is provided. The `htmlContent` and `textContent` can be customized per version only if at least one of these is present in the global parameters. Global parameters such as `to` (required), `bcc`, `cc`, `replyTo`, and `subject` can be customized per version. Maximum total recipients per API request is 2000. Maximum recipients per message version is 99. Individual `params` objects must not exceed 100 KB. Cumulative `params` across all versions must not exceed 1000 KB. See https://developers.brevo.com/docs/batch-send-transactional-emails for detailed usage instructions.\n",
+          "items": {
+            "properties": {
+              "bcc": {
+                "description": "Array of BCC recipient objects. Each object contains an email address and an optional name.\n",
+                "items": {
+                  "properties": {
+                    "contactPixelTrackingConsent": {
+                      "description": "Consent of the recipient in bcc for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                      "example": true,
+                      "type": "boolean"
+                    },
+                    "email": {
+                      "description": "BCC recipient email address",
+                      "example": "helen9766@example.com",
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Display name of the BCC recipient. Maximum length is 70 characters.\n",
+                      "example": "Helen",
+                      "type": "string"
+                    },
+                    "removeTrackingPixel": {
+                      "description": "Pass `true` to send the recipient in bcc no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                      "example": false,
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "email"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "cc": {
+                "description": "Array of CC recipient objects. Each object contains an email address and an optional name.\n",
+                "items": {
+                  "properties": {
+                    "contactPixelTrackingConsent": {
+                      "description": "Consent of the recipient in cc for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                      "example": true,
+                      "type": "boolean"
+                    },
+                    "email": {
+                      "description": "CC recipient email address",
+                      "example": "ann6533@example.com",
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Display name of the CC recipient. Maximum length is 70 characters.\n",
+                      "example": "Ann",
+                      "type": "string"
+                    },
+                    "removeTrackingPixel": {
+                      "description": "Pass `true` to send the recipient in cc no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                      "example": false,
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "email"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "htmlContent": {
+                "description": "HTML body content of the email. Required when `templateId` is not provided. Ignored when `templateId` is provided.\n",
+                "example": "<!DOCTYPE html> <html> <body> <h1>Confirm you email</h1> <p>Please confirm your email address by clicking on the link below</p> </body> </html>",
+                "type": "string"
+              },
+              "params": {
+                "additionalProperties": {},
+                "description": "Key-value pairs for template variable substitution. Only applicable when the template uses the New Template Language format.\n",
+                "example": {
+                  "FNAME": "Joe",
+                  "LNAME": "Doe"
+                },
+                "type": "object"
+              },
+              "replyTo": {
+                "description": "Reply-to email address (required) and optional display name. Recipients will use this address when replying to the email.\n",
+                "properties": {
+                  "email": {
+                    "description": "Email address in reply to",
+                    "example": "ann6533@example.com",
+                    "format": "email",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Display name for the reply-to address. Maximum length is 70 characters.\n",
+                    "example": "Ann",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ],
+                "type": "object"
+              },
+              "subject": {
+                "description": "Email subject line for this message version\n",
+                "example": "Login Email confirmation",
+                "type": "string"
+              },
+              "textContent": {
+                "description": "Plain text body content of the email. Ignored when `templateId` is provided.\n",
+                "example": "Please confirm your email address by clicking on the link https://text.domain.com",
+                "type": "string"
+              },
+              "to": {
+                "description": "Array of recipient objects. Each object contains an email address and an optional display name.\n",
+                "items": {
+                  "properties": {
+                    "contactPixelTrackingConsent": {
+                      "description": "Consent of the recipient for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                      "example": true,
+                      "type": "boolean"
+                    },
+                    "email": {
+                      "description": "Email address of the recipient",
+                      "example": "jimmy98@example.com",
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Display name of the recipient. Maximum length is 70 characters.\n",
+                      "example": "Jimmy",
+                      "type": "string"
+                    },
+                    "removeTrackingPixel": {
+                      "description": "Pass `true` to send the recipient no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                      "example": false,
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "email"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "to"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "params": {
+          "additionalProperties": {},
+          "description": "Key-value pairs for template variable substitution. Only applicable when the template uses the New Template Language format.\n",
+          "example": {
+            "FNAME": "Joe",
+            "LNAME": "Doe"
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "replyTo": {
+          "description": "Reply-to email address (required) and optional display name. Recipients will use this address when replying to the email.\n",
+          "properties": {
+            "email": {
+              "description": "Email address in reply to",
+              "example": "ann6533@example.com",
+              "format": "email",
+              "type": "string"
+            },
+            "name": {
+              "description": "Display name for the reply-to address. Maximum length is 70 characters.\n",
+              "example": "Ann",
+              "type": "string"
+            }
+          },
+          "required": [
+            "email"
+          ],
+          "type": "object",
+          "x-in": "body"
+        },
+        "scheduledAt": {
+          "description": "UTC date-time when the email should be sent (format: YYYY-MM-DDTHH:mm:ss.SSSZ). Include timezone information in the date-time value. Scheduled emails may be delayed by up to 5 minutes.",
+          "example": "2022-04-05T12:30:00+02:00",
+          "format": "date-time",
+          "type": "string",
+          "x-in": "body"
+        },
+        "sender": {
+          "description": "Sender information. Required when `templateId` is not provided. Specify either an email address (with optional name) or a sender ID. The `name` field is ignored when `id` is provided.\n",
+          "properties": {
+            "email": {
+              "description": "Sender email address. Required when `id` is not provided.",
+              "example": "no-reply@myshop.com",
+              "format": "email",
+              "type": "string"
+            },
+            "id": {
+              "description": "Sender identifier. Required when `email` is not provided. Use this field to select a sender with a specific IP pool (dedicated IP users only).",
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            },
+            "name": {
+              "description": "Display name of the sender. Maximum length is 70 characters. Only applicable when `email` is provided.\n",
+              "example": "Mary from MyShop",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "subject": {
+          "description": "Email subject line. Required when `templateId` is not provided.\n",
+          "example": "Login Email confirmation",
+          "type": "string",
+          "x-in": "body"
+        },
+        "tags": {
+          "description": "Array of tags for categorizing and filtering emails",
+          "items": {
+            "example": "tag1",
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "templateId": {
+          "description": "Template identifier",
+          "example": 2,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "body"
+        },
+        "textContent": {
+          "description": "Plain text body content of the email. Ignored when `templateId` is provided.\n",
+          "example": "Please confirm your email address by clicking on the link https://text.domain.com",
+          "type": "string",
+          "x-in": "body"
+        },
+        "to": {
+          "description": "Array of recipient objects. Each object contains an email address and an optional display name. Required when `messageVersions` is not provided. Ignored when `messageVersions` is provided. Example: `[{\"name\":\"Jimmy\", \"email\":\"jimmy@example.com\"}, {\"name\":\"Joe\", \"email\":\"joe@example.com\"}]`\n",
+          "items": {
+            "properties": {
+              "contactPixelTrackingConsent": {
+                "description": "Consent of the recipient for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                "example": true,
+                "type": "boolean"
+              },
+              "email": {
+                "description": "Email address of the recipient",
+                "example": "jimmy98@example.com",
+                "format": "email",
+                "type": "string"
+              },
+              "name": {
+                "description": "Display name of the recipient. Maximum length is 70 characters.\n",
+                "example": "Jimmy",
+                "type": "string"
+              },
+              "removeTrackingPixel": {
+                "description": "Pass `true` to send the recipient no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                "example": false,
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "email"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Request body parameters for sending a transactional email",
+        "schema": {
+          "properties": {
+            "attachment": {
+              "description": "Array of attachment objects. Each attachment must include either an absolute URL (no local file paths) or base64-encoded content, along with the attachment filename. The `name` field is required when `content` is provided. Supported file extensions: xlsx, xls, ods, docx, docm, doc, csv, pdf, txt, gif, jpg, jpeg, png, tif, tiff, rtf, bmp, cgm, css, shtml, html, htm, zip, xml, ppt, pptx, tar, ez, ics, mobi, msg, pub, eps, odt, mp3, m4a, m4v, wma, ogg, flac, wav, aif, aifc, aiff, mp4, mov, avi, mkv, mpeg, mpg, wmv, pkpass, xlsm. When `templateId` is specified: if the template uses the New Template Language format, both `url` and `content` attachment types are supported; if the template uses the Old Template Language format, the `attachment` parameter is ignored.\n",
+              "items": {
+                "properties": {
+                  "content": {
+                    "description": "Base64-encoded attachment data",
+                    "example": "b3JkZXIucGRm",
+                    "format": "byte",
+                    "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Attachment filename. Required when `content` is provided.\n",
+                    "example": "myAttachment.png",
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "Absolute URL of the attachment. Local file paths are not supported.\n",
+                    "example": "https://attachment.domain.com/myAttachmentFromUrl.jpg",
+                    "format": "url",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "batchId": {
+              "description": "UUIDv4 identifier for the scheduled batch of transactional emails. If omitted, a valid UUIDv4 batch identifier is automatically generated.",
+              "example": "5c6cfa04-eed9-42c2-8b5c-6d470d978e9d",
+              "type": "string"
+            },
+            "bcc": {
+              "description": "Array of BCC recipient objects. Each object contains an email address and an optional name.\n",
+              "items": {
+                "properties": {
+                  "contactPixelTrackingConsent": {
+                    "description": "Consent of the recipient in bcc for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                    "example": true,
+                    "type": "boolean"
+                  },
+                  "email": {
+                    "description": "BCC recipient email address",
+                    "example": "helen9766@example.com",
+                    "format": "email",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Display name of the BCC recipient. Maximum length is 70 characters.\n",
+                    "example": "Helen",
+                    "type": "string"
+                  },
+                  "removeTrackingPixel": {
+                    "description": "Pass `true` to send the recipient in bcc no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                    "example": false,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "email"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "cc": {
+              "description": "Array of CC recipient objects. Each object contains an email address and an optional name.\n",
+              "items": {
+                "properties": {
+                  "contactPixelTrackingConsent": {
+                    "description": "Consent of the recipient in cc for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                    "example": true,
+                    "type": "boolean"
+                  },
+                  "email": {
+                    "description": "CC recipient email address",
+                    "example": "ann6533@example.com",
+                    "format": "email",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Display name of the CC recipient. Maximum length is 70 characters.\n",
+                    "example": "Ann",
+                    "type": "string"
+                  },
+                  "removeTrackingPixel": {
+                    "description": "Pass `true` to send the recipient in cc no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                    "example": false,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "email"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "headers": {
+              "additionalProperties": {},
+              "description": "Custom email headers (non-standard headers) to include in the email. The `sender.ip` header can be set to specify the IP address used for sending transactional emails (dedicated IP users only). Header names must use Title-Case-Format (words separated by hyphens with the first letter of each word capitalized). Headers not in this format are automatically converted. Standard email headers are not supported. Example: `{\"sender.ip\":\"1.2.3.4\", \"X-Mailin-custom\":\"some_custom_value\", \"IdempotencyKey\":\"abc-123\"}`\n",
+              "example": {
+                "X-Mailin-custom": "some_custom_header",
+                "idempotencyKey": "abc-123",
+                "sender.ip": "1.2.3.4"
+              },
+              "type": "object"
+            },
+            "htmlContent": {
+              "description": "HTML body content of the email. Required when `templateId` is not provided. Ignored when `templateId` is provided.\n",
+              "example": "<!DOCTYPE html> <html> <body> <h1>Confirm you email</h1> <p>Please confirm your email address by clicking on the link below</p> </body> </html>",
+              "type": "string"
+            },
+            "messageVersions": {
+              "description": "Array of message version objects for sending customized email variants. The `templateId` can be customized per version only if a global `templateId` is provided. The `htmlContent` and `textContent` can be customized per version only if at least one of these is present in the global parameters. Global parameters such as `to` (required), `bcc`, `cc`, `replyTo`, and `subject` can be customized per version. Maximum total recipients per API request is 2000. Maximum recipients per message version is 99. Individual `params` objects must not exceed 100 KB. Cumulative `params` across all versions must not exceed 1000 KB. See https://developers.brevo.com/docs/batch-send-transactional-emails for detailed usage instructions.\n",
+              "items": {
+                "properties": {
+                  "bcc": {
+                    "description": "Array of BCC recipient objects. Each object contains an email address and an optional name.\n",
+                    "items": {
+                      "properties": {
+                        "contactPixelTrackingConsent": {
+                          "description": "Consent of the recipient in bcc for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                          "example": true,
+                          "type": "boolean"
+                        },
+                        "email": {
+                          "description": "BCC recipient email address",
+                          "example": "helen9766@example.com",
+                          "format": "email",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "Display name of the BCC recipient. Maximum length is 70 characters.\n",
+                          "example": "Helen",
+                          "type": "string"
+                        },
+                        "removeTrackingPixel": {
+                          "description": "Pass `true` to send the recipient in bcc no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                          "example": false,
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "email"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "cc": {
+                    "description": "Array of CC recipient objects. Each object contains an email address and an optional name.\n",
+                    "items": {
+                      "properties": {
+                        "contactPixelTrackingConsent": {
+                          "description": "Consent of the recipient in cc for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                          "example": true,
+                          "type": "boolean"
+                        },
+                        "email": {
+                          "description": "CC recipient email address",
+                          "example": "ann6533@example.com",
+                          "format": "email",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "Display name of the CC recipient. Maximum length is 70 characters.\n",
+                          "example": "Ann",
+                          "type": "string"
+                        },
+                        "removeTrackingPixel": {
+                          "description": "Pass `true` to send the recipient in cc no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                          "example": false,
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "email"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "htmlContent": {
+                    "description": "HTML body content of the email. Required when `templateId` is not provided. Ignored when `templateId` is provided.\n",
+                    "example": "<!DOCTYPE html> <html> <body> <h1>Confirm you email</h1> <p>Please confirm your email address by clicking on the link below</p> </body> </html>",
+                    "type": "string"
+                  },
+                  "params": {
+                    "additionalProperties": {},
+                    "description": "Key-value pairs for template variable substitution. Only applicable when the template uses the New Template Language format.\n",
+                    "example": {
+                      "FNAME": "Joe",
+                      "LNAME": "Doe"
+                    },
+                    "type": "object"
+                  },
+                  "replyTo": {
+                    "description": "Reply-to email address (required) and optional display name. Recipients will use this address when replying to the email.\n",
+                    "properties": {
+                      "email": {
+                        "description": "Email address in reply to",
+                        "example": "ann6533@example.com",
+                        "format": "email",
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "Display name for the reply-to address. Maximum length is 70 characters.\n",
+                        "example": "Ann",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "email"
+                    ],
+                    "type": "object"
+                  },
+                  "subject": {
+                    "description": "Email subject line for this message version\n",
+                    "example": "Login Email confirmation",
+                    "type": "string"
+                  },
+                  "textContent": {
+                    "description": "Plain text body content of the email. Ignored when `templateId` is provided.\n",
+                    "example": "Please confirm your email address by clicking on the link https://text.domain.com",
+                    "type": "string"
+                  },
+                  "to": {
+                    "description": "Array of recipient objects. Each object contains an email address and an optional display name.\n",
+                    "items": {
+                      "properties": {
+                        "contactPixelTrackingConsent": {
+                          "description": "Consent of the recipient for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                          "example": true,
+                          "type": "boolean"
+                        },
+                        "email": {
+                          "description": "Email address of the recipient",
+                          "example": "jimmy98@example.com",
+                          "format": "email",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "Display name of the recipient. Maximum length is 70 characters.\n",
+                          "example": "Jimmy",
+                          "type": "string"
+                        },
+                        "removeTrackingPixel": {
+                          "description": "Pass `true` to send the recipient no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                          "example": false,
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "email"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "to"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "params": {
+              "additionalProperties": {},
+              "description": "Key-value pairs for template variable substitution. Only applicable when the template uses the New Template Language format.\n",
+              "example": {
+                "FNAME": "Joe",
+                "LNAME": "Doe"
+              },
+              "type": "object"
+            },
+            "replyTo": {
+              "description": "Reply-to email address (required) and optional display name. Recipients will use this address when replying to the email.\n",
+              "properties": {
+                "email": {
+                  "description": "Email address in reply to",
+                  "example": "ann6533@example.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "Display name for the reply-to address. Maximum length is 70 characters.\n",
+                  "example": "Ann",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email"
+              ],
+              "type": "object"
+            },
+            "scheduledAt": {
+              "description": "UTC date-time when the email should be sent (format: YYYY-MM-DDTHH:mm:ss.SSSZ). Include timezone information in the date-time value. Scheduled emails may be delayed by up to 5 minutes.",
+              "example": "2022-04-05T12:30:00+02:00",
+              "format": "date-time",
+              "type": "string"
+            },
+            "sender": {
+              "description": "Sender information. Required when `templateId` is not provided. Specify either an email address (with optional name) or a sender ID. The `name` field is ignored when `id` is provided.\n",
+              "properties": {
+                "email": {
+                  "description": "Sender email address. Required when `id` is not provided.",
+                  "example": "no-reply@myshop.com",
+                  "format": "email",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "Sender identifier. Required when `email` is not provided. Use this field to select a sender with a specific IP pool (dedicated IP users only).",
+                  "example": 2,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "name": {
+                  "description": "Display name of the sender. Maximum length is 70 characters. Only applicable when `email` is provided.\n",
+                  "example": "Mary from MyShop",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "subject": {
+              "description": "Email subject line. Required when `templateId` is not provided.\n",
+              "example": "Login Email confirmation",
+              "type": "string"
+            },
+            "tags": {
+              "description": "Array of tags for categorizing and filtering emails",
+              "items": {
+                "example": "tag1",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "templateId": {
+              "description": "Template identifier",
+              "example": 2,
+              "format": "int64",
+              "type": "integer"
+            },
+            "textContent": {
+              "description": "Plain text body content of the email. Ignored when `templateId` is provided.\n",
+              "example": "Please confirm your email address by clicking on the link https://text.domain.com",
+              "type": "string"
+            },
+            "to": {
+              "description": "Array of recipient objects. Each object contains an email address and an optional display name. Required when `messageVersions` is not provided. Ignored when `messageVersions` is provided. Example: `[{\"name\":\"Jimmy\", \"email\":\"jimmy@example.com\"}, {\"name\":\"Joe\", \"email\":\"joe@example.com\"}]`\n",
+              "items": {
+                "properties": {
+                  "contactPixelTrackingConsent": {
+                    "description": "Consent of the recipient for open (pixel) and click tracking, resolved by the sender at send time. Considered only if the per-contact pixel tracking consent feature is enabled for your account. Pass `true` if this recipient has consented to open and click tracking, in which case the open pixel and tracked links identify the recipient. Pass `false` to anonymise the open and click events (counted in aggregate statistics only). If it is not passed, the recipient is treated as unknown consent status and the email is still sent (the open and click are anonymised unless your account tracks unknown-consent contacts). A value other than `true`/`false` is rejected. Ignored when the feature is not enabled for your account.\n",
+                    "example": true,
+                    "type": "boolean"
+                  },
+                  "email": {
+                    "description": "Email address of the recipient",
+                    "example": "jimmy98@example.com",
+                    "format": "email",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Display name of the recipient. Maximum length is 70 characters.\n",
+                    "example": "Jimmy",
+                    "type": "string"
+                  },
+                  "removeTrackingPixel": {
+                    "description": "Pass `true` to send the recipient no open pixel, so no open is recorded for them, not even in aggregate statistics. Only available to Enterprise plans: for other accounts the field is accepted but ignored. Considered only if the recipient is not tracked: `contactPixelTrackingConsent` is `false`, or not passed and your account does not track unknown-consent contacts. Click tracking is unchanged. If `false` or not passed, the open pixel is added as usual. A value other than `true`/`false` is rejected.\n",
+                    "example": false,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "email"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "example": {
+          "sender": {
+            "name": "Alex from Brevo",
+            "email": "hello@brevo.com"
+          },
+          "to": [
+            {
+              "email": "johndoe@example.com",
+              "name": "John Doe"
+            }
+          ],
+          "subject": "Hello from Brevo!",
+          "htmlContent": "<html><head></head><body><p>Hello,</p>This is my first transactional email sent from Brevo.</p></body></html>"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "messageId": {
+            "description": "Message ID of the transactional email sent",
+            "example": "<201798300811.5787683@relay.domain.com>",
+            "type": "string"
+          },
+          "messageIds": {
+            "items": {
+              "description": "Message ID for each version of the transactional email sent",
+              "example": [
+                "<201798300811.5787683@relay.domain.com>",
+                "<201798300811.5787683@relay.domain.com>"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "messageId": "<201798300811.5787683@relay.domain.com>"
+      }
+    },
+    "response_codes": [
+      201,
+      202,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends a real email",
+      "Irreversible",
+      "Consumes email credits"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 3600000,
+      "requests_per_second": 1000,
+      "notes": "Dedicated high-throughput limit."
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/smtp/email",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__send_transac_email"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendTransacEmail",
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Email"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Send a transactional email",
+        "ui_path": "Transactional > Email",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "send email",
+      "password reset email",
+      "order confirmation",
+      "smtp send",
+      "send",
+      "transactional",
+      "email",
+      "transactional email",
+      "password reset"
+    ],
+    "related_actions": [
+      "transactional_email.get_transac_email_content",
+      "transactional_email.get_email_event_report"
+    ],
+    "tags": [
+      "transactional_email",
+      "send",
+      "transactional_emails"
+    ],
+    "confidence": 0.99,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:13:47.686Z",
+      "method": "transactional: POST /smtp/email",
+      "http_status": 201,
+      "note": "accepted; delivery not confirmed",
+      "kind": "transactional_flow"
+    }
+  },
+  {
+    "id": "transactional_email.unblock_or_resubscribe_contact",
+    "version": "1.0.0",
+    "domain": "transactional_email",
+    "domain_label": "Transactional email",
+    "name": "Unblock or resubscribe a transactional contact",
+    "intent": "Unblock or resubscribe a transactional contact",
+    "description": "Unblock or resubscribe a transactional contact by removing their email address from the blacklist. The email address must be URL-encoded in the path parameter and must be a valid email format. If the contact is not found in the blocklist, a 404 error is returned.",
+    "action_type": "configure",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "x-in": "path",
+          "description": "contact email (urlencoded) to unblock."
+        }
+      },
+      "required": [
+        "email"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "email"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Changes account or delivery configuration"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 300
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/smtp/blockedContacts/{email}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_email__unblock_or_resubscribe_contact"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Transactional emails",
+      "ui_area": "Transactional > Email",
+      "ui_path": "Transactional > Settings > Blocked contacts"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Unblock or resubscribe a contact",
+        "ui_path": "Transactional > Settings > Blocked contacts",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "unblock",
+      "resubscribe",
+      "transactional",
+      "contact",
+      "transactional email",
+      "unblock contact"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_email",
+      "configure",
+      "transactional_emails"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

@@ -1,0 +1,89 @@
+{
+  "checked_at": "2026-11-21T03:08:33.270Z",
+  "account": {
+    "plan": [
+      {
+        "type": "free",
+        "credits": 300,
+        "creditsType": "sendLimit"
+      }
+    ],
+    "enterprise": false,
+    "relayEnabled": true,
+    "emailDomain": "gmail.com"
+  },
+  "senders": [
+    {
+      "id": 1,
+      "active": true,
+      "emailDomain": "gmail.com",
+      "ips": 0
+    }
+  ],
+  "domains": [],
+  "campaigns": [
+    {
+      "id": 12,
+      "status": "suspended",
+      "senderDomain": "gmail.com",
+      "recipients": {
+        "lists": [
+          17
+        ],
+        "exclusionLists": [],
+        "segments": [],
+        "excludedSegments": []
+      },
+      "sent": 0,
+      "delivered": 0,
+      "scheduledAt": "2026-11-21T00:52:32.000-03:00"
+    },
+    {
+      "id": 14,
+      "status": "suspended",
+      "senderDomain": "gmail.com",
+      "recipients": {
+        "lists": [
+          19
+        ],
+        "exclusionLists": [],
+        "segments": [],
+        "excludedSegments": []
+      },
+      "sent": 0,
+      "delivered": 0,
+      "scheduledAt": "2026-11-20T23:51:14.000-03:00"
+    },
+    {
+      "id": 15,
+      "status": "suspended",
+      "senderDomain": "gmail.com",
+      "recipients": {
+        "lists": [
+          20
+        ],
+        "exclusionLists": [],
+        "segments": [],
+        "excludedSegments": []
+      },
+      "sent": 0,
+      "delivered": 0,
+      "scheduledAt": "2026-11-21T00:54:58.000-03:00"
+    }
+  ],
+  "findings": [
+    "Plan has 300 send credits (free); credits are probably not the blocker.",
+    "1 active sender(s) found; sender activation is not the blocker.",
+    "No authenticated sender domain found in the account.",
+    "Sender domain(s) gmail.com are free-mail domains; their DMARC policy cannot be authenticated by Brevo, which commonly blocks/suspends campaign sending.",
+    "Campaign 14 is suspended with sent=0/delivered=0; the API accepted the send call but the campaign did not dispatch.",
+    "Campaign sender domain is gmail.com."
+  ],
+  "likely_blocker": "free-mail sender domain without an authenticated sending domain",
+  "recommendations": [
+    "Use a domain you control (not gmail.com) and authenticate it in Brevo (Brevo code, DKIM, DMARC).",
+    "Create the sender on that authenticated domain, then retry sendTest to a single address you control.",
+    "Keep the recipient list to one contact and check the campaign statistics after sendTest.",
+    "If a custom domain is not available, use transactional SMTP/email for a delivery test; do not expect gmail.com campaign sending to work."
+  ]
+}

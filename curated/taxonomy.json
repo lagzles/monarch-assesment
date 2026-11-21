@@ -1,0 +1,276 @@
+{
+  "version": "1.0.0",
+  "note": "Domain taxonomy designed for agent retrieval, not for mirroring API tags. Each domain maps a product area to the UI location a human would use, so an agent can explain where an action lives.",
+  "domains": {
+    "contacts": {
+      "label": "Contacts & audiences",
+      "description": "People records, contact attributes, folders, lists, segments, imports/exports, consent groups and custom object records.",
+      "ui_area": "CRM > Contacts",
+      "keywords": ["contact", "audience", "list", "segment", "attribute", "import", "export", "consent", "blocklist", "custom object", "folder", "double opt-in"]
+    },
+    "crm": {
+      "label": "CRM (companies, deals, tasks, notes)",
+      "description": "Sales objects: companies, deals, pipelines, tasks, notes, files and their custom attributes.",
+      "ui_area": "CRM > Companies / Deals / Tasks",
+      "keywords": ["company", "deal", "pipeline", "stage", "task", "note", "file", "sales", "crm"]
+    },
+    "email_campaigns": {
+      "label": "Email campaigns",
+      "description": "Marketing email campaigns: create, edit, test, schedule, send, export recipients and read reports.",
+      "ui_area": "Marketing > Email campaigns",
+      "keywords": ["email campaign", "newsletter", "marketing email", "schedule", "send test", "a/b test", "recipients", "report"]
+    },
+    "sms_campaigns": {
+      "label": "SMS campaigns",
+      "description": "Marketing SMS campaigns: create, schedule, send, test and report.",
+      "ui_area": "Marketing > SMS",
+      "keywords": ["sms campaign", "text message", "marketing sms", "schedule", "send test"]
+    },
+    "whatsapp_campaigns": {
+      "label": "WhatsApp campaigns",
+      "description": "Marketing WhatsApp campaigns, templates and template approval.",
+      "ui_area": "Marketing > WhatsApp",
+      "keywords": ["whatsapp campaign", "template", "approval", "marketing whatsapp"]
+    },
+    "transactional_email": {
+      "label": "Transactional email",
+      "description": "Transactional email sending, logs, statistics, blocklists and scheduled-message management.",
+      "ui_area": "Transactional > Email",
+      "keywords": ["transactional email", "smtp", "password reset", "order confirmation", "blocklist", "bounce", "log", "statistics"]
+    },
+    "transactional_sms": {
+      "label": "Transactional SMS",
+      "description": "Transactional SMS sending, statistics and templates.",
+      "ui_area": "Transactional > SMS",
+      "keywords": ["transactional sms", "otp", "verification code", "statistics"]
+    },
+    "transactional_whatsapp": {
+      "label": "Transactional WhatsApp",
+      "description": "Transactional WhatsApp messages and delivery events.",
+      "ui_area": "Transactional > WhatsApp",
+      "keywords": ["transactional whatsapp", "message", "events"]
+    },
+    "templates": {
+      "label": "Templates",
+      "description": "Reusable email and SMS templates (transactional and marketing).",
+      "ui_area": "Marketing > Templates / Transactional > Templates",
+      "keywords": ["template", "email template", "sms template", "preview", "render"]
+    },
+    "senders_and_domains": {
+      "label": "Senders, domains & IPs",
+      "description": "Sender identities, sender-domain authentication (DKIM/DMARC), and dedicated IPs.",
+      "ui_area": "Account > Senders & Domains",
+      "keywords": ["sender", "domain", "dkim", "dmarc", "authenticate", "dedicated ip", "spf"]
+    },
+    "webhooks": {
+      "label": "Webhooks",
+      "description": "Webhook configuration and delivery history for Brevo events.",
+      "ui_area": "Account > Webhooks",
+      "keywords": ["webhook", "event", "callback", "subscription"]
+    },
+    "external_feeds": {
+      "label": "External feeds (RSS)",
+      "description": "External RSS feeds used as content sources for campaigns and automation.",
+      "ui_area": "Marketing > External feeds",
+      "keywords": ["rss", "feed", "external feed", "content"]
+    },
+    "ecommerce": {
+      "label": "eCommerce",
+      "description": "Products, categories, orders, attribution and eCommerce configuration.",
+      "ui_area": "Commerce > eCommerce",
+      "keywords": ["product", "category", "order", "ecommerce", "attribution", "cart", "revenue", "currency"]
+    },
+    "coupons": {
+      "label": "Coupons",
+      "description": "Coupon collections and generated coupons.",
+      "ui_area": "Commerce > Coupons",
+      "keywords": ["coupon", "discount", "voucher", "promo code", "collection"]
+    },
+    "payments": {
+      "label": "Payments",
+      "description": "Payment requests and payment links.",
+      "ui_area": "Commerce > Payments",
+      "keywords": ["payment", "payment link", "payment request", "checkout"]
+    },
+    "loyalty": {
+      "label": "Loyalty & wallet",
+      "description": "Loyalty programs, tiers, rewards, balances, transactions, subscriptions and wallet passes.",
+      "ui_area": "Commerce > Loyalty",
+      "keywords": ["loyalty", "program", "tier", "reward", "balance", "transaction", "subscription", "wallet", "pass"]
+    },
+    "conversations": {
+      "label": "Conversations",
+      "description": "Live chat and omnichannel inbox: agent status, messages, pushed messages and visitor routing.",
+      "ui_area": "Conversations",
+      "keywords": ["conversation", "chat", "inbox", "agent", "visitor", "message", "omni"]
+    },
+    "events": {
+      "label": "Events & tracking",
+      "description": "Custom events used for tracking behaviour and triggering automations.",
+      "ui_area": "Automation > Events",
+      "keywords": ["event", "track", "behaviour", "custom event", "trigger"]
+    },
+    "inbound": {
+      "label": "Inbound email parsing",
+      "description": "Parsing of received emails and their attachments.",
+      "ui_area": "Transactional > Inbound parsing",
+      "keywords": ["inbound", "parse", "received email", "attachment"]
+    },
+    "custom_objects": {
+      "label": "Custom objects",
+      "description": "Custom object schema records and associations.",
+      "ui_area": "CRM > Custom objects",
+      "keywords": ["custom object", "object record", "association", "schema"]
+    },
+    "account_admin": {
+      "label": "Account administration",
+      "description": "Account details, users, invitations, permissions, sub-accounts, plans, IPs and activity logs.",
+      "ui_area": "Account > Settings",
+      "keywords": ["account", "user", "invite", "permission", "sub-account", "plan", "master account", "activity log"]
+    },
+    "processes": {
+      "label": "Background processes",
+      "description": "Asynchronous job tracking (imports, exports, batch operations).",
+      "ui_area": "Account > Processes",
+      "keywords": ["process", "background job", "async", "import status", "export status"]
+    },
+    "marketing_automation": {
+      "label": "Marketing automation",
+      "description": "Automation workflows: triggers, steps, delays, conditions, enrollment and logs. Mostly UI-driven; the public API does not expose workflow CRUD.",
+      "ui_area": "Automations",
+      "keywords": ["automation", "workflow", "trigger", "step", "delay", "condition", "journey", "enroll", "aura"]
+    },
+    "landing_pages": {
+      "label": "Landing pages",
+      "description": "Landing page builder: create, edit sections, publish, duplicate, custom domains and sub-pages. No public API.",
+      "ui_area": "Marketing > Landing pages",
+      "keywords": ["landing page", "page builder", "publish", "custom domain", "sub-page", "duplicate"]
+    },
+    "forms": {
+      "label": "Forms",
+      "description": "Sign-up, pop-up, unsubscribe and profile-update forms, double opt-in and notifications. No public API.",
+      "ui_area": "Marketing > Forms",
+      "keywords": ["form", "sign-up", "signup", "pop-up", "unsubscribe", "profile update", "captcha", "double opt-in"]
+    },
+    "push_popups": {
+      "label": "Push, pop-ups & in-app",
+      "description": "Web push campaigns, pop-ups and in-app messages. No public API.",
+      "ui_area": "Marketing > Push & Pop-up",
+      "keywords": ["push notification", "pop-up", "in-app", "web push", "wonderpush"]
+    },
+    "ad_studio": {
+      "label": "Ad Studio",
+      "description": "Static and video ad creation. No public API.",
+      "ui_area": "Marketing > Ad Studio",
+      "keywords": ["ad", "advertising", "static ad", "video ad", "creative"]
+    },
+    "meetings": {
+      "label": "Meetings",
+      "description": "Meeting scheduling and booking pages. No public API.",
+      "ui_area": "Conversations > Meetings",
+      "keywords": ["meeting", "booking", "calendar", "schedule"]
+    },
+    "phone": {
+      "label": "Phone",
+      "description": "Phone numbers, calls and call settings. No public API.",
+      "ui_area": "Conversations > Phone",
+      "keywords": ["phone", "call", "number", "voip"]
+    },
+    "analytics_reports": {
+      "label": "Analytics & reports",
+      "description": "Cross-channel dashboards, campaign reports, eCommerce dashboards and exports.",
+      "ui_area": "Analytics",
+      "keywords": ["analytics", "report", "dashboard", "statistics", "export", "attribution"]
+    },
+    "integrations": {
+      "label": "Integrations & plugins",
+      "description": "Connecting external systems (WordPress, Shopify, WooCommerce, CRMs) and managing API keys. Mostly UI/account-level.",
+      "ui_area": "Apps & integrations",
+      "keywords": ["integration", "plugin", "app", "shopify", "woocommerce", "wordpress", "api key", "marketplace"]
+    },
+    "deliverability": {
+      "label": "Deliverability",
+      "description": "Sender reputation, domain authentication, blocklists and deliverability tooling.",
+      "ui_area": "Deliverability",
+      "keywords": ["deliverability", "reputation", "blocklist", "bounce", "spam", "authentication"]
+    }
+  },
+  "tagToDomain": {
+    "Contacts": "contacts",
+    "ConsentGroups": "contacts",
+    "Companies": "crm",
+    "Deals": "crm",
+    "companies": "crm",
+    "deals": "crm",
+    "Notes": "crm",
+    "Tasks": "crm",
+    "Files": "crm",
+    "Custom Objects": "custom_objects",
+    "Email Campaigns": "email_campaigns",
+    "SMS Campaigns": "sms_campaigns",
+    "WhatsApp Campaigns": "whatsapp_campaigns",
+    "Transactional emails": "transactional_email",
+    "Transactional SMS": "transactional_sms",
+    "Transactional WhatsApp": "transactional_whatsapp",
+    "SMS Templates": "templates",
+    "Senders": "senders_and_domains",
+    "Domains": "senders_and_domains",
+    "Webhooks": "webhooks",
+    "External Feeds": "external_feeds",
+    "Ecommerce": "ecommerce",
+    "Coupons": "coupons",
+    "Payments": "payments",
+    "Balance": "loyalty",
+    "Program": "loyalty",
+    "Reward": "loyalty",
+    "Tier": "loyalty",
+    "Wallet": "loyalty",
+    "Conversations": "conversations",
+    "Event": "events",
+    "Inbound Parsing": "inbound",
+    "Account": "account_admin",
+    "Master account": "account_admin",
+    "User": "account_admin",
+    "Process": "processes"
+  },
+  "pathRules": [
+    { "prefix": "/contacts", "domain": "contacts" },
+    { "prefix": "/objects", "domain": "custom_objects" },
+    { "prefix": "/companies", "domain": "crm" },
+    { "prefix": "/crm/attributes", "domain": "crm" },
+    { "prefix": "/crm/files", "domain": "crm" },
+    { "prefix": "/crm/notes", "domain": "crm" },
+    { "prefix": "/crm/tasks", "domain": "crm" },
+    { "prefix": "/crm/tasktypes", "domain": "crm" },
+    { "prefix": "/crm/pipeline", "domain": "crm" },
+    { "prefix": "/crm/deals", "domain": "crm" },
+    { "prefix": "/emailCampaigns", "domain": "email_campaigns" },
+    { "prefix": "/smsCampaigns", "domain": "sms_campaigns" },
+    { "prefix": "/whatsappCampaigns", "domain": "whatsapp_campaigns" },
+    { "prefix": "/smtp/templates", "domain": "templates" },
+    { "prefix": "/smtp", "domain": "transactional_email" },
+    { "prefix": "/transactionalSMS/templates", "domain": "templates" },
+    { "prefix": "/transactionalSMS", "domain": "transactional_sms" },
+    { "prefix": "/whatsapp", "domain": "transactional_whatsapp" },
+    { "prefix": "/senders/domains", "domain": "senders_and_domains" },
+    { "prefix": "/senders", "domain": "senders_and_domains" },
+    { "prefix": "/webhooks", "domain": "webhooks" },
+    { "prefix": "/feeds", "domain": "external_feeds" },
+    { "prefix": "/products", "domain": "ecommerce" },
+    { "prefix": "/categories", "domain": "ecommerce" },
+    { "prefix": "/orders", "domain": "ecommerce" },
+    { "prefix": "/ecommerce", "domain": "ecommerce" },
+    { "prefix": "/couponCollections", "domain": "coupons" },
+    { "prefix": "/coupons", "domain": "coupons" },
+    { "prefix": "/payments", "domain": "payments" },
+    { "prefix": "/loyalty", "domain": "loyalty" },
+    { "prefix": "/wallet", "domain": "loyalty" },
+    { "prefix": "/conversations", "domain": "conversations" },
+    { "prefix": "/events", "domain": "events" },
+    { "prefix": "/inbound", "domain": "inbound" },
+    { "prefix": "/account", "domain": "account_admin" },
+    { "prefix": "/organization", "domain": "account_admin" },
+    { "prefix": "/corporate", "domain": "account_admin" },
+    { "prefix": "/processes", "domain": "processes" }
+  ]
+}

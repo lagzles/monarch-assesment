@@ -1,0 +1,1346 @@
+[
+  {
+    "id": "transactional_sms.get_sms_events",
+    "version": "1.0.0",
+    "domain": "transactional_sms",
+    "domain_label": "Transactional SMS",
+    "name": "Get all your SMS activity (unaggregated events)",
+    "intent": "Get all your SMS activity (unaggregated events)",
+    "description": "Retrieve a paginated list of individual SMS event records (unaggregated), including event type, phone number, message ID, timestamp, tag, and reason or reply content where applicable. Results default to 50 per page (max 100) and are sorted in descending order unless overridden. Filter by date range (`startDate`/`endDate`), past `days` (not compatible with date range), specific `event` type (e.g. delivered, bounces, replies), `phoneNumber`, or `tags`. Bounce events include the failure reason, and reply events include the reply content.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "default": 50,
+          "format": "int64",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents per page"
+        },
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting date (YYYY-MM-DD) of the report"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending date (YYYY-MM-DD) of the report"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document of the page"
+        },
+        "days": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of days in the past including today (positive integer). **Not compatible with 'startDate' and 'endDate'**"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter the report for a specific phone number"
+        },
+        "event": {
+          "enum": [
+            "bounces",
+            "hardBounces",
+            "softBounces",
+            "delivered",
+            "sent",
+            "accepted",
+            "unsubscription",
+            "replies",
+            "blocked",
+            "rejected",
+            "skipped"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter the report for specific events"
+        },
+        "tags": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter the report for specific tags passed as a serialized urlencoded array"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "limit",
+        "startDate",
+        "endDate",
+        "offset",
+        "days",
+        "phoneNumber",
+        "event",
+        "tags",
+        "sort"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "events": {
+            "items": {
+              "properties": {
+                "date": {
+                  "description": "UTC date-time on which the event has been generated",
+                  "example": "2017-03-12T12:30:00Z",
+                  "type": "string"
+                },
+                "event": {
+                  "description": "Event which occurred",
+                  "enum": [
+                    "bounces",
+                    "hardBounces",
+                    "softBounces",
+                    "delivered",
+                    "sent",
+                    "accepted",
+                    "unsubscription",
+                    "replies",
+                    "blocked",
+                    "rejected",
+                    "skipped"
+                  ],
+                  "example": "accepted",
+                  "type": "string"
+                },
+                "messageId": {
+                  "description": "Message ID which generated the event",
+                  "example": "1472640582425378",
+                  "type": "string"
+                },
+                "phoneNumber": {
+                  "description": "Phone number which has generated the event",
+                  "example": 189001094,
+                  "type": "string"
+                },
+                "reason": {
+                  "description": "Reason of bounce (only available if the event is hardbounce or softbounce)",
+                  "example": "Message is undeliverable due to an incorrect / invalid / blacklisted / permanently barred MSISDN for this operator",
+                  "type": "string"
+                },
+                "reply": {
+                  "type": "string"
+                },
+                "tag": {
+                  "description": "Tag of the SMS which generated the event",
+                  "example": "CabWaiting",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "events": [
+          {
+            "date": "2015-05-20T12:30:00Z",
+            "event": "sent",
+            "messageId": "1473139351170140",
+            "phoneNumber": 911059469013,
+            "reason": "Recipient is currently unreachable",
+            "tag": "cabWaiting"
+          },
+          {
+            "date": "2015-05-20T16:30:00Z",
+            "event": "delivered",
+            "messageId": "1473139351170140",
+            "phoneNumber": 911059469013,
+            "reason": "Recipient is currently unreachable",
+            "tag": "cabRequest"
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/transactionalSMS/statistics/events",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_sms__get_sms_events"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getSmsEvents",
+      "tag": "Transactional SMS",
+      "ui_area": "Transactional > SMS",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "sms",
+      "activity",
+      "unaggregated",
+      "events",
+      "transactional sms"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_sms",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_sms.get_transac_aggregated_sms_report",
+    "version": "1.0.0",
+    "domain": "transactional_sms",
+    "domain_label": "Transactional SMS",
+    "name": "Get your SMS activity aggregated over a period of time",
+    "intent": "Get your SMS activity aggregated over a period of time",
+    "description": "Retrieve an aggregated report of your transactional SMS activity over a specified time period, including counts for requests, delivered, hard bounces, soft bounces, blocked, unsubscribed, replied, accepted, rejected, and skipped messages. Filter by date range using `startDate` and `endDate` (both required together, YYYY-MM-DD format) or by a number of past `days` (not compatible with date range). You can further narrow results by `tag`. If no date filter is provided, the report covers all available data and returns the auto-detected date range.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting date (YYYY-MM-DD) of the report"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending date (YYYY-MM-DD) of the report"
+        },
+        "days": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of days in the past including today (positive integer). **Not compatible with startDate and endDate**"
+        },
+        "tag": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter on a tag"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "startDate",
+        "endDate",
+        "days",
+        "tag"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "accepted": {
+            "description": "Number of accepted SMS for the timeframe",
+            "example": 252,
+            "format": "int64",
+            "type": "integer"
+          },
+          "blocked": {
+            "description": "Number of blocked contact for the timeframe",
+            "example": 2,
+            "format": "int64",
+            "type": "integer"
+          },
+          "delivered": {
+            "description": "Number of delivered SMS for the timeframe",
+            "example": 249,
+            "format": "int64",
+            "type": "integer"
+          },
+          "hardBounces": {
+            "description": "Number of hardbounces for the timeframe",
+            "example": 1,
+            "format": "int64",
+            "type": "integer"
+          },
+          "range": {
+            "description": "Time frame of the report",
+            "example": "2016-09-08|2017-04-06",
+            "type": "string"
+          },
+          "rejected": {
+            "description": "Number of rejected SMS for the timeframe",
+            "example": 8,
+            "format": "int64",
+            "type": "integer"
+          },
+          "replied": {
+            "description": "Number of answered SMS for the timeframe",
+            "example": 12,
+            "format": "int64",
+            "type": "integer"
+          },
+          "requests": {
+            "description": "Number of requests for the timeframe",
+            "example": 263,
+            "format": "int64",
+            "type": "integer"
+          },
+          "skipped": {
+            "description": "Number of skipped SMS for the timeframe",
+            "example": 1,
+            "format": "int64",
+            "type": "integer"
+          },
+          "softBounces": {
+            "description": "Number of softbounces for the timeframe",
+            "example": 4,
+            "format": "int64",
+            "type": "integer"
+          },
+          "unsubscribed": {
+            "description": "Number of unsubscription for the timeframe",
+            "example": 6,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "accepted": 6,
+        "blocked": 4,
+        "delivered": 16,
+        "hardBounces": 5,
+        "range": "2015-05-22|2017-11-29",
+        "rejected": 14,
+        "replied": 8,
+        "requests": 54,
+        "skipped": 1,
+        "softBounces": 26,
+        "unsubscribed": 10
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/transactionalSMS/statistics/aggregatedReport",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_sms__get_transac_aggregated_sms_report"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getTransacAggregatedSmsReport",
+      "tag": "Transactional SMS",
+      "ui_area": "Transactional > SMS",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "sms",
+      "activity",
+      "aggregated",
+      "over",
+      "period",
+      "time",
+      "transactional sms"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_sms",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_sms.get_transac_sms_report",
+    "version": "1.0.0",
+    "domain": "transactional_sms",
+    "domain_label": "Transactional SMS",
+    "name": "Get your SMS activity aggregated per day",
+    "intent": "Get your SMS activity aggregated per day",
+    "description": "Retrieve a day-by-day breakdown of your transactional SMS activity, with each entry containing the date and counts for requests, delivered, hard bounces, soft bounces, blocked, unsubscribed, replied, accepted, rejected, and skipped messages. Filter by date range using `startDate` and `endDate` (both required together, YYYY-MM-DD format), by a number of past `days` (not compatible with date range), or by `tag`. Results are sorted in descending order by default unless overridden with the `sort` parameter.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used.** Starting date (YYYY-MM-DD) of the report"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used.** Ending date (YYYY-MM-DD) of the report"
+        },
+        "days": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of days in the past including today (positive integer). **Not compatible with 'startDate' and 'endDate'**"
+        },
+        "tag": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter on a tag"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "startDate",
+        "endDate",
+        "days",
+        "tag",
+        "sort"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "reports": {
+            "items": {
+              "properties": {
+                "accepted": {
+                  "description": "Number of accepted SMS for the date",
+                  "example": 85,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "blocked": {
+                  "description": "Number of blocked contact for the date",
+                  "example": 0,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "date": {
+                  "description": "Date for which statistics are retrieved",
+                  "example": "2017-03-17",
+                  "format": "date",
+                  "type": "string"
+                },
+                "delivered": {
+                  "description": "Number of delivered SMS for the date",
+                  "example": 85,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "hardBounces": {
+                  "description": "Number of hardbounces for the date",
+                  "example": 1,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "rejected": {
+                  "description": "Number of rejected SMS for the date",
+                  "example": 1,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "replied": {
+                  "description": "Number of answered SMS for the date",
+                  "example": 2,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "requests": {
+                  "description": "Number of requests for the date",
+                  "example": 87,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "skipped": {
+                  "description": "Number of skipped SMS for the date",
+                  "example": 1,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "softBounces": {
+                  "description": "Number of softbounces for the date",
+                  "example": 1,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "unsubscribed": {
+                  "description": "Number of unsubscription for the date",
+                  "example": 1,
+                  "format": "int64",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "reports": [
+          {
+            "accepted": 2318,
+            "blocked": 1026,
+            "date": "2017-04-30",
+            "delivered": 10103,
+            "hardBounces": 21,
+            "rejected": 0,
+            "replied": 5091,
+            "requests": 10756,
+            "skipped": 1,
+            "softBounces": 137,
+            "unsubscribed": 720
+          },
+          {
+            "accepted": 4393,
+            "blocked": 1514,
+            "date": "2017-05-01",
+            "delivered": 17499,
+            "hardBounces": 34,
+            "rejected": 0,
+            "replied": 10089,
+            "requests": 18812,
+            "skipped": 0,
+            "softBounces": 254,
+            "unsubscribed": 1090
+          },
+          {
+            "accepted": 4689,
+            "blocked": 1646,
+            "date": "2017-05-02",
+            "delivered": 13427,
+            "hardBounces": 16,
+            "rejected": 0,
+            "replied": 11563,
+            "requests": 14321,
+            "skipped": 1,
+            "softBounces": 176,
+            "unsubscribed": 1170
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/transactionalSMS/statistics/reports",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_sms__get_transac_sms_report"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getTransacSmsReport",
+      "tag": "Transactional SMS",
+      "ui_area": "Transactional > SMS",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "sms",
+      "activity",
+      "aggregated",
+      "per",
+      "day",
+      "transactional sms"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_sms",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_sms.send_async_transactional_sms",
+    "version": "1.0.0",
+    "domain": "transactional_sms",
+    "domain_label": "Transactional SMS",
+    "name": "Send SMS message asynchronously to a mobile number",
+    "intent": "Send SMS message asynchronously to a mobile number",
+    "description": "<Note>If the user includes stop code in the Transactional SMS, then it will be switched to Marketing SMS automatically and it will be interpreted as a Marketing SMS. To send Transactional SMS as Transactional, it is important not to use stop code. Note: For adding a stop code, client has to add reply STOP to [STOP_CODE] and the [STOP_CODE] will be replaced with the number.</Note> <Note title=\"For end users in France\">Transactional SMS can be sent at any time without time restrictions. However, if a message is categorized as Marketing, it must adhere to specific time restrictions. Messages sen…",
+    "action_type": "send",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "An authenticated sender or verified sending domain."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "organisationPrefix": {
+          "description": "A recognizable prefix will ensure your audience knows who you are. Recommended by U.S. carriers. This will be added as your Brand Name before the message content. **Prefer verifying maximum length of 160 characters including this prefix in message content to avoid multiple sending of same sms.**",
+          "example": "MyCompany",
+          "type": "string",
+          "x-in": "body"
+        },
+        "recipient": {
+          "description": "Mobile number to send SMS with the country code. Must contain between 6 and 15 digits, optionally prefixed with '+'.\n",
+          "example": "33689965433",
+          "type": "string",
+          "x-in": "body"
+        },
+        "sender": {
+          "description": "Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters.** Alphanumeric sender names (up to 11 characters) must contain only letters and digits. Numeric sender names (12-15 characters) must contain only digits.\n",
+          "example": "MyShop",
+          "maxLength": 15,
+          "type": "string",
+          "x-in": "body"
+        },
+        "tag": {
+          "description": "Tag of the message. Can be a single string or an array of strings (maximum 10 tags). Each tag must be a non-empty string.\n",
+          "example": "accountValidation",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "type": "array"
+            }
+          ],
+          "x-in": "body"
+        },
+        "type": {
+          "default": "transactional",
+          "description": "Type of the SMS. Marketing SMS messages are those sent typically with marketing content. Transactional SMS messages are sent to individuals and are triggered in response to some action, such as a sign-up, purchase, etc.",
+          "enum": [
+            "transactional",
+            "marketing"
+          ],
+          "example": "marketing",
+          "type": "string",
+          "x-in": "body"
+        },
+        "unicodeEnabled": {
+          "default": false,
+          "description": "Format of the message. It indicates whether the content should be treated as unicode or not.\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "webUrl": {
+          "description": "Webhook to call for each event triggered by the message (delivered etc.)",
+          "example": "http://requestb.in/173lyyx1",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        },
+        "params": {
+          "description": "Pass the set of attributes to customize the template. For example, {\"FNAME\":\"Joe\", \"LNAME\":\"Doe\"}. These are the placeholder variables in the template that will be replaced with the corresponding values passed in the params object. Applicable only if `templateId` is used.",
+          "example": {
+            "FNAME": "Joe",
+            "LNAME": "Doe"
+          },
+          "type": "object",
+          "additionalProperties": {},
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "recipient",
+        "sender"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to send a transactional SMS",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "organisationPrefix": {
+              "description": "A recognizable prefix will ensure your audience knows who you are. Recommended by U.S. carriers. This will be added as your Brand Name before the message content. **Prefer verifying maximum length of 160 characters including this prefix in message content to avoid multiple sending of same sms.**",
+              "example": "MyCompany",
+              "type": "string"
+            },
+            "recipient": {
+              "description": "Mobile number to send SMS with the country code. Must contain between 6 and 15 digits, optionally prefixed with '+'.\n",
+              "example": "33689965433",
+              "type": "string"
+            },
+            "sender": {
+              "description": "Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters.** Alphanumeric sender names (up to 11 characters) must contain only letters and digits. Numeric sender names (12-15 characters) must contain only digits.\n",
+              "example": "MyShop",
+              "maxLength": 15,
+              "type": "string"
+            },
+            "tag": {
+              "description": "Tag of the message. Can be a single string or an array of strings (maximum 10 tags). Each tag must be a non-empty string.\n",
+              "example": "accountValidation",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                }
+              ]
+            },
+            "type": {
+              "default": "transactional",
+              "description": "Type of the SMS. Marketing SMS messages are those sent typically with marketing content. Transactional SMS messages are sent to individuals and are triggered in response to some action, such as a sign-up, purchase, etc.",
+              "enum": [
+                "transactional",
+                "marketing"
+              ],
+              "example": "marketing",
+              "type": "string"
+            },
+            "unicodeEnabled": {
+              "default": false,
+              "description": "Format of the message. It indicates whether the content should be treated as unicode or not.\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "webUrl": {
+              "description": "Webhook to call for each event triggered by the message (delivered etc.)",
+              "example": "http://requestb.in/173lyyx1",
+              "format": "url",
+              "type": "string"
+            },
+            "params": {
+              "description": "Pass the set of attributes to customize the template. For example, {\"FNAME\":\"Joe\", \"LNAME\":\"Doe\"}. These are the placeholder variables in the template that will be replaced with the corresponding values passed in the params object. Applicable only if `templateId` is used.",
+              "example": {
+                "FNAME": "Joe",
+                "LNAME": "Doe"
+              },
+              "type": "object",
+              "additionalProperties": {}
+            }
+          },
+          "required": [
+            "recipient",
+            "sender"
+          ],
+          "oneOf": [
+            {
+              "description": "Send SMS using a template ID.",
+              "type": "object",
+              "required": [
+                "templateId"
+              ],
+              "properties": {
+                "templateId": {
+                  "description": "Template ID to send SMS with the template. When provided, overrides the content parameter. Mandatory if 'content' is not passed.",
+                  "example": 123,
+                  "type": "integer"
+                },
+                "content": {
+                  "not": {}
+                }
+              }
+            },
+            {
+              "description": "Send SMS using direct content.",
+              "type": "object",
+              "required": [
+                "content"
+              ],
+              "properties": {
+                "content": {
+                  "description": "Content of the message. If more than **160 characters** long, will be sent as multiple text messages. Mandatory if 'templateId' is not passed, ignored if 'templateId' is passed.\n",
+                  "example": "Enter this code:CCJJG8 to validate your account",
+                  "type": "string"
+                },
+                "templateId": {
+                  "not": {}
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "messageId": {
+            "example": 1511882900176220,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "messageId"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends real messages to recipients",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 540000,
+      "requests_per_second": 150
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/transactionalSMS/send",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_sms__send_async_transactional_sms"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendAsyncTransactionalSms",
+      "tag": "Transactional SMS",
+      "ui_area": "Transactional > SMS",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "send",
+      "sms",
+      "message",
+      "asynchronously",
+      "mobile",
+      "number",
+      "transactional sms"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_sms",
+      "send"
+    ],
+    "confidence": 0.92,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "transactional_sms.send_transac_sms",
+    "version": "1.0.0",
+    "domain": "transactional_sms",
+    "domain_label": "Transactional SMS",
+    "name": "Send SMS message to a mobile number",
+    "intent": "Send SMS message to a mobile number",
+    "description": "Send a transactional SMS message to a single mobile number. The `sender`, `recipient`, and either `content` or `templateId` fields are required. The sender name is limited to 11 alphanumeric characters or 15 numeric characters, and the recipient must be a valid international phone number (6-15 digits, optional leading +). Tags can be a string or an array of up to 10 strings. The SMS type defaults to `transactional` but can be set to `marketing`; if the content includes a stop code, it is automatically treated as marketing. Returns the message ID, SMS count, credits used, and remaining credits.",
+    "action_type": "send",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "An authenticated sender or verified sending domain."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "organisationPrefix": {
+          "description": "A recognizable prefix will ensure your audience knows who you are. Recommended by U.S. carriers. This will be added as your Brand Name before the message content. **Prefer verifying maximum length of 160 characters including this prefix in message content to avoid multiple sending of same sms.**",
+          "example": "MyCompany",
+          "type": "string",
+          "x-in": "body"
+        },
+        "recipient": {
+          "description": "Mobile number to send SMS with the country code. Must contain between 6 and 15 digits, optionally prefixed with '+'.\n",
+          "example": "33689965433",
+          "type": "string",
+          "x-in": "body"
+        },
+        "sender": {
+          "description": "Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters.** Alphanumeric sender names (up to 11 characters) must contain only letters and digits. Numeric sender names (12-15 characters) must contain only digits.\n",
+          "example": "MyShop",
+          "maxLength": 15,
+          "type": "string",
+          "x-in": "body"
+        },
+        "tag": {
+          "description": "Tag of the message. Can be a single string or an array of strings (maximum 10 tags). Each tag must be a non-empty string.\n",
+          "example": "accountValidation",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "type": "array"
+            }
+          ],
+          "x-in": "body"
+        },
+        "type": {
+          "default": "transactional",
+          "description": "Type of the SMS. Marketing SMS messages are those sent typically with marketing content. Transactional SMS messages are sent to individuals and are triggered in response to some action, such as a sign-up, purchase, etc.",
+          "enum": [
+            "transactional",
+            "marketing"
+          ],
+          "example": "marketing",
+          "type": "string",
+          "x-in": "body"
+        },
+        "unicodeEnabled": {
+          "default": false,
+          "description": "Format of the message. It indicates whether the content should be treated as unicode or not.\n",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "webUrl": {
+          "description": "Webhook to call for each event triggered by the message (delivered etc.)",
+          "example": "http://requestb.in/173lyyx1",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        },
+        "params": {
+          "description": "Pass the set of attributes to customize the template. For example, {\"FNAME\":\"Joe\", \"LNAME\":\"Doe\"}. These are the placeholder variables in the template that will be replaced with the corresponding values passed in the params object. Applicable only if `templateId` is used.",
+          "example": {
+            "FNAME": "Joe",
+            "LNAME": "Doe"
+          },
+          "type": "object",
+          "additionalProperties": {},
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "recipient",
+        "sender"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to send a transactional SMS",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "organisationPrefix": {
+              "description": "A recognizable prefix will ensure your audience knows who you are. Recommended by U.S. carriers. This will be added as your Brand Name before the message content. **Prefer verifying maximum length of 160 characters including this prefix in message content to avoid multiple sending of same sms.**",
+              "example": "MyCompany",
+              "type": "string"
+            },
+            "recipient": {
+              "description": "Mobile number to send SMS with the country code. Must contain between 6 and 15 digits, optionally prefixed with '+'.\n",
+              "example": "33689965433",
+              "type": "string"
+            },
+            "sender": {
+              "description": "Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters.** Alphanumeric sender names (up to 11 characters) must contain only letters and digits. Numeric sender names (12-15 characters) must contain only digits.\n",
+              "example": "MyShop",
+              "maxLength": 15,
+              "type": "string"
+            },
+            "tag": {
+              "description": "Tag of the message. Can be a single string or an array of strings (maximum 10 tags). Each tag must be a non-empty string.\n",
+              "example": "accountValidation",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                }
+              ]
+            },
+            "type": {
+              "default": "transactional",
+              "description": "Type of the SMS. Marketing SMS messages are those sent typically with marketing content. Transactional SMS messages are sent to individuals and are triggered in response to some action, such as a sign-up, purchase, etc.",
+              "enum": [
+                "transactional",
+                "marketing"
+              ],
+              "example": "marketing",
+              "type": "string"
+            },
+            "unicodeEnabled": {
+              "default": false,
+              "description": "Format of the message. It indicates whether the content should be treated as unicode or not.\n",
+              "example": true,
+              "type": "boolean"
+            },
+            "webUrl": {
+              "description": "Webhook to call for each event triggered by the message (delivered etc.)",
+              "example": "http://requestb.in/173lyyx1",
+              "format": "url",
+              "type": "string"
+            },
+            "params": {
+              "description": "Pass the set of attributes to customize the template. For example, {\"FNAME\":\"Joe\", \"LNAME\":\"Doe\"}. These are the placeholder variables in the template that will be replaced with the corresponding values passed in the params object. Applicable only if `templateId` is used.",
+              "example": {
+                "FNAME": "Joe",
+                "LNAME": "Doe"
+              },
+              "type": "object",
+              "additionalProperties": {}
+            }
+          },
+          "required": [
+            "recipient",
+            "sender"
+          ],
+          "oneOf": [
+            {
+              "description": "Send SMS using a template ID.",
+              "type": "object",
+              "required": [
+                "templateId"
+              ],
+              "properties": {
+                "templateId": {
+                  "description": "Template ID to send SMS with the template. When provided, overrides the content parameter. Mandatory if 'content' is not passed.",
+                  "example": 123,
+                  "type": "integer"
+                },
+                "content": {
+                  "not": {}
+                }
+              }
+            },
+            {
+              "description": "Send SMS using direct content.",
+              "type": "object",
+              "required": [
+                "content"
+              ],
+              "properties": {
+                "content": {
+                  "description": "Content of the message. If more than **160 characters** long, will be sent as multiple text messages. Mandatory if 'templateId' is not passed, ignored if 'templateId' is passed.\n",
+                  "example": "Enter this code:CCJJG8 to validate your account",
+                  "type": "string"
+                },
+                "templateId": {
+                  "not": {}
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "messageId": {
+            "example": 1511882900176220,
+            "format": "int64",
+            "type": "integer"
+          },
+          "reference": {
+            "example": "ab1cde2fgh3i4jklmno",
+            "type": "string"
+          },
+          "remainingCredits": {
+            "description": "Remaining SMS credits of the user",
+            "example": 82.85,
+            "format": "float",
+            "type": "number"
+          },
+          "smsCount": {
+            "description": "Count of SMS's to send multiple text messages",
+            "example": 2,
+            "format": "int64",
+            "type": "integer"
+          },
+          "usedCredits": {
+            "description": "SMS credits used per text message",
+            "example": 0.7,
+            "format": "float",
+            "type": "number"
+          }
+        },
+        "required": [
+          "messageId",
+          "reference"
+        ],
+        "type": "object"
+      }
+    },
+    "response_codes": [
+      201,
+      400,
+      402,
+      429
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 402,
+        "meaning": "You don't have enough credit to send your SMS. Please update your plan"
+      },
+      {
+        "status": 429,
+        "meaning": "Too many requests. Please retry after some time."
+      }
+    ],
+    "side_effects": [
+      "Sends real messages to recipients",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/transactionalSMS/sms",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "transactional_sms__send_transac_sms"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendTransacSms",
+      "tag": "Transactional SMS",
+      "ui_area": "Transactional > SMS",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "send",
+      "sms",
+      "message",
+      "mobile",
+      "number",
+      "transactional sms"
+    ],
+    "related_actions": [],
+    "tags": [
+      "transactional_sms",
+      "send"
+    ],
+    "confidence": 0.92,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

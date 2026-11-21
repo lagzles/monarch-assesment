@@ -1,0 +1,1939 @@
+[
+  {
+    "id": "whatsapp_campaigns.create_whatsapp_campaign",
+    "version": "1.0.0",
+    "domain": "whatsapp_campaigns",
+    "domain_label": "WhatsApp campaigns",
+    "name": "Create and Send a WhatsApp campaign",
+    "intent": "Create and send a WhatsApp marketing campaign using an approved template.",
+    "description": "<Note>You can use this API for WhatsApp only if you have setup your WhatsApp account on Brevo platform. To setup your WhatsApp account, follow the steps in the guide below. [Activating Whatsapp](https://developers.brevo.com/docs/whatsapp-campaigns-1) in your account</Note> <Note>This API requires the List and Segment ids as recipients in Body params.You can use the below Contact endpoints to get the required information. [Get all the Lists](https://developers.brevo.com/reference/getlists-1) [Get all the Segments](https://developers.brevo.com/reference/getsegments)</Note>",
+    "action_type": "create",
+    "when_to_use": "When reaching opted-in contacts on WhatsApp with a pre-approved template.",
+    "when_not_to_use": "Do not use before the template is approved.",
+    "preconditions": [
+      "WhatsApp business account connected",
+      "Approved template",
+      "Opted-in recipients"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the WhatsApp campaign creation",
+          "example": "Test Campaign",
+          "type": "string",
+          "x-in": "body"
+        },
+        "recipients": {
+          "description": "Segment ids and List ids to include/exclude from campaign",
+          "properties": {
+            "excludedListIds": {
+              "description": "List ids to exclude from the campaign",
+              "items": {
+                "example": 8,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "listIds": {
+              "description": "**Mandatory if scheduledAt is not empty**. List Ids to send the campaign to\n",
+              "items": {
+                "example": 32,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "segments": {
+              "description": "**Mandatory if listIds are not used**. Segment ids to send the campaign to.\n",
+              "items": {
+                "example": 23,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "scheduledAt": {
+          "description": "Sending UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.For example: **2017-06-01T12:30:00+02:00**\n",
+          "example": "2017-06-01T12:30:00+02:00",
+          "type": "string",
+          "x-in": "body"
+        },
+        "templateId": {
+          "description": "Id of the WhatsApp template in **approved** state",
+          "example": 19,
+          "type": "integer",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "name",
+        "templateId",
+        "scheduledAt",
+        "recipients"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create a WhatsApp Campaign",
+        "schema": {
+          "properties": {
+            "name": {
+              "description": "Name of the WhatsApp campaign creation",
+              "example": "Test Campaign",
+              "type": "string"
+            },
+            "recipients": {
+              "description": "Segment ids and List ids to include/exclude from campaign",
+              "properties": {
+                "excludedListIds": {
+                  "description": "List ids to exclude from the campaign",
+                  "items": {
+                    "example": 8,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "listIds": {
+                  "description": "**Mandatory if scheduledAt is not empty**. List Ids to send the campaign to\n",
+                  "items": {
+                    "example": 32,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "segments": {
+                  "description": "**Mandatory if listIds are not used**. Segment ids to send the campaign to.\n",
+                  "items": {
+                    "example": 23,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "scheduledAt": {
+              "description": "Sending UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). **Prefer to pass your timezone in date-time format for accurate result.For example: **2017-06-01T12:30:00+02:00**\n",
+              "example": "2017-06-01T12:30:00+02:00",
+              "type": "string"
+            },
+            "templateId": {
+              "description": "Id of the WhatsApp template in **approved** state",
+              "example": 19,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "name",
+            "templateId",
+            "scheduledAt",
+            "recipients"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates and may send a campaign",
+      "Consumes WhatsApp conversation credits"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/whatsappCampaigns",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "whatsapp_campaigns__create_whatsapp_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createWhatsAppCampaign",
+      "tag": "WhatsApp Campaigns",
+      "ui_area": "Marketing > WhatsApp",
+      "ui_path": "Marketing > WhatsApp > Create"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create a WhatsApp campaign",
+        "ui_path": "Marketing > WhatsApp > Create",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "whatsapp blast",
+      "whatsapp marketing",
+      "create",
+      "send",
+      "whatsapp",
+      "campaign",
+      "whatsapp campaign",
+      "marketing whatsapp",
+      "whatsapp campaigns"
+    ],
+    "related_actions": [
+      "whatsapp_campaigns.create_whatsapp_template",
+      "whatsapp_campaigns.send_whatsapp_template_approval"
+    ],
+    "tags": [
+      "whatsapp_campaigns",
+      "create",
+      "whats_app_campaigns"
+    ],
+    "confidence": 0.96,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "whatsapp_campaigns.create_whatsapp_template",
+    "version": "1.0.0",
+    "domain": "whatsapp_campaigns",
+    "domain_label": "WhatsApp campaigns",
+    "name": "Create a WhatsApp template",
+    "intent": "Create a WhatsApp template",
+    "description": "<Note>You can use this API for WhatsApp only if you have setup your WhatsApp account on Brevo platform. To setup your WhatsApp account, follow the steps in the guide below. [Activating WhatsApp](https://developers.brevo.com/docs/whatsapp-campaigns-1) in your account</Note>",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "bodyText": {
+          "description": "Body of the template. **Maximum allowed characters are 1024**",
+          "example": "making it look like readable English",
+          "type": "string",
+          "x-in": "body"
+        },
+        "category": {
+          "description": "Category of the template",
+          "enum": [
+            "MARKETING",
+            "UTILITY"
+          ],
+          "example": "MARKETING",
+          "type": "string",
+          "x-in": "body"
+        },
+        "headerText": {
+          "description": "Text content of the header in the template.  **Maximum allowed characters are 45** **Use this field to add text content in template header and if mediaUrl is empty**\n",
+          "example": "Test WhatsApp campaign",
+          "type": "string",
+          "x-in": "body"
+        },
+        "language": {
+          "description": "Language of the template. For Example :\n**en** for English\n",
+          "example": "en",
+          "type": "string",
+          "x-in": "body"
+        },
+        "mediaUrl": {
+          "description": "Absolute url of the media file **(no local file)** for the header. **Use this field in you want to add media in Template header and headerText is empty** Allowed extensions for media files are: #### jpeg | png | mp4 | pdf\n",
+          "example": "https://attachment.domain.com",
+          "type": "string",
+          "x-in": "body"
+        },
+        "name": {
+          "description": "Name of the template",
+          "example": "Test template",
+          "type": "string",
+          "x-in": "body"
+        },
+        "source": {
+          "description": "source of the template",
+          "enum": [
+            "Automation",
+            "Conversations"
+          ],
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "name",
+        "language",
+        "category",
+        "bodyText"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create a WhatsApp Template",
+        "schema": {
+          "properties": {
+            "bodyText": {
+              "description": "Body of the template. **Maximum allowed characters are 1024**",
+              "example": "making it look like readable English",
+              "type": "string"
+            },
+            "category": {
+              "description": "Category of the template",
+              "enum": [
+                "MARKETING",
+                "UTILITY"
+              ],
+              "example": "MARKETING",
+              "type": "string"
+            },
+            "headerText": {
+              "description": "Text content of the header in the template.  **Maximum allowed characters are 45** **Use this field to add text content in template header and if mediaUrl is empty**\n",
+              "example": "Test WhatsApp campaign",
+              "type": "string"
+            },
+            "language": {
+              "description": "Language of the template. For Example :\n**en** for English\n",
+              "example": "en",
+              "type": "string"
+            },
+            "mediaUrl": {
+              "description": "Absolute url of the media file **(no local file)** for the header. **Use this field in you want to add media in Template header and headerText is empty** Allowed extensions for media files are: #### jpeg | png | mp4 | pdf\n",
+              "example": "https://attachment.domain.com",
+              "type": "string"
+            },
+            "name": {
+              "description": "Name of the template",
+              "example": "Test template",
+              "type": "string"
+            },
+            "source": {
+              "description": "source of the template",
+              "enum": [
+                "Automation",
+                "Conversations"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "language",
+            "category",
+            "bodyText"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/whatsappCampaigns/template",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "whatsapp_campaigns__create_whatsapp_template"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createWhatsAppTemplate",
+      "tag": "WhatsApp Campaigns",
+      "ui_area": "Marketing > WhatsApp",
+      "ui_path": "Marketing > WhatsApp > Templates"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create a WhatsApp template",
+        "ui_path": "Marketing > WhatsApp > Templates",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "whatsapp",
+      "template",
+      "whatsapp campaign",
+      "marketing whatsapp",
+      "whatsapp campaigns",
+      "whatsapp template"
+    ],
+    "related_actions": [],
+    "tags": [
+      "whatsapp_campaigns",
+      "create",
+      "whats_app_campaigns"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "whatsapp_campaigns.delete_whatsapp_campaign",
+    "version": "1.0.0",
+    "domain": "whatsapp_campaigns",
+    "domain_label": "WhatsApp campaigns",
+    "name": "Delete a WhatsApp campaign",
+    "intent": "Delete a WhatsApp campaign",
+    "description": "Delete a WhatsApp campaign by its campaign ID. The campaign must exist; if the campaign ID is not found, a 404 error is returned. This action is permanent and cannot be undone.",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the campaign"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/whatsappCampaigns/{campaignId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "whatsapp_campaigns__delete_whatsapp_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deleteWhatsAppCampaign",
+      "tag": "WhatsApp Campaigns",
+      "ui_area": "Marketing > WhatsApp",
+      "ui_path": "Marketing > WhatsApp > Delete"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Delete a WhatsApp campaign",
+        "ui_path": "Marketing > WhatsApp > Delete",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "delete",
+      "whatsapp",
+      "campaign",
+      "whatsapp campaign",
+      "marketing whatsapp",
+      "whatsapp campaigns",
+      "remove whatsapp campaign"
+    ],
+    "related_actions": [],
+    "tags": [
+      "whatsapp_campaigns",
+      "delete",
+      "whats_app_campaigns"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "whatsapp_campaigns.get_whatsapp_campaign",
+    "version": "1.0.0",
+    "domain": "whatsapp_campaigns",
+    "domain_label": "WhatsApp campaigns",
+    "name": "Get a WhatsApp campaign",
+    "intent": "Get a WhatsApp campaign",
+    "description": "<Note>You can use this API for WhatsApp only if you have setup your WhatsApp account on Brevo platform. To setup your WhatsApp account, follow the steps in the guide below. [Activating Whatsapp](https://developers.brevo.com/docs/whatsapp-campaigns-1) in your account</Note> <Note>This API requires the List and Segment ids as recipients in Body params.You can use the below Contact endpoints to get the required information. [Get all the Lists](https://developers.brevo.com/reference/getlists-1) [Get all the Segments](https://developers.brevo.com/reference/getsegments)</Note>",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the campaign"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "campaignName": {
+            "description": "Name of the WhatsApp Campaign",
+            "example": "Test Campaign",
+            "type": "string"
+          },
+          "campaignStatus": {
+            "description": "Status of the WhatsApp Campaign",
+            "enum": [
+              "draft",
+              "scheduled",
+              "pending",
+              "approved",
+              "running",
+              "suspended",
+              "rejected",
+              "sent"
+            ],
+            "example": "draft",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "Creation UTC date-time of the WhatsApp campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-06-01T12:30:00Z",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the WhatsApp Campaign",
+            "example": 1672035851100690,
+            "format": "int64",
+            "type": "integer"
+          },
+          "modifiedAt": {
+            "description": "UTC date-time of last modification of the WhatsApp campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-05-01T12:30:00Z",
+            "type": "string"
+          },
+          "scheduledAt": {
+            "description": "UTC date-time on which WhatsApp campaign is scheduled. Should be in YYYY-MM-DDTHH:mm:ss.SSSZ format",
+            "example": "2017-06-01T12:30:00Z",
+            "type": "string"
+          },
+          "recipients": {
+            "description": "Recipients of the WhatsApp Campaign",
+            "properties": {
+              "excludedLists": {
+                "description": "List of excluded list IDs",
+                "items": {
+                  "example": 45,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "includedLists": {
+                "description": "List of included list IDs",
+                "items": {
+                  "example": 22,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "segments": {
+                "description": "List of segment IDs",
+                "items": {
+                  "example": 23,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "type": {
+                "description": "Type of recipients (list or segment)",
+                "example": "list",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "senderNumber": {
+            "description": "Sender of the WhatsApp Campaign",
+            "example": 9368207029,
+            "type": "string"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/WhatsappCampStats"
+          },
+          "template": {
+            "properties": {
+              "body_variables": {
+                "description": "array of variables item variables",
+                "items": {
+                  "$ref": "#/components/schemas/variablesItems"
+                },
+                "type": "array"
+              },
+              "button_type": {
+                "example": "QUICK_REPLIES",
+                "type": "string"
+              },
+              "category": {
+                "description": "description of the template",
+                "example": "Marketing",
+                "type": "string"
+              },
+              "components": {
+                "description": "array of component item objects",
+                "items": {
+                  "properties": {
+                    "text": {
+                      "example": "Life is a long lesson in humility",
+                      "type": "string"
+                    },
+                    "type": {
+                      "example": "BODY",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "contains_button": {
+                "example": false,
+                "type": "boolean"
+              },
+              "display_header": {
+                "example": true,
+                "type": "boolean"
+              },
+              "header_type": {
+                "description": "type of header",
+                "example": "text",
+                "type": "string"
+              },
+              "header_variables": {
+                "description": "array of variables item object",
+                "items": {
+                  "$ref": "#/components/schemas/variablesItems"
+                },
+                "type": "array"
+              },
+              "hide_footer": {
+                "example": true,
+                "type": "boolean"
+              },
+              "language": {
+                "description": "language of the template",
+                "example": "en_GB",
+                "type": "string"
+              },
+              "name": {
+                "description": "name of the template",
+                "example": "wta107",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "campaignName",
+          "campaignStatus",
+          "senderNumber",
+          "recipients",
+          "createdAt",
+          "template",
+          "modifiedAt"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "campaignName": "Test WhatsApp Campaign",
+        "campaignStatus": "sent",
+        "createdAt": "2022-12-26T06:50:00Z",
+        "id": 1672035851100690,
+        "modifiedAt": "2022-12-26T08:50:00Z",
+        "recipients": {
+          "excludedLists": [
+            45
+          ],
+          "includedLists": [
+            22
+          ],
+          "type": "list"
+        },
+        "scheduledAt": "2022-12-27T09:50:00Z",
+        "senderNumber": 9368207029,
+        "stats": {
+          "delivered": "3,",
+          "notSent": 4,
+          "read": "2,",
+          "sent": "3,",
+          "unsubscribe": "0,"
+        },
+        "template": {
+          "body_variable": [],
+          "button_type": "CALL_TO_ACTION",
+          "category": "MARKETING",
+          "components": [
+            {
+              "text": "making it look like readable English.",
+              "type": "BODY"
+            },
+            {
+              "buttons": [
+                {
+                  "text": "vLorem Ipsum is simply du",
+                  "type": "URL",
+                  "url": "app.brevo"
+                },
+                {
+                  "phone_number": "+918800613137",
+                  "text": "Lorem Ipsum is simply dum",
+                  "type": "PHONE_NUMBER"
+                }
+              ],
+              "type": "BUTTONS"
+            }
+          ],
+          "contains_button": true,
+          "display_header": false,
+          "header_footer": true,
+          "header_type": "text",
+          "header_variables": [
+            {
+              "datatype": "text",
+              "default": "INVALID HEADER",
+              "index": 1,
+              "name": "FIRSTNAME"
+            }
+          ],
+          "language": "en",
+          "name": "official_campaign8"
+        }
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/whatsappCampaigns/{campaignId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "whatsapp_campaigns__get_whatsapp_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getWhatsAppCampaign",
+      "tag": "WhatsApp Campaigns",
+      "ui_area": "Marketing > WhatsApp",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "whatsapp",
+      "campaign",
+      "whatsapp campaign",
+      "marketing whatsapp",
+      "whatsapp campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "whatsapp_campaigns",
+      "read",
+      "whats_app_campaigns"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "whatsapp_campaigns.get_whatsapp_config",
+    "version": "1.0.0",
+    "domain": "whatsapp_campaigns",
+    "domain_label": "WhatsApp campaigns",
+    "name": "Get your WhatsApp API account information",
+    "intent": "Get your WhatsApp API account information",
+    "description": "<Note>You can use this API for WhatsApp only if you have setup your WhatsApp account on Brevo platform. To setup your WhatsApp account, follow the steps in the guide below. [Activating WhatsApp](https://developers.brevo.com/docs/whatsapp-campaigns-1) in your account</Note>",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "businessStatus": {
+            "description": "Verification status information of the Business account",
+            "example": "verified",
+            "type": "string"
+          },
+          "phoneNumberNameStatus": {
+            "description": "Status of the name associated with WhatsApp Phone number",
+            "enum": [
+              "APPROVED",
+              "PENDING",
+              "REJECTED"
+            ],
+            "example": "APPROVED",
+            "type": "string"
+          },
+          "phoneNumberQuality": {
+            "description": "Quality status of phone number associated with WhatsApp account. There are three quality ratings. example - **High (GREEN) , Medium (YELLOW) and Low(RED)**",
+            "enum": [
+              "GREEN",
+              "YELLOW",
+              "RED"
+            ],
+            "example": "GREEN",
+            "type": "string"
+          },
+          "sendingLimit": {
+            "description": "Sending limit of the WhatsApp account",
+            "example": "TIER_1K",
+            "type": "string"
+          },
+          "whatsappBusinessAccountId": {
+            "description": "Id of the WhatsApp business account",
+            "example": 105569359072383,
+            "type": "string"
+          },
+          "whatsappBusinessAccountStatus": {
+            "description": "Status information related to WhatsApp Api account",
+            "enum": [
+              "APPROVED",
+              "PENDING",
+              "REJECTED"
+            ],
+            "example": "APPROVED",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "businessStatus": "verified",
+        "phoneNumberNameStatus": "APPROVED",
+        "phoneNumberQuality": "GREEN",
+        "sendingLimit": "TIER_1K",
+        "whatsappBusinessAccountID": 105569359072383,
+        "whatsappBusinessAccountStatus": "APPROVED"
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/whatsappCampaigns/config",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "whatsapp_campaigns__get_whatsapp_config"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getWhatsAppConfig",
+      "tag": "WhatsApp Campaigns",
+      "ui_area": "Marketing > WhatsApp",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "whatsapp",
+      "api",
+      "account",
+      "information",
+      "whatsapp campaign",
+      "marketing whatsapp",
+      "whatsapp campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "whatsapp_campaigns",
+      "read",
+      "whats_app_campaigns"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "whatsapp_campaigns.list_whatsapp_campaigns",
+    "version": "1.0.0",
+    "domain": "whatsapp_campaigns",
+    "domain_label": "WhatsApp campaigns",
+    "name": "Return all your created WhatsApp campaigns",
+    "intent": "Return all your created WhatsApp campaigns",
+    "description": "Retrieve a paginated list of all your WhatsApp campaigns with their statistics and metadata. Results can be filtered by creation date range using startDate and endDate, with a default limit of 50 and maximum of 100 per page. The sort order defaults to descending by modification date.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used**. Starting (urlencoded) UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) to filter the WhatsApp campaigns created. **Prefer to pass your timezone in date-time format for accurate result**"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used**. Ending (urlencoded) UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) to filter the WhatsApp campaigns created. **Prefer to pass your timezone in date-time format for accurate result**"
+        },
+        "limit": {
+          "default": 50,
+          "format": "int64",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document in the page"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record modification. Default order is **descending** if `sort` is not passed"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "startDate",
+        "endDate",
+        "limit",
+        "offset",
+        "sort"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "campaigns": {
+            "items": {
+              "properties": {
+                "campaignName": {
+                  "description": "Name of the WhatsApp Campaign",
+                  "example": "Test Campaign",
+                  "type": "string"
+                },
+                "campaignStatus": {
+                  "description": "Status of the Whatsapp Campaign",
+                  "enum": [
+                    "draft",
+                    "scheduled",
+                    "pending",
+                    "approved",
+                    "running",
+                    "suspended",
+                    "rejected",
+                    "sent"
+                  ],
+                  "example": "draft",
+                  "type": "string"
+                },
+                "createdAt": {
+                  "description": "Creation UTC date-time of the WhatsApp campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+                  "example": "2017-06-01T12:30:00Z",
+                  "type": "string"
+                },
+                "errorReason": {
+                  "description": "Error Reason associated with the WhatsApp campaign sending",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "ID of the WhatsApp Campaign",
+                  "example": 1672035851100690,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "invalidatedContacts": {
+                  "description": "Count of invalidated contacts",
+                  "example": 0,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "modifiedAt": {
+                  "description": "UTC date-time of last modification of the WhatsApp campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+                  "example": "2017-05-01T12:30:00Z",
+                  "type": "string"
+                },
+                "readPercentage": {
+                  "description": "Read percentage of the the whatsapp campaign created",
+                  "example": 28.57,
+                  "format": "float",
+                  "type": "number"
+                },
+                "scheduledAt": {
+                  "description": "UTC date-time on which WhatsApp campaign is scheduled. Should be in YYYY-MM-DDTHH:mm:ss.SSSZ format",
+                  "example": "2017-06-01T12:30:00Z",
+                  "type": "string"
+                },
+                "stats": {
+                  "$ref": "#/components/schemas/WhatsappCampStats"
+                },
+                "templateId": {
+                  "description": "Id of the WhatsApp template",
+                  "example": 637660278078655,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "campaignName",
+                "campaignStatus",
+                "templateId",
+                "scheduledAt",
+                "createdAt",
+                "modifiedAt"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "count": {
+            "description": "Number of WhatsApp campaigns retrieved",
+            "example": 40,
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "campaigns": [
+          {
+            "campaignName": "campaign_22",
+            "campaignStatus": "sent",
+            "createdAt": "2017-05-01T12:30:00Z",
+            "errorReason": "NONE",
+            "id": 1672035851100690,
+            "invalidatedContacts": 0,
+            "modifiedAt": "2017-05-01T12:30:00Z",
+            "readPercentage": 28.57,
+            "scheduledAt": "2022-12-27T09:50:00Z",
+            "stats": {
+              "delivered": 3,
+              "notSent": 4,
+              "read": 2,
+              "sent": 3,
+              "unsubscribe": 0
+            },
+            "templateId": 637660278078655
+          }
+        ],
+        "count": 23
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/whatsappCampaigns",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "whatsapp_campaigns__list_whatsapp_campaigns"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getWhatsAppCampaigns",
+      "tag": "WhatsApp Campaigns",
+      "ui_area": "Marketing > WhatsApp",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "return",
+      "created",
+      "whatsapp",
+      "campaigns",
+      "whatsapp campaign",
+      "marketing whatsapp",
+      "whatsapp campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "whatsapp_campaigns",
+      "read",
+      "whats_app_campaigns"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/whatsappCampaigns?limit=1",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"plan not eligible for using whatsapp\"}\n",
+      "kind": "read_check"
+    }
+  },
+  {
+    "id": "whatsapp_campaigns.list_whatsapp_templates",
+    "version": "1.0.0",
+    "domain": "whatsapp_campaigns",
+    "domain_label": "WhatsApp campaigns",
+    "name": "Return all your created WhatsApp templates",
+    "intent": "Return all your created WhatsApp templates",
+    "description": "Retrieve a paginated list of all your WhatsApp templates with their status, category, language, and metadata. Results can be filtered by creation date range and optionally by source (Automation or Conversations), with a default limit of 50 and maximum of 100 per page. The sort order defaults to descending by modification date.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if endDate is used**. Starting (urlencoded) UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) to filter the templates created. **Prefer to pass your timezone in date-time format for accurate result**"
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "**Mandatory if startDate is used**. Ending (urlencoded) UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) to filter the templates created. **Prefer to pass your timezone in date-time format for accurate result**"
+        },
+        "limit": {
+          "default": 50,
+          "format": "int64",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document in the page"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record modification. Default order is **descending** if `sort` is not passed"
+        },
+        "source": {
+          "enum": [
+            "Automation",
+            "Conversations"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "source of the template"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "startDate",
+        "endDate",
+        "limit",
+        "offset",
+        "sort",
+        "source"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "count": {
+            "description": "Number of whatsApp templates retrieved",
+            "example": 24,
+            "format": "int64",
+            "type": "integer"
+          },
+          "templates": {
+            "items": {
+              "properties": {
+                "category": {
+                  "description": "category of the template",
+                  "example": "MARKETING",
+                  "type": "string"
+                },
+                "createdAt": {
+                  "description": "Creation UTC date-time of the whatsApp template (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+                  "example": "2017-06-01T12:30:00Z",
+                  "type": "string"
+                },
+                "errorReason": {
+                  "description": "Error reason in the template creation",
+                  "example": "NONE",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "ID of the whatsApp template",
+                  "example": 235,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "language": {
+                  "description": "Language in which template exists",
+                  "example": "en",
+                  "type": "string"
+                },
+                "modifiedAt": {
+                  "description": "UTC date-time of last modification of the whatsApp template (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+                  "example": "2017-05-01T12:30:00Z",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "Name of the whatsApp template",
+                  "example": "Test template",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "Status of the whatsApp template",
+                  "example": "approved",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Type of the whatsApp template",
+                  "example": "whatsapp",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "status",
+                "type",
+                "language",
+                "category",
+                "createdAt",
+                "modifiedAt"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "count": 2,
+        "templates": [
+          {
+            "category": "MARKETING",
+            "createdAt": "2017-05-01T12:30:00Z",
+            "errorReason": "NONE",
+            "id": 235,
+            "language": "en",
+            "modifiedAt": "2017-05-01T12:30:00Z",
+            "name": "campaign_22",
+            "status": "approved",
+            "type": "whatsapp"
+          },
+          {
+            "category": "MARKETING",
+            "createdAt": "2017-0",
+            "errorReason": "NONE",
+            "id": 124,
+            "language": "",
+            "modifiedAt": "2017-05-01T12:30:00Z",
+            "name": "test-template",
+            "status": "draft",
+            "type": "whatsapp"
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/whatsappCampaigns/template-list",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "whatsapp_campaigns__list_whatsapp_templates"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getWhatsAppTemplates",
+      "tag": "WhatsApp Campaigns",
+      "ui_area": "Marketing > WhatsApp",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "return",
+      "created",
+      "whatsapp",
+      "templates",
+      "whatsapp campaign",
+      "marketing whatsapp",
+      "whatsapp campaigns"
+    ],
+    "related_actions": [],
+    "tags": [
+      "whatsapp_campaigns",
+      "read",
+      "whats_app_campaigns"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "whatsapp_campaigns.send_whatsapp_template_approval",
+    "version": "1.0.0",
+    "domain": "whatsapp_campaigns",
+    "domain_label": "WhatsApp campaigns",
+    "name": "Send your WhatsApp template for approval",
+    "intent": "Send your WhatsApp template for approval",
+    "description": "<Note>You can use this API for WhatsApp only if you have setup your WhatsApp account on Brevo platform. To setup your WhatsApp account, follow the steps in the guide below. [Activating WhatsApp](https://developers.brevo.com/docs/whatsapp-campaigns-1) in your account</Note>",
+    "action_type": "send",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404.",
+      "An authenticated sender or verified sending domain."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "templateId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the template"
+        }
+      },
+      "required": [
+        "templateId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "templateId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends real messages to recipients",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/whatsappCampaigns/template/approval/{templateId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "whatsapp_campaigns__send_whatsapp_template_approval"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "sendWhatsAppTemplateApproval",
+      "tag": "WhatsApp Campaigns",
+      "ui_area": "Marketing > WhatsApp",
+      "ui_path": "Marketing > WhatsApp > Templates > Submit"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Submit a WhatsApp template for approval",
+        "ui_path": "Marketing > WhatsApp > Templates > Submit",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "send",
+      "whatsapp",
+      "template",
+      "approval",
+      "whatsapp campaign",
+      "marketing whatsapp",
+      "whatsapp campaigns",
+      "template approval",
+      "submit"
+    ],
+    "related_actions": [],
+    "tags": [
+      "whatsapp_campaigns",
+      "send",
+      "whats_app_campaigns"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "whatsapp_campaigns.update_whatsapp_campaign",
+    "version": "1.0.0",
+    "domain": "whatsapp_campaigns",
+    "domain_label": "WhatsApp campaigns",
+    "name": "Update a WhatsApp campaign",
+    "intent": "Update a WhatsApp campaign",
+    "description": "<Note>You can use this API for WhatsApp only if you have setup your WhatsApp account on Brevo platform. To setup your WhatsApp account, follow the steps in the guide below. [Activating Whatsapp](https://developers.brevo.com/docs/whatsapp-campaigns-1) in your account</Note> <Note>This API requires the List and Segment ids as recipients in Body params.You can use the below Contact endpoints to get the required information. [Get all the Lists](https://developers.brevo.com/reference/getlists-1) [Get all the Segments](https://developers.brevo.com/reference/getsegments)</Note>",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "campaignId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "id of the campaign"
+        },
+        "campaignName": {
+          "description": "Name of the campaign",
+          "example": "Test WhatsApp",
+          "type": "string",
+          "x-in": "body"
+        },
+        "campaignStatus": {
+          "default": "scheduled",
+          "description": "Status of the campaign",
+          "enum": [
+            "scheduled",
+            "suspended"
+          ],
+          "example": "scheduled",
+          "type": "string",
+          "x-in": "body"
+        },
+        "recipients": {
+          "description": "Segment ids and List ids to include/exclude from campaign",
+          "properties": {
+            "excludedListIds": {
+              "description": "List ids to exclude from the campaign",
+              "items": {
+                "example": 8,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "listIds": {
+              "description": "**Mandatory if scheduledAt is not empty**. List Ids to send the campaign to\n",
+              "items": {
+                "example": 32,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "segments": {
+              "description": "**Mandatory if listIds are not used**. Segment ids to send the campaign to.\n",
+              "items": {
+                "example": 23,
+                "format": "int64",
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "rescheduleFor": {
+          "description": "Reschedule the sending UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of campaign. **Prefer to pass your timezone in date-time format for accurate result.For example: **2017-06-01T12:30:00+02:00** Use this field to update the scheduledAt of any existing draft or scheduled WhatsApp campaign.\n",
+          "example": "2017-06-01T12:30:00+02:00",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "campaignId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "campaignId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to update a WhatsApp Campaign",
+        "schema": {
+          "properties": {
+            "campaignName": {
+              "description": "Name of the campaign",
+              "example": "Test WhatsApp",
+              "type": "string"
+            },
+            "campaignStatus": {
+              "default": "scheduled",
+              "description": "Status of the campaign",
+              "enum": [
+                "scheduled",
+                "suspended"
+              ],
+              "example": "scheduled",
+              "type": "string"
+            },
+            "recipients": {
+              "description": "Segment ids and List ids to include/exclude from campaign",
+              "properties": {
+                "excludedListIds": {
+                  "description": "List ids to exclude from the campaign",
+                  "items": {
+                    "example": 8,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "listIds": {
+                  "description": "**Mandatory if scheduledAt is not empty**. List Ids to send the campaign to\n",
+                  "items": {
+                    "example": 32,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "segments": {
+                  "description": "**Mandatory if listIds are not used**. Segment ids to send the campaign to.\n",
+                  "items": {
+                    "example": 23,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "rescheduleFor": {
+              "description": "Reschedule the sending UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of campaign. **Prefer to pass your timezone in date-time format for accurate result.For example: **2017-06-01T12:30:00+02:00** Use this field to update the scheduledAt of any existing draft or scheduled WhatsApp campaign.\n",
+              "example": "2017-06-01T12:30:00+02:00",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/whatsappCampaigns/{campaignId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "whatsapp_campaigns__update_whatsapp_campaign"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "updateWhatsAppCampaign",
+      "tag": "WhatsApp Campaigns",
+      "ui_area": "Marketing > WhatsApp",
+      "ui_path": "Marketing > WhatsApp > Edit"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Update a WhatsApp campaign",
+        "ui_path": "Marketing > WhatsApp > Edit",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "update",
+      "whatsapp",
+      "campaign",
+      "whatsapp campaign",
+      "marketing whatsapp",
+      "whatsapp campaigns",
+      "edit whatsapp campaign"
+    ],
+    "related_actions": [],
+    "tags": [
+      "whatsapp_campaigns",
+      "update",
+      "whats_app_campaigns"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

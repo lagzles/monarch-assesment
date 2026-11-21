@@ -1,0 +1,1025 @@
+[
+  {
+    "id": "events.create_batch_events",
+    "version": "1.0.0",
+    "domain": "events",
+    "domain_label": "Events & tracking",
+    "name": "Create events in batch",
+    "intent": "Create events in batch",
+    "description": "Create multiple events to track contacts' interactions in a single request.",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "contact_properties": {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "description": "Properties defining the state of the contact associated to this event. Useful to update contact attributes defined in your contacts database while passing the event. For example: **\"FIRSTNAME\": \"Jane\" , \"AGE\": 37**",
+                "example": {
+                  "AGE": 32,
+                  "GENDER": "FEMALE"
+                },
+                "type": "object"
+              },
+              "event_date": {
+                "description": "Timestamp of when the event occurred (e.g. \"2024-01-24T17:39:57+01:00\"). If no value is passed, the timestamp of the event creation is used.",
+                "example": "2024-02-06T20:59:23.383Z",
+                "type": "string"
+              },
+              "event_name": {
+                "description": "The name of the event that occurred. This is how you will find your event in Brevo. Limited to 255 characters, alphanumerical characters and - _ only.",
+                "example": "order_created",
+                "type": "string"
+              },
+              "event_properties": {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "object"
+                    },
+                    {
+                      "items": {},
+                      "type": "array"
+                    }
+                  ]
+                },
+                "description": "Properties of the event. Top level properties and nested properties can be used to better segment contacts and personalise workflow conditions. The following field type are supported: string, number, boolean (true/false), date (Timestamp e.g. \"2024-01-24T17:39:57+01:00\"). Keys are limited to 255 characters, alphanumerical characters and - _ only. Size is limited to 50Kb.",
+                "example": {
+                  "autoplayed": false,
+                  "duration": 142,
+                  "upload_date": "2023-11-24T12:09:10+01:00",
+                  "video_description": "Create your free account today!",
+                  "video_title": "Brevo — The most approachable CRM suite"
+                },
+                "type": "object"
+              },
+              "identifiers": {
+                "description": "Identifies the contact associated with the event. At least one identifier is required.",
+                "minProperties": 1,
+                "properties": {
+                  "contact_id": {
+                    "description": "Internal unique contact ID. When present, this takes priority over all other identifiers for event attribution and contact resolution.",
+                    "example": 211,
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "email_id": {
+                    "description": "Email Id associated with the event",
+                    "example": "jane.doe@example.com",
+                    "type": "string"
+                  },
+                  "ext_id": {
+                    "description": "ext_id associated with the event",
+                    "example": "abc123",
+                    "type": "string"
+                  },
+                  "landline_number_id": {
+                    "description": "landline_number associated with the event",
+                    "example": "+91xxxxxxxxxx",
+                    "type": "string"
+                  },
+                  "phone_id": {
+                    "description": "SMS associated with the event",
+                    "example": "+91xxxxxxxxxx",
+                    "type": "string"
+                  },
+                  "whatsapp_id": {
+                    "description": "whatsapp associated with the event",
+                    "example": "+91xxxxxxxxxx",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "object": {
+                "description": "Identifiers of the object record associated with this event. Ignored if the object type or identifier for this record does not exist on the account.",
+                "properties": {
+                  "identifiers": {
+                    "description": "Identifiers for the object.",
+                    "properties": {
+                      "ext_id": {
+                        "description": "External object ID",
+                        "example": "sub-59374-linwn",
+                        "type": "string"
+                      },
+                      "id": {
+                        "description": "Internal object ID",
+                        "example": "178140",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": {
+                    "description": "Type of object (e.g., subscription, vehicle, etc.)",
+                    "example": "subscription",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "event_name",
+              "identifiers"
+            ],
+            "type": "object"
+          },
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "events"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "events"
+          ],
+          "properties": {
+            "events": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "contact_properties": {
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    "description": "Properties defining the state of the contact associated to this event. Useful to update contact attributes defined in your contacts database while passing the event. For example: **\"FIRSTNAME\": \"Jane\" , \"AGE\": 37**",
+                    "example": {
+                      "AGE": 32,
+                      "GENDER": "FEMALE"
+                    },
+                    "type": "object"
+                  },
+                  "event_date": {
+                    "description": "Timestamp of when the event occurred (e.g. \"2024-01-24T17:39:57+01:00\"). If no value is passed, the timestamp of the event creation is used.",
+                    "example": "2024-02-06T20:59:23.383Z",
+                    "type": "string"
+                  },
+                  "event_name": {
+                    "description": "The name of the event that occurred. This is how you will find your event in Brevo. Limited to 255 characters, alphanumerical characters and - _ only.",
+                    "example": "order_created",
+                    "type": "string"
+                  },
+                  "event_properties": {
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "object"
+                        },
+                        {
+                          "items": {},
+                          "type": "array"
+                        }
+                      ]
+                    },
+                    "description": "Properties of the event. Top level properties and nested properties can be used to better segment contacts and personalise workflow conditions. The following field type are supported: string, number, boolean (true/false), date (Timestamp e.g. \"2024-01-24T17:39:57+01:00\"). Keys are limited to 255 characters, alphanumerical characters and - _ only. Size is limited to 50Kb.",
+                    "example": {
+                      "autoplayed": false,
+                      "duration": 142,
+                      "upload_date": "2023-11-24T12:09:10+01:00",
+                      "video_description": "Create your free account today!",
+                      "video_title": "Brevo — The most approachable CRM suite"
+                    },
+                    "type": "object"
+                  },
+                  "identifiers": {
+                    "description": "Identifies the contact associated with the event. At least one identifier is required.",
+                    "minProperties": 1,
+                    "properties": {
+                      "contact_id": {
+                        "description": "Internal unique contact ID. When present, this takes priority over all other identifiers for event attribution and contact resolution.",
+                        "example": 211,
+                        "format": "int64",
+                        "type": "integer"
+                      },
+                      "email_id": {
+                        "description": "Email Id associated with the event",
+                        "example": "jane.doe@example.com",
+                        "type": "string"
+                      },
+                      "ext_id": {
+                        "description": "ext_id associated with the event",
+                        "example": "abc123",
+                        "type": "string"
+                      },
+                      "landline_number_id": {
+                        "description": "landline_number associated with the event",
+                        "example": "+91xxxxxxxxxx",
+                        "type": "string"
+                      },
+                      "phone_id": {
+                        "description": "SMS associated with the event",
+                        "example": "+91xxxxxxxxxx",
+                        "type": "string"
+                      },
+                      "whatsapp_id": {
+                        "description": "whatsapp associated with the event",
+                        "example": "+91xxxxxxxxxx",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "object": {
+                    "description": "Identifiers of the object record associated with this event. Ignored if the object type or identifier for this record does not exist on the account.",
+                    "properties": {
+                      "identifiers": {
+                        "description": "Identifiers for the object.",
+                        "properties": {
+                          "ext_id": {
+                            "description": "External object ID",
+                            "example": "sub-59374-linwn",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Internal object ID",
+                            "example": "178140",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": {
+                        "description": "Type of object (e.g., subscription, vehicle, etc.)",
+                        "example": "subscription",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "event_name",
+                  "identifiers"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 202
+    },
+    "response_codes": [
+      202,
+      207,
+      400,
+      401
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/events/batch",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "events__create_batch_events"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createBatchEvents",
+      "tag": "Event",
+      "ui_area": "Automation > Events",
+      "ui_path": "Automations > Events"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Track events in batch",
+        "ui_path": "Automations > Events",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "events",
+      "batch",
+      "batch events",
+      "track"
+    ],
+    "related_actions": [],
+    "tags": [
+      "events",
+      "create",
+      "event"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "events.create_event",
+    "version": "1.0.0",
+    "domain": "events",
+    "domain_label": "Events & tracking",
+    "name": "Create an event",
+    "intent": "Track a custom event for a contact to feed segmentation and automation triggers.",
+    "description": "Create an event to track a contact's interaction.",
+    "action_type": "create",
+    "when_to_use": "When recoding a behavioural action (e.g. viewed_product, completed_onboarding).",
+    "when_not_to_use": "Do not use for standard email events — those are tracked automatically.",
+    "preconditions": [
+      "Contact identifier",
+      "Event name"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "contact_properties": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "description": "Properties defining the state of the contact associated to this event. Useful to update contact attributes defined in your contacts database while passing the event. For example: **\"FIRSTNAME\": \"Jane\" , \"AGE\": 37**",
+          "example": {
+            "AGE": 32,
+            "GENDER": "FEMALE"
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "event_date": {
+          "description": "ISO 8601 timestamp of when the event occurred (e.g. \"2024-01-24T17:39:57+01:00\"). If no value is passed, the timestamp of the event creation is used.",
+          "example": "2024-02-06T20:59:23.383Z",
+          "format": "date-time",
+          "type": "string",
+          "x-in": "body"
+        },
+        "event_name": {
+          "description": "The name of the event that occurred. This is how you will find your event in Brevo. Limited to 255 characters; only alphanumeric characters, hyphens (-), and underscores (_) are allowed.",
+          "example": "video_played",
+          "maxLength": 255,
+          "type": "string",
+          "x-in": "body"
+        },
+        "event_properties": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "items": {},
+                "type": "array"
+              }
+            ]
+          },
+          "description": "Properties of the event. Top level properties and nested properties can be used to better segment contacts and personalise workflow conditions. The following field types are supported: string, number, boolean (true/false), date (Timestamp e.g. \"2024-01-24T17:39:57+01:00\"). Keys are limited to 255 characters, alphanumerical characters and - _ only. Size is limited to 50KB.",
+          "example": {
+            "autoplayed": false,
+            "duration": 142,
+            "upload_date": "2023-11-24T12:09:10+01:00",
+            "video_description": "Create your free account today!",
+            "video_title": "Brevo — The most approachable CRM suite"
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "identifiers": {
+          "description": "Identifies the contact associated with the event. At least one identifier is required.",
+          "minProperties": 1,
+          "properties": {
+            "contact_id": {
+              "description": "Internal unique contact ID. When present, this takes priority over all other identifiers for event attribution and contact resolution.",
+              "example": 211,
+              "format": "int64",
+              "type": "integer"
+            },
+            "email_id": {
+              "description": "Email Id associated with the event",
+              "example": "jane.doe@example.com",
+              "type": "string"
+            },
+            "ext_id": {
+              "description": "ext_id associated with the event",
+              "example": "abc123",
+              "type": "string"
+            },
+            "landline_number_id": {
+              "description": "landline_number associated with the event",
+              "example": "+91xxxxxxxxxx",
+              "type": "string"
+            },
+            "phone_id": {
+              "description": "SMS associated with the event",
+              "example": "+91xxxxxxxxxx",
+              "type": "string"
+            },
+            "whatsapp_id": {
+              "description": "whatsapp associated with the event",
+              "example": "+91xxxxxxxxxx",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "object": {
+          "description": "Identifiers of the object record associated with this event. Ignored if the object type or identifier for this record does not exist on the account.",
+          "properties": {
+            "identifiers": {
+              "description": "Identifiers for the object.",
+              "properties": {
+                "ext_id": {
+                  "description": "External object ID",
+                  "example": "sub-59374-linwn",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "Internal object ID",
+                  "example": "178140",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": {
+              "description": "Type of object (e.g., subscription, vehicle, etc.)",
+              "example": "subscription",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "event_name",
+        "identifiers"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "properties": {
+            "contact_properties": {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "description": "Properties defining the state of the contact associated to this event. Useful to update contact attributes defined in your contacts database while passing the event. For example: **\"FIRSTNAME\": \"Jane\" , \"AGE\": 37**",
+              "example": {
+                "AGE": 32,
+                "GENDER": "FEMALE"
+              },
+              "type": "object"
+            },
+            "event_date": {
+              "description": "ISO 8601 timestamp of when the event occurred (e.g. \"2024-01-24T17:39:57+01:00\"). If no value is passed, the timestamp of the event creation is used.",
+              "example": "2024-02-06T20:59:23.383Z",
+              "format": "date-time",
+              "type": "string"
+            },
+            "event_name": {
+              "description": "The name of the event that occurred. This is how you will find your event in Brevo. Limited to 255 characters; only alphanumeric characters, hyphens (-), and underscores (_) are allowed.",
+              "example": "video_played",
+              "maxLength": 255,
+              "type": "string"
+            },
+            "event_properties": {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "items": {},
+                    "type": "array"
+                  }
+                ]
+              },
+              "description": "Properties of the event. Top level properties and nested properties can be used to better segment contacts and personalise workflow conditions. The following field types are supported: string, number, boolean (true/false), date (Timestamp e.g. \"2024-01-24T17:39:57+01:00\"). Keys are limited to 255 characters, alphanumerical characters and - _ only. Size is limited to 50KB.",
+              "example": {
+                "autoplayed": false,
+                "duration": 142,
+                "upload_date": "2023-11-24T12:09:10+01:00",
+                "video_description": "Create your free account today!",
+                "video_title": "Brevo — The most approachable CRM suite"
+              },
+              "type": "object"
+            },
+            "identifiers": {
+              "description": "Identifies the contact associated with the event. At least one identifier is required.",
+              "minProperties": 1,
+              "properties": {
+                "contact_id": {
+                  "description": "Internal unique contact ID. When present, this takes priority over all other identifiers for event attribution and contact resolution.",
+                  "example": 211,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "email_id": {
+                  "description": "Email Id associated with the event",
+                  "example": "jane.doe@example.com",
+                  "type": "string"
+                },
+                "ext_id": {
+                  "description": "ext_id associated with the event",
+                  "example": "abc123",
+                  "type": "string"
+                },
+                "landline_number_id": {
+                  "description": "landline_number associated with the event",
+                  "example": "+91xxxxxxxxxx",
+                  "type": "string"
+                },
+                "phone_id": {
+                  "description": "SMS associated with the event",
+                  "example": "+91xxxxxxxxxx",
+                  "type": "string"
+                },
+                "whatsapp_id": {
+                  "description": "whatsapp associated with the event",
+                  "example": "+91xxxxxxxxxx",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "object": {
+              "description": "Identifiers of the object record associated with this event. Ignored if the object type or identifier for this record does not exist on the account.",
+              "properties": {
+                "identifiers": {
+                  "description": "Identifiers for the object.",
+                  "properties": {
+                    "ext_id": {
+                      "description": "External object ID",
+                      "example": "sub-59374-linwn",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Internal object ID",
+                      "example": "178140",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": {
+                  "description": "Type of object (e.g., subscription, vehicle, etc.)",
+                  "example": "subscription",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "event_name",
+            "identifiers"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      401
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Adds an event to the contact timeline",
+      "Can trigger automations"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 36000,
+      "requests_per_second": 10
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/events",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "events__create_event"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createEvent",
+      "tag": "Event",
+      "ui_area": "Automation > Events",
+      "ui_path": "Automations > Events"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Track a custom event",
+        "ui_path": "Automations > Events",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "track event",
+      "custom event",
+      "behaviour tracking",
+      "create",
+      "event",
+      "events",
+      "track",
+      "custom"
+    ],
+    "related_actions": [
+      "events.create_batch_events"
+    ],
+    "tags": [
+      "events",
+      "create",
+      "event"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "events.get_events",
+    "version": "1.0.0",
+    "domain": "events",
+    "domain_label": "Events & tracking",
+    "name": "Get events",
+    "intent": "Get events",
+    "description": "Retrieve a list of events filtered by various criteria.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "contact_id": {
+          "items": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "Filter by contact ID (repeatable)"
+        },
+        "event_name": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "Filter by event name (repeatable)"
+        },
+        "object_type": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "query",
+          "description": "Filter by object type (repeatable)"
+        },
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Mandatory if endDate is used. Start of date range (YYYY-MM-DD or RFC3339). Defaults to 6 months ago when omitted alongside endDate. Must be ≤ endDate."
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Mandatory if startDate is used. End of date range (YYYY-MM-DD or RFC3339). Must be ≥ startDate."
+        },
+        "limit": {
+          "default": 100,
+          "maximum": 10000,
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Max events to return. Default 100, min 1, max 10000."
+        },
+        "offset": {
+          "default": 0,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Events to skip for pagination. Default 0, min 0."
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "contact_id",
+        "event_name",
+        "object_type",
+        "startDate",
+        "endDate",
+        "limit",
+        "offset"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "description": "Response containing a list of events and the total count for pagination",
+        "properties": {
+          "events": {
+            "description": "List of matching events ordered by event_date descending",
+            "items": {
+              "properties": {
+                "contact_id": {
+                  "description": "Contact ID associated with the event",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "event_date": {
+                  "description": "Date and time of the event",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "event_name": {
+                  "description": "Name of the event",
+                  "type": "string"
+                },
+                "event_filter_id": {
+                  "description": "Filter ID of the event",
+                  "type": "string"
+                },
+                "object_type": {
+                  "description": "Object type associated with the event",
+                  "type": "string"
+                },
+                "event_properties": {
+                  "additionalProperties": true,
+                  "description": "Event-level custom properties",
+                  "type": "object"
+                },
+                "contact_properties": {
+                  "additionalProperties": true,
+                  "description": "Contact-level properties at time of event",
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "count": {
+            "description": "Total count of events matching the filters (use for pagination)",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "count"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "count": 2,
+        "events": [
+          {
+            "contact_id": 211,
+            "event_date": "2024-02-06T20:59:23.383Z",
+            "event_name": "order_created",
+            "event_filter_id": "abc123",
+            "object_type": "subscription",
+            "event_properties": {
+              "duration": 142,
+              "video_title": "Brevo — The most approachable CRM suite"
+            },
+            "contact_properties": {
+              "AGE": 32,
+              "GENDER": "FEMALE"
+            }
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      401,
+      500
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 401,
+        "meaning": "Error"
+      },
+      {
+        "status": 500,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/events",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "events__get_events"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getEvents",
+      "tag": "Event",
+      "ui_area": "Automation > Events",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "events"
+    ],
+    "related_actions": [],
+    "tags": [
+      "events",
+      "read",
+      "event"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/events?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "read_check"
+    }
+  }
+]

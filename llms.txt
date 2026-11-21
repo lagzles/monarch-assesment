@@ -1,0 +1,46 @@
+# Brevo Business Action Catalog
+
+> Agent-ready inventory of what a user can do inside Brevo. 358 business actions across 32 domains: 292 executable through the public API, 58 UI-only, 8 partial. 137 internal endpoints observed; 67 actions live-verified.
+
+## Start here
+
+- `AGENT.md` — machine-first guide: retrieval, execution kinds, safety, verification semantics, examples.
+- `SUBMISSION.md` — deliverable summary and assessment mapping.
+- `VALIDATION.md` — consolidated validation evidence.
+- `catalog/index.json` — id lookup, per-domain action lists, and a lexical index for retrieval.
+- `catalog/catalog.jsonl` — one action per line for streaming/embedding pipelines.
+- `catalog/agent-tools.json` — 292 OpenAI-style tool definitions (name, description, parameters, endpoint).
+- `catalog/observed-links.json` — observed UI endpoint → catalog action comparison (23 mappings, 114 internal-only).
+- `reports/surface-comparison.md` — public API vs observed UI surface.
+- `reports/live/flow-verification.json` — public write-flow verification (20 actions, 28 steps).
+- `reports/live/advanced-flow-verification.json` — CRM, webhooks, senders/domains, scheduling, send flows and account reads.
+- `reports/negative-contracts.md` — 25 expected-error contract cases.
+- `reports/delivery-diagnosis.md` — read-only analysis of the delivery blocker.
+- `reports/transactional-delivery.md` — one-shot transactional send test; 201 accepted, delivery not confirmed.
+- `catalog/catalog.json` — full catalog with metadata.
+- `catalog/actions/<domain>.json` — per-domain slices.
+- `README.md` — format, execution model, reliability model.
+- `docs/approach.md`, `docs/ai-usage.md`, `docs/gaps.md`.
+
+## How to use an action
+
+1. Retrieve by intent using `index.lexical_index`, `synonyms`, or `npm run search "<intent>"`.
+2. Read `intent`, `when_to_use`, `when_not_to_use`, `preconditions`.
+3. Check `execution.kind`:
+   - `api` — executable; call `execution.endpoint` with `request` + `auth`.
+   - `api_partial` — execute the API part, escalate the rest (`execution.related_action`).
+   - `ui_only` — no public API; explain `execution.ui_path` and ask a human.
+4. If `risk_level` is `high` or `confirmation_required` is `true`, ask a human before executing.
+5. Respect `idempotency`, `rate_limit`, and interpret results with `outputs.success_status`, `outputs.schema`, `errors`.
+6. Trust `evidence` + `confidence` + `verification.status`; `spec_only` means documented but not live-checked.
+
+## Ground rules
+
+- Base URL: `https://api.brevo.com/v3`
+- Auth: `api-key` header (or OAuth 2.0 bearer). Credentials are never stored in this repository.
+- No invented endpoints: every API action comes from the pinned OpenAPI spec `sources/brevo-openapi.yml` (sha256 `cc2890ed…`).
+- UI-only actions are explicitly marked and documentation-derived; do not map them to a nearby endpoint or treat their `ui_path` as a confirmed click path.
+- Internal endpoints observed in the browser (`observed_ui`) are evidence of how the UI works, not public API tools. They use session cookies and can change without notice; execute public actions via `api.brevo.com/v3` with an API key.
+- Actions with `verification.kind: "write_flow"` were actually executed via the public API with test data and cleanup; `live_verified` means the create/get/delete sequence passed.
+- `verification.kind: "advanced_flow"` covers CRM, webhooks, senders/domains, scheduling, send flows and account reads. `plan_gated` means the endpoint exists but the account plan does not include it; `note` may say delivery was not confirmed.
+- `verification.kind: "transactional_flow"` means one `POST /smtp/email` was accepted; check `note` — a 201 does not prove inbox delivery.

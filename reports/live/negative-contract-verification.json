@@ -1,0 +1,361 @@
+{
+  "checked_at": "2026-11-21T03:08:21.876Z",
+  "base_url": "https://api.brevo.com/v3",
+  "summary": {
+    "cases": 25,
+    "passed": 25,
+    "failed": 0
+  },
+  "results": [
+    {
+      "action_id": "contacts.create_list",
+      "case": "list without required fields",
+      "method": "POST",
+      "path": "/contacts/lists",
+      "expected": [
+        400,
+        422
+      ],
+      "http_status": 400,
+      "ok": true,
+      "duration_ms": 873,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_list",
+      "case": "get non-existent list",
+      "method": "GET",
+      "path": "/contacts/lists/999999999",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 879,
+      "note": null
+    },
+    {
+      "action_id": "contacts.update_list",
+      "case": "update non-existent list",
+      "method": "PUT",
+      "path": "/contacts/lists/999999999",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 303,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_list",
+      "case": "delete non-existent list",
+      "method": "DELETE",
+      "path": "/contacts/lists/999999999",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 304,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_contact",
+      "case": "contact with invalid email",
+      "method": "POST",
+      "path": "/contacts",
+      "expected": [
+        400,
+        422
+      ],
+      "http_status": 400,
+      "ok": true,
+      "duration_ms": 288,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_contact_info",
+      "case": "get non-existent contact",
+      "method": "GET",
+      "path": "/contacts/{email}",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 246,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_contact",
+      "case": "delete non-existent contact",
+      "method": "DELETE",
+      "path": "/contacts/{email}",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 297,
+      "note": null
+    },
+    {
+      "action_id": "crm.create_company",
+      "case": "company without name",
+      "method": "POST",
+      "path": "/companies",
+      "expected": [
+        400,
+        422
+      ],
+      "http_status": 400,
+      "ok": true,
+      "duration_ms": 292,
+      "note": null
+    },
+    {
+      "action_id": "crm.get_company",
+      "case": "get non-existent company",
+      "method": "GET",
+      "path": "/companies/000000000000000000000000",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 246,
+      "note": null
+    },
+    {
+      "action_id": "crm.delete_company",
+      "case": "delete non-existent company",
+      "method": "DELETE",
+      "path": "/companies/000000000000000000000000",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 311,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.create_email_campaign",
+      "case": "campaign without sender",
+      "method": "POST",
+      "path": "/emailCampaigns",
+      "expected": [
+        400,
+        422
+      ],
+      "http_status": 400,
+      "ok": true,
+      "duration_ms": 231,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.get_email_campaign",
+      "case": "get non-existent campaign",
+      "method": "GET",
+      "path": "/emailCampaigns/999999999",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 305,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.send_email_campaign_now",
+      "case": "send non-existent campaign",
+      "method": "POST",
+      "path": "/emailCampaigns/999999999/sendNow",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 324,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.update_campaign_status",
+      "case": "invalid campaign status",
+      "method": "PUT",
+      "path": "/emailCampaigns/999999999/status",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 400,
+      "ok": true,
+      "duration_ms": 294,
+      "note": null
+    },
+    {
+      "action_id": "templates.create_smtp_template",
+      "case": "template without sender/subject",
+      "method": "POST",
+      "path": "/smtp/templates",
+      "expected": [
+        400,
+        422
+      ],
+      "http_status": 400,
+      "ok": true,
+      "duration_ms": 221,
+      "note": null
+    },
+    {
+      "action_id": "templates.get_smtp_template",
+      "case": "get non-existent template",
+      "method": "GET",
+      "path": "/smtp/templates/999999999",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 304,
+      "note": null
+    },
+    {
+      "action_id": "templates.delete_smtp_template",
+      "case": "delete non-existent template",
+      "method": "DELETE",
+      "path": "/smtp/templates/999999999",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 293,
+      "note": null
+    },
+    {
+      "action_id": "webhooks.create_webhook",
+      "case": "webhook without url",
+      "method": "POST",
+      "path": "/webhooks",
+      "expected": [
+        400,
+        422
+      ],
+      "http_status": 400,
+      "ok": true,
+      "duration_ms": 290,
+      "note": null
+    },
+    {
+      "action_id": "webhooks.get_webhook",
+      "case": "get non-existent webhook",
+      "method": "GET",
+      "path": "/webhooks/999999999",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 225,
+      "note": null
+    },
+    {
+      "action_id": "webhooks.delete_webhook",
+      "case": "delete non-existent webhook",
+      "method": "DELETE",
+      "path": "/webhooks/999999999",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 312,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.create_sender",
+      "case": "sender with invalid email",
+      "method": "POST",
+      "path": "/senders",
+      "expected": [
+        400,
+        422
+      ],
+      "http_status": 400,
+      "ok": true,
+      "duration_ms": 317,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.delete_sender",
+      "case": "delete non-existent sender",
+      "method": "DELETE",
+      "path": "/senders/999999999",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 244,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.create_domain",
+      "case": "domain with empty name",
+      "method": "POST",
+      "path": "/senders/domains",
+      "expected": [
+        400,
+        422
+      ],
+      "http_status": 400,
+      "ok": true,
+      "duration_ms": 301,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.delete_domain",
+      "case": "delete non-existent domain",
+      "method": "DELETE",
+      "path": "/senders/domains/does-not-exist.example.com",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 404,
+      "ok": true,
+      "duration_ms": 247,
+      "note": null
+    },
+    {
+      "action_id": "account_admin.get_user_permission",
+      "case": "permissions for unknown user",
+      "method": "GET",
+      "path": "/organization/user/{email}/permissions",
+      "expected": [
+        400,
+        404
+      ],
+      "http_status": 400,
+      "ok": true,
+      "duration_ms": 289,
+      "note": null
+    }
+  ]
+}

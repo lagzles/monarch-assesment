@@ -1,0 +1,1349 @@
+{
+  "generated_at": "2026-11-21T02:57:48.563Z",
+  "note": "Comparison between endpoints observed in the Brevo UI (internal services) and the public-API actions that provide the same business capability. Equivalence is not wire compatibility.",
+  "counts": {
+    "observed_endpoints": 137,
+    "mapped_endpoints": 23,
+    "internal_only_endpoints": 114,
+    "catalog_api_actions": 292,
+    "mapped_catalog_actions": 21,
+    "mapped_public_actions": 20,
+    "mapped_ui_only_actions": 1,
+    "public_only_actions": 272,
+    "by_equivalence": {
+      "same_capability_different_surface": 18,
+      "partial": 4,
+      "ui_only_confirmed": 1
+    }
+  },
+  "links": [
+    {
+      "business_action": "Create a list",
+      "observed": {
+        "id": "observed.contacts_api_v2.post_lists_create",
+        "host": "contacts-api-v2.brevo.com",
+        "method": "POST",
+        "path": "/lists/create",
+        "statuses": [
+          201
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "id"
+        ],
+        "captured_at": "2026-11-21T02:09:55.429Z"
+      },
+      "public_api": {
+        "action": "contacts.create_list",
+        "kind": "api",
+        "method": "POST",
+        "path": "/contacts/lists",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "folderId",
+          "name"
+        ],
+        "request_fields": [
+          "folderId",
+          "name"
+        ],
+        "success_status": 201,
+        "idempotency": "non_idempotent",
+        "risk_level": "medium"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: contacts-api-v2.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "UI request body not captured by the HAR exporter"
+      ],
+      "notes": "UI posts to contacts-api-v2 /lists/create (201, {id}). Public API posts to api.brevo.com/v3/contacts/lists. The HAR did not capture the UI request body (bodySize=0)."
+    },
+    {
+      "business_action": "Delete a list",
+      "observed": {
+        "id": "observed.contacts_api_v2.delete_lists_id",
+        "host": "contacts-api-v2.brevo.com",
+        "method": "DELETE",
+        "path": "/lists/{id}",
+        "statuses": [
+          204
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [],
+        "captured_at": "2026-11-21T02:09:55.429Z"
+      },
+      "public_api": {
+        "action": "contacts.delete_list",
+        "kind": "api",
+        "method": "DELETE",
+        "path": "/contacts/lists/{listId}",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "listId"
+        ],
+        "request_fields": [
+          "listId"
+        ],
+        "success_status": 204,
+        "idempotency": "idempotent",
+        "risk_level": "high"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: contacts-api-v2.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2"
+      ],
+      "notes": "UI deletes via contacts-api-v2 /lists/{id} (204). Public API deletes /contacts/lists/{listId}."
+    },
+    {
+      "business_action": "Create a contact",
+      "observed": {
+        "id": "observed.contacts_api.post_contact_backend_contacts_add_contact",
+        "host": "contacts-api.brevo.com",
+        "method": "POST",
+        "path": "/contact/backend/contacts/add-contact",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "contact_id"
+        ],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "contacts.create_contact",
+        "kind": "api",
+        "method": "POST",
+        "path": "/contacts",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [],
+        "request_fields": [
+          "attributes",
+          "email",
+          "emailBlacklisted",
+          "ext_id",
+          "forceMerge",
+          "getId",
+          "listIds",
+          "smsBlacklisted",
+          "smtpBlacklistSender",
+          "updateEnabled"
+        ],
+        "success_status": 201,
+        "idempotency": "non_idempotent",
+        "risk_level": "medium"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: contacts-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "UI request body not captured by the HAR exporter",
+        "response fields: UI [contact_id] vs public [id]"
+      ],
+      "notes": "UI posts to contacts-api /contact/backend/contacts/add-contact (200, {contact_id}). Public API posts /contacts. The HAR did not capture the UI request body (bodySize=0)."
+    },
+    {
+      "business_action": "Delete a contact",
+      "observed": {
+        "id": "observed.contacts_api.delete_contact_backend_contacts_id",
+        "host": "contacts-api.brevo.com",
+        "method": "DELETE",
+        "path": "/contact/backend/contacts/{id}",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "message"
+        ],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "contacts.delete_contact",
+        "kind": "api",
+        "method": "DELETE",
+        "path": "/contacts/{identifier}",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "identifier"
+        ],
+        "request_fields": [
+          "identifier",
+          "identifierType"
+        ],
+        "success_status": 204,
+        "idempotency": "idempotent",
+        "risk_level": "high"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: contacts-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2"
+      ],
+      "notes": "UI deletes via contacts-api /contact/backend/contacts/{id} (200). Public API deletes /contacts/{identifier}."
+    },
+    {
+      "business_action": "Add a contact to one or more lists",
+      "observed": {
+        "id": "observed.contacts_api.post_contact_backend_contacts_lists",
+        "host": "contacts-api.brevo.com",
+        "method": "POST",
+        "path": "/contact/backend/contacts/lists",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "contacts.add_contact_to_list",
+        "kind": "api",
+        "method": "POST",
+        "path": "/contacts/lists/{listId}/contacts/add",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "listId",
+          "body"
+        ],
+        "request_fields": [
+          "body",
+          "listId"
+        ],
+        "success_status": 201,
+        "idempotency": "non_idempotent",
+        "risk_level": "medium"
+      },
+      "equivalence": "partial",
+      "differences": [
+        "host: contacts-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "UI request body not captured by the HAR exporter"
+      ],
+      "notes": "UI updates contact list membership via contacts-api /contact/backend/contacts/lists. Public API exposes /contacts/lists/{listId}/contacts/add. The UI call may combine membership changes."
+    },
+    {
+      "business_action": "Create a company",
+      "observed": {
+        "id": "observed.crm_backend_api.post_crm_backend_company",
+        "host": "crm-backend-api.brevo.com",
+        "method": "POST",
+        "path": "/crm/backend/company",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": true,
+        "request_fields": [
+          "attributes",
+          "gtm",
+          "linkedContactsIds",
+          "linkedDealsIds"
+        ],
+        "response_fields": [
+          "attributes",
+          "createdBy",
+          "id",
+          "linkedContactsIds",
+          "linkedDealsIds"
+        ],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "crm.create_company",
+        "kind": "api",
+        "method": "POST",
+        "path": "/companies",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "name"
+        ],
+        "request_fields": [
+          "attributes",
+          "countryCode",
+          "linkedContactsIds",
+          "linkedDealsIds",
+          "name"
+        ],
+        "success_status": 200,
+        "idempotency": "non_idempotent",
+        "risk_level": "medium"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: crm-backend-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "request fields: UI [attributes, gtm, linkedContactsIds, linkedDealsIds] vs public [attributes, countryCode, linkedContactsIds, linkedDealsIds, name]",
+        "response fields: UI [attributes, createdBy, id, linkedContactsIds, linkedDealsIds] vs public [id]"
+      ],
+      "notes": "UI body: {attributes:{name,owner,domain}, linkedContactsIds, linkedDealsIds, gtm}. Public API posts /companies with a different schema. This is the clearest payload-level difference captured."
+    },
+    {
+      "business_action": "Delete a company",
+      "observed": {
+        "id": "observed.crm_backend_api.delete_crm_backend_company_id",
+        "host": "crm-backend-api.brevo.com",
+        "method": "DELETE",
+        "path": "/crm/backend/company/{id}",
+        "statuses": [
+          204
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "crm.delete_company",
+        "kind": "api",
+        "method": "DELETE",
+        "path": "/companies/{id}",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "id"
+        ],
+        "request_fields": [
+          "id"
+        ],
+        "success_status": 204,
+        "idempotency": "idempotent",
+        "risk_level": "high"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: crm-backend-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2"
+      ],
+      "notes": "UI deletes via crm-backend-api /crm/backend/company/{id} (204). Public API deletes /companies/{id}."
+    },
+    {
+      "business_action": "List contact lists",
+      "observed": {
+        "id": "observed.contacts_api_v2.get_lists_get_lists",
+        "host": "contacts-api-v2.brevo.com",
+        "method": "GET",
+        "path": "/lists/get-lists",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "data",
+          "total_count"
+        ],
+        "captured_at": "2026-11-21T02:09:55.429Z"
+      },
+      "public_api": {
+        "action": "contacts.get_lists",
+        "kind": "api",
+        "method": "GET",
+        "path": "/contacts/lists",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [],
+        "request_fields": [
+          "limit",
+          "offset",
+          "sort"
+        ],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: contacts-api-v2.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "response fields: UI [data, total_count] vs public [count, lists]"
+      ],
+      "notes": "UI reads contacts-api-v2 /lists/get-lists. Public API reads GET /contacts/lists."
+    },
+    {
+      "business_action": "List contact folders",
+      "observed": {
+        "id": "observed.contacts_api_v2.get_lists_get_folders",
+        "host": "contacts-api-v2.brevo.com",
+        "method": "GET",
+        "path": "/lists/get-folders",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "folders_data",
+          "total_dynamic_list_count",
+          "total_list_count"
+        ],
+        "captured_at": "2026-11-21T02:09:55.429Z"
+      },
+      "public_api": {
+        "action": "contacts.get_folders",
+        "kind": "api",
+        "method": "GET",
+        "path": "/contacts/folders",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [],
+        "request_fields": [
+          "limit",
+          "offset",
+          "sort"
+        ],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: contacts-api-v2.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "response fields: UI [folders_data, total_dynamic_list_count, total_list_count] vs public [count, folders]"
+      ],
+      "notes": "UI reads contacts-api-v2 /lists/get-folders. Public API reads GET /contacts/folders."
+    },
+    {
+      "business_action": "Get a contact's details",
+      "observed": {
+        "id": "observed.contacts_api.get_contact_backend_contacts_id",
+        "host": "contacts-api.brevo.com",
+        "method": "GET",
+        "path": "/contact/backend/contacts/{id}",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "_id",
+          "assignTo",
+          "attributes",
+          "blacklistForList",
+          "consentGroups",
+          "contact",
+          "createdAt",
+          "ecommerce",
+          "email",
+          "emailBlacklisted",
+          "emailTag",
+          "id",
+          "is_anonymous",
+          "listid",
+          "messagesSentCount",
+          "pushActive",
+          "pushSubscribed",
+          "sc",
+          "smsBlacklisted",
+          "smtpDeliveredCount",
+          "subscriptions",
+          "uniqueClickedMessageCount",
+          "uniqueOpenedMessageCount",
+          "userHistory",
+          "whatsappBlacklisted"
+        ],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "contacts.get_contact_info",
+        "kind": "api",
+        "method": "GET",
+        "path": "/contacts/{identifier}",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "identifier"
+        ],
+        "request_fields": [
+          "endDate",
+          "identifier",
+          "identifierType",
+          "startDate"
+        ],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: contacts-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "response fields: UI [_id, assignTo, attributes, blacklistForList, consentGroups, contact, createdAt, ecommerce, email, emailBlacklisted, emailTag, id, is_anonymous, listid, messagesSentCount, pushActive, pushSubscribed, sc, smsBlacklisted, smtpDeliveredCount, subscriptions, uniqueClickedMessageCount, uniqueOpenedMessageCount, userHistory, whatsappBlacklisted] vs public [attributes, consentGroups, createdAt, email, emailBlacklisted, id, listIds, listUnsubscribed, modifiedAt, smsBlacklisted, statistics, whatsappBlacklisted]"
+      ],
+      "notes": "UI reads contacts-api /contact/backend/contacts/{id}. Public API reads GET /contacts/{identifier}."
+    },
+    {
+      "business_action": "List contact attributes",
+      "observed": {
+        "id": "observed.contacts_api.get_contact_backend_settings_get_attributes",
+        "host": "contacts-api.brevo.com",
+        "method": "GET",
+        "path": "/contact/backend/settings/get-attributes",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "contacts.get_attributes",
+        "kind": "api",
+        "method": "GET",
+        "path": "/contacts/attributes",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [],
+        "request_fields": [],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: contacts-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2"
+      ],
+      "notes": "UI reads contacts-api /contact/backend/settings/get-attributes. Public API reads GET /contacts/attributes."
+    },
+    {
+      "business_action": "List lists and segments for contact assignment",
+      "observed": {
+        "id": "observed.contacts_api.get_contact_backend_contacts_lists_and_segments",
+        "host": "contacts-api.brevo.com",
+        "method": "GET",
+        "path": "/contact/backend/contacts/lists_and_segments",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "category",
+          "folder",
+          "list",
+          "segment"
+        ],
+        "captured_at": "2026-11-21T02:09:55.429Z"
+      },
+      "public_api": {
+        "action": "contacts.get_lists",
+        "kind": "api",
+        "method": "GET",
+        "path": "/contacts/lists",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [],
+        "request_fields": [
+          "limit",
+          "offset",
+          "sort"
+        ],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "partial",
+      "differences": [
+        "host: contacts-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "response fields: UI [category, folder, list, segment] vs public [count, lists]"
+      ],
+      "notes": "UI returns folders, lists and segments in one call. Public API splits this into GET /contacts/lists and GET /contacts/segments."
+    },
+    {
+      "business_action": "List companies",
+      "observed": {
+        "id": "observed.crm_backend_api.get_crm_backend_companies",
+        "host": "crm-backend-api.brevo.com",
+        "method": "GET",
+        "path": "/crm/backend/companies",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "items",
+          "pager",
+          "refs"
+        ],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "crm.list_companies",
+        "kind": "api",
+        "method": "GET",
+        "path": "/companies",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [],
+        "request_fields": [
+          "createdSince",
+          "filters[attributes.name]",
+          "limit",
+          "linkedContactsIds",
+          "linkedDealsIds",
+          "modifiedSince",
+          "page",
+          "sort",
+          "sortBy"
+        ],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: crm-backend-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "response fields: UI [items, pager, refs] vs public [items]"
+      ],
+      "notes": "UI reads crm-backend-api /crm/backend/companies. Public API reads GET /companies."
+    },
+    {
+      "business_action": "Get a company",
+      "observed": {
+        "id": "observed.crm_backend_api.get_crm_backend_company_id",
+        "host": "crm-backend-api.brevo.com",
+        "method": "GET",
+        "path": "/crm/backend/company/{id}",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "attributes",
+          "createdBy",
+          "id",
+          "linkedContactsIds",
+          "linkedDealsIds",
+          "refs"
+        ],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "crm.get_company",
+        "kind": "api",
+        "method": "GET",
+        "path": "/companies/{id}",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "id"
+        ],
+        "request_fields": [
+          "id"
+        ],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: crm-backend-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "response fields: UI [attributes, createdBy, id, linkedContactsIds, linkedDealsIds, refs] vs public [attributes, id, linkedContactsIds, linkedDealsIds]"
+      ],
+      "notes": "UI reads crm-backend-api /crm/backend/company/{id}. Public API reads GET /companies/{id}."
+    },
+    {
+      "business_action": "List company attributes",
+      "observed": {
+        "id": "observed.crm_backend_api.get_crm_backend_attribute_companies",
+        "host": "crm-backend-api.brevo.com",
+        "method": "GET",
+        "path": "/crm/backend/attribute/companies",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "crm.list_company_attributes",
+        "kind": "api",
+        "method": "GET",
+        "path": "/crm/attributes/companies",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [],
+        "request_fields": [],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: crm-backend-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2"
+      ],
+      "notes": "UI reads crm-backend-api /crm/backend/attribute/companies. Public API reads GET /crm/attributes/companies."
+    },
+    {
+      "business_action": "List deal attributes",
+      "observed": {
+        "id": "observed.crm_backend_api.get_crm_backend_attributes_deals",
+        "host": "crm-backend-api.brevo.com",
+        "method": "GET",
+        "path": "/crm/backend/attributes/deals",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "crm.list_deal_attributes",
+        "kind": "api",
+        "method": "GET",
+        "path": "/crm/attributes/deals",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [],
+        "request_fields": [],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: crm-backend-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2"
+      ],
+      "notes": "UI reads crm-backend-api /crm/backend/attributes/deals. Public API reads GET /crm/attributes/deals."
+    },
+    {
+      "business_action": "Query/search contacts",
+      "observed": {
+        "id": "observed.segments_api.post_segment_query",
+        "host": "segments-api.brevo.com",
+        "method": "POST",
+        "path": "/segment/query",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": true,
+        "request_fields": [
+          "fe_query",
+          "force_refresh",
+          "limit",
+          "page"
+        ],
+        "response_fields": [
+          "data",
+          "metadata"
+        ],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "contacts.get_contacts",
+        "kind": "api",
+        "method": "GET",
+        "path": "/contacts",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [],
+        "request_fields": [
+          "createdSince",
+          "filter",
+          "ids",
+          "limit",
+          "listIds",
+          "modifiedSince",
+          "offset",
+          "segmentId",
+          "sort"
+        ],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "partial",
+      "differences": [
+        "host: segments-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "request fields: UI [fe_query, force_refresh, limit, page] vs public [createdSince, filter, ids, limit, listIds, modifiedSince, offset, segmentId, sort]",
+        "response fields: UI [data, metadata] vs public [contacts, count]"
+      ],
+      "notes": "UI sends {fe_query, page, limit, force_refresh} to segments-api /segment/query. Public API exposes GET /contacts with different pagination/filter parameters."
+    },
+    {
+      "business_action": "Count contacts",
+      "observed": {
+        "id": "observed.segments_api.post_segment_count",
+        "host": "segments-api.brevo.com",
+        "method": "POST",
+        "path": "/segment/count",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": true,
+        "request_fields": [
+          "fe_query",
+          "searchBy"
+        ],
+        "response_fields": [
+          "contact_count",
+          "total_count"
+        ],
+        "captured_at": "2026-11-21T01:47:15.039Z"
+      },
+      "public_api": {
+        "action": "contacts.get_contacts",
+        "kind": "api",
+        "method": "GET",
+        "path": "/contacts",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [],
+        "request_fields": [
+          "createdSince",
+          "filter",
+          "ids",
+          "limit",
+          "listIds",
+          "modifiedSince",
+          "offset",
+          "segmentId",
+          "sort"
+        ],
+        "success_status": 200,
+        "idempotency": "idempotent",
+        "risk_level": "low"
+      },
+      "equivalence": "partial",
+      "differences": [
+        "host: segments-api.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "request fields: UI [fe_query, searchBy] vs public [createdSince, filter, ids, limit, listIds, modifiedSince, offset, segmentId, sort]",
+        "response fields: UI [contact_count, total_count] vs public [contacts, count]"
+      ],
+      "notes": "UI gets counts from segments-api /segment/count. The public API has no dedicated count endpoint; a caller must paginate GET /contacts."
+    },
+    {
+      "business_action": "Create an email campaign",
+      "observed": {
+        "id": "observed.email_campaigns_backend.post_email_campaign_api_regular_setup",
+        "host": "email-campaigns-backend.brevo.com",
+        "method": "POST",
+        "path": "/email-campaign/api/regular/setup",
+        "statuses": [
+          201
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": true,
+        "request_fields": [
+          "camp_name",
+          "folder_path",
+          "tag_ids"
+        ],
+        "response_fields": [
+          "id"
+        ],
+        "captured_at": "2026-11-21T02:09:55.429Z"
+      },
+      "public_api": {
+        "action": "email_campaigns.create_email_campaign",
+        "kind": "api",
+        "method": "POST",
+        "path": "/emailCampaigns",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "name",
+          "sender"
+        ],
+        "request_fields": [
+          "abTesting",
+          "attachmentUrl",
+          "emailExpirationDate",
+          "footer",
+          "header",
+          "htmlContent",
+          "htmlUrl",
+          "increaseRate",
+          "initialQuota",
+          "inlineImageActivation",
+          "ipWarmupEnable",
+          "mirrorActive",
+          "name",
+          "params",
+          "previewText",
+          "recipients",
+          "replyTo",
+          "scheduledAt",
+          "sendAtBestTime",
+          "sender",
+          "splitRule",
+          "subject",
+          "subjectA",
+          "subjectB",
+          "tag",
+          "templateId",
+          "toField",
+          "unsubscriptionPageId",
+          "updateFormId",
+          "utmCampaign",
+          "utmContent",
+          "utmId",
+          "utmMedium",
+          "utmSource",
+          "utmTerm",
+          "winnerCriteria",
+          "winnerDelay"
+        ],
+        "success_status": 201,
+        "idempotency": "non_idempotent",
+        "risk_level": "medium"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: email-campaigns-backend.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "request fields: UI [camp_name, folder_path, tag_ids] vs public [abTesting, attachmentUrl, emailExpirationDate, footer, header, htmlContent, htmlUrl, increaseRate, initialQuota, inlineImageActivation, ipWarmupEnable, mirrorActive, name, params, previewText, recipients, replyTo, scheduledAt, sendAtBestTime, sender, splitRule, subject, subjectA, subjectB, tag, templateId, toField, unsubscriptionPageId, updateFormId, utmCampaign, utmContent, utmId, utmMedium, utmSource, utmTerm, winnerCriteria, winnerDelay]"
+      ],
+      "notes": "UI setup body: {camp_name, folder_path, tag_ids} -> 201 {id}, then the editor loads the campaign. Public API POST /emailCampaigns takes the full campaign definition (sender, subject, recipients, content) in one call."
+    },
+    {
+      "business_action": "Delete an email campaign",
+      "observed": {
+        "id": "observed.email_campaigns_backend.delete_email_campaign_api_campaigns",
+        "host": "email-campaigns-backend.brevo.com",
+        "method": "DELETE",
+        "path": "/email-campaign/api/campaigns",
+        "statuses": [
+          200
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "result"
+        ],
+        "captured_at": "2026-11-21T02:09:55.429Z"
+      },
+      "public_api": {
+        "action": "email_campaigns.delete_email_campaign",
+        "kind": "api",
+        "method": "DELETE",
+        "path": "/emailCampaigns/{campaignId}",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "campaignId"
+        ],
+        "request_fields": [
+          "campaignId"
+        ],
+        "success_status": 204,
+        "idempotency": "idempotent",
+        "risk_level": "high"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: email-campaigns-backend.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2"
+      ],
+      "notes": "UI deletes via email-campaigns-backend /email-campaign/api/campaigns. Public API deletes /emailCampaigns/{campaignId}."
+    },
+    {
+      "business_action": "Create an email template",
+      "observed": {
+        "id": "observed.unified_templates.post_email_templates",
+        "host": "unified-templates.brevo.com",
+        "method": "POST",
+        "path": "/email/templates",
+        "statuses": [
+          201
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": true,
+        "request_fields": [
+          "attachment_url",
+          "content",
+          "from_email",
+          "from_name",
+          "id",
+          "is_active",
+          "name",
+          "preview",
+          "profile_update_form",
+          "reply_to",
+          "sender_id",
+          "subject",
+          "tag",
+          "to_field",
+          "tracking",
+          "type"
+        ],
+        "response_fields": [
+          "id",
+          "message"
+        ],
+        "captured_at": "2026-11-21T02:09:55.429Z"
+      },
+      "public_api": {
+        "action": "templates.create_smtp_template",
+        "kind": "api",
+        "method": "POST",
+        "path": "/smtp/templates",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "sender",
+          "subject",
+          "templateName"
+        ],
+        "request_fields": [
+          "attachmentUrl",
+          "htmlContent",
+          "htmlUrl",
+          "isActive",
+          "replyTo",
+          "sender",
+          "subject",
+          "tag",
+          "templateName",
+          "toField"
+        ],
+        "success_status": 201,
+        "idempotency": "non_idempotent",
+        "risk_level": "medium"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: unified-templates.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2",
+        "request fields: UI [attachment_url, content, from_email, from_name, id, is_active, name, preview, profile_update_form, reply_to, sender_id, subject, tag, to_field, tracking, type] vs public [attachmentUrl, htmlContent, htmlUrl, isActive, replyTo, sender, subject, tag, templateName, toField]"
+      ],
+      "notes": "UI body includes {name, subject, from_email, from_name, sender_id, content, reply_to, tag, tracking}. Public API POST /smtp/templates uses sender/templateName/subject/htmlContent and a different tracking shape."
+    },
+    {
+      "business_action": "Delete an email template",
+      "observed": {
+        "id": "observed.email_campaigns_backend.delete_email_template_api_templates",
+        "host": "email-campaigns-backend.brevo.com",
+        "method": "DELETE",
+        "path": "/email-template/api/templates",
+        "statuses": [
+          204
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [],
+        "captured_at": "2026-11-21T02:09:55.429Z"
+      },
+      "public_api": {
+        "action": "templates.delete_smtp_template",
+        "kind": "api",
+        "method": "DELETE",
+        "path": "/smtp/templates/{templateId}",
+        "host": "api.brevo.com",
+        "auth": {
+          "schemes": [
+            "api_key",
+            "oauth2"
+          ],
+          "api_key_header": "api-key",
+          "oauth2": "Authorization: Bearer <token>",
+          "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+        },
+        "inputs": [
+          "templateId"
+        ],
+        "request_fields": [
+          "templateId"
+        ],
+        "success_status": 204,
+        "idempotency": "idempotent",
+        "risk_level": "high"
+      },
+      "equivalence": "same_capability_different_surface",
+      "differences": [
+        "host: email-campaigns-backend.brevo.com vs api.brevo.com",
+        "auth: session_cookie vs api_key/oauth2"
+      ],
+      "notes": "UI deletes via email-campaigns-backend /email-template/api/templates. Public API deletes /smtp/templates/{templateId}."
+    },
+    {
+      "business_action": "Create a sign-up form",
+      "observed": {
+        "id": "observed.forms_api.post_forms_api_forms",
+        "host": "forms-api.brevo.com",
+        "method": "POST",
+        "path": "/forms-api/forms",
+        "statuses": [
+          201
+        ],
+        "auth": "session_cookie",
+        "stability": "internal",
+        "request_body_captured": false,
+        "request_fields": [],
+        "response_fields": [
+          "createdAt",
+          "createdBy",
+          "defaultDateFormat",
+          "defaultLocale",
+          "hasSubdomain",
+          "id",
+          "name",
+          "numberOfContact",
+          "numberOfSubmits",
+          "thumbnail",
+          "thumbnailStatus",
+          "type",
+          "updatedAt",
+          "updatedBy"
+        ],
+        "captured_at": "2026-11-21T02:09:55.429Z"
+      },
+      "public_api": {
+        "action": "forms.create_sign_up_form",
+        "kind": "ui_only",
+        "method": null,
+        "path": null,
+        "host": null,
+        "auth": null,
+        "inputs": [],
+        "request_fields": [],
+        "success_status": null,
+        "idempotency": "unknown",
+        "risk_level": "medium"
+      },
+      "equivalence": "ui_only_confirmed",
+      "differences": [
+        "no public API equivalent; observed endpoint confirms a UI-only catalog action"
+      ],
+      "notes": "No public API equivalent. The observed internal endpoint forms-api /forms-api/forms (201) confirms the UI-only action and its response shape. The request body was not captured (bodySize=0)."
+    }
+  ]
+}

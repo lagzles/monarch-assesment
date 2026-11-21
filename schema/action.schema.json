@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.local/brevo-agent-catalog/action.schema.json",
+  "title": "Business action",
+  "type": "object",
+  "required": [
+    "id", "version", "domain", "domain_label", "name", "intent", "description",
+    "action_type", "risk_level", "confirmation_required", "idempotency",
+    "execution", "evidence", "synonyms", "related_actions", "tags", "confidence", "verification"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9_]+\\.[a-z0-9_]+$" },
+    "version": { "type": "string" },
+    "domain": { "type": "string", "minLength": 1 },
+    "domain_label": { "type": "string" },
+    "name": { "type": "string", "minLength": 3 },
+    "intent": { "type": "string", "minLength": 5 },
+    "description": { "type": "string", "minLength": 5 },
+    "action_type": { "type": "string" },
+    "risk_level": { "enum": ["low", "medium", "high"] },
+    "confirmation_required": { "type": "boolean" },
+    "idempotency": { "enum": ["idempotent", "non_idempotent", "conditional", "unknown"] },
+    "reversibility": { "type": "string" },
+    "inputs": { "type": "object" },
+    "request": { "type": ["object", "null"] },
+    "outputs": { "type": "object" },
+    "errors": { "type": "array" },
+    "side_effects": { "type": "array", "items": { "type": "string" } },
+    "preconditions": { "type": "array", "items": { "type": "string" } },
+    "synonyms": { "type": "array", "items": { "type": "string" } },
+    "related_actions": { "type": "array", "items": { "type": "string" } },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "observed_ui": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["observed_id", "host", "method", "path", "equivalence"],
+        "properties": {
+          "observed_id": { "type": "string" },
+          "host": { "type": "string" },
+          "method": { "type": "string" },
+          "path": { "type": "string" },
+          "equivalence": { "enum": ["same_capability_different_surface", "partial", "ui_only_confirmed"] },
+          "ui_path": { "type": "string" },
+          "request_body_captured": { "type": "boolean" },
+          "captured_at": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "ui_evidence": { "type": "object" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "execution": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "enum": ["api", "api_partial", "ui_only"] },
+        "endpoint": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["method", "path", "base_url"],
+              "properties": {
+                "method": { "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"] },
+                "path": { "type": "string", "pattern": "^/" },
+                "base_url": { "type": "string" }
+              }
+            }
+          ]
+        },
+        "related_action": { "type": ["string", "null"] },
+        "ui_path": { "type": ["string", "null"] },
+        "tool_name": { "type": ["string", "null"] }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["source"],
+      "properties": {
+        "source": { "enum": ["openapi", "ui_inventory"] },
+        "ui_path": { "type": ["string", "null"] }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["spec_only", "unverified", "live_verified", "live_failed", "plan_gated"] },
+        "checked_at": { "type": ["string", "null"] },
+        "method": { "type": ["string", "null"] },
+        "http_status": { "type": ["integer", "null"] },
+        "account_entitlement": { "enum": ["ok", "not_eligible_on_plan", null] },
+        "note": { "type": ["string", "null"] },
+        "kind": { "enum": ["read_check", "write_flow", "advanced_flow", "transactional_flow", null] }
+      }
+    }
+  }
+}

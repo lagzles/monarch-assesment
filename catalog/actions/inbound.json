@@ -1,0 +1,570 @@
+[
+  {
+    "id": "inbound.get_inbound_attachment",
+    "version": "1.0.0",
+    "domain": "inbound",
+    "domain_label": "Inbound email parsing",
+    "name": "Retrieve inbound attachment with download token.",
+    "intent": "Retrieve inbound attachment with download token.",
+    "description": "This endpoint will retrieve inbound attachment with download token.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "downloadToken": {
+          "type": "string",
+          "x-in": "path",
+          "description": "Token to fetch a particular attachment"
+        }
+      },
+      "required": [
+        "downloadToken"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "downloadToken"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "format": "binary",
+        "type": "string"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Download token not found"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/inbound/attachments/{downloadToken}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "inbound__get_inbound_attachment"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getInboundEmailAttachment",
+      "tag": "Inbound Parsing",
+      "ui_area": "Transactional > Inbound parsing",
+      "ui_path": "Transactional > Inbound parsing > Attachment"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Download an inbound attachment",
+        "ui_path": "Transactional > Inbound parsing > Attachment",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "retrieve",
+      "inbound",
+      "attachment",
+      "download",
+      "token",
+      "email attachment"
+    ],
+    "related_actions": [],
+    "tags": [
+      "inbound",
+      "read",
+      "inbound_parsing"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "inbound.get_inbound_events",
+    "version": "1.0.0",
+    "domain": "inbound",
+    "domain_label": "Inbound email parsing",
+    "name": "Get the list of all the events for the received emails.",
+    "intent": "Get the list of all the events for the received emails.",
+    "description": "This endpoint will show the list of all the events for the received emails. When no date range is provided, the last 30 days of events are returned by default.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "sender": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Email address of the sender."
+        },
+        "startDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Mandatory if endDate is used. Starting date (YYYY-MM-DD or YYYY-MM-DDTHH:mm:ss.SSSZ) from which you want to fetch the list. Maximum time period that can be selected is 30 days. Must not be in the future."
+        },
+        "endDate": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Mandatory if startDate is used. Ending date (YYYY-MM-DD or YYYY-MM-DDTHH:mm:ss.SSSZ) till which you want to fetch the list. Maximum time period that can be selected is 30 days. Must not be in the future."
+        },
+        "limit": {
+          "default": 100,
+          "format": "int64",
+          "maximum": 500,
+          "minimum": 0,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents returned per page"
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document on the page"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "sender",
+        "startDate",
+        "endDate",
+        "limit",
+        "offset",
+        "sort"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "events": {
+            "items": {
+              "properties": {
+                "date": {
+                  "description": "Date when email was received on SMTP relay",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "recipient": {
+                  "description": "Recipient’s email address",
+                  "format": "email",
+                  "type": "string"
+                },
+                "sender": {
+                  "description": "Sender’s email address",
+                  "format": "email",
+                  "type": "string"
+                },
+                "uuid": {
+                  "description": "UUID that can be used to fetch additional data",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "uuid",
+                "sender",
+                "date",
+                "recipient"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "events": [
+          {
+            "date": "2017-03-11T12:30:00.000Z",
+            "recipient": "alexa@example.com",
+            "sender": "john@example.com",
+            "uuid": "1a825d56-029b-4a41-b8e4-1a825d56"
+          },
+          {
+            "date": "2017-03-12T12:30:00.000Z",
+            "recipient": "bob@example.com",
+            "sender": "alice@example.com",
+            "uuid": "1a825d56-029b-4a41-b8e4-61670463431b"
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/inbound/events",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "inbound__get_inbound_events"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getInboundEmailEvents",
+      "tag": "Inbound Parsing",
+      "ui_area": "Transactional > Inbound parsing",
+      "ui_path": "Transactional > Inbound parsing"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "View inbound email events",
+        "ui_path": "Transactional > Inbound parsing",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "get",
+      "list",
+      "events",
+      "received",
+      "emails",
+      "received email",
+      "inbound",
+      "inbound emails",
+      "view",
+      "email"
+    ],
+    "related_actions": [],
+    "tags": [
+      "inbound",
+      "read",
+      "inbound_parsing"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "inbound.get_inbound_events_by_uuid",
+    "version": "1.0.0",
+    "domain": "inbound",
+    "domain_label": "Inbound email parsing",
+    "name": "Fetch all events history for one particular received email.",
+    "intent": "Fetch all events history for one particular received email.",
+    "description": "This endpoint will show the list of all events history for one particular received email.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "x-in": "path",
+          "description": "UUID to fetch events specific to received email"
+        }
+      },
+      "required": [
+        "uuid"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "uuid"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "attachments": {
+            "description": "List of attachments of the email. This will be present only after the processing is done.",
+            "items": {
+              "properties": {
+                "contentId": {
+                  "description": "value of the Content-ID header of the attachment.",
+                  "type": "string"
+                },
+                "contentLength": {
+                  "description": "size of the attachment in bytes",
+                  "type": "integer"
+                },
+                "contentType": {
+                  "description": "value of the Content-Type header of the attachment",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "filename specified in the Content-Disposition header of the attachment",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "deliveredAt": {
+            "description": "Date when email was delivered successfully to the client’s webhook",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "logs": {
+            "description": "List of events/logs that describe the lifecycle of the email on the Brevo platform",
+            "items": {
+              "properties": {
+                "date": {
+                  "description": "Date of the event",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Type of the event",
+                  "enum": [
+                    "received",
+                    "processed",
+                    "webhookFailed",
+                    "webhookDelivered"
+                  ],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "messageId": {
+            "description": "Value of the Message-ID header. This will be present only after the processing is done.",
+            "type": "string"
+          },
+          "receivedAt": {
+            "description": "Date when email was received on SMTP relay",
+            "example": "2019-05-25T11:53:26Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "recipient": {
+            "description": "Recipient’s email address",
+            "format": "email",
+            "type": "string"
+          },
+          "sender": {
+            "description": "Sender’s email address",
+            "format": "email",
+            "type": "string"
+          },
+          "subject": {
+            "description": "Value of the Subject header. This will be present only after the processing is done.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "attachments": [
+          {
+            "contentId": null,
+            "contentLength": 12345,
+            "contentType": "application/pdf",
+            "name": "invoice.pdf"
+          }
+        ],
+        "deliveredAt": "2017-03-12T12:31:00.000Z",
+        "logs": [
+          {
+            "date": "2017-03-12T12:30:00.000Z",
+            "type": "received"
+          },
+          {
+            "date": "2017-03-12T12:30:04.000Z",
+            "type": "webhookFailed"
+          },
+          {
+            "date": "2017-03-12T12:31:04.000Z",
+            "type": "webhookDelivered"
+          }
+        ],
+        "messageId": "<a_nice@message.id>",
+        "receivedAt": "2017-03-12T12:30:00.000Z",
+        "recipient": "bob@example.com",
+        "sender": "alice@example.com",
+        "subject": "Re: Question about your API"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "UUID not found"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/inbound/events/{uuid}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "inbound__get_inbound_events_by_uuid"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getInboundEmailEventsByUuid",
+      "tag": "Inbound Parsing",
+      "ui_area": "Transactional > Inbound parsing",
+      "ui_path": "Transactional > Inbound parsing > Email"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "View inbound events for one email",
+        "ui_path": "Transactional > Inbound parsing > Email",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "fetch",
+      "events",
+      "history",
+      "one",
+      "particular",
+      "received",
+      "email",
+      "received email",
+      "inbound",
+      "email events",
+      "view"
+    ],
+    "related_actions": [],
+    "tags": [
+      "inbound",
+      "read",
+      "inbound_parsing"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

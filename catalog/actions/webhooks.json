@@ -1,0 +1,1467 @@
+[
+  {
+    "id": "webhooks.create_webhook",
+    "version": "1.0.0",
+    "domain": "webhooks",
+    "domain_label": "Webhooks",
+    "name": "Create a webhook",
+    "intent": "Create a webhook that pushes Brevo events (email, SMS, marketing, CRM) to an HTTPS endpoint.",
+    "description": "Creates a new webhook to receive real-time notifications for specified events. Use this to: - Set up event notifications for transactional or marketing emails - Configure webhook endpoints for campaign tracking - Enable real-time monitoring of email delivery status - Subscribe to contact list changes and updates - Implement custom event handling and automation Key information returned: - Created webhook ID and configuration - Success confirmation and setup details",
+    "action_type": "create",
+    "when_to_use": "When an external system must react to events in near real time instead of polling.",
+    "when_not_to_use": "Do not use when a simple pull/report is enough — polling may be cheaper.",
+    "preconditions": [
+      "A public HTTPS endpoint that accepts POST",
+      "Event types and description"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "auth": {
+          "description": "Add authentication on webhook url",
+          "properties": {
+            "token": {
+              "description": "Webhook authentication token",
+              "example": "test-auth-token1234",
+              "type": "string"
+            },
+            "type": {
+              "description": "Type of authentication",
+              "example": "bearer",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "batched": {
+          "description": "To send batched webhooks",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "channel": {
+          "default": "email",
+          "description": "Channel of the webhook",
+          "enum": [
+            "email",
+            "sms"
+          ],
+          "example": "email",
+          "type": "string",
+          "x-in": "body"
+        },
+        "description": {
+          "description": "Description of the webhook",
+          "example": "Webhook triggered on unsubscription",
+          "type": "string",
+          "x-in": "body"
+        },
+        "domain": {
+          "description": "Inbound domain of webhook, required in case of event type\n`inbound`",
+          "example": "example.com",
+          "type": "string",
+          "x-in": "body"
+        },
+        "events": {
+          "description": "Events triggering the webhook. Required for transactional and\nmarketing types, optional for inbound type (defaults to\n`inboundEmailProcessed`). Possible values for **Transactional**\ntype webhook: `sent` OR `request`, `delivered`, `hardBounce`,\n`softBounce`, `blocked`, `spam`, `invalid`, `deferred`, `click`,\n`opened`, `uniqueOpened` and `unsubscribed`. Possible values for\n**Marketing** type webhook: `spam`, `opened`, `click`,\n`hardBounce`, `softBounce`, `unsubscribed`, `listAddition`,\n`delivered`, `contactUpdated` & `contactDeleted`. Possible values\nfor **Inbound** type webhook: `inboundEmailProcessed`.",
+          "items": {
+            "enum": [
+              "sent",
+              "hardBounce",
+              "softBounce",
+              "blocked",
+              "spam",
+              "delivered",
+              "request",
+              "click",
+              "invalid",
+              "deferred",
+              "opened",
+              "uniqueOpened",
+              "unsubscribed",
+              "listAddition",
+              "contactUpdated",
+              "contactDeleted",
+              "inboundEmailProcessed",
+              "reply"
+            ],
+            "example": "unsubscribed",
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "headers": {
+          "description": "Custom headers to be send with webhooks",
+          "items": {
+            "properties": {
+              "key": {
+                "description": "Header key name",
+                "example": "cf-secret",
+                "type": "string"
+              },
+              "value": {
+                "description": "Header value",
+                "example": "test-header-value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "type": {
+          "default": "transactional",
+          "description": "Type of the webhook",
+          "enum": [
+            "transactional",
+            "marketing",
+            "inbound"
+          ],
+          "example": "marketing",
+          "type": "string",
+          "x-in": "body"
+        },
+        "url": {
+          "description": "URL of the webhook",
+          "example": "http://requestb.in/173lyyx1",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to create a webhook",
+        "schema": {
+          "properties": {
+            "auth": {
+              "description": "Add authentication on webhook url",
+              "properties": {
+                "token": {
+                  "description": "Webhook authentication token",
+                  "example": "test-auth-token1234",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Type of authentication",
+                  "example": "bearer",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "batched": {
+              "description": "To send batched webhooks",
+              "example": true,
+              "type": "boolean"
+            },
+            "channel": {
+              "default": "email",
+              "description": "Channel of the webhook",
+              "enum": [
+                "email",
+                "sms"
+              ],
+              "example": "email",
+              "type": "string"
+            },
+            "description": {
+              "description": "Description of the webhook",
+              "example": "Webhook triggered on unsubscription",
+              "type": "string"
+            },
+            "domain": {
+              "description": "Inbound domain of webhook, required in case of event type\n`inbound`",
+              "example": "example.com",
+              "type": "string"
+            },
+            "events": {
+              "description": "Events triggering the webhook. Required for transactional and\nmarketing types, optional for inbound type (defaults to\n`inboundEmailProcessed`). Possible values for **Transactional**\ntype webhook: `sent` OR `request`, `delivered`, `hardBounce`,\n`softBounce`, `blocked`, `spam`, `invalid`, `deferred`, `click`,\n`opened`, `uniqueOpened` and `unsubscribed`. Possible values for\n**Marketing** type webhook: `spam`, `opened`, `click`,\n`hardBounce`, `softBounce`, `unsubscribed`, `listAddition`,\n`delivered`, `contactUpdated` & `contactDeleted`. Possible values\nfor **Inbound** type webhook: `inboundEmailProcessed`.",
+              "items": {
+                "enum": [
+                  "sent",
+                  "hardBounce",
+                  "softBounce",
+                  "blocked",
+                  "spam",
+                  "delivered",
+                  "request",
+                  "click",
+                  "invalid",
+                  "deferred",
+                  "opened",
+                  "uniqueOpened",
+                  "unsubscribed",
+                  "listAddition",
+                  "contactUpdated",
+                  "contactDeleted",
+                  "inboundEmailProcessed",
+                  "reply"
+                ],
+                "example": "unsubscribed",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "headers": {
+              "description": "Custom headers to be send with webhooks",
+              "items": {
+                "properties": {
+                  "key": {
+                    "description": "Header key name",
+                    "example": "cf-secret",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "Header value",
+                    "example": "test-header-value",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "type": {
+              "default": "transactional",
+              "description": "Type of the webhook",
+              "enum": [
+                "transactional",
+                "marketing",
+                "inbound"
+              ],
+              "example": "marketing",
+              "type": "string"
+            },
+            "url": {
+              "description": "URL of the webhook",
+              "example": "http://requestb.in/173lyyx1",
+              "format": "url",
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Starts delivering events to the URL",
+      "External side effects in the receiver"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/webhooks",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "webhooks__create_webhook"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createWebhook",
+      "tag": "Webhooks",
+      "ui_area": "Account > Webhooks",
+      "ui_path": "Account > Webhooks > Create"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create a webhook",
+        "ui_path": "Account > Webhooks > Create",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "callback",
+      "event subscription",
+      "webhook endpoint",
+      "create",
+      "webhook",
+      "webhooks"
+    ],
+    "related_actions": [
+      "webhooks.export_webhooks_history",
+      "webhooks.update_webhook"
+    ],
+    "tags": [
+      "webhooks",
+      "create"
+    ],
+    "confidence": 0.99,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /webhooks",
+      "http_status": 201,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    }
+  },
+  {
+    "id": "webhooks.delete_webhook",
+    "version": "1.0.0",
+    "domain": "webhooks",
+    "domain_label": "Webhooks",
+    "name": "Delete a webhook",
+    "intent": "Delete a webhook",
+    "description": "Permanently deletes a webhook and stops all event notifications. Use this to: - Remove unused or obsolete webhook configurations - Clean up webhook endpoints and subscriptions - Stop event notifications to specific URLs - Maintain organized webhook management Key information returned: - Success confirmation of webhook deletion",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "webhookId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the webhook"
+        }
+      },
+      "required": [
+        "webhookId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "webhookId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/webhooks/{webhookId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "webhooks__delete_webhook"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deleteWebhook",
+      "tag": "Webhooks",
+      "ui_area": "Account > Webhooks",
+      "ui_path": "Account > Webhooks > Delete"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Delete a webhook",
+        "ui_path": "Account > Webhooks > Delete",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "delete",
+      "webhook",
+      "webhooks",
+      "remove webhook"
+    ],
+    "related_actions": [],
+    "tags": [
+      "webhooks",
+      "delete"
+    ],
+    "confidence": 0.9,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /webhooks/2691734",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    }
+  },
+  {
+    "id": "webhooks.export_webhooks_history",
+    "version": "1.0.0",
+    "domain": "webhooks",
+    "domain_label": "Webhooks",
+    "name": "Export webhook event history as CSV file",
+    "intent": "Export webhook event history as CSV file",
+    "description": "<Note>This is an enterprise feature. To have it activated please send us a request and we will activate it for your account.</Note> Exports webhook event history to CSV format for analysis and reporting. Use this to: - Generate comprehensive webhook event reports - Analyze webhook delivery patterns and success rates - Export event data for external analysis tools - Create historical reports for compliance and auditing - Track webhook performance and reliability metrics Key information returned: - Process ID for tracking export completion - CSV file will be delivered to specified webhook URL",
+    "action_type": "export",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "oneOf": [
+            {
+              "properties": {
+                "days": {
+                  "description": "Number of days in the past including today (positive\ninteger). _Not compatible with 'startDate' and 'endDate'_",
+                  "example": 7,
+                  "type": "integer"
+                },
+                "email": {
+                  "description": "Filter the history for a specific email",
+                  "example": "example@brevo.com",
+                  "type": "string"
+                },
+                "endDate": {
+                  "description": "Mandatory if startDate is used. Ending date of the report\n(YYYY-MM-DD). Must be greater than equal to startDate",
+                  "example": "2023-02-17",
+                  "type": "string"
+                },
+                "event": {
+                  "description": "Filter the history for a specific event type",
+                  "enum": [
+                    "invalid_parameter",
+                    "missing_parameter",
+                    "hardBounce",
+                    "softBounce",
+                    "delivered",
+                    "spam",
+                    "request",
+                    "opened",
+                    "click",
+                    "invalid",
+                    "deferred",
+                    "blocked",
+                    "unsubscribed",
+                    "error",
+                    "uniqueOpened",
+                    "loadedByProxy",
+                    "allEvents"
+                  ],
+                  "example": "request",
+                  "type": "string"
+                },
+                "messageId": {
+                  "description": "Filter the history for a specific message id. Applicable\nonly for transactional webhooks.",
+                  "example": "<23befbae-1505-47a8-bd27-e30ef739f32c@fr.sib>",
+                  "type": "string"
+                },
+                "notifyURL": {
+                  "description": "Webhook URL to receive CSV file link",
+                  "example": "https://brevo.com",
+                  "type": "string"
+                },
+                "sort": {
+                  "description": "Sorting order of records (asc or desc)",
+                  "example": "desc",
+                  "type": "string"
+                },
+                "startDate": {
+                  "description": "Mandatory if endDate is used. Starting date of the history\n(YYYY-MM-DD). Must be lower than equal to endDate",
+                  "example": "2023-02-13",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Filter the history based on webhook type",
+                  "enum": [
+                    "transactional",
+                    "marketing"
+                  ],
+                  "example": "transactional",
+                  "type": "string"
+                },
+                "webhookId": {
+                  "description": "Filter the history for a specific webhook id",
+                  "example": 2345,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "event",
+                "notifyURL",
+                "type"
+              ],
+              "type": "object"
+            }
+          ],
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "body"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to submit for webhooks history",
+        "schema": {
+          "oneOf": [
+            {
+              "properties": {
+                "days": {
+                  "description": "Number of days in the past including today (positive\ninteger). _Not compatible with 'startDate' and 'endDate'_",
+                  "example": 7,
+                  "type": "integer"
+                },
+                "email": {
+                  "description": "Filter the history for a specific email",
+                  "example": "example@brevo.com",
+                  "type": "string"
+                },
+                "endDate": {
+                  "description": "Mandatory if startDate is used. Ending date of the report\n(YYYY-MM-DD). Must be greater than equal to startDate",
+                  "example": "2023-02-17",
+                  "type": "string"
+                },
+                "event": {
+                  "description": "Filter the history for a specific event type",
+                  "enum": [
+                    "invalid_parameter",
+                    "missing_parameter",
+                    "hardBounce",
+                    "softBounce",
+                    "delivered",
+                    "spam",
+                    "request",
+                    "opened",
+                    "click",
+                    "invalid",
+                    "deferred",
+                    "blocked",
+                    "unsubscribed",
+                    "error",
+                    "uniqueOpened",
+                    "loadedByProxy",
+                    "allEvents"
+                  ],
+                  "example": "request",
+                  "type": "string"
+                },
+                "messageId": {
+                  "description": "Filter the history for a specific message id. Applicable\nonly for transactional webhooks.",
+                  "example": "<23befbae-1505-47a8-bd27-e30ef739f32c@fr.sib>",
+                  "type": "string"
+                },
+                "notifyURL": {
+                  "description": "Webhook URL to receive CSV file link",
+                  "example": "https://brevo.com",
+                  "type": "string"
+                },
+                "sort": {
+                  "description": "Sorting order of records (asc or desc)",
+                  "example": "desc",
+                  "type": "string"
+                },
+                "startDate": {
+                  "description": "Mandatory if endDate is used. Starting date of the history\n(YYYY-MM-DD). Must be lower than equal to endDate",
+                  "example": "2023-02-13",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Filter the history based on webhook type",
+                  "enum": [
+                    "transactional",
+                    "marketing"
+                  ],
+                  "example": "transactional",
+                  "type": "string"
+                },
+                "webhookId": {
+                  "description": "Filter the history for a specific webhook id",
+                  "example": 2345,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "event",
+                "notifyURL",
+                "type"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 202
+    },
+    "response_codes": [
+      202,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Starts an asynchronous export process",
+      "Produces a downloadable file"
+    ],
+    "reversibility": "partially_reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/webhooks/export",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "webhooks__export_webhooks_history"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "exportWebhooksHistory",
+      "tag": "Webhooks",
+      "ui_area": "Account > Webhooks",
+      "ui_path": "Account > Webhooks > History"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Export webhook history",
+        "ui_path": "Account > Webhooks > History",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "export",
+      "webhook",
+      "event",
+      "history",
+      "csv",
+      "file",
+      "webhooks",
+      "webhook logs"
+    ],
+    "related_actions": [],
+    "tags": [
+      "webhooks",
+      "export"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "webhooks.get_webhook",
+    "version": "1.0.0",
+    "domain": "webhooks",
+    "domain_label": "Webhooks",
+    "name": "Get a webhook details",
+    "intent": "Get a webhook details",
+    "description": "Retrieves detailed information about a specific webhook configuration. Use this to: - Get complete webhook configuration and settings - Check webhook event subscriptions and triggers - Review authentication and security settings - Verify webhook URL and custom headers - Access webhook creation and modification history Key information returned: - Complete webhook details and configuration - Event types and channel subscriptions - Authentication credentials and methods - Custom headers and request settings - Webhook status and activity information",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "webhookId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the webhook"
+        }
+      },
+      "required": [
+        "webhookId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "webhookId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "auth": {
+            "description": "Authentication header to be send with the webhook requests",
+            "example": {
+              "token": "test-auth-token1234",
+              "type": "bearer"
+            },
+            "type": "object"
+          },
+          "batched": {
+            "description": "Batching configuration of the webhook, we send batched webhooks if its\ntrue",
+            "example": true,
+            "type": "boolean"
+          },
+          "createdAt": {
+            "description": "Creation UTC date-time of the webhook (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2016-12-01T12:50:00Z",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the webhook",
+            "example": "Webhook triggered on campaign openings",
+            "type": "string"
+          },
+          "events": {
+            "items": {
+              "description": "Events which will trigger the webhook when they occure",
+              "example": "opens,clicks",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "headers": {
+            "items": {
+              "description": "Headers send with the requests to the webhook",
+              "example": {
+                "key": "cf-secret",
+                "value": "test-header-value"
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "id": {
+            "description": "ID of the webhook",
+            "example": 654,
+            "format": "int64",
+            "type": "integer"
+          },
+          "modifiedAt": {
+            "description": "Last modification UTC date-time of the webhook (YYYY-MM-DDTHH:mm:ss.SSSZ)",
+            "example": "2017-05-12T13:15:00Z",
+            "type": "string"
+          },
+          "type": {
+            "description": "Type of webhook (marketing, transactional, or inbound)",
+            "enum": [
+              "marketing",
+              "transactional",
+              "inbound"
+            ],
+            "example": "marketing",
+            "type": "string"
+          },
+          "domain": {
+            "description": "Inbound domain of the webhook, only returned for inbound type webhooks",
+            "example": "example.com",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the webhook",
+            "example": "http://requestb.in/173lyyx1",
+            "format": "url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "description",
+          "events",
+          "id",
+          "modifiedAt",
+          "type",
+          "url"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "auth": {
+          "token": "test-auth-token1234",
+          "type": "bearer"
+        },
+        "batched": true,
+        "createdAt": "2016-06-07T09:10:10Z",
+        "description": "Webhook triggered on campaign openings and addition of lists",
+        "events": [
+          "listAddition",
+          "opened"
+        ],
+        "headers": [
+          {
+            "key": "cf-secret",
+            "value": "test-header-value"
+          }
+        ],
+        "id": 7287,
+        "modifiedAt": "2016-06-08T11:30:00Z",
+        "type": "marketing",
+        "url": "http://example.domain.com/1brxxxxxx5p1"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/webhooks/{webhookId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "webhooks__get_webhook"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getWebhook",
+      "tag": "Webhooks",
+      "ui_area": "Account > Webhooks",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "webhook",
+      "details",
+      "webhooks"
+    ],
+    "related_actions": [],
+    "tags": [
+      "webhooks",
+      "read"
+    ],
+    "confidence": 0.97,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /webhooks/2691734",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    }
+  },
+  {
+    "id": "webhooks.get_webhooks",
+    "version": "1.0.0",
+    "domain": "webhooks",
+    "domain_label": "Webhooks",
+    "name": "Get all webhooks",
+    "intent": "Get all webhooks",
+    "description": "Retrieves all webhooks from your Brevo account with filtering and sorting options. Use this to: - Monitor webhook configurations and event handling - List webhooks by type (transactional, marketing, inbound) - Review webhook endpoints and authentication - Track webhook creation and modification history - Audit webhook event subscriptions Key information returned: - Complete webhook details and configuration - Event types and channel subscriptions - Authentication and security settings - Webhook URLs and custom headers - Creation and modification timestamps",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "default": "transactional",
+          "enum": [
+            "marketing",
+            "transactional",
+            "inbound"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter on webhook type"
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of webhook creation"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "type",
+        "sort"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "webhooks": {
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/getWebhook"
+                }
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "webhooks"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "webhooks": [
+          {
+            "auth": {
+              "token": "test-auth-token1234",
+              "type": "bearer"
+            },
+            "batched": true,
+            "createdAt": "2016-07-18T12:30:09Z",
+            "description": "Webhook triggered on campaign openings",
+            "events": [
+              "opened"
+            ],
+            "headers": [
+              {
+                "key": "cf-secret",
+                "value": "test-header-value"
+              }
+            ],
+            "id": 9864,
+            "modifiedAt": "2016-07-18T16:00:50Z",
+            "type": "transactional",
+            "url": "https://example.domain.com/webhook/events/kzfxxxxxxxx0uyo1"
+          },
+          {
+            "createdAt": "2017-02-20T14:30:00Z",
+            "description": "Webhook triggered on campaign hard bounces",
+            "events": [
+              "hardBounce"
+            ],
+            "id": 22770,
+            "modifiedAt": "2017-02-20T19:00:00Z",
+            "type": "marketing",
+            "url": "http://exmaple.domain.com/15kxxxxxn1"
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/webhooks",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "webhooks__get_webhooks"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getWebhooks",
+      "tag": "Webhooks",
+      "ui_area": "Account > Webhooks",
+      "ui_path": "Account > Webhooks"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "List webhooks",
+        "ui_path": "Account > Webhooks",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "get",
+      "webhooks",
+      "browse webhooks",
+      "list"
+    ],
+    "related_actions": [],
+    "tags": [
+      "webhooks",
+      "read"
+    ],
+    "confidence": 0.98,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T01:04:11.271Z",
+      "method": "/webhooks?type=marketing",
+      "http_status": 400,
+      "account_entitlement": "ok",
+      "note": "{\"code\":\"document_not_found\",\"message\":\"Webhook record does not exist\"}\n",
+      "kind": "read_check"
+    }
+  },
+  {
+    "id": "webhooks.update_webhook",
+    "version": "1.0.0",
+    "domain": "webhooks",
+    "domain_label": "Webhooks",
+    "name": "Update a webhook",
+    "intent": "Update a webhook",
+    "description": "Updates an existing webhook configuration and event subscriptions. Use this to: - Modify webhook event subscriptions and triggers - Update webhook URL and endpoint configuration - Change authentication settings and credentials - Adjust custom headers and request parameters - Enable or disable specific webhook events Key information returned: - Success confirmation of webhook updates",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "webhookId": {
+          "format": "int64",
+          "type": "integer",
+          "x-in": "path",
+          "description": "Id of the webhook"
+        },
+        "auth": {
+          "description": "Add authentication on webhook url",
+          "properties": {
+            "token": {
+              "description": "Webhook authentication token",
+              "example": "test-auth-token1234",
+              "type": "string"
+            },
+            "type": {
+              "description": "Type of authentication",
+              "example": "bearer",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "x-in": "body"
+        },
+        "batched": {
+          "description": "To send batched webhooks",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "description": {
+          "description": "Description of the webhook",
+          "example": "Webhook triggered on contact hardbounce",
+          "type": "string",
+          "x-in": "body"
+        },
+        "domain": {
+          "description": "Inbound domain of webhook, used in case of event type `inbound`",
+          "example": "example.com",
+          "type": "string",
+          "x-in": "body"
+        },
+        "events": {
+          "description": "- Events triggering the webhook. Possible values for\n**Transactional** type webhook: #### `sent` OR `request`,\n`delivered`, `hardBounce`, `softBounce`, `blocked`, `spam`,\n`invalid`, `deferred`, `click`, `opened`, `uniqueOpened` and\n`unsubscribed` - Possible values for **Marketing** type webhook:\n#### `spam`, `opened`, `click`, `hardBounce`, `softBounce`,\n`unsubscribed`, `listAddition` & `delivered` - Possible values\nfor **Inbound** type webhook: #### `inboundEmailProcessed`\n#### `reply`",
+          "items": {
+            "enum": [
+              "sent",
+              "hardBounce",
+              "softBounce",
+              "blocked",
+              "spam",
+              "delivered",
+              "request",
+              "click",
+              "invalid",
+              "deferred",
+              "opened",
+              "uniqueOpened",
+              "unsubscribed",
+              "listAddition",
+              "contactUpdated",
+              "contactDeleted",
+              "inboundEmailProcessed",
+              "reply"
+            ],
+            "example": "hardBounce",
+            "type": "string"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "headers": {
+          "description": "Custom headers to be send with webhooks",
+          "items": {
+            "properties": {
+              "key": {
+                "description": "Header key name",
+                "example": "cf-secret",
+                "type": "string"
+              },
+              "value": {
+                "description": "Header value",
+                "example": "test-header-value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "url": {
+          "description": "URL of the webhook",
+          "example": "http://requestb.in/173lyyx1",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "webhookId"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "webhookId"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Values to update a webhook",
+        "schema": {
+          "properties": {
+            "auth": {
+              "description": "Add authentication on webhook url",
+              "properties": {
+                "token": {
+                  "description": "Webhook authentication token",
+                  "example": "test-auth-token1234",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Type of authentication",
+                  "example": "bearer",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "batched": {
+              "description": "To send batched webhooks",
+              "example": true,
+              "type": "boolean"
+            },
+            "description": {
+              "description": "Description of the webhook",
+              "example": "Webhook triggered on contact hardbounce",
+              "type": "string"
+            },
+            "domain": {
+              "description": "Inbound domain of webhook, used in case of event type `inbound`",
+              "example": "example.com",
+              "type": "string"
+            },
+            "events": {
+              "description": "- Events triggering the webhook. Possible values for\n**Transactional** type webhook: #### `sent` OR `request`,\n`delivered`, `hardBounce`, `softBounce`, `blocked`, `spam`,\n`invalid`, `deferred`, `click`, `opened`, `uniqueOpened` and\n`unsubscribed` - Possible values for **Marketing** type webhook:\n#### `spam`, `opened`, `click`, `hardBounce`, `softBounce`,\n`unsubscribed`, `listAddition` & `delivered` - Possible values\nfor **Inbound** type webhook: #### `inboundEmailProcessed`\n#### `reply`",
+              "items": {
+                "enum": [
+                  "sent",
+                  "hardBounce",
+                  "softBounce",
+                  "blocked",
+                  "spam",
+                  "delivered",
+                  "request",
+                  "click",
+                  "invalid",
+                  "deferred",
+                  "opened",
+                  "uniqueOpened",
+                  "unsubscribed",
+                  "listAddition",
+                  "contactUpdated",
+                  "contactDeleted",
+                  "inboundEmailProcessed",
+                  "reply"
+                ],
+                "example": "hardBounce",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "headers": {
+              "description": "Custom headers to be send with webhooks",
+              "items": {
+                "properties": {
+                  "key": {
+                    "description": "Header key name",
+                    "example": "cf-secret",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "Header value",
+                    "example": "test-header-value",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "url": {
+              "description": "URL of the webhook",
+              "example": "http://requestb.in/173lyyx1",
+              "format": "url",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/webhooks/{webhookId}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "webhooks__update_webhook"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "updateWebhook",
+      "tag": "Webhooks",
+      "ui_area": "Account > Webhooks",
+      "ui_path": "Account > Webhooks > Edit"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Update a webhook",
+        "ui_path": "Account > Webhooks > Edit",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "update",
+      "webhook",
+      "webhooks",
+      "edit webhook"
+    ],
+    "related_actions": [],
+    "tags": [
+      "webhooks",
+      "update"
+    ],
+    "confidence": 0.96,
+    "verification": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: PUT /webhooks/2691734",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    }
+  }
+]

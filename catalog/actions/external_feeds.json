@@ -1,0 +1,1258 @@
+[
+  {
+    "id": "external_feeds.create_external_feed",
+    "version": "1.0.0",
+    "domain": "external_feeds",
+    "domain_label": "External feeds (RSS)",
+    "name": "Create external feed",
+    "intent": "Create external feed",
+    "description": "Creates a new external feed for dynamic content in email campaigns. **Use this to:** - Set up external data sources for dynamic content - Configure authentication for protected feeds - Enable real-time content updates in campaigns - Establish connections to product catalogs, blogs, or APIs **Key information returned:** - Created feed UUID for reference in campaigns - Success confirmation **Important considerations:** - Feed URL must be accessible from Brevo infrastructure - Authentication credentials are securely encrypted - Test feed accessibility before campaign use - Consider feed response…",
+    "action_type": "create",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the feed",
+          "example": "Product Catalog Feed",
+          "type": "string",
+          "x-in": "body"
+        },
+        "url": {
+          "description": "URL of the external data source",
+          "example": "https://api.example.com/products",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        },
+        "authType": {
+          "description": "Authentication type for accessing the feed",
+          "default": "noAuth",
+          "enum": [
+            "basic",
+            "token",
+            "noAuth"
+          ],
+          "example": "token",
+          "type": "string",
+          "x-in": "body"
+        },
+        "username": {
+          "description": "Username for basic authentication (required if authType is 'basic')",
+          "example": "api_user",
+          "type": "string",
+          "x-in": "body"
+        },
+        "password": {
+          "description": "Password for basic authentication (required if authType is 'basic')",
+          "example": "secure_pass123",
+          "type": "string",
+          "x-in": "body"
+        },
+        "token": {
+          "description": "Token for token-based authentication (required if authType is 'token')",
+          "example": "token_abc123",
+          "type": "string",
+          "x-in": "body"
+        },
+        "maxRetries": {
+          "description": "Maximum number of retry attempts for failed requests",
+          "default": 5,
+          "example": 3,
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "body"
+        },
+        "cache": {
+          "description": "Whether to cache the feed response",
+          "default": true,
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        },
+        "headers": {
+          "description": "Custom HTTP headers for the feed request",
+          "items": {
+            "properties": {
+              "name": {
+                "description": "Header name",
+                "example": "Authorization",
+                "type": "string"
+              },
+              "value": {
+                "description": "Header value",
+                "example": "Bearer xyz789",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "name",
+        "url"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "External feed configuration",
+        "schema": {
+          "properties": {
+            "name": {
+              "description": "Name of the feed",
+              "example": "Product Catalog Feed",
+              "type": "string"
+            },
+            "url": {
+              "description": "URL of the external data source",
+              "example": "https://api.example.com/products",
+              "format": "url",
+              "type": "string"
+            },
+            "authType": {
+              "description": "Authentication type for accessing the feed",
+              "default": "noAuth",
+              "enum": [
+                "basic",
+                "token",
+                "noAuth"
+              ],
+              "example": "token",
+              "type": "string"
+            },
+            "username": {
+              "description": "Username for basic authentication (required if authType is 'basic')",
+              "example": "api_user",
+              "type": "string"
+            },
+            "password": {
+              "description": "Password for basic authentication (required if authType is 'basic')",
+              "example": "secure_pass123",
+              "type": "string"
+            },
+            "token": {
+              "description": "Token for token-based authentication (required if authType is 'token')",
+              "example": "token_abc123",
+              "type": "string"
+            },
+            "maxRetries": {
+              "description": "Maximum number of retry attempts for failed requests",
+              "default": 5,
+              "example": 3,
+              "maximum": 5,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "cache": {
+              "description": "Whether to cache the feed response",
+              "default": true,
+              "example": true,
+              "type": "boolean"
+            },
+            "headers": {
+              "description": "Custom HTTP headers for the feed request",
+              "items": {
+                "properties": {
+                  "name": {
+                    "description": "Header name",
+                    "example": "Authorization",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "Header value",
+                    "example": "Bearer xyz789",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "name",
+            "url"
+          ],
+          "type": "object"
+        },
+        "example": {
+          "name": "Public API Feed",
+          "url": "https://jsonplaceholder.typicode.com/posts",
+          "authType": "noAuth",
+          "cache": true,
+          "maxRetries": 3
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201,
+      "schema": {
+        "properties": {
+          "id": {
+            "description": "UUID of the created feed",
+            "example": "b1c2d3e4-f5a6-47b8-89c0-d1e2f3a4b5c6",
+            "format": "uuidv4",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "id": "b1c2d3e4-f5a6-47b8-89c0-d1e2f3a4b5c6"
+      }
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Creates a new resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/feeds",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "external_feeds__create_external_feed"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "createExternalFeed",
+      "tag": "External Feeds",
+      "ui_area": "Marketing > External feeds",
+      "ui_path": "Marketing > External feeds > Create"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Create an RSS feed",
+        "ui_path": "Marketing > External feeds > Create",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "create",
+      "external",
+      "feed",
+      "external feed",
+      "external feeds",
+      "rss feed",
+      "rss"
+    ],
+    "related_actions": [],
+    "tags": [
+      "external_feeds",
+      "create"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "external_feeds.delete_external_feed",
+    "version": "1.0.0",
+    "domain": "external_feeds",
+    "domain_label": "External feeds (RSS)",
+    "name": "Delete external feed",
+    "intent": "Delete external feed",
+    "description": "Deletes an external feed from your Brevo account. **Use this to:** - Remove external feeds that are no longer needed - Clean up unused data sources - Remove test or outdated feeds - Maintain organized feed library **Key information returned:** - Success confirmation message **Important considerations:** - This action is PERMANENT and cannot be undone - Feed configuration and history will be lost - Check if feed is used in active campaigns before deletion - Remove feed references from email templates - Consider deactivating instead of deleting if unsure",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "format": "uuidv4",
+          "type": "string",
+          "x-in": "path",
+          "description": "UUID of the feed to delete"
+        }
+      },
+      "required": [
+        "uuid"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "uuid"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/feeds/{uuid}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "external_feeds__delete_external_feed"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "deleteExternalFeed",
+      "tag": "External Feeds",
+      "ui_area": "Marketing > External feeds",
+      "ui_path": "Marketing > External feeds > Delete"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Delete an RSS feed",
+        "ui_path": "Marketing > External feeds > Delete",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "delete",
+      "external",
+      "feed",
+      "external feed",
+      "external feeds",
+      "remove rss",
+      "rss"
+    ],
+    "related_actions": [],
+    "tags": [
+      "external_feeds",
+      "delete"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "external_feeds.get_external_feed_uuid",
+    "version": "1.0.0",
+    "domain": "external_feeds",
+    "domain_label": "External feeds (RSS)",
+    "name": "Get external feed details",
+    "intent": "Get external feed details",
+    "description": "Retrieves details of a specific external feed by its UUID. **Use this to:** - Get complete configuration of an external feed - Check feed authentication settings - Review feed personalization options - Verify feed URL and parameters - Monitor feed modification history **Key information returned:** - Complete feed configuration and settings - Authentication credentials and headers - Personalization and fallback settings - Creation and modification timestamps - Cache and retry configurations **Important considerations:** - UUID must exist in your account - Provides complete feed information for…",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "format": "uuidv4",
+          "type": "string",
+          "x-in": "path",
+          "description": "UUID of the feed to fetch"
+        }
+      },
+      "required": [
+        "uuid"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "uuid"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "id": {
+            "description": "Unique identifier of the feed",
+            "example": "b1c2d3e4-f5a6-47b8-89c0-d1e2f3a4b5c6",
+            "format": "uuidv4",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the feed",
+            "example": "Product Catalog Feed",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the external data source",
+            "example": "https://api.example.com/products",
+            "format": "url",
+            "type": "string"
+          },
+          "authType": {
+            "description": "Authentication type for accessing the feed",
+            "enum": [
+              "basic",
+              "token",
+              "noAuth"
+            ],
+            "example": "token",
+            "type": "string"
+          },
+          "username": {
+            "description": "Username for basic authentication. Only returned when authType is 'basic'. Excluded from response when authType is 'token'.",
+            "example": "api_user",
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "description": "Password for basic authentication. Only returned when authType is 'basic'. Excluded from response when authType is 'token'.",
+            "example": "secure_pass123",
+            "type": "string",
+            "nullable": true
+          },
+          "token": {
+            "description": "Token for token-based authentication. Only returned when authType is 'token'. Excluded from response when authType is 'basic' or 'noAuth'.",
+            "example": "token_abc123",
+            "type": "string",
+            "nullable": true
+          },
+          "headers": {
+            "description": "Custom HTTP headers for the feed request",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "Header name",
+                  "example": "Authorization",
+                  "type": "string"
+                },
+                "value": {
+                  "description": "Header value",
+                  "example": "Bearer xyz789",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "value"
+              ],
+              "type": "object"
+            },
+            "type": "array",
+            "nullable": true
+          },
+          "maxRetries": {
+            "description": "Maximum number of retry attempts for failed requests",
+            "example": 3,
+            "maximum": 5,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "cache": {
+            "description": "Whether to cache the feed response",
+            "example": true,
+            "type": "boolean"
+          },
+          "createdAt": {
+            "description": "Feed creation timestamp",
+            "example": "2025-09-18T13:29:27.208Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "modifiedAt": {
+            "description": "Feed last modification timestamp",
+            "example": "2025-09-18T13:29:27.208Z",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "url",
+          "authType",
+          "maxRetries",
+          "cache",
+          "createdAt",
+          "modifiedAt"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "id": "b1c2d3e4-f5a6-47b8-89c0-d1e2f3a4b5c6",
+        "name": "Product Catalog Feed",
+        "url": "https://api.example.com/products",
+        "authType": "token",
+        "token": "abc123token456",
+        "headers": null,
+        "maxRetries": 3,
+        "cache": true,
+        "createdAt": "2025-09-18T13:29:27.208Z",
+        "modifiedAt": "2025-09-18T13:29:27.208Z"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/feeds/{uuid}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "external_feeds__get_external_feed_uuid"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getExternalFeedByUUID",
+      "tag": "External Feeds",
+      "ui_area": "Marketing > External feeds",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "external",
+      "feed",
+      "details",
+      "external feed",
+      "external feeds"
+    ],
+    "related_actions": [],
+    "tags": [
+      "external_feeds",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "external_feeds.get_external_feeds",
+    "version": "1.0.0",
+    "domain": "external_feeds",
+    "domain_label": "External feeds (RSS)",
+    "name": "Get all external feeds",
+    "intent": "Get all external feeds",
+    "description": "Retrieves all external feeds from your Brevo account with filtering and pagination. **Use this to:** - Get an overview of all external data feeds - Find feeds by name using search functionality - Filter feeds by creation date range - Browse feeds by authentication type - Monitor feed library organization and usage **Key information returned:** - Feed details (UUID, name, URL, authentication type) - Feed configuration and settings - Creation and modification timestamps - Feed status and error information - Authentication and header configurations **Important considerations:** - External feeds …",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "search": {
+          "type": "string",
+          "x-in": "query",
+          "description": "Can be used to filter records by search keyword on feed name"
+        },
+        "startDate": {
+          "format": "date",
+          "type": "string",
+          "x-in": "query",
+          "description": "Mandatory if `endDate` is used. Starting date (YYYY-MM-DD) from which you want to fetch the list. Can be maximum 30 days older than current date."
+        },
+        "endDate": {
+          "format": "date",
+          "type": "string",
+          "x-in": "query",
+          "description": "Mandatory if `startDate` is used. Ending date (YYYY-MM-DD) till which you want to fetch the list. Maximum time period that can be selected is one month."
+        },
+        "sort": {
+          "default": "desc",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed."
+        },
+        "authType": {
+          "enum": [
+            "basic",
+            "token",
+            "noAuth"
+          ],
+          "type": "string",
+          "x-in": "query",
+          "description": "Filter the records by `authType` of the feed."
+        },
+        "limit": {
+          "default": 50,
+          "format": "int64",
+          "maximum": 500,
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "query",
+          "description": "Number of documents returned per page."
+        },
+        "offset": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer",
+          "x-in": "query",
+          "description": "Index of the first document on the page."
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [
+        "search",
+        "startDate",
+        "endDate",
+        "sort",
+        "authType",
+        "limit",
+        "offset"
+      ],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "count": {
+            "description": "Total number of feeds",
+            "example": 18,
+            "type": "integer"
+          },
+          "feeds": {
+            "description": "List of external feeds",
+            "items": {
+              "properties": {
+                "id": {
+                  "description": "Unique identifier of the feed",
+                  "example": "b1c2d3e4-f5a6-47b8-89c0-d1e2f3a4b5c6",
+                  "format": "uuidv4",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "Name of the feed",
+                  "example": "Product Catalog Feed",
+                  "type": "string"
+                },
+                "url": {
+                  "description": "URL of the external data source",
+                  "example": "https://api.example.com/products",
+                  "format": "url",
+                  "type": "string"
+                },
+                "authType": {
+                  "description": "Authentication type for accessing the feed",
+                  "enum": [
+                    "basic",
+                    "token",
+                    "noAuth"
+                  ],
+                  "example": "token",
+                  "type": "string"
+                },
+                "username": {
+                  "description": "Username for basic authentication. Only returned when authType is 'basic'. Excluded when authType is 'token'.",
+                  "example": "apiuser",
+                  "type": "string"
+                },
+                "password": {
+                  "description": "Password for basic authentication. Only returned when authType is 'basic'. Excluded when authType is 'token'.",
+                  "example": "apipass",
+                  "type": "string"
+                },
+                "token": {
+                  "description": "Token for token-based authentication. Only returned when authType is 'token'. Excluded when authType is 'basic' or 'noAuth'.",
+                  "example": "abc123token456",
+                  "type": "string"
+                },
+                "maxRetries": {
+                  "description": "Maximum number of retry attempts for failed requests",
+                  "example": 3,
+                  "maximum": 5,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "cache": {
+                  "description": "Whether to cache the feed response",
+                  "example": true,
+                  "type": "boolean"
+                },
+                "headers": {
+                  "description": "Custom HTTP headers for the feed request",
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "description": "Header name",
+                        "example": "Authorization",
+                        "type": "string"
+                      },
+                      "value": {
+                        "description": "Header value",
+                        "example": "Bearer xyz789",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "nullable": true
+                },
+                "createdAt": {
+                  "description": "Feed creation timestamp",
+                  "example": "2025-09-18T13:29:27.208Z",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modifiedAt": {
+                  "description": "Feed last modification timestamp",
+                  "example": "2025-09-18T13:29:27.208Z",
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "url",
+                "authType",
+                "maxRetries",
+                "cache",
+                "createdAt",
+                "modifiedAt"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "count",
+          "feeds"
+        ],
+        "type": "object"
+      },
+      "example": {
+        "count": 18,
+        "feeds": [
+          {
+            "id": "b1c2d3e4-f5a6-47b8-89c0-d1e2f3a4b5c6",
+            "name": "Product Catalog Feed",
+            "url": "https://api.example.com/products",
+            "authType": "noAuth",
+            "maxRetries": 3,
+            "cache": true,
+            "createdAt": "2025-09-18T13:29:27.208Z",
+            "modifiedAt": "2025-09-18T13:29:27.208Z"
+          },
+          {
+            "id": "c2d3e4f5-a6b7-48c9-90d1-e2f3a4b5c6d7",
+            "name": "Blog News Feed",
+            "url": "https://blog.example.com/api/posts",
+            "authType": "token",
+            "token": "abc123token456",
+            "maxRetries": 3,
+            "cache": true,
+            "createdAt": "2025-09-17T16:03:25.826Z",
+            "modifiedAt": "2025-09-17T16:03:25.826Z"
+          },
+          {
+            "id": "d3e4f5a6-b7c8-49d0-91e2-f3a4b5c6d7e8",
+            "name": "Public Data Feed",
+            "url": "https://jsonplaceholder.typicode.com/posts",
+            "authType": "basic",
+            "username": "apiuser",
+            "password": "apipass",
+            "maxRetries": 3,
+            "cache": true,
+            "createdAt": "2025-09-05T09:06:42.848Z",
+            "modifiedAt": "2025-09-05T09:06:42.848Z"
+          }
+        ]
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Record not found"
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/feeds",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "external_feeds__get_external_feeds"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "getAllExternalFeeds",
+      "tag": "External Feeds",
+      "ui_area": "Marketing > External feeds",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "external",
+      "feeds",
+      "external feed",
+      "external feeds"
+    ],
+    "related_actions": [],
+    "tags": [
+      "external_feeds",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "external_feeds.update_external_feed",
+    "version": "1.0.0",
+    "domain": "external_feeds",
+    "domain_label": "External feeds (RSS)",
+    "name": "Update external feed",
+    "intent": "Update external feed",
+    "description": "Updates configuration of an existing external feed. **Use this to:** - Update feed URLs when data sources change - Modify authentication credentials - Change cache and retry settings - Update custom headers - Rename feeds for better organization **Key information returned:** - Success confirmation message **Important considerations:** - Only provided fields will be updated - Feed UUID must exist in your account - Authentication changes require verification - URL changes should be tested before campaign use - Monitor campaigns using this feed after updates",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "format": "uuidv4",
+          "type": "string",
+          "x-in": "path",
+          "description": "UUID of the feed to update"
+        },
+        "name": {
+          "description": "Name of the feed",
+          "example": "Updated Product Catalog",
+          "type": "string",
+          "x-in": "body"
+        },
+        "url": {
+          "description": "URL of the external data source",
+          "example": "https://api.newstore.com/products/v2",
+          "format": "url",
+          "type": "string",
+          "x-in": "body"
+        },
+        "authType": {
+          "description": "Authentication type for accessing the feed",
+          "enum": [
+            "basic",
+            "token",
+            "noAuth"
+          ],
+          "example": "token",
+          "type": "string",
+          "x-in": "body"
+        },
+        "username": {
+          "description": "Username for basic authentication",
+          "example": "apiuser",
+          "type": "string",
+          "x-in": "body"
+        },
+        "password": {
+          "description": "Password for basic authentication",
+          "example": "newsecurepass456",
+          "type": "string",
+          "x-in": "body"
+        },
+        "token": {
+          "description": "Token for token-based authentication",
+          "example": "newabc123token789",
+          "type": "string",
+          "x-in": "body"
+        },
+        "headers": {
+          "description": "Custom HTTP headers for the feed request",
+          "items": {
+            "properties": {
+              "name": {
+                "description": "Header name",
+                "example": "X-API-Version",
+                "type": "string"
+              },
+              "value": {
+                "description": "Header value",
+                "example": "v2",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "x-in": "body"
+        },
+        "maxRetries": {
+          "description": "Maximum number of retry attempts for failed requests",
+          "example": 3,
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer",
+          "x-in": "body"
+        },
+        "cache": {
+          "description": "Whether to cache the feed response",
+          "example": true,
+          "type": "boolean",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "uuid"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "uuid"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "description": "Feed configuration updates",
+        "schema": {
+          "properties": {
+            "name": {
+              "description": "Name of the feed",
+              "example": "Updated Product Catalog",
+              "type": "string"
+            },
+            "url": {
+              "description": "URL of the external data source",
+              "example": "https://api.newstore.com/products/v2",
+              "format": "url",
+              "type": "string"
+            },
+            "authType": {
+              "description": "Authentication type for accessing the feed",
+              "enum": [
+                "basic",
+                "token",
+                "noAuth"
+              ],
+              "example": "token",
+              "type": "string"
+            },
+            "username": {
+              "description": "Username for basic authentication",
+              "example": "apiuser",
+              "type": "string"
+            },
+            "password": {
+              "description": "Password for basic authentication",
+              "example": "newsecurepass456",
+              "type": "string"
+            },
+            "token": {
+              "description": "Token for token-based authentication",
+              "example": "newabc123token789",
+              "type": "string"
+            },
+            "headers": {
+              "description": "Custom HTTP headers for the feed request",
+              "items": {
+                "properties": {
+                  "name": {
+                    "description": "Header name",
+                    "example": "X-API-Version",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "Header value",
+                    "example": "v2",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "maxRetries": {
+              "description": "Maximum number of retry attempts for failed requests",
+              "example": 3,
+              "maximum": 5,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "cache": {
+              "description": "Whether to cache the feed response",
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "example": {
+          "name": "Updated Product Catalog",
+          "url": "https://api.newstore.com/products/v2"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/feeds/{uuid}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "external_feeds__update_external_feed"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": "updateExternalFeed",
+      "tag": "External Feeds",
+      "ui_area": "Marketing > External feeds",
+      "ui_path": "Marketing > External feeds > Edit"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Update an RSS feed",
+        "ui_path": "Marketing > External feeds > Edit",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "update",
+      "external",
+      "feed",
+      "external feed",
+      "external feeds",
+      "edit rss",
+      "rss"
+    ],
+    "related_actions": [],
+    "tags": [
+      "external_feeds",
+      "update"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

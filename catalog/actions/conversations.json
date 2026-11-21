@@ -1,0 +1,3571 @@
+[
+  {
+    "id": "conversations.configure_chat_widget",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Configure a chat widget",
+    "intent": "Customize the website chat widget appearance and behavior.",
+    "description": "Customize the website chat widget appearance and behavior.",
+    "action_type": "ui_action",
+    "preconditions": [],
+    "request": null,
+    "response_codes": [],
+    "errors": [],
+    "side_effects": [
+      "Performed manually in the Brevo UI; no public API execution path"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "unknown",
+    "rate_limit": null,
+    "auth": null,
+    "execution": {
+      "kind": "ui_only",
+      "endpoint": null,
+      "related_action": null,
+      "ui_path": "Conversations > Settings > Widget",
+      "tool_name": null
+    },
+    "evidence": {
+      "source": "ui_inventory",
+      "spec_file": null,
+      "spec_version": null,
+      "operation_id": null,
+      "tag": null,
+      "ui_area": "Conversations",
+      "ui_path": "Conversations > Settings > Widget",
+      "help_center_sources": [
+        "https://help.brevo.com/hc/en-us/categories/201091065-CRM",
+        "https://help.brevo.com/hc/en-us/categories/201033249-Marketing",
+        "https://help.brevo.com/hc/en-us/sections/18475760154258-Automations",
+        "https://help.brevo.com/hc/en-us/sections/31687633423250-Commerce",
+        "https://help.brevo.com/hc/en-us/categories/360000273040-Conversations",
+        "https://help.brevo.com/hc/en-us/sections/18475881120658-Transactional",
+        "https://developers.brevo.com/docs/mcp-protocol"
+      ]
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "chat widget",
+      "live chat setup"
+    ],
+    "related_actions": [],
+    "tags": [
+      "conversations",
+      "ui_only",
+      "ui"
+    ],
+    "confidence": 0.72,
+    "verification": {
+      "status": "unverified",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "conversations.delete_message",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Delete a message sent by an agent",
+    "intent": "Delete a message sent by an agent",
+    "description": "Delete a message sent by an agent. Only messages of type `agent` can be deleted.",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-in": "path",
+          "description": "ID of the message"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Returned when the message is not found."
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/conversations/messages/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "conversations__delete_message"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Conversations",
+      "ui_area": "Conversations",
+      "ui_path": "Conversations > Message > Delete"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Delete a sent message",
+        "ui_path": "Conversations > Message > Delete",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "delete",
+      "message",
+      "sent",
+      "agent",
+      "conversations",
+      "remove message"
+    ],
+    "related_actions": [],
+    "tags": [
+      "conversations",
+      "delete"
+    ],
+    "confidence": 0.87,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "conversations.delete_pushed_message",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Delete an automated message",
+    "intent": "Delete an automated message",
+    "description": "Delete an automated (pushed) message by its ID.",
+    "action_type": "delete",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-in": "path",
+          "description": "ID of the message"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 204
+    },
+    "response_codes": [
+      204,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Returned when the message is not found."
+      }
+    ],
+    "side_effects": [
+      "Deletes the resource",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "DELETE",
+        "path": "/conversations/pushedMessages/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "conversations__delete_pushed_message"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Conversations",
+      "ui_area": "Conversations",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "delete",
+      "automated",
+      "message",
+      "conversations"
+    ],
+    "related_actions": [],
+    "tags": [
+      "conversations",
+      "delete"
+    ],
+    "confidence": 0.86,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "conversations.get_message",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Get a message",
+    "intent": "Get a message",
+    "description": "Retrieve a single message by its ID.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-in": "path",
+          "description": "ID of the message"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "description": "a Conversations message",
+        "properties": {
+          "agentId": {
+            "description": "ID of the agent on whose behalf the message was sent (only in messages sent by an agent).",
+            "example": "d9nKoegKSjmCtyK78",
+            "type": "string"
+          },
+          "agentName": {
+            "description": "Agent’s name as displayed to the visitor. Only in the messages sent by an agent.",
+            "example": "Liz",
+            "type": "string"
+          },
+          "agentUserpic": {
+            "description": "Only set if the agent has uploaded a profile picture.",
+            "example": "https://www.brevo.com/",
+            "type": "string"
+          },
+          "attachments": {
+            "description": "An array of file attachments.",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "The name of the file.",
+                  "type": "string"
+                },
+                "link": {
+                  "description": "The URL of the file.",
+                  "type": "string"
+                },
+                "mimeType": {
+                  "description": "The MIME type of the file.",
+                  "type": "string"
+                },
+                "isImage": {
+                  "description": "`true` for images.",
+                  "type": "boolean"
+                },
+                "isSticker": {
+                  "description": "`true` for sticker files.",
+                  "type": "boolean"
+                },
+                "isInline": {
+                  "description": "`true` for inline files.",
+                  "type": "boolean"
+                },
+                "inlineId": {
+                  "description": "The ID of the inline file.",
+                  "type": "string"
+                },
+                "size": {
+                  "description": "The size of the file in bytes.",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "imageInfo": {
+                  "description": "Image information (only present for image files).",
+                  "properties": {
+                    "width": {
+                      "description": "Width of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "height": {
+                      "description": "Height of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "previewLink": {
+                      "description": "URL of the image preview.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "isAllowedFileType": {
+                  "description": "Whether the file extension is allowed for download.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "bcc": {
+            "description": "An array containing details of the blind carbon copy (BCC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "cc": {
+            "description": "An array containing details of the carbon copy (CC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "createdAt": {
+            "description": "Timestamp in milliseconds.",
+            "example": 1470222622433,
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "file": {
+            "properties": {
+              "name": {
+                "description": "Name of the file.",
+                "example": "conversations.png",
+                "type": "string"
+              },
+              "link": {
+                "description": "URL of the file.",
+                "example": "https://ucarecdn.com/cee5c10c-8302-45c1-b1fb-43860ca941a9/",
+                "type": "string"
+              },
+              "mimeType": {
+                "description": "MIME type of the file.",
+                "type": "string"
+              },
+              "isImage": {
+                "description": "Whether the file is an image.",
+                "example": true,
+                "type": "boolean"
+              },
+              "isSticker": {
+                "description": "Whether the file is a sticker.",
+                "type": "boolean"
+              },
+              "isInline": {
+                "description": "Whether the file is inline.",
+                "type": "boolean"
+              },
+              "inlineId": {
+                "description": "The ID of the inline file.",
+                "type": "string"
+              },
+              "size": {
+                "description": "Size in bytes.",
+                "example": 15538,
+                "format": "int64",
+                "minimum": 0,
+                "type": "integer"
+              },
+              "imageInfo": {
+                "description": "Image info, present when the file is an image.",
+                "properties": {
+                  "width": {
+                    "description": "Width of the image in pixels.",
+                    "example": 1129,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "height": {
+                    "description": "Height of the image in pixels.",
+                    "example": 525,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "previewLink": {
+                    "description": "URL of the image preview.",
+                    "example": "https://ucarecdn.com/03cd56cd-1de9-4f65-996d-08afdf27fa1b/-/preview/800x800/-/quality/better/",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "isAllowedFileType": {
+                "description": "Whether the file extension is allowed for download.",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "forwardedToSourceStatus": {
+            "description": "Status of the message forwarding to the source.",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "isSuccess": {
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "from": {
+            "description": "An object containing details about the email sender (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "html": {
+            "description": "The HTML content of the message.",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "id": {
+            "description": "Message ID. It can be used for further manipulations with the message.",
+            "example": "eYBEm3gq3zc5ayE2g",
+            "type": "string"
+          },
+          "integrations": {
+            "description": "Integration details.",
+            "type": "object"
+          },
+          "isBot": {
+            "description": "`true` for automated messages generated by an AI bot.",
+            "type": "boolean"
+          },
+          "isMissed": {
+            "description": "`true` for missed and offline messages.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isMissedByVisitor": {
+            "description": "`true` for unread agent’s messages in finished chats.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isPushed": {
+            "description": "`true` for pushed messages",
+            "example": true,
+            "type": "boolean"
+          },
+          "isTrigger": {
+            "description": "`true` for automatic messages from “Targeted chats & triggers” and API (https://developers.brevo.com/docs/javascript-api-reference#sendautomessage)",
+            "example": false,
+            "type": "boolean"
+          },
+          "rawUnsafeHtml": {
+            "description": "Unescaped HTML content of the message (may include unsafe HTML).",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "receivedFrom": {
+            "description": "In two-way integrations, messages sent via REST API can be marked with receivedFrom property and then filtered out when received in a webhook to avoid infinite loop.",
+            "example": "SuperAwesomeHelpdesk",
+            "type": "string"
+          },
+          "replyTo": {
+            "description": "An object containing details of the reply-to email address (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "sourceMessageId": {
+            "description": "The ID of the message assigned by the integration source.",
+            "type": "string"
+          },
+          "subject": {
+            "description": "The subject line of the email message (only for messages sent to email threads).",
+            "example": "Invitation to a meeting",
+            "type": "string"
+          },
+          "text": {
+            "description": "Message text or name of the attached file",
+            "example": "Good morning! How can I help you?",
+            "type": "string"
+          },
+          "to": {
+            "description": "An array containing details of the recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "`\"agent\"` for agents’ messages, `\"visitor\"` for visitors’ messages.",
+            "enum": [
+              "agent",
+              "visitor"
+            ],
+            "example": "agent",
+            "type": "string"
+          },
+          "isSentViaJsApi": {
+            "description": "‘`true` if the message was sent via JavaScript API.’",
+            "type": "boolean"
+          },
+          "messageType": {
+            "description": "The type of message content (e.g. for integration-specific message types).",
+            "type": "string"
+          },
+          "isForward": {
+            "description": "‘`true` if the message is a forwarded message.’",
+            "type": "boolean"
+          },
+          "source": {
+            "description": "Source information for the message.",
+            "type": "object"
+          },
+          "visitorId": {
+            "description": "visitor’s ID",
+            "example": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "agentId": "d9nKoegKSjmCtyK78",
+        "createdAt": 1482512803740,
+        "html": "Hello! How can I help you?",
+        "id": "eYBEm3gq3zc5ayE2g",
+        "isMissed": false,
+        "isMissedByVisitor": false,
+        "isPushed": false,
+        "isTrigger": false,
+        "receivedFrom": "SuperAwesomeHelpdesk",
+        "text": "Hello! How can I help you?",
+        "type": "agent",
+        "visitorId": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Returned when the message is not found."
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/conversations/messages/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "conversations__get_message"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Conversations",
+      "ui_area": "Conversations",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "message",
+      "conversations"
+    ],
+    "related_actions": [],
+    "tags": [
+      "conversations",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "conversations.get_pushed_message",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Get an automated message",
+    "intent": "Get an automated message",
+    "description": "Retrieve a single automated (pushed) message by its ID.",
+    "action_type": "read",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-in": "path",
+          "description": "ID of the message sent previously"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": null
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "description": "a Conversations message",
+        "properties": {
+          "agentId": {
+            "description": "ID of the agent on whose behalf the message was sent (only in messages sent by an agent).",
+            "example": "d9nKoegKSjmCtyK78",
+            "type": "string"
+          },
+          "agentName": {
+            "description": "Agent’s name as displayed to the visitor. Only in the messages sent by an agent.",
+            "example": "Liz",
+            "type": "string"
+          },
+          "agentUserpic": {
+            "description": "Only set if the agent has uploaded a profile picture.",
+            "example": "https://www.brevo.com/",
+            "type": "string"
+          },
+          "attachments": {
+            "description": "An array of file attachments.",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "The name of the file.",
+                  "type": "string"
+                },
+                "link": {
+                  "description": "The URL of the file.",
+                  "type": "string"
+                },
+                "mimeType": {
+                  "description": "The MIME type of the file.",
+                  "type": "string"
+                },
+                "isImage": {
+                  "description": "`true` for images.",
+                  "type": "boolean"
+                },
+                "isSticker": {
+                  "description": "`true` for sticker files.",
+                  "type": "boolean"
+                },
+                "isInline": {
+                  "description": "`true` for inline files.",
+                  "type": "boolean"
+                },
+                "inlineId": {
+                  "description": "The ID of the inline file.",
+                  "type": "string"
+                },
+                "size": {
+                  "description": "The size of the file in bytes.",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "imageInfo": {
+                  "description": "Image information (only present for image files).",
+                  "properties": {
+                    "width": {
+                      "description": "Width of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "height": {
+                      "description": "Height of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "previewLink": {
+                      "description": "URL of the image preview.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "isAllowedFileType": {
+                  "description": "Whether the file extension is allowed for download.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "bcc": {
+            "description": "An array containing details of the blind carbon copy (BCC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "cc": {
+            "description": "An array containing details of the carbon copy (CC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "createdAt": {
+            "description": "Timestamp in milliseconds.",
+            "example": 1470222622433,
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "file": {
+            "properties": {
+              "name": {
+                "description": "Name of the file.",
+                "example": "conversations.png",
+                "type": "string"
+              },
+              "link": {
+                "description": "URL of the file.",
+                "example": "https://ucarecdn.com/cee5c10c-8302-45c1-b1fb-43860ca941a9/",
+                "type": "string"
+              },
+              "mimeType": {
+                "description": "MIME type of the file.",
+                "type": "string"
+              },
+              "isImage": {
+                "description": "Whether the file is an image.",
+                "example": true,
+                "type": "boolean"
+              },
+              "isSticker": {
+                "description": "Whether the file is a sticker.",
+                "type": "boolean"
+              },
+              "isInline": {
+                "description": "Whether the file is inline.",
+                "type": "boolean"
+              },
+              "inlineId": {
+                "description": "The ID of the inline file.",
+                "type": "string"
+              },
+              "size": {
+                "description": "Size in bytes.",
+                "example": 15538,
+                "format": "int64",
+                "minimum": 0,
+                "type": "integer"
+              },
+              "imageInfo": {
+                "description": "Image info, present when the file is an image.",
+                "properties": {
+                  "width": {
+                    "description": "Width of the image in pixels.",
+                    "example": 1129,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "height": {
+                    "description": "Height of the image in pixels.",
+                    "example": 525,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "previewLink": {
+                    "description": "URL of the image preview.",
+                    "example": "https://ucarecdn.com/03cd56cd-1de9-4f65-996d-08afdf27fa1b/-/preview/800x800/-/quality/better/",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "isAllowedFileType": {
+                "description": "Whether the file extension is allowed for download.",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "forwardedToSourceStatus": {
+            "description": "Status of the message forwarding to the source.",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "isSuccess": {
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "from": {
+            "description": "An object containing details about the email sender (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "html": {
+            "description": "The HTML content of the message.",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "id": {
+            "description": "Message ID. It can be used for further manipulations with the message.",
+            "example": "eYBEm3gq3zc5ayE2g",
+            "type": "string"
+          },
+          "integrations": {
+            "description": "Integration details.",
+            "type": "object"
+          },
+          "isBot": {
+            "description": "`true` for automated messages generated by an AI bot.",
+            "type": "boolean"
+          },
+          "isMissed": {
+            "description": "`true` for missed and offline messages.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isMissedByVisitor": {
+            "description": "`true` for unread agent’s messages in finished chats.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isPushed": {
+            "description": "`true` for pushed messages",
+            "example": true,
+            "type": "boolean"
+          },
+          "isTrigger": {
+            "description": "`true` for automatic messages from “Targeted chats & triggers” and API (https://developers.brevo.com/docs/javascript-api-reference#sendautomessage)",
+            "example": false,
+            "type": "boolean"
+          },
+          "rawUnsafeHtml": {
+            "description": "Unescaped HTML content of the message (may include unsafe HTML).",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "receivedFrom": {
+            "description": "In two-way integrations, messages sent via REST API can be marked with receivedFrom property and then filtered out when received in a webhook to avoid infinite loop.",
+            "example": "SuperAwesomeHelpdesk",
+            "type": "string"
+          },
+          "replyTo": {
+            "description": "An object containing details of the reply-to email address (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "sourceMessageId": {
+            "description": "The ID of the message assigned by the integration source.",
+            "type": "string"
+          },
+          "subject": {
+            "description": "The subject line of the email message (only for messages sent to email threads).",
+            "example": "Invitation to a meeting",
+            "type": "string"
+          },
+          "text": {
+            "description": "Message text or name of the attached file",
+            "example": "Good morning! How can I help you?",
+            "type": "string"
+          },
+          "to": {
+            "description": "An array containing details of the recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "`\"agent\"` for agents’ messages, `\"visitor\"` for visitors’ messages.",
+            "enum": [
+              "agent",
+              "visitor"
+            ],
+            "example": "agent",
+            "type": "string"
+          },
+          "isSentViaJsApi": {
+            "description": "‘`true` if the message was sent via JavaScript API.’",
+            "type": "boolean"
+          },
+          "messageType": {
+            "description": "The type of message content (e.g. for integration-specific message types).",
+            "type": "string"
+          },
+          "isForward": {
+            "description": "‘`true` if the message is a forwarded message.’",
+            "type": "boolean"
+          },
+          "source": {
+            "description": "Source information for the message.",
+            "type": "object"
+          },
+          "visitorId": {
+            "description": "visitor’s ID",
+            "example": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "agentId": "d9nKoegKSjmCtyK78",
+        "createdAt": 1470222622433,
+        "html": "Your order has shipped! Here's your tracking number: 9114 5847 3325 9667 4328 88",
+        "id": "AXCR3k9bpSY7bpuh7",
+        "isMissed": false,
+        "isMissedByVisitor": false,
+        "isPushed": true,
+        "isTrigger": false,
+        "text": "Your order has shipped! Here's your tracking number: 9114 5847 3325 9667 4328 88",
+        "type": "agent",
+        "visitorId": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Returned when the message is not found."
+      }
+    ],
+    "side_effects": [
+      "Read-only"
+    ],
+    "reversibility": "not_applicable",
+    "risk_level": "low",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "GET",
+        "path": "/conversations/pushedMessages/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "conversations__get_pushed_message"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Conversations",
+      "ui_area": "Conversations",
+      "ui_path": null
+    },
+    "matched_ui_actions": [],
+    "synonyms": [
+      "get",
+      "automated",
+      "message",
+      "conversations"
+    ],
+    "related_actions": [],
+    "tags": [
+      "conversations",
+      "read"
+    ],
+    "confidence": 0.94,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "conversations.send_message",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Send a message as an agent",
+    "intent": "Send a message as a human agent inside a Brevo conversation.",
+    "description": "Send a message as an agent to an existing visitor's conversation. You must provide either `agentId` alone, or all three of `agentEmail` + `agentName` + `receivedFrom` to identify the agent.",
+    "action_type": "send",
+    "when_to_use": "When replying to a visitor or customer in the Conversations inbox.",
+    "when_not_to_use": "Do not use for marketing broadcasts.",
+    "preconditions": [
+      "An existing conversation/visitor id",
+      "Agent identity"
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "agentEmail": {
+          "description": "Agent's email address. When sending messages from a standalone system, it's hard to maintain a 1-to-1 relationship between the users of both systems. In this case, an agent can be specified by their email address.",
+          "type": "string",
+          "format": "email",
+          "x-in": "body"
+        },
+        "agentId": {
+          "description": "Agent ID. It can be found on the agent's page or received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a>. Alternatively, you can use `agentEmail` + `agentName` + `receivedFrom` instead (all 3 fields required).",
+          "type": "string",
+          "x-in": "body"
+        },
+        "agentName": {
+          "description": "Agent's name.",
+          "type": "string",
+          "x-in": "body"
+        },
+        "receivedFrom": {
+          "description": "Mark your messages to distinguish messages created by you from the others.",
+          "type": "string",
+          "x-in": "body"
+        },
+        "text": {
+          "description": "Message text.",
+          "type": "string",
+          "x-in": "body"
+        },
+        "visitorId": {
+          "description": "Visitor's ID received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a> or generated by you to <a href=\"https://developers.brevo.com/docs/customize-the-widget#identifying-existing-users\">bind an existing user account to Conversations</a>.",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "visitorId",
+        "text"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "properties": {
+            "agentEmail": {
+              "description": "Agent's email address. When sending messages from a standalone system, it's hard to maintain a 1-to-1 relationship between the users of both systems. In this case, an agent can be specified by their email address.",
+              "type": "string",
+              "format": "email"
+            },
+            "agentId": {
+              "description": "Agent ID. It can be found on the agent's page or received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a>. Alternatively, you can use `agentEmail` + `agentName` + `receivedFrom` instead (all 3 fields required).",
+              "type": "string"
+            },
+            "agentName": {
+              "description": "Agent's name.",
+              "type": "string"
+            },
+            "receivedFrom": {
+              "description": "Mark your messages to distinguish messages created by you from the others.",
+              "type": "string"
+            },
+            "text": {
+              "description": "Message text.",
+              "type": "string"
+            },
+            "visitorId": {
+              "description": "Visitor's ID received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a> or generated by you to <a href=\"https://developers.brevo.com/docs/customize-the-widget#identifying-existing-users\">bind an existing user account to Conversations</a>.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "visitorId",
+            "text"
+          ],
+          "type": "object"
+        },
+        "example": {
+          "agentId": "d9nKoegKSjmCtyK78",
+          "text": "Hello! How can I help you?",
+          "visitorId": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "description": "a Conversations message",
+        "properties": {
+          "agentId": {
+            "description": "ID of the agent on whose behalf the message was sent (only in messages sent by an agent).",
+            "example": "d9nKoegKSjmCtyK78",
+            "type": "string"
+          },
+          "agentName": {
+            "description": "Agent’s name as displayed to the visitor. Only in the messages sent by an agent.",
+            "example": "Liz",
+            "type": "string"
+          },
+          "agentUserpic": {
+            "description": "Only set if the agent has uploaded a profile picture.",
+            "example": "https://www.brevo.com/",
+            "type": "string"
+          },
+          "attachments": {
+            "description": "An array of file attachments.",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "The name of the file.",
+                  "type": "string"
+                },
+                "link": {
+                  "description": "The URL of the file.",
+                  "type": "string"
+                },
+                "mimeType": {
+                  "description": "The MIME type of the file.",
+                  "type": "string"
+                },
+                "isImage": {
+                  "description": "`true` for images.",
+                  "type": "boolean"
+                },
+                "isSticker": {
+                  "description": "`true` for sticker files.",
+                  "type": "boolean"
+                },
+                "isInline": {
+                  "description": "`true` for inline files.",
+                  "type": "boolean"
+                },
+                "inlineId": {
+                  "description": "The ID of the inline file.",
+                  "type": "string"
+                },
+                "size": {
+                  "description": "The size of the file in bytes.",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "imageInfo": {
+                  "description": "Image information (only present for image files).",
+                  "properties": {
+                    "width": {
+                      "description": "Width of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "height": {
+                      "description": "Height of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "previewLink": {
+                      "description": "URL of the image preview.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "isAllowedFileType": {
+                  "description": "Whether the file extension is allowed for download.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "bcc": {
+            "description": "An array containing details of the blind carbon copy (BCC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "cc": {
+            "description": "An array containing details of the carbon copy (CC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "createdAt": {
+            "description": "Timestamp in milliseconds.",
+            "example": 1470222622433,
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "file": {
+            "properties": {
+              "name": {
+                "description": "Name of the file.",
+                "example": "conversations.png",
+                "type": "string"
+              },
+              "link": {
+                "description": "URL of the file.",
+                "example": "https://ucarecdn.com/cee5c10c-8302-45c1-b1fb-43860ca941a9/",
+                "type": "string"
+              },
+              "mimeType": {
+                "description": "MIME type of the file.",
+                "type": "string"
+              },
+              "isImage": {
+                "description": "Whether the file is an image.",
+                "example": true,
+                "type": "boolean"
+              },
+              "isSticker": {
+                "description": "Whether the file is a sticker.",
+                "type": "boolean"
+              },
+              "isInline": {
+                "description": "Whether the file is inline.",
+                "type": "boolean"
+              },
+              "inlineId": {
+                "description": "The ID of the inline file.",
+                "type": "string"
+              },
+              "size": {
+                "description": "Size in bytes.",
+                "example": 15538,
+                "format": "int64",
+                "minimum": 0,
+                "type": "integer"
+              },
+              "imageInfo": {
+                "description": "Image info, present when the file is an image.",
+                "properties": {
+                  "width": {
+                    "description": "Width of the image in pixels.",
+                    "example": 1129,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "height": {
+                    "description": "Height of the image in pixels.",
+                    "example": 525,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "previewLink": {
+                    "description": "URL of the image preview.",
+                    "example": "https://ucarecdn.com/03cd56cd-1de9-4f65-996d-08afdf27fa1b/-/preview/800x800/-/quality/better/",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "isAllowedFileType": {
+                "description": "Whether the file extension is allowed for download.",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "forwardedToSourceStatus": {
+            "description": "Status of the message forwarding to the source.",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "isSuccess": {
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "from": {
+            "description": "An object containing details about the email sender (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "html": {
+            "description": "The HTML content of the message.",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "id": {
+            "description": "Message ID. It can be used for further manipulations with the message.",
+            "example": "eYBEm3gq3zc5ayE2g",
+            "type": "string"
+          },
+          "integrations": {
+            "description": "Integration details.",
+            "type": "object"
+          },
+          "isBot": {
+            "description": "`true` for automated messages generated by an AI bot.",
+            "type": "boolean"
+          },
+          "isMissed": {
+            "description": "`true` for missed and offline messages.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isMissedByVisitor": {
+            "description": "`true` for unread agent’s messages in finished chats.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isPushed": {
+            "description": "`true` for pushed messages",
+            "example": true,
+            "type": "boolean"
+          },
+          "isTrigger": {
+            "description": "`true` for automatic messages from “Targeted chats & triggers” and API (https://developers.brevo.com/docs/javascript-api-reference#sendautomessage)",
+            "example": false,
+            "type": "boolean"
+          },
+          "rawUnsafeHtml": {
+            "description": "Unescaped HTML content of the message (may include unsafe HTML).",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "receivedFrom": {
+            "description": "In two-way integrations, messages sent via REST API can be marked with receivedFrom property and then filtered out when received in a webhook to avoid infinite loop.",
+            "example": "SuperAwesomeHelpdesk",
+            "type": "string"
+          },
+          "replyTo": {
+            "description": "An object containing details of the reply-to email address (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "sourceMessageId": {
+            "description": "The ID of the message assigned by the integration source.",
+            "type": "string"
+          },
+          "subject": {
+            "description": "The subject line of the email message (only for messages sent to email threads).",
+            "example": "Invitation to a meeting",
+            "type": "string"
+          },
+          "text": {
+            "description": "Message text or name of the attached file",
+            "example": "Good morning! How can I help you?",
+            "type": "string"
+          },
+          "to": {
+            "description": "An array containing details of the recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "`\"agent\"` for agents’ messages, `\"visitor\"` for visitors’ messages.",
+            "enum": [
+              "agent",
+              "visitor"
+            ],
+            "example": "agent",
+            "type": "string"
+          },
+          "isSentViaJsApi": {
+            "description": "‘`true` if the message was sent via JavaScript API.’",
+            "type": "boolean"
+          },
+          "messageType": {
+            "description": "The type of message content (e.g. for integration-specific message types).",
+            "type": "string"
+          },
+          "isForward": {
+            "description": "‘`true` if the message is a forwarded message.’",
+            "type": "boolean"
+          },
+          "source": {
+            "description": "Source information for the message.",
+            "type": "object"
+          },
+          "visitorId": {
+            "description": "visitor’s ID",
+            "example": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "agentId": "d9nKoegKSjmCtyK78",
+        "createdAt": 1482512803740,
+        "html": "Hello! How can I help you?",
+        "id": "eYBEm3gq3zc5ayE2g",
+        "isMissed": false,
+        "isMissedByVisitor": false,
+        "isPushed": false,
+        "isTrigger": false,
+        "receivedFrom": "SuperAwesomeHelpdesk",
+        "text": "Hello! How can I help you?",
+        "type": "agent",
+        "visitorId": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg"
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends a real chat message",
+      "Visible to the customer"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/conversations/messages",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "conversations__send_message"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Conversations",
+      "ui_area": "Conversations",
+      "ui_path": "Conversations > Inbox > Reply"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Send a message as an agent",
+        "ui_path": "Conversations > Inbox > Reply",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "reply chat",
+      "agent message",
+      "send chat message",
+      "send",
+      "message",
+      "agent",
+      "conversations",
+      "send chat"
+    ],
+    "related_actions": [
+      "conversations.update_message",
+      "conversations.send_pushed_message"
+    ],
+    "tags": [
+      "conversations",
+      "send"
+    ],
+    "confidence": 0.95,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "conversations.send_pushed_message",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Send an automated message to a visitor",
+    "intent": "Send an automated message to a visitor",
+    "description": "Send an automated (pushed) message to a visitor on behalf of an agent. Example use cases: order status updates, announcing new features in your web app, etc.",
+    "action_type": "send",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "An authenticated sender or verified sending domain."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "agentId": {
+          "description": "Agent ID. It can be found on the agent's page or received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a>.",
+          "type": "string",
+          "x-in": "body"
+        },
+        "groupId": {
+          "description": "Group ID. It can be found on the group's page.",
+          "type": "string",
+          "x-in": "body"
+        },
+        "text": {
+          "description": "Message text.",
+          "type": "string",
+          "x-in": "body"
+        },
+        "visitorId": {
+          "description": "Visitor's ID received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a> or generated by you to <a href=\"https://developers.brevo.com/docs/customize-the-widget#identifying-existing-users\">bind an existing user account to Conversations</a>.",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "visitorId",
+        "text"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "properties": {
+            "agentId": {
+              "description": "Agent ID. It can be found on the agent's page or received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a>.",
+              "type": "string"
+            },
+            "groupId": {
+              "description": "Group ID. It can be found on the group's page.",
+              "type": "string"
+            },
+            "text": {
+              "description": "Message text.",
+              "type": "string"
+            },
+            "visitorId": {
+              "description": "Visitor's ID received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a> or generated by you to <a href=\"https://developers.brevo.com/docs/customize-the-widget#identifying-existing-users\">bind an existing user account to Conversations</a>.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "visitorId",
+            "text"
+          ],
+          "type": "object"
+        },
+        "example": {
+          "groupId": "PjRBMhWGen6aRHjif",
+          "text": "Your order has shipped! Here's your tracking number: 9114 5847 3325 9667 4328 88",
+          "visitorId": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "description": "a Conversations message",
+        "properties": {
+          "agentId": {
+            "description": "ID of the agent on whose behalf the message was sent (only in messages sent by an agent).",
+            "example": "d9nKoegKSjmCtyK78",
+            "type": "string"
+          },
+          "agentName": {
+            "description": "Agent’s name as displayed to the visitor. Only in the messages sent by an agent.",
+            "example": "Liz",
+            "type": "string"
+          },
+          "agentUserpic": {
+            "description": "Only set if the agent has uploaded a profile picture.",
+            "example": "https://www.brevo.com/",
+            "type": "string"
+          },
+          "attachments": {
+            "description": "An array of file attachments.",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "The name of the file.",
+                  "type": "string"
+                },
+                "link": {
+                  "description": "The URL of the file.",
+                  "type": "string"
+                },
+                "mimeType": {
+                  "description": "The MIME type of the file.",
+                  "type": "string"
+                },
+                "isImage": {
+                  "description": "`true` for images.",
+                  "type": "boolean"
+                },
+                "isSticker": {
+                  "description": "`true` for sticker files.",
+                  "type": "boolean"
+                },
+                "isInline": {
+                  "description": "`true` for inline files.",
+                  "type": "boolean"
+                },
+                "inlineId": {
+                  "description": "The ID of the inline file.",
+                  "type": "string"
+                },
+                "size": {
+                  "description": "The size of the file in bytes.",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "imageInfo": {
+                  "description": "Image information (only present for image files).",
+                  "properties": {
+                    "width": {
+                      "description": "Width of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "height": {
+                      "description": "Height of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "previewLink": {
+                      "description": "URL of the image preview.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "isAllowedFileType": {
+                  "description": "Whether the file extension is allowed for download.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "bcc": {
+            "description": "An array containing details of the blind carbon copy (BCC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "cc": {
+            "description": "An array containing details of the carbon copy (CC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "createdAt": {
+            "description": "Timestamp in milliseconds.",
+            "example": 1470222622433,
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "file": {
+            "properties": {
+              "name": {
+                "description": "Name of the file.",
+                "example": "conversations.png",
+                "type": "string"
+              },
+              "link": {
+                "description": "URL of the file.",
+                "example": "https://ucarecdn.com/cee5c10c-8302-45c1-b1fb-43860ca941a9/",
+                "type": "string"
+              },
+              "mimeType": {
+                "description": "MIME type of the file.",
+                "type": "string"
+              },
+              "isImage": {
+                "description": "Whether the file is an image.",
+                "example": true,
+                "type": "boolean"
+              },
+              "isSticker": {
+                "description": "Whether the file is a sticker.",
+                "type": "boolean"
+              },
+              "isInline": {
+                "description": "Whether the file is inline.",
+                "type": "boolean"
+              },
+              "inlineId": {
+                "description": "The ID of the inline file.",
+                "type": "string"
+              },
+              "size": {
+                "description": "Size in bytes.",
+                "example": 15538,
+                "format": "int64",
+                "minimum": 0,
+                "type": "integer"
+              },
+              "imageInfo": {
+                "description": "Image info, present when the file is an image.",
+                "properties": {
+                  "width": {
+                    "description": "Width of the image in pixels.",
+                    "example": 1129,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "height": {
+                    "description": "Height of the image in pixels.",
+                    "example": 525,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "previewLink": {
+                    "description": "URL of the image preview.",
+                    "example": "https://ucarecdn.com/03cd56cd-1de9-4f65-996d-08afdf27fa1b/-/preview/800x800/-/quality/better/",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "isAllowedFileType": {
+                "description": "Whether the file extension is allowed for download.",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "forwardedToSourceStatus": {
+            "description": "Status of the message forwarding to the source.",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "isSuccess": {
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "from": {
+            "description": "An object containing details about the email sender (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "html": {
+            "description": "The HTML content of the message.",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "id": {
+            "description": "Message ID. It can be used for further manipulations with the message.",
+            "example": "eYBEm3gq3zc5ayE2g",
+            "type": "string"
+          },
+          "integrations": {
+            "description": "Integration details.",
+            "type": "object"
+          },
+          "isBot": {
+            "description": "`true` for automated messages generated by an AI bot.",
+            "type": "boolean"
+          },
+          "isMissed": {
+            "description": "`true` for missed and offline messages.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isMissedByVisitor": {
+            "description": "`true` for unread agent’s messages in finished chats.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isPushed": {
+            "description": "`true` for pushed messages",
+            "example": true,
+            "type": "boolean"
+          },
+          "isTrigger": {
+            "description": "`true` for automatic messages from “Targeted chats & triggers” and API (https://developers.brevo.com/docs/javascript-api-reference#sendautomessage)",
+            "example": false,
+            "type": "boolean"
+          },
+          "rawUnsafeHtml": {
+            "description": "Unescaped HTML content of the message (may include unsafe HTML).",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "receivedFrom": {
+            "description": "In two-way integrations, messages sent via REST API can be marked with receivedFrom property and then filtered out when received in a webhook to avoid infinite loop.",
+            "example": "SuperAwesomeHelpdesk",
+            "type": "string"
+          },
+          "replyTo": {
+            "description": "An object containing details of the reply-to email address (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "sourceMessageId": {
+            "description": "The ID of the message assigned by the integration source.",
+            "type": "string"
+          },
+          "subject": {
+            "description": "The subject line of the email message (only for messages sent to email threads).",
+            "example": "Invitation to a meeting",
+            "type": "string"
+          },
+          "text": {
+            "description": "Message text or name of the attached file",
+            "example": "Good morning! How can I help you?",
+            "type": "string"
+          },
+          "to": {
+            "description": "An array containing details of the recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "`\"agent\"` for agents’ messages, `\"visitor\"` for visitors’ messages.",
+            "enum": [
+              "agent",
+              "visitor"
+            ],
+            "example": "agent",
+            "type": "string"
+          },
+          "isSentViaJsApi": {
+            "description": "‘`true` if the message was sent via JavaScript API.’",
+            "type": "boolean"
+          },
+          "messageType": {
+            "description": "The type of message content (e.g. for integration-specific message types).",
+            "type": "string"
+          },
+          "isForward": {
+            "description": "‘`true` if the message is a forwarded message.’",
+            "type": "boolean"
+          },
+          "source": {
+            "description": "Source information for the message.",
+            "type": "object"
+          },
+          "visitorId": {
+            "description": "visitor’s ID",
+            "example": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "agentId": "d9nKoegKSjmCtyK78",
+        "createdAt": 1470222622433,
+        "html": "Your order has shipped! Here's your tracking number: 9114 5847 3325 9667 4328 88",
+        "id": "AXCR3k9bpSY7bpuh7",
+        "isMissed": false,
+        "isMissedByVisitor": false,
+        "isPushed": true,
+        "isTrigger": false,
+        "text": "Your order has shipped! Here's your tracking number: 9114 5847 3325 9667 4328 88",
+        "type": "agent",
+        "visitorId": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg"
+      }
+    },
+    "response_codes": [
+      200,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Sends real messages to recipients",
+      "Irreversible"
+    ],
+    "reversibility": "irreversible",
+    "risk_level": "high",
+    "confirmation_required": true,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/conversations/pushedMessages",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "conversations__send_pushed_message"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Conversations",
+      "ui_area": "Conversations",
+      "ui_path": "Conversations > Automation"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Send an automated pushed message",
+        "ui_path": "Conversations > Automation",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "send",
+      "automated",
+      "message",
+      "visitor",
+      "conversations",
+      "automated chat",
+      "pushed message",
+      "pushed"
+    ],
+    "related_actions": [],
+    "tags": [
+      "conversations",
+      "send"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "conversations.set_agent_online",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Sets agent's status to online for 2-3 minutes",
+    "intent": "Sets agent's status to online for 2-3 minutes",
+    "description": "Sets the agent's status to online for 2-3 minutes. We recommend pinging this endpoint every minute for as long as the agent has to be considered online. You must provide either `agentId` alone, or all three of `agentEmail` + `agentName` + `receivedFrom`.",
+    "action_type": "execute",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "agentEmail": {
+          "description": "Agent's email address. When sending online pings from a standalone system, it's hard to maintain a 1-to-1 relationship between the users of both systems. In this case, an agent can be specified by their email address. If there's no agent with the specified email address in your Brevo organization, a dummy agent will be created automatically.",
+          "type": "string",
+          "format": "email",
+          "x-in": "body"
+        },
+        "agentId": {
+          "description": "Agent ID. It can be found on the agent's page or received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a>. Alternatively, you can use `agentEmail` + `agentName` + `receivedFrom` instead (all 3 fields required).",
+          "type": "string",
+          "x-in": "body"
+        },
+        "agentName": {
+          "description": "Agent's name.",
+          "type": "string",
+          "x-in": "body"
+        },
+        "receivedFrom": {
+          "description": "Mark your messages to distinguish messages created by you from the others.",
+          "type": "string",
+          "x-in": "body"
+        }
+      }
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "properties": {
+            "agentEmail": {
+              "description": "Agent's email address. When sending online pings from a standalone system, it's hard to maintain a 1-to-1 relationship between the users of both systems. In this case, an agent can be specified by their email address. If there's no agent with the specified email address in your Brevo organization, a dummy agent will be created automatically.",
+              "type": "string",
+              "format": "email"
+            },
+            "agentId": {
+              "description": "Agent ID. It can be found on the agent's page or received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a>. Alternatively, you can use `agentEmail` + `agentName` + `receivedFrom` instead (all 3 fields required).",
+              "type": "string"
+            },
+            "agentName": {
+              "description": "Agent's name.",
+              "type": "string"
+            },
+            "receivedFrom": {
+              "description": "Mark your messages to distinguish messages created by you from the others.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "example": {
+          "agentId": "d9nKoegKSjmCtyK78"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 201
+    },
+    "response_codes": [
+      201,
+      400
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      }
+    ],
+    "side_effects": [
+      "Performs an operation with side effects"
+    ],
+    "reversibility": "unknown",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "non_idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "POST",
+        "path": "/conversations/agentOnlinePing",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "conversations__set_agent_online"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Conversations",
+      "ui_area": "Conversations",
+      "ui_path": "Conversations > Inbox"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Set an agent online",
+        "ui_path": "Conversations > Inbox",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "sets",
+      "agent",
+      "status",
+      "online",
+      "minutes",
+      "conversations",
+      "agent online",
+      "go online",
+      "set"
+    ],
+    "related_actions": [],
+    "tags": [
+      "conversations",
+      "execute"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "conversations.set_visitor_group",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Set visitor group assignment",
+    "intent": "Set visitor group assignment",
+    "description": "Assigns a visitor to a specific agent group or removes them from their current group.",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "groupId": {
+          "description": "Group ID. It can be found on group’s page.",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "groupId"
+      ]
+    },
+    "request": {
+      "path_params": [],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "properties": {
+            "groupId": {
+              "description": "Group ID. It can be found on group’s page."
+            }
+          },
+          "required": [
+            "groupId"
+          ],
+          "type": "object"
+        },
+        "example": {
+          "groupId": "PjRBMhWGen6aRHjif"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "properties": {
+          "groupId": {
+            "description": "group ID the visitor was assigned to"
+          },
+          "visitorId": {
+            "description": "visitor ID"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "groupId": "PjRBMhWGen6aRHjif",
+        "visitorId": "AXCR3k9bpSY7bpuh7"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Returned when the visitor is not found"
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/conversations/visitorGroup",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "conversations__set_visitor_group"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Conversations",
+      "ui_area": "Conversations",
+      "ui_path": "Conversations > Routing"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Assign a visitor group",
+        "ui_path": "Conversations > Routing",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "set",
+      "visitor",
+      "group",
+      "assignment",
+      "conversations",
+      "route conversation",
+      "assign group",
+      "assign"
+    ],
+    "related_actions": [],
+    "tags": [
+      "conversations",
+      "update"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "conversations.update_message",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Update a message sent by an agent",
+    "intent": "Update a message sent by an agent",
+    "description": "Update the text of a message sent by an agent. Only messages of type `agent` can be edited. The `text` and `html` fields of the message will be updated.",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-in": "path",
+          "description": "ID of the message"
+        },
+        "text": {
+          "description": "The new message text.",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "id",
+        "text"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "properties": {
+            "text": {
+              "description": "The new message text.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "type": "object"
+        },
+        "example": {
+          "text": "Good morning! How can I help you?"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "description": "a Conversations message",
+        "properties": {
+          "agentId": {
+            "description": "ID of the agent on whose behalf the message was sent (only in messages sent by an agent).",
+            "example": "d9nKoegKSjmCtyK78",
+            "type": "string"
+          },
+          "agentName": {
+            "description": "Agent’s name as displayed to the visitor. Only in the messages sent by an agent.",
+            "example": "Liz",
+            "type": "string"
+          },
+          "agentUserpic": {
+            "description": "Only set if the agent has uploaded a profile picture.",
+            "example": "https://www.brevo.com/",
+            "type": "string"
+          },
+          "attachments": {
+            "description": "An array of file attachments.",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "The name of the file.",
+                  "type": "string"
+                },
+                "link": {
+                  "description": "The URL of the file.",
+                  "type": "string"
+                },
+                "mimeType": {
+                  "description": "The MIME type of the file.",
+                  "type": "string"
+                },
+                "isImage": {
+                  "description": "`true` for images.",
+                  "type": "boolean"
+                },
+                "isSticker": {
+                  "description": "`true` for sticker files.",
+                  "type": "boolean"
+                },
+                "isInline": {
+                  "description": "`true` for inline files.",
+                  "type": "boolean"
+                },
+                "inlineId": {
+                  "description": "The ID of the inline file.",
+                  "type": "string"
+                },
+                "size": {
+                  "description": "The size of the file in bytes.",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "imageInfo": {
+                  "description": "Image information (only present for image files).",
+                  "properties": {
+                    "width": {
+                      "description": "Width of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "height": {
+                      "description": "Height of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "previewLink": {
+                      "description": "URL of the image preview.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "isAllowedFileType": {
+                  "description": "Whether the file extension is allowed for download.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "bcc": {
+            "description": "An array containing details of the blind carbon copy (BCC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "cc": {
+            "description": "An array containing details of the carbon copy (CC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "createdAt": {
+            "description": "Timestamp in milliseconds.",
+            "example": 1470222622433,
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "file": {
+            "properties": {
+              "name": {
+                "description": "Name of the file.",
+                "example": "conversations.png",
+                "type": "string"
+              },
+              "link": {
+                "description": "URL of the file.",
+                "example": "https://ucarecdn.com/cee5c10c-8302-45c1-b1fb-43860ca941a9/",
+                "type": "string"
+              },
+              "mimeType": {
+                "description": "MIME type of the file.",
+                "type": "string"
+              },
+              "isImage": {
+                "description": "Whether the file is an image.",
+                "example": true,
+                "type": "boolean"
+              },
+              "isSticker": {
+                "description": "Whether the file is a sticker.",
+                "type": "boolean"
+              },
+              "isInline": {
+                "description": "Whether the file is inline.",
+                "type": "boolean"
+              },
+              "inlineId": {
+                "description": "The ID of the inline file.",
+                "type": "string"
+              },
+              "size": {
+                "description": "Size in bytes.",
+                "example": 15538,
+                "format": "int64",
+                "minimum": 0,
+                "type": "integer"
+              },
+              "imageInfo": {
+                "description": "Image info, present when the file is an image.",
+                "properties": {
+                  "width": {
+                    "description": "Width of the image in pixels.",
+                    "example": 1129,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "height": {
+                    "description": "Height of the image in pixels.",
+                    "example": 525,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "previewLink": {
+                    "description": "URL of the image preview.",
+                    "example": "https://ucarecdn.com/03cd56cd-1de9-4f65-996d-08afdf27fa1b/-/preview/800x800/-/quality/better/",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "isAllowedFileType": {
+                "description": "Whether the file extension is allowed for download.",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "forwardedToSourceStatus": {
+            "description": "Status of the message forwarding to the source.",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "isSuccess": {
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "from": {
+            "description": "An object containing details about the email sender (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "html": {
+            "description": "The HTML content of the message.",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "id": {
+            "description": "Message ID. It can be used for further manipulations with the message.",
+            "example": "eYBEm3gq3zc5ayE2g",
+            "type": "string"
+          },
+          "integrations": {
+            "description": "Integration details.",
+            "type": "object"
+          },
+          "isBot": {
+            "description": "`true` for automated messages generated by an AI bot.",
+            "type": "boolean"
+          },
+          "isMissed": {
+            "description": "`true` for missed and offline messages.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isMissedByVisitor": {
+            "description": "`true` for unread agent’s messages in finished chats.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isPushed": {
+            "description": "`true` for pushed messages",
+            "example": true,
+            "type": "boolean"
+          },
+          "isTrigger": {
+            "description": "`true` for automatic messages from “Targeted chats & triggers” and API (https://developers.brevo.com/docs/javascript-api-reference#sendautomessage)",
+            "example": false,
+            "type": "boolean"
+          },
+          "rawUnsafeHtml": {
+            "description": "Unescaped HTML content of the message (may include unsafe HTML).",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "receivedFrom": {
+            "description": "In two-way integrations, messages sent via REST API can be marked with receivedFrom property and then filtered out when received in a webhook to avoid infinite loop.",
+            "example": "SuperAwesomeHelpdesk",
+            "type": "string"
+          },
+          "replyTo": {
+            "description": "An object containing details of the reply-to email address (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "sourceMessageId": {
+            "description": "The ID of the message assigned by the integration source.",
+            "type": "string"
+          },
+          "subject": {
+            "description": "The subject line of the email message (only for messages sent to email threads).",
+            "example": "Invitation to a meeting",
+            "type": "string"
+          },
+          "text": {
+            "description": "Message text or name of the attached file",
+            "example": "Good morning! How can I help you?",
+            "type": "string"
+          },
+          "to": {
+            "description": "An array containing details of the recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "`\"agent\"` for agents’ messages, `\"visitor\"` for visitors’ messages.",
+            "enum": [
+              "agent",
+              "visitor"
+            ],
+            "example": "agent",
+            "type": "string"
+          },
+          "isSentViaJsApi": {
+            "description": "‘`true` if the message was sent via JavaScript API.’",
+            "type": "boolean"
+          },
+          "messageType": {
+            "description": "The type of message content (e.g. for integration-specific message types).",
+            "type": "string"
+          },
+          "isForward": {
+            "description": "‘`true` if the message is a forwarded message.’",
+            "type": "boolean"
+          },
+          "source": {
+            "description": "Source information for the message.",
+            "type": "object"
+          },
+          "visitorId": {
+            "description": "visitor’s ID",
+            "example": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "agentId": "d9nKoegKSjmCtyK78",
+        "createdAt": 1482512803740,
+        "html": "Good morning! How can I help you?",
+        "id": "eYBEm3gq3zc5ayE2g",
+        "isMissed": false,
+        "isMissedByVisitor": false,
+        "isPushed": false,
+        "isTrigger": false,
+        "receivedFrom": "SuperAwesomeHelpdesk",
+        "text": "Good morning! How can I help you?",
+        "type": "agent",
+        "visitorId": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Returned when the message is not found."
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/conversations/messages/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "conversations__update_message"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Conversations",
+      "ui_area": "Conversations",
+      "ui_path": "Conversations > Message > Edit"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Update a sent message",
+        "ui_path": "Conversations > Message > Edit",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "update",
+      "message",
+      "sent",
+      "agent",
+      "conversations",
+      "edit message"
+    ],
+    "related_actions": [],
+    "tags": [
+      "conversations",
+      "update"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  },
+  {
+    "id": "conversations.update_pushed_message",
+    "version": "1.0.0",
+    "domain": "conversations",
+    "domain_label": "Conversations",
+    "name": "Update an automated message",
+    "intent": "Update an automated message",
+    "description": "Update the text of an automated (pushed) message. The `text` and `html` fields of the message will be updated.",
+    "action_type": "update",
+    "preconditions": [
+      "A valid Brevo API key authorized for this resource.",
+      "The resource identified by the path parameters must exist; otherwise the API returns 404."
+    ],
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-in": "path",
+          "description": "ID of the message"
+        },
+        "text": {
+          "description": "The new message text.",
+          "type": "string",
+          "x-in": "body"
+        }
+      },
+      "required": [
+        "id",
+        "text"
+      ]
+    },
+    "request": {
+      "path_params": [
+        "id"
+      ],
+      "query_params": [],
+      "header_params": [],
+      "body": {
+        "required": true,
+        "media_type": "application/json",
+        "schema": {
+          "properties": {
+            "text": {
+              "description": "The new message text.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "type": "object"
+        },
+        "example": {
+          "text": "Your order has shipped! Here's your tracking number: 9114 5847 4668 7775 9233 54"
+        }
+      }
+    },
+    "outputs": {
+      "success_status": 200,
+      "schema": {
+        "description": "a Conversations message",
+        "properties": {
+          "agentId": {
+            "description": "ID of the agent on whose behalf the message was sent (only in messages sent by an agent).",
+            "example": "d9nKoegKSjmCtyK78",
+            "type": "string"
+          },
+          "agentName": {
+            "description": "Agent’s name as displayed to the visitor. Only in the messages sent by an agent.",
+            "example": "Liz",
+            "type": "string"
+          },
+          "agentUserpic": {
+            "description": "Only set if the agent has uploaded a profile picture.",
+            "example": "https://www.brevo.com/",
+            "type": "string"
+          },
+          "attachments": {
+            "description": "An array of file attachments.",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "The name of the file.",
+                  "type": "string"
+                },
+                "link": {
+                  "description": "The URL of the file.",
+                  "type": "string"
+                },
+                "mimeType": {
+                  "description": "The MIME type of the file.",
+                  "type": "string"
+                },
+                "isImage": {
+                  "description": "`true` for images.",
+                  "type": "boolean"
+                },
+                "isSticker": {
+                  "description": "`true` for sticker files.",
+                  "type": "boolean"
+                },
+                "isInline": {
+                  "description": "`true` for inline files.",
+                  "type": "boolean"
+                },
+                "inlineId": {
+                  "description": "The ID of the inline file.",
+                  "type": "string"
+                },
+                "size": {
+                  "description": "The size of the file in bytes.",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "imageInfo": {
+                  "description": "Image information (only present for image files).",
+                  "properties": {
+                    "width": {
+                      "description": "Width of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "height": {
+                      "description": "Height of the image in pixels.",
+                      "format": "int64",
+                      "minimum": 0,
+                      "type": "integer"
+                    },
+                    "previewLink": {
+                      "description": "URL of the image preview.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "isAllowedFileType": {
+                  "description": "Whether the file extension is allowed for download.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "bcc": {
+            "description": "An array containing details of the blind carbon copy (BCC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "cc": {
+            "description": "An array containing details of the carbon copy (CC) recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "createdAt": {
+            "description": "Timestamp in milliseconds.",
+            "example": 1470222622433,
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "file": {
+            "properties": {
+              "name": {
+                "description": "Name of the file.",
+                "example": "conversations.png",
+                "type": "string"
+              },
+              "link": {
+                "description": "URL of the file.",
+                "example": "https://ucarecdn.com/cee5c10c-8302-45c1-b1fb-43860ca941a9/",
+                "type": "string"
+              },
+              "mimeType": {
+                "description": "MIME type of the file.",
+                "type": "string"
+              },
+              "isImage": {
+                "description": "Whether the file is an image.",
+                "example": true,
+                "type": "boolean"
+              },
+              "isSticker": {
+                "description": "Whether the file is a sticker.",
+                "type": "boolean"
+              },
+              "isInline": {
+                "description": "Whether the file is inline.",
+                "type": "boolean"
+              },
+              "inlineId": {
+                "description": "The ID of the inline file.",
+                "type": "string"
+              },
+              "size": {
+                "description": "Size in bytes.",
+                "example": 15538,
+                "format": "int64",
+                "minimum": 0,
+                "type": "integer"
+              },
+              "imageInfo": {
+                "description": "Image info, present when the file is an image.",
+                "properties": {
+                  "width": {
+                    "description": "Width of the image in pixels.",
+                    "example": 1129,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "height": {
+                    "description": "Height of the image in pixels.",
+                    "example": 525,
+                    "format": "int64",
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "previewLink": {
+                    "description": "URL of the image preview.",
+                    "example": "https://ucarecdn.com/03cd56cd-1de9-4f65-996d-08afdf27fa1b/-/preview/800x800/-/quality/better/",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "isAllowedFileType": {
+                "description": "Whether the file extension is allowed for download.",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "forwardedToSourceStatus": {
+            "description": "Status of the message forwarding to the source.",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "isSuccess": {
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "from": {
+            "description": "An object containing details about the email sender (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "html": {
+            "description": "The HTML content of the message.",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "id": {
+            "description": "Message ID. It can be used for further manipulations with the message.",
+            "example": "eYBEm3gq3zc5ayE2g",
+            "type": "string"
+          },
+          "integrations": {
+            "description": "Integration details.",
+            "type": "object"
+          },
+          "isBot": {
+            "description": "`true` for automated messages generated by an AI bot.",
+            "type": "boolean"
+          },
+          "isMissed": {
+            "description": "`true` for missed and offline messages.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isMissedByVisitor": {
+            "description": "`true` for unread agent’s messages in finished chats.",
+            "example": false,
+            "type": "boolean"
+          },
+          "isPushed": {
+            "description": "`true` for pushed messages",
+            "example": true,
+            "type": "boolean"
+          },
+          "isTrigger": {
+            "description": "`true` for automatic messages from “Targeted chats & triggers” and API (https://developers.brevo.com/docs/javascript-api-reference#sendautomessage)",
+            "example": false,
+            "type": "boolean"
+          },
+          "rawUnsafeHtml": {
+            "description": "Unescaped HTML content of the message (may include unsafe HTML).",
+            "example": "Good morning!<br>How can I help you?",
+            "type": "string"
+          },
+          "receivedFrom": {
+            "description": "In two-way integrations, messages sent via REST API can be marked with receivedFrom property and then filtered out when received in a webhook to avoid infinite loop.",
+            "example": "SuperAwesomeHelpdesk",
+            "type": "string"
+          },
+          "replyTo": {
+            "description": "An object containing details of the reply-to email address (applicable only to messages in email threads).",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "sourceMessageId": {
+            "description": "The ID of the message assigned by the integration source.",
+            "type": "string"
+          },
+          "subject": {
+            "description": "The subject line of the email message (only for messages sent to email threads).",
+            "example": "Invitation to a meeting",
+            "type": "string"
+          },
+          "text": {
+            "description": "Message text or name of the attached file",
+            "example": "Good morning! How can I help you?",
+            "type": "string"
+          },
+          "to": {
+            "description": "An array containing details of the recipients (applicable only to messages in email threads).",
+            "items": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "`\"agent\"` for agents’ messages, `\"visitor\"` for visitors’ messages.",
+            "enum": [
+              "agent",
+              "visitor"
+            ],
+            "example": "agent",
+            "type": "string"
+          },
+          "isSentViaJsApi": {
+            "description": "‘`true` if the message was sent via JavaScript API.’",
+            "type": "boolean"
+          },
+          "messageType": {
+            "description": "The type of message content (e.g. for integration-specific message types).",
+            "type": "string"
+          },
+          "isForward": {
+            "description": "‘`true` if the message is a forwarded message.’",
+            "type": "boolean"
+          },
+          "source": {
+            "description": "Source information for the message.",
+            "type": "object"
+          },
+          "visitorId": {
+            "description": "visitor’s ID",
+            "example": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "example": {
+        "agentId": "d9nKoegKSjmCtyK78",
+        "createdAt": 1470222622433,
+        "html": "Your order has shipped! Here's your tracking number: 9114 5847 4668 7775 9233 54",
+        "id": "AXCR3k9bpSY7bpuh7",
+        "isMissed": false,
+        "isMissedByVisitor": false,
+        "isPushed": true,
+        "isTrigger": false,
+        "text": "Your order has shipped! Here's your tracking number: 9114 5847 4668 7775 9233 54",
+        "type": "agent",
+        "visitorId": "kZMvWhf8npAu3H6qd57w2Hv6nh6rnxvg"
+      }
+    },
+    "response_codes": [
+      200,
+      400,
+      404
+    ],
+    "errors": [
+      {
+        "status": 400,
+        "meaning": "Error"
+      },
+      {
+        "status": 404,
+        "meaning": "Returned when the message is not found."
+      }
+    ],
+    "side_effects": [
+      "Modifies an existing resource"
+    ],
+    "reversibility": "reversible",
+    "risk_level": "medium",
+    "confirmation_required": false,
+    "idempotency": "idempotent",
+    "rate_limit": {
+      "tier": "general",
+      "requests_per_hour": 100
+    },
+    "auth": {
+      "schemes": [
+        "api_key",
+        "oauth2"
+      ],
+      "api_key_header": "api-key",
+      "oauth2": "Authorization: Bearer <token>",
+      "notes": "API key auth is the default for server-to-server use. OAuth 2.0 (including M2M) is available for apps acting on behalf of a user."
+    },
+    "execution": {
+      "kind": "api",
+      "endpoint": {
+        "method": "PUT",
+        "path": "/conversations/pushedMessages/{id}",
+        "base_url": "https://api.brevo.com/v3"
+      },
+      "tool_name": "conversations__update_pushed_message"
+    },
+    "evidence": {
+      "source": "openapi",
+      "spec_file": "sources/brevo-openapi.yml",
+      "spec_version": "3.0.1",
+      "operation_id": null,
+      "tag": "Conversations",
+      "ui_area": "Conversations",
+      "ui_path": "Conversations > Automation"
+    },
+    "matched_ui_actions": [
+      {
+        "name": "Update or delete a pushed message",
+        "ui_path": "Conversations > Automation",
+        "status": "covered"
+      }
+    ],
+    "synonyms": [
+      "update",
+      "automated",
+      "message",
+      "conversations",
+      "manage automated message",
+      "delete",
+      "pushed"
+    ],
+    "related_actions": [],
+    "tags": [
+      "conversations",
+      "update"
+    ],
+    "confidence": 0.93,
+    "verification": {
+      "status": "spec_only",
+      "checked_at": null,
+      "method": null
+    }
+  }
+]

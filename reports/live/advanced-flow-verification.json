@@ -1,0 +1,1580 @@
+{
+  "checked_at": "2026-11-21T02:56:35.803Z",
+  "base_url": "https://api.brevo.com/v3",
+  "summary": {
+    "steps": 74,
+    "ok": 68,
+    "failed": 0,
+    "plan_gated": 1,
+    "skipped": 5
+  },
+  "results": [
+    {
+      "action_id": "account_admin.get_account",
+      "step": "preflight account",
+      "method": "GET",
+      "path": "/account",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 921,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.get_senders",
+      "step": "preflight senders",
+      "method": "GET",
+      "path": "/senders",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 307,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_folders",
+      "step": "preflight folders",
+      "method": "GET",
+      "path": "/contacts/folders?limit=50",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 307,
+      "note": null
+    },
+    {
+      "action_id": "crm.list_pipelines",
+      "step": "preflight pipelines",
+      "method": "GET",
+      "path": "/crm/pipeline/details/all",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 299,
+      "note": null
+    },
+    {
+      "action_id": "crm.list_task_types",
+      "step": "preflight task types",
+      "method": "GET",
+      "path": "/crm/tasktypes",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 305,
+      "note": null
+    },
+    {
+      "action_id": "account_admin.get_account",
+      "step": "account details",
+      "method": "GET",
+      "path": "/account",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 328,
+      "note": null
+    },
+    {
+      "action_id": "account_admin.get_account_activity",
+      "step": "account activity",
+      "method": "GET",
+      "path": "/organization/activities?limit=10",
+      "expected": [
+        200
+      ],
+      "ok": false,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": true,
+      "http_status": 400,
+      "duration_ms": 308,
+      "note": "{\"code\":\"bad_request\",\"message\":\"Upgrade to Enterprise plan to access this API.\"}"
+    },
+    {
+      "action_id": "account_admin.list_invited_users",
+      "step": "invited users",
+      "method": "GET",
+      "path": "/organization/invited/users",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 646,
+      "note": null
+    },
+    {
+      "action_id": "processes.get_processes",
+      "step": "processes",
+      "method": "GET",
+      "path": "/processes?limit=10",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 292,
+      "note": null
+    },
+    {
+      "action_id": "account_admin.get_user_permission",
+      "step": "user permissions",
+      "method": "GET",
+      "path": "/organization/user/{email}/permissions",
+      "expected": [
+        200,
+        400,
+        404
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 400,
+      "duration_ms": 296,
+      "note": null
+    },
+    {
+      "action_id": "crm.create_deal",
+      "step": "create deal",
+      "method": "POST",
+      "path": "/crm/deals",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 384,
+      "note": null
+    },
+    {
+      "action_id": "crm.get_deal",
+      "step": "get deal",
+      "method": "GET",
+      "path": "/crm/deals/6b0107134c00e485cc89061b",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 317,
+      "note": null
+    },
+    {
+      "action_id": "crm.update_deal",
+      "step": "update deal",
+      "method": "PATCH",
+      "path": "/crm/deals/6b0107134c00e485cc89061b",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 376,
+      "note": null
+    },
+    {
+      "action_id": "crm.delete_deal",
+      "step": "cleanup deal",
+      "method": "DELETE",
+      "path": "/crm/deals/6b0107134c00e485cc89061b",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 329,
+      "note": null
+    },
+    {
+      "action_id": "crm.create_task",
+      "step": "create task",
+      "method": "POST",
+      "path": "/crm/tasks",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 278,
+      "note": null
+    },
+    {
+      "action_id": "crm.create_note",
+      "step": "create note",
+      "method": "POST",
+      "path": "/crm/notes",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 352,
+      "note": null
+    },
+    {
+      "action_id": "webhooks.create_webhook",
+      "step": "create webhook",
+      "method": "POST",
+      "path": "/webhooks",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 360,
+      "note": null
+    },
+    {
+      "action_id": "webhooks.get_webhook",
+      "step": "get webhook",
+      "method": "GET",
+      "path": "/webhooks/2691734",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 288,
+      "note": null
+    },
+    {
+      "action_id": "webhooks.update_webhook",
+      "step": "update webhook",
+      "method": "PUT",
+      "path": "/webhooks/2691734",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 298,
+      "note": null
+    },
+    {
+      "action_id": "webhooks.delete_webhook",
+      "step": "cleanup webhook",
+      "method": "DELETE",
+      "path": "/webhooks/2691734",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 271,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.create_sender",
+      "step": "sender {email}",
+      "method": "SKIP",
+      "path": "",
+      "expected": [],
+      "ok": true,
+      "skipped": true,
+      "http_status": null,
+      "duration_ms": 0,
+      "note": "Sender already exists; not created or deleted."
+    },
+    {
+      "action_id": "senders_and_domains.create_sender",
+      "step": "create sender {email}",
+      "method": "POST",
+      "path": "/senders",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "skipped": true,
+      "blocked": true,
+      "plan_gated": false,
+      "http_status": 400,
+      "duration_ms": 354,
+      "note": "{\"code\":\"bad_request\",\"message\":\"Your DMARC policy requires your domain to be authenticated before creating a sender with this domain. Authenticate domain and then create a sender.\"}"
+    },
+    {
+      "action_id": "senders_and_domains.create_domain",
+      "step": "create domain",
+      "method": "POST",
+      "path": "/senders/domains",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 781,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.get_domain_configuration",
+      "step": "get domain",
+      "method": "GET",
+      "path": "/senders/domains/{test}",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 395,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.delete_domain",
+      "step": "cleanup domain",
+      "method": "DELETE",
+      "path": "/senders/domains/{test}",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 480,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_list",
+      "step": "create schedule list",
+      "method": "POST",
+      "path": "/contacts/lists",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 227,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_contact",
+      "step": "create schedule contact",
+      "method": "POST",
+      "path": "/contacts",
+      "expected": [
+        201,
+        204
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 351,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_contacts_from_list",
+      "step": "verify schedule recipient",
+      "method": "GET",
+      "path": "/contacts/lists/17/contacts?limit=1",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 282,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.create_email_campaign",
+      "step": "create schedule campaign",
+      "method": "POST",
+      "path": "/emailCampaigns",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 378,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.update_email_campaign",
+      "step": "schedule campaign",
+      "method": "PUT",
+      "path": "/emailCampaigns/12",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 323,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.get_email_campaign",
+      "step": "get scheduled campaign",
+      "method": "GET",
+      "path": "/emailCampaigns/12",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 322,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.update_email_campaign",
+      "step": "assert scheduledAt",
+      "method": "ASSERT",
+      "path": "/emailCampaigns/12",
+      "expected": [
+        true
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 0,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.delete_email_campaign",
+      "step": "cleanup schedule campaign",
+      "method": "DELETE",
+      "path": "/emailCampaigns/12",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 403,
+      "duration_ms": 271,
+      "note": "{\"code\":\"permission_denied\",\"message\":\"Campaign once scheduled can not be deleted\"}\n",
+      "blocked": true,
+      "skipped": true
+    },
+    {
+      "action_id": "contacts.delete_contact",
+      "step": "cleanup schedule contact",
+      "method": "DELETE",
+      "path": "/contacts/{email}",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 234,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_list",
+      "step": "cleanup schedule list",
+      "method": "DELETE",
+      "path": "/contacts/lists/17",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 307,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_list",
+      "step": "create sendtest list",
+      "method": "POST",
+      "path": "/contacts/lists",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 302,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_contact",
+      "step": "create sendtest contact",
+      "method": "POST",
+      "path": "/contacts",
+      "expected": [
+        201,
+        204
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 390,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_contacts_from_list",
+      "step": "verify sendtest recipient",
+      "method": "GET",
+      "path": "/contacts/lists/18/contacts?limit=1",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 287,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.create_email_campaign",
+      "step": "create sendtest campaign",
+      "method": "POST",
+      "path": "/emailCampaigns",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 331,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.send_test_email",
+      "step": "send test email",
+      "method": "POST",
+      "path": "/emailCampaigns/13/sendTest",
+      "expected": [
+        201,
+        204,
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 541,
+      "note": "HTTP 204 accepted; delivery not confirmed (test campaign deleted).",
+      "delivery_confirmed": false
+    },
+    {
+      "action_id": "email_campaigns.get_email_campaign",
+      "step": "get test campaign",
+      "method": "GET",
+      "path": "/emailCampaigns/13",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 307,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.delete_email_campaign",
+      "step": "cleanup sendtest campaign",
+      "method": "DELETE",
+      "path": "/emailCampaigns/13",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 294,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_contact",
+      "step": "cleanup sendtest contact",
+      "method": "DELETE",
+      "path": "/contacts/{email}",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 276,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_list",
+      "step": "cleanup sendtest list",
+      "method": "DELETE",
+      "path": "/contacts/lists/18",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 338,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_list",
+      "step": "create sendnow list",
+      "method": "POST",
+      "path": "/contacts/lists",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 276,
+      "note": null
+    },
+    {
+      "action_id": "contacts.create_contact",
+      "step": "create sendnow contact",
+      "method": "POST",
+      "path": "/contacts",
+      "expected": [
+        201,
+        204
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 417,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_contacts_from_list",
+      "step": "verify sendnow recipient",
+      "method": "GET",
+      "path": "/contacts/lists/19/contacts?limit=1",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 265,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.create_email_campaign",
+      "step": "create sendnow campaign",
+      "method": "POST",
+      "path": "/emailCampaigns",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 201,
+      "duration_ms": 361,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.send_email_campaign_now",
+      "step": "send campaign now",
+      "method": "POST",
+      "path": "/emailCampaigns/14/sendNow",
+      "expected": [
+        204,
+        200,
+        201
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 340,
+      "note": "HTTP 204 accepted, but campaign status=suspended and globalStats sent=0/delivered=0; delivery not confirmed.",
+      "delivery_confirmed": false
+    },
+    {
+      "action_id": "email_campaigns.get_email_campaign",
+      "step": "get sent campaign",
+      "method": "GET",
+      "path": "/emailCampaigns/14",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 322,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.delete_email_campaign",
+      "step": "cleanup sendnow campaign",
+      "method": "DELETE",
+      "path": "/emailCampaigns/14",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 403,
+      "duration_ms": 284,
+      "note": "{\"code\":\"permission_denied\",\"message\":\"Campaign once scheduled can not be deleted\"}\n",
+      "blocked": true,
+      "skipped": true
+    },
+    {
+      "action_id": "contacts.delete_contact",
+      "step": "cleanup sendnow contact",
+      "method": "DELETE",
+      "path": "/contacts/{email}",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 304,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_list",
+      "step": "cleanup sendnow list",
+      "method": "DELETE",
+      "path": "/contacts/lists/19",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 326,
+      "note": null
+    },
+    {
+      "action_id": "crm.get_deal",
+      "step": "get deal",
+      "method": "GET",
+      "path": "/crm/deals/6b0107a6f61b7b8b59f9ca99",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 221,
+      "note": null
+    },
+    {
+      "action_id": "crm.update_deal",
+      "step": "update deal",
+      "method": "PATCH",
+      "path": "/crm/deals/6b0107a6f61b7b8b59f9ca99",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 260,
+      "note": null
+    },
+    {
+      "action_id": "crm.delete_deal",
+      "step": "cleanup deal",
+      "method": "DELETE",
+      "path": "/crm/deals/6b0107a6f61b7b8b59f9ca99",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 281,
+      "note": null
+    },
+    {
+      "action_id": "crm.get_task",
+      "step": "get task",
+      "method": "GET",
+      "path": "/crm/tasks/6b0107a7f61b7b8b59f9ca9b",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 220,
+      "note": null
+    },
+    {
+      "action_id": "crm.update_task",
+      "step": "update task",
+      "method": "PATCH",
+      "path": "/crm/tasks/6b0107a7f61b7b8b59f9ca9b",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 296,
+      "note": null
+    },
+    {
+      "action_id": "crm.delete_task",
+      "step": "cleanup task",
+      "method": "DELETE",
+      "path": "/crm/tasks/6b0107a7f61b7b8b59f9ca9b",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 631,
+      "note": null
+    },
+    {
+      "action_id": "crm.create_company",
+      "step": "create note company",
+      "method": "POST",
+      "path": "/companies",
+      "expected": [
+        201,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 243,
+      "note": null
+    },
+    {
+      "action_id": "crm.get_note",
+      "step": "get note",
+      "method": "GET",
+      "path": "/crm/notes/6b0107a94c00e485cc89079b",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 233,
+      "note": null
+    },
+    {
+      "action_id": "crm.update_note",
+      "step": "update note",
+      "method": "PATCH",
+      "path": "/crm/notes/6b0107a94c00e485cc89079b",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 277,
+      "note": null
+    },
+    {
+      "action_id": "crm.delete_note",
+      "step": "cleanup note",
+      "method": "DELETE",
+      "path": "/crm/notes/6b0107a94c00e485cc89079b",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 372,
+      "note": null
+    },
+    {
+      "action_id": "crm.delete_company",
+      "step": "cleanup note company",
+      "method": "DELETE",
+      "path": "/companies/6b0107a9f61b7b8b59f9ca9d",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 276,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_contacts_from_list",
+      "step": "verify schedule recipient",
+      "method": "GET",
+      "path": "/contacts/lists/20/contacts?limit=1",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 218,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.update_email_campaign",
+      "step": "schedule campaign",
+      "method": "PUT",
+      "path": "/emailCampaigns/15",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 264,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.get_email_campaign",
+      "step": "get scheduled campaign",
+      "method": "GET",
+      "path": "/emailCampaigns/15",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 272,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.update_email_campaign",
+      "step": "assert scheduledAt",
+      "method": "ASSERT",
+      "path": "/emailCampaigns/15",
+      "expected": [
+        true
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 0,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.update_campaign_status",
+      "step": "suspend scheduled campaign",
+      "method": "PUT",
+      "path": "/emailCampaigns/15/status",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 273,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.get_email_campaign",
+      "step": "get suspended campaign",
+      "method": "GET",
+      "path": "/emailCampaigns/15",
+      "expected": [
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 200,
+      "duration_ms": 258,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.update_campaign_status",
+      "step": "assert suspended",
+      "method": "ASSERT",
+      "path": "/emailCampaigns/15",
+      "expected": [
+        "suspended"
+      ],
+      "ok": true,
+      "http_status": 200,
+      "duration_ms": 0,
+      "note": "suspended"
+    },
+    {
+      "action_id": "email_campaigns.delete_email_campaign",
+      "step": "cleanup schedule campaign",
+      "method": "DELETE",
+      "path": "/emailCampaigns/15",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "skipped": true,
+      "blocked": true,
+      "plan_gated": false,
+      "http_status": 403,
+      "duration_ms": 228,
+      "note": "{\"code\":\"permission_denied\",\"message\":\"Campaign once scheduled can not be deleted\"}\n"
+    },
+    {
+      "action_id": "email_campaigns.update_campaign_status",
+      "step": "archive schedule campaign",
+      "method": "PUT",
+      "path": "/emailCampaigns/15/status",
+      "expected": [
+        204,
+        200
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 230,
+      "note": null
+    },
+    {
+      "action_id": "contacts.delete_list",
+      "step": "cleanup schedule list",
+      "method": "DELETE",
+      "path": "/contacts/lists/20",
+      "expected": [
+        204,
+        200,
+        404
+      ],
+      "ok": true,
+      "skipped": false,
+      "blocked": false,
+      "plan_gated": false,
+      "http_status": 204,
+      "duration_ms": 312,
+      "note": null
+    }
+  ],
+  "verification": {
+    "account_admin.get_account": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /account",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "senders_and_domains.get_senders": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /senders",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "contacts.get_folders": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /contacts/folders?limit=50",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.list_pipelines": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /crm/pipeline/details/all",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.list_task_types": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /crm/tasktypes",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "account_admin.get_account_activity": {
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /organization/activities?limit=10",
+      "http_status": 400,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"code\":\"bad_request\",\"message\":\"Upgrade to Enterprise plan to access this API.\"}",
+      "kind": "advanced_flow"
+    },
+    "account_admin.list_invited_users": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /organization/invited/users",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "processes.get_processes": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /processes?limit=10",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "account_admin.get_user_permission": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /organization/user/{email}/permissions",
+      "http_status": 400,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.create_deal": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /crm/deals",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.get_deal": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /crm/deals/6b0107134c00e485cc89061b",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.update_deal": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: PATCH /crm/deals/6b0107134c00e485cc89061b",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.delete_deal": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /crm/deals/6b0107134c00e485cc89061b",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.create_task": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /crm/tasks",
+      "http_status": 201,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.create_note": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /crm/notes",
+      "http_status": 201,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "webhooks.create_webhook": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /webhooks",
+      "http_status": 201,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "webhooks.get_webhook": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /webhooks/2691734",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "webhooks.update_webhook": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: PUT /webhooks/2691734",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "webhooks.delete_webhook": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /webhooks/2691734",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "senders_and_domains.create_domain": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /senders/domains",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "senders_and_domains.get_domain_configuration": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /senders/domains/{test}",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "senders_and_domains.delete_domain": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /senders/domains/{test}",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "contacts.create_list": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /contacts/lists",
+      "http_status": 201,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "contacts.create_contact": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /contacts",
+      "http_status": 201,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "contacts.get_contacts_from_list": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /contacts/lists/17/contacts?limit=1",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "email_campaigns.create_email_campaign": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /emailCampaigns",
+      "http_status": 201,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "email_campaigns.update_email_campaign": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: PUT /emailCampaigns/12",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "email_campaigns.get_email_campaign": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /emailCampaigns/12",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "contacts.delete_contact": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /contacts/{email}",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "contacts.delete_list": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /contacts/lists/17",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "email_campaigns.send_test_email": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /emailCampaigns/13/sendTest",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": "HTTP 204 accepted, but campaign status=suspended and globalStats sent=0/delivered=0; delivery not confirmed.",
+      "kind": "advanced_flow",
+      "delivery_confirmed": false
+    },
+    "email_campaigns.delete_email_campaign": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /emailCampaigns/13",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "email_campaigns.send_email_campaign_now": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /emailCampaigns/14/sendNow",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": "HTTP 204 accepted, but campaign status=suspended and globalStats sent=0/delivered=0; delivery not confirmed.",
+      "kind": "advanced_flow",
+      "delivery_confirmed": false
+    },
+    "crm.get_task": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /crm/tasks/6b0107a7f61b7b8b59f9ca9b",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.update_task": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: PATCH /crm/tasks/6b0107a7f61b7b8b59f9ca9b",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.delete_task": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /crm/tasks/6b0107a7f61b7b8b59f9ca9b",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.create_company": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: POST /companies",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.get_note": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: GET /crm/notes/6b0107a94c00e485cc89079b",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.update_note": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: PATCH /crm/notes/6b0107a94c00e485cc89079b",
+      "http_status": 200,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.delete_note": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /crm/notes/6b0107a94c00e485cc89079b",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "crm.delete_company": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: DELETE /companies/6b0107a9f61b7b8b59f9ca9d",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    },
+    "email_campaigns.update_campaign_status": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T02:56:35.803Z",
+      "method": "advanced: PUT /emailCampaigns/15/status",
+      "http_status": 204,
+      "account_entitlement": "ok",
+      "note": null,
+      "kind": "advanced_flow"
+    }
+  },
+  "duration_ms": 4012
+}

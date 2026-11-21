@@ -1,0 +1,18 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.commandcode/
+catalog/.cache/
+*.log
+.DS_Store
+
+# Browser capture artifacts may contain session cookies, tokens and PII.
+# Keep raw captures out of git; only commit the redacted, normalized inventory.
+*.har
+*.har.json
+cookies*.json
+.capture/
+captures/
+reports/capture/
+.agent-browser/
