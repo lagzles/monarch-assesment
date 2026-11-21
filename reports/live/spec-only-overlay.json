@@ -1,0 +1,220 @@
+{
+  "checked_at": "2026-11-21T03:47:22.619Z",
+  "verification": {
+    "crm.list_company_attributes": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.694Z",
+      "method": "sweep: GET /crm/attributes/companies",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "crm.list_deal_attributes": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /crm/attributes/deals",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "crm.list_files": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /crm/files?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "crm.list_pipeline_stages": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /crm/pipeline/details",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "email_campaigns.get_shared_template_url": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /emailCampaigns/12/sharedUrl",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "external_feeds.get_external_feeds": {
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /feeds?limit=1&offset=0&sort=desc",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"code\":\"permission_denied\",\"message\":\"This feature is only available to customers with an Enterprise plan. To enable it, please contact your customer success manager.\"}\n",
+      "kind": "read_check"
+    },
+    "inbound.get_inbound_events": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /inbound/events?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "processes.get_process": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /processes/3",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "senders_and_domains.get_ips": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /senders/ips",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "senders_and_domains.get_ips_from_sender": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /senders/1/ips",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "templates.get_smstemplates": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /transactionalSMS/templates?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "transactional_email.get_aggregated_smtp_report": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /smtp/statistics/aggregatedReport",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "transactional_email.get_blocked_domains": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /smtp/blockedDomains",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "transactional_email.get_email_event_report": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /smtp/statistics/events?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "transactional_email.get_smtp_report": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /smtp/statistics/reports?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "transactional_email.get_transac_blocked_contacts": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /smtp/blockedContacts?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "contacts.get_contact_stats": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:47:08.623Z",
+      "method": "sweep: GET /contacts/{email}/campaignStats",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "contacts.get_folder": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:47:08.624Z",
+      "method": "sweep: GET /contacts/folders/1",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "contacts.get_folder_lists": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:47:08.624Z",
+      "method": "sweep: GET /contacts/folders/1/lists?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "contacts.get_segments": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:47:08.624Z",
+      "method": "sweep: GET /contacts/segments?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
+    },
+    "account_admin.get_master_account": {
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.613Z",
+      "method": "sweep: GET /corporate/masterAccount",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
+    },
+    "account_admin.list_corporate_invited_users": {
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.615Z",
+      "method": "sweep: GET /corporate/invited/users?limit=1&offset=0",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
+    },
+    "account_admin.list_corporate_ips": {
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.615Z",
+      "method": "sweep: GET /corporate/ip",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
+    },
+    "account_admin.list_sub_account_groups": {
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.615Z",
+      "method": "sweep: GET /corporate/groups",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
+    },
+    "account_admin.list_sub_accounts": {
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.615Z",
+      "method": "sweep: GET /corporate/subAccount?limit=1&offset=0",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
+    },
+    "ecommerce.list_categories": {
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.615Z",
+      "method": "sweep: GET /categories?limit=1&offset=0&sort=desc",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Your eCommerce section is not yet activated.\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
+    }
+  }
+}

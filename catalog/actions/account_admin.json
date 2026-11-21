@@ -2685,9 +2685,13 @@
     ],
     "confidence": 0.94,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.613Z",
+      "method": "sweep: GET /corporate/masterAccount",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
     }
   },
   {
@@ -4577,9 +4581,13 @@
     ],
     "confidence": 0.94,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.615Z",
+      "method": "sweep: GET /corporate/invited/users?limit=1&offset=0",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
     }
   },
   {
@@ -4694,9 +4702,13 @@
     ],
     "confidence": 0.94,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.615Z",
+      "method": "sweep: GET /corporate/ip",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
     }
   },
   {
@@ -5004,9 +5016,13 @@
     ],
     "confidence": 0.94,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.615Z",
+      "method": "sweep: GET /corporate/groups",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
     }
   },
   {
@@ -5214,9 +5230,13 @@
     ],
     "confidence": 0.94,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.615Z",
+      "method": "sweep: GET /corporate/subAccount?limit=1&offset=0",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
     }
   },
   {

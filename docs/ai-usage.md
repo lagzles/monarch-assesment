@@ -11,10 +11,10 @@ The sections below separate what the agent did, what I decided or provided, and 
 | Layer | Tool | Role |
 |---|---|---|
 | Implementation agent | Command Code (AI coding agent) | Repo scaffolding, parser/generator scripts, taxonomy design, curation drafts, docs. |
-| Research | Web search + page fetch (public pages only) | Brevo OpenAPI spec, authentication/rate-limit docs, help-center articles, MCP module list. No browser automation. |
+| Research | Web search + page fetch (public pages only) | Brevo OpenAPI spec, authentication/rate-limit docs, help-center articles, MCP module list. Browser automation was used separately for the capture pass. |
 | Deterministic extraction | Node.js + `js-yaml` | Parse 1.17 MB OpenAPI YAML, resolve `$ref`, flatten schemas/params/examples/errors. |
 | Validation | `ajv` + custom checks | JSON Schema, duplicate ids/tool names, reference resolution, counts, secret scan. |
-| Verification | Node.js `fetch` against Brevo API | 23 read-only GET checks + 28 write-flow steps (20 actions) + 68 advanced-flow steps + 1 transactional send; overlays into the catalog. |
+| Verification | Node.js `fetch` against Brevo API | 23 read-only GET checks + spec-only sweep (19 2xx, 7 plan-gated) + 28 write-flow steps (20 actions) + 68 advanced-flow steps + 1 event flow + 1 transactional send; overlays into the catalog. |
 | Browser capture | Command Code `agent-browser` (CDP + HAR) | Drove a dedicated Chrome profile on my free account, recorded network traffic, imported and redacted the HAR. |
 | Packaging | Node.js | JSON/JSONL/per-domain slices/index/OpenAI-style tool definitions. |
 
@@ -24,18 +24,21 @@ The sections below separate what the agent did, what I decided or provided, and 
 |---|---|---|---|
 | Origination | Proposed the catalog architecture and executed it. | **I proposed using an AI model with a real API key to evaluate endpoints**, and provided the account, key and scope (API + UI inventory, English artifacts). | — |
 | Understand the brief | Extracted the PDF and summarized requirements and grading weights. | Confirmed the scope and language. | — |
-| Source discovery | Found the official OpenAPI URL, help-center areas and MCP module list; measured 208 paths / 292 operations. | Approved using the public spec and my free account. | Whether to add a browser/network capture pass. |
+| Source discovery | Found the official OpenAPI URL, help-center areas and MCP module list; measured 208 paths / 292 operations. | Approved using the public spec and my free account. | The browser/network capture scope (completed later). |
 | Taxonomy | Drafted 32 business domains and the tag/path mapping from the operation list. | Set the direction: business-action-first, not tag mirroring. | The domain groupings themselves (not line-reviewed yet). |
 | Extraction | Wrote `spec.mjs` + `build-catalog.mjs`: `$ref` resolution, input flattening, examples, errors, rate limits, risk/idempotency heuristics. | Approved the approach. | The risk/idempotency heuristics. |
 | Curation | Drafted business framing for 34 high-value actions. | Asked for business-level intent, not endpoint prose. | The 34 curated actions, line by line. |
-| UI inventory | Drafted 203 UI actions from **public help-center pages** (no browser, no session). | Chose to include UI coverage; did not provide UI observations. | The UI paths and UI-only claims. |
+| UI inventory | Drafted 203 UI actions from **public help-center pages**; browser capture came later as evidence. | Chose to include UI coverage; did not provide UI observations. | The UI paths and UI-only claims. |
 | Packaging | Generated catalog, JSONL, slices, index, `agent-tools.json`, search CLI. | Asked for something an agent could consume directly. | The final artifact set and naming. |
 | Reliability | Built the validator, coverage report and live-verification script. | Supplied the API key and the "no credentials in the repo" rule. | The pass/fail bar and risk policy. |
-| Live verification | Ran 23 read-only GET checks with my key and applied the overlay. | Provided the key. | The interpretation of the results (4 plan-gated endpoints). |
-| Browser capture | Drove the logged-in UI through contacts, lists, companies, email campaigns, forms and templates; recorded HARs; wrote the importer and the public-vs-internal comparison. | Approved using the free account for test data; the agent created and deleted the test entities. | The 23 observed-to-catalog mappings. |
+| Live verification | Ran 23 read-only GET checks with my key and the spec-only sweep; applied the overlay. | Provided the key. | The interpretation of the results (8 plan-gated endpoints, 19 read promotions). |
+| Browser capture | Drove the logged-in UI through contacts, lists, companies, email campaigns, forms and templates; then probed SMS, eCommerce, landing pages, payments, loyalty, automations and conversations; recorded HARs; wrote the importer and the public-vs-internal comparison. | Approved using the free account for test data; the agent created and deleted the test entities. | The 23 observed-to-catalog mappings and the access/plan findings. |
 | Write-flow verification | Wrote and ran `verify-flows.mjs`: public POST/GET/DELETE flows for list, contact, company, campaign and template, with cleanup. | Approved creating/deleting test data with the API key. | The 20 actions promoted to write-flow verified. |
 | Advanced flow verification | Wrote and ran `verify-advanced-flows.mjs`: CRM deals/tasks/notes, webhooks, senders/domains, scheduling, send test/now and account reads, with cleanup and plan-gated classification. | Authorized test data and send tests to one address. | The advanced result interpretation, especially that sendNow did not confirm delivery. |
 | Negative contracts + diagnosis | Wrote and ran `verify-negative-contracts.mjs` (25 expected-error cases) and `diagnose-delivery.mjs` (read-only blocker analysis). | Authorized the negative tests; no data created. | The diagnosis conclusion (free-mail sender without authenticated domain). |
+| Spec-only sweep | Wrote and ran `verify-spec-only.mjs`: safe GETs with fixtures and rate-limit stop. | Authorized read-only checks with the key. | The 19 2xx / 7 plan-gated classification. |
+| Events/webhooks | Wrote and ran `verify-events-webhooks.mjs`: custom event, webhook CRUD and one transactional send. | Authorized one send to the personal address. | The finding that delivery is not confirmed (0 webhook requests). |
+| Remaining UI probes | Opened the remaining domains and recorded access/plan limitations. | Authorized the browser session. | No new mappings were possible on this account. |
 | Transactional delivery test | Sent exactly one `POST /smtp/email` to the personal address and checked logs/events. | Authorized `--confirm-send` for one message. | The interpretation that 201 does not confirm delivery. |
 | Docs | Drafted README, approach, gaps, this document. | — | The whole narrative, in my voice. |
 
@@ -59,7 +62,7 @@ This is the part that matters. None of these were caught by "reading the output 
    `send_test_email` and `remove_contact_from_list` were classified high-risk/confirm because the verb heuristic saw "send"/"delete". This is conservative rather than dangerous, but noisy for agents. Kept as-is for now and documented; the override file is the intended place to relax specific actions after human review.
 
 6. **UI-only coverage is documentation-derived, except for the captured flows.**
-   The 58 UI-only actions and their paths mostly come from public help-center articles. Later browser captures covered contacts, lists, companies, email campaigns, forms and templates: 137 internal endpoints observed, 23 mappings across 21 catalog actions (20 public + 1 UI-only), 114 internal-only. The remaining inventory is still capped at 0.72 confidence and marked `verification.status: unverified`.
+   The 58 UI-only actions and their paths mostly come from public help-center articles. Three browser captures observed contacts, lists, companies, email campaigns, forms, templates, automations onboarding, conversations and module access probes: **168 first-party endpoints** (157 internal + 11 app backend), 23 mappings across 21 catalog actions (20 public + 1 UI-only), 145 internal-only. The third capture added no public mappings because SMS, eCommerce, landing pages, payments, loyalty and the automation editor were inaccessible or plan-gated. The remaining inventory is still capped at 0.72 confidence and marked `verification.status: unverified`.
 
 7. **Numeric path IDs were not normalized.**
    The first HAR import produced `observed.contacts_api_v2.delete_lists_3` because the normalizer only replaced segments of three or more digits. Fixed to replace any all-digit segment while preserving version segments (`v2`, `v3`). Result: `/lists/{id}`.
@@ -96,11 +99,12 @@ This is the part that matters. None of these were caught by "reading the output 
 | Layer | Source | Observed how | Status |
 |---|---|---|---|
 | 292 API actions | Pinned OpenAPI 3.0.1 spec | Parsed from the spec, not probed endpoint-by-endpoint | `spec_only` |
-| 23 of those API actions | Brevo REST API | Real GET calls with my key | `live_verified` |
-| 203 UI actions | Public help-center pages + MCP module taxonomy | Fetched over HTTP; **no browser automation** for this inventory | `unverified` (0.72) |
-| 137 internal endpoints | Real browser sessions (contacts, lists, companies, campaigns, forms, templates) | `agent-browser` + CDP + HAR, authenticated session, redacted | Observed; 23 mappings across 21 actions (20 public + 1 UI-only), 114 internal-only |
+| 87 of those API actions | Brevo REST API | Read GETs, write flows, advanced flows, one event flow and one transactional send | `live_verified` (multiple kinds) |
+| 203 UI actions | Public help-center pages + MCP module taxonomy | Fetched over HTTP; browser evidence for nine flows | `unverified` (0.72) outside captured flows |
+| 168 internal endpoints | Real browser sessions (contacts, lists, companies, campaigns, forms, templates, automations onboarding, conversations, module access probes) | `agent-browser` + CDP + HAR, authenticated session, redacted | Observed; 23 mappings across 21 actions (20 public + 1 UI-only), 145 internal-only |
 | 20 write-flow actions | Brevo REST API (public) | Real POST/GET/DELETE flows with unique test data and cleanup | `live_verified` (`write_flow`) |
-| Advanced flow actions | Brevo REST API (public) | CRM, webhooks, senders/domains, scheduling, send test/now, account reads | `live_verified` (`advanced_flow`), 1 `plan_gated`, 5 prerequisite skips |
+| Advanced flow actions | Brevo REST API (public) | CRM, webhooks, senders/domains, scheduling, send test/now, account reads | `live_verified` (`advanced_flow`); 1 `plan_gated` in this suite, 8 in the catalog; 5 prerequisite skips |
+| Event flow | Brevo REST API (public) | `POST /events` 204, `GET /events` 200 | `live_verified` (`event_flow`) |
 | 8 partial actions | Spec + public docs | Documentation-derived | Mixed |
 
 No private or internal endpoints are presented as public API tools. The `ui_path` values outside the captured flows are reconstructions from article titles/descriptions, not observed click paths. The captured flows have real UI labels and internal endpoints attached as `observed_ui`.
@@ -127,7 +131,7 @@ No private or internal endpoints are presented as public API tools. The `ui_path
 - The 403s were classified as plan gating, not auth failure. The overlay is in `reports/live/verification.json` and applied to the catalog.
 
 **Browser capture (agent-run in a dedicated Chrome profile):**
-- 4,963 HAR entries across two captures -> **137 first-party endpoints**; **23 mappings** across **21 catalog actions** (20 public + 1 UI-only), **114 internal-only**.
+- 5,000+ HAR entries across three captures -> **168 first-party endpoints** (157 internal + 11 app backend); **23 mappings** across **21 catalog actions** (20 public + 1 UI-only), **145 internal-only**. The third capture probed SMS, eCommerce, landing pages, payments, loyalty, automations and conversations; those modules were inaccessible or plan-gated, so it added no public mappings.
 - Test list, contact, company, draft campaign, form and template created and deleted; no email/SMS/WhatsApp was sent.
 - The redaction scan over committed artifacts is clean: no cookies, auth headers, emails in paths, API keys or JWT-like strings.
 
@@ -153,13 +157,20 @@ No private or internal endpoints are presented as public API tools. The `ui_path
 - No delivery event/log was visible afterwards (`/smtp/emails` and `/smtp/statistics/events` returned empty).
 - Recorded as `transactional_flow` + `live_verified` for API acceptance, with **delivery not confirmed** in the note.
 
+**Events and webhooks (agent-run with my key):**
+- `POST /events` returned **204** with `identifiers.email_id`; `GET /events` returned 200.
+- Webhook create/delete succeeded against a disposable `webhook.site` URL.
+- One transactional send returned **201**, but **0 webhook requests** arrived within 20s; delivery is **not confirmed**.
+
 **Checked by the agent, not by me line-by-line:**
 - The 34 curated actions against the spec's request/response schemas (e.g. `createContact`'s `forceMerge`/`getId`, `addContactToList`'s 150-item limit).
 - The taxonomy against the full operation list (every operation resolves to a domain).
 - UI-only claims against multiple help-center articles per domain.
 
 **Not yet verified:**
-- The 203 documented UI actions outside contacts, lists, companies, campaigns, forms and templates.
+- The remaining UI-only actions in SMS/WhatsApp, eCommerce, landing pages, payments, loyalty, automations and conversations. Those domains were inaccessible or plan-gated on this account; the captured evidence is recorded, but no new mappings were possible.
+- Webhook payload schemas and automation workflow CRUD; event names and 66 triggers are documented, but workflow execution is UI-only.
+- The 197 `spec_only` actions that still lack a fixture or a safe write path.
 - Positive sender/domain success: requires a domain you control and DNS authentication; `.example.com` only validates the CRUD contract.
 - Account admin mutations: invitations, permission changes, sub-account creation, API keys and plan updates.
 - End-to-end send delivery (inbox/webhook) and the credit/sender conditions behind `sent=0`; the transactional test was accepted but delivery was not confirmed.

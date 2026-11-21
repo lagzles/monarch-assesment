@@ -23,15 +23,15 @@ The guiding principle: **never invent capability**. If the public API does not s
 | Layer | Source | Why |
 |---|---|---|
 | Executable truth | Official OpenAPI 3.0.1 spec (`api.brevo.com/v3/swagger_definition_v3.yml`, pinned in `sources/`) | Authoritative for paths, parameters, schemas, responses and errors. 208 paths / 292 operations. |
-| Product surface | Brevo **public help-center pages** (CRM, Marketing, Automations, Commerce, Conversations, Transactional), fetched over HTTP | Reveals features the API does not expose: landing pages, forms, push, Ad Studio, meetings, phone, automation editor. **Not** a logged-in session, browser automation or network capture. |
+| Product surface | Brevo **public help-center pages** (CRM, Marketing, Automations, Commerce, Conversations, Transactional), fetched over HTTP | Reveals features the API does not expose: landing pages, forms, push, Ad Studio, meetings, phone, automation editor. Browser captures are used as evidence where the UI was accessible; see the provenance note below. |
 | Agent taxonomy cross-check | Brevo's public MCP server documentation (27 modules) | Confirms the product is already grouped into agent-sized domains; used as a sanity check, not copied blindly. |
 | Operational metadata | Brevo docs: authentication, rate limits | Auth schemes and the Free/Starter rate-limit table per route. |
 
 Pinning the spec is intentional: coverage numbers and ids stay reproducible even if Brevo changes the live document. `manifest.json` records the sha256.
 
-**Important provenance distinction:** the API layer is spec-derived (292 actions, 23 of them additionally checked live with a real key). The UI layer is **documentation-derived** from public help-center pages; no browser was automated, no logged-in session was used and no network traffic was captured. UI paths are reconstructions and are marked `unverified`.
+**Important provenance distinction:** the API layer is spec-derived (292 actions, 87 of them additionally checked live with a real key). The UI layer is **primarily documentation-derived** from public help-center pages. Three browser sessions were also used as evidence: the first two covered contacts, lists, companies, email campaigns, forms and templates; the third probed SMS, eCommerce, landing pages, payments, loyalty, automations and conversations, all of which were inaccessible or plan-gated on the free account. UI paths outside the captured flows are reconstructions and are marked `unverified`.
 
-A second pass changed part of that: a real browser session (Command Code `agent-browser`, CDP + HAR) was used on a free Brevo account to observe what the UI actually calls. Two captures covered contacts, lists, companies, email campaigns, forms and templates, capturing **137 internal endpoints**, mapping **23** observed endpoints across **21 catalog actions** (20 public + 1 UI-only), and leaving **114** internal-only. The UI does not call `api.brevo.com/v3`; it calls microservices such as `contacts-api-v2.brevo.com`, `contacts-api.brevo.com`, `crm-backend-api.brevo.com`, `segments-api.brevo.com`, `email-campaigns-backend.brevo.com`, `forms-api.brevo.com` and `unified-templates.brevo.com`. This is documented in [`reports/surface-comparison.md`](../reports/surface-comparison.md).
+That browser pass used Command Code `agent-browser` (CDP + HAR) on a free Brevo account to observe what the UI actually calls. The three captures produced **168 first-party endpoints** (157 internal API + 11 app backend), mapping **23** observed endpoints across **21 catalog actions** (20 public + 1 UI-only), and leaving **145** internal-only. The UI does not call `api.brevo.com/v3`; it calls microservices such as `contacts-api-v2.brevo.com`, `contacts-api.brevo.com`, `crm-backend-api.brevo.com`, `segments-api.brevo.com`, `email-campaigns-backend.brevo.com`, `forms-api.brevo.com` and `unified-templates.brevo.com`. The third session added no new public mappings because the target modules were not accessible on this plan. This is documented in [`reports/surface-comparison.md`](../reports/surface-comparison.md).
 
 ## 3. Plan I executed
 
@@ -48,9 +48,11 @@ A second pass changed part of that: a real browser session (Command Code `agent-
 9. Validate        JSON Schema, duplicate ids/tools, reference resolution, counts, secrets
 10. Report         Coverage, reliability and confidence metrics
 11. Verify (opt)    Read-only live checks with a real key; stored as an overlay
-12. Observe UI       Browser + HAR on contacts/lists/companies/campaigns/forms/templates: 137 internal endpoints, 23 mappings
-13. Verify writes    Public POST/GET/DELETE flows with test data and cleanup: 28 steps, 20 actions
-14. Verify advanced  CRM, webhooks, senders/domains, scheduling, send flows, account reads: 68 ok, 1 plan-gated, 5 skipped
+12. Observe UI       Three browser + HAR passes: 168 first-party endpoints, 23 mappings, 145 internal-only
+13. Verify reads     Spec-only GET sweep: 19 2xx, 7 plan-gated, 3 reachable 400s, 0 rate-limited
+14. Verify writes    Public POST/GET/DELETE flows with test data and cleanup: 28 steps, 20 actions
+15. Verify advanced  CRM, webhooks, senders/domains, scheduling, send flows, account reads: 68 ok, 1 plan-gated, 5 skipped
+16. Verify events    Custom event 204; GET /events 200; webhook CRUD; 0 webhook requests; delivery not confirmed
 ```
 
 ## 4. Key decisions and trade-offs
@@ -124,16 +126,20 @@ I explicitly did **not** spend time on:
 | Write actions with input schema | 175/176 |
 | API actions with documented errors | 292 |
 | Actions linked to a UI path | 202 |
-| Live-verified API actions | 67 (23 read + 20 write-flow + advanced flows + 1 transactional; overlaps) |
+| Live-verified API actions | 87 (read + 20 write-flow + advanced flows + 1 transactional + 1 event; overlaps) |
 | Write-flow verified actions | 20 (list, contact, company, campaign, template) |
 | Transactional verified actions | 1 (accepted 201; delivery not confirmed) |
-| Plan-gated actions | 1 (account activity, Enterprise-only) |
-| Spec-only actions | 224 |
+| Event-verified actions | 1 (`POST /events` → 204) |
+| Plan-gated actions | 8 (account admin, eCommerce, external feeds, WhatsApp/coupons) |
+| Spec-only actions | 197 |
+| Spec-only read sweep | 19 2xx; 7 plan-gated |
+| Webhook event types | 18 |
+| Automation triggers | 66 |
 | Negative contract cases | 25/25 passed |
 | Delivery diagnosis | Free-mail sender (gmail.com) with no authenticated domain |
-| Internal endpoints observed in a browser | 137 |
-| Catalog actions linked to an observed UI endpoint | 21 (20 public + 1 UI-only; 23 mappings, 114 internal-only) |
-| UI evidence | Documentation-derived for the 203-action inventory; browser/network evidence for contacts, lists, companies, campaigns, forms and templates |
+| Internal endpoints observed in a browser | 168 (157 internal + 11 app backend) |
+| Catalog actions linked to an observed UI endpoint | 21 (20 public + 1 UI-only; 23 mappings, 145 internal-only) |
+| UI evidence | Documentation-derived for the 203-action inventory; browser/network evidence for contacts, lists, companies, campaigns, forms, templates and module access probes |
 
 The validator passes with zero errors and zero unmatched references. The single remaining warning is `ecommerce.activate_ecommerce_app`, which genuinely has no request body in the spec.
 
@@ -141,9 +147,9 @@ The validator passes with zero errors and zero unmatched references. The single 
 
 1. **Extend write-flow verification** to the remaining account-admin mutations on a disposable sub-account: invitations, permission changes, sub-account creation, API keys and plan updates.
 2. **Resolve delivery** by authenticating a domain you control and creating a sender on it; the diagnosis points to `gmail.com` as the blocker. Then retry `sendTest` to one address and confirm inbox/webhook delivery.
-3. **Extend the browser capture** to SMS/WhatsApp, automations, landing pages, eCommerce, loyalty and conversations. The current capture covers contacts, lists, companies, campaigns, forms and templates; 114 internal endpoints already have no recorded public equivalent.
+3. **Retry the browser capture on an entitled account** for SMS/WhatsApp, automations, landing pages, eCommerce, loyalty and conversations. The current capture covers contacts, lists, companies, campaigns, forms, templates and module error/upgrade pages; 145 internal endpoints already have no recorded public equivalent.
 4. **Recover the missing request bodies** for the UI list/contact creates. The HAR exporter recorded `bodySize=0` for some `fetch` calls; a fetch/XHR interceptor or CDP `Fetch` domain can capture them.
-5. **Model webhook events and automation triggers** as first-class actions — currently webhooks are CRUD only, and workflow CRUD is UI-only. This is the largest remaining coverage gap.
+5. **Model webhook payload schemas and automation actions** — event names and 66 triggers are documented, but payloads and workflow CRUD are not.
 6. **Add plan/permission requirements per action** (which plan and which key scopes are required), validated with a restricted key.
 7. **Build an agent evaluation harness** with 50 realistic intents and measure retrieval precision@k and execution success.
 8. **Generate an MCP server** directly from `catalog/agent-tools.json`, mapping each tool to its endpoint.
@@ -152,6 +158,6 @@ The validator passes with zero errors and zero unmatched references. The single 
 
 - "Business action" includes both write operations and the reads an agent needs to act safely (search, list, inspect); reads are marked `action_type: read` and `risk_level: low`.
 - The public API is the intended execution surface; UI-only actions are documented but flagged as requiring a human.
-- **UI coverage is documentation-derived, not observed.** The 203 UI actions come from public help-center pages; UI paths are inferred from article titles/descriptions and may differ from the current app. They are capped at 0.72 confidence until verified with a browser/network capture.
+- **UI coverage is primarily documentation-derived.** The 203 UI actions come from public help-center pages; browser evidence exists for nine flows (contacts, lists, companies, campaigns, forms, templates, automations onboarding, conversations and module access probes). UI paths outside those flows are inferred and capped at 0.72 confidence until verified. The remaining domains (SMS, eCommerce, landing pages, payments, loyalty) were inaccessible or plan-gated on this account.
 - Rate limits are the Free/Starter general tier from the public docs; higher tiers exist and are noted as a single tier value.
-- Brevo plan gating (loyalty, payments, WhatsApp, phone) is not modeled per action; live checks did reveal 4 plan-gated endpoints on the free account.
+- Brevo plan gating (loyalty, payments, WhatsApp, phone) is not modeled per action; live checks did reveal 8 plan-gated actions on the free account.

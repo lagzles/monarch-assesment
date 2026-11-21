@@ -1,0 +1,538 @@
+{
+  "checked_at": "2026-11-21T03:47:22.618Z",
+  "base_url": "https://api.brevo.com/v3",
+  "summary": {
+    "candidates": 66,
+    "executed": 32,
+    "reachable_2xx": 19,
+    "plan_gated": 7,
+    "skipped": 34,
+    "rate_limited": 0,
+    "reachable_400": 3,
+    "reachable_403": 3
+  },
+  "results": [
+    {
+      "action_id": "crm.download_file",
+      "status": "skipped",
+      "reason": "no fixture for {id}"
+    },
+    {
+      "action_id": "crm.get_file_details",
+      "status": "skipped",
+      "reason": "no fixture for {id}"
+    },
+    {
+      "action_id": "crm.get_pipeline",
+      "status": "skipped",
+      "reason": "no fixture for {pipelineID}"
+    },
+    {
+      "action_id": "crm.list_company_attributes",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/crm/attributes/companies",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 837,
+      "note": null
+    },
+    {
+      "action_id": "crm.list_deal_attributes",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/crm/attributes/deals",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 573,
+      "note": null
+    },
+    {
+      "action_id": "crm.list_files",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/crm/files?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 240,
+      "note": null
+    },
+    {
+      "action_id": "crm.list_pipeline_stages",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/crm/pipeline/details",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 230,
+      "note": null
+    },
+    {
+      "action_id": "email_campaigns.get_ab_test_campaign_result",
+      "status": "reachable_400",
+      "method": "GET",
+      "path": "/emailCampaigns/12/abTestCampaignResult",
+      "http_status": 400,
+      "ok": false,
+      "plan_gated": false,
+      "duration_ms": 229,
+      "note": "{\"code\":\"invalid_parameter\",\"message\":\"Campaign is not an A/B test campaign\"}\n"
+    },
+    {
+      "action_id": "email_campaigns.get_shared_template_url",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/emailCampaigns/12/sharedUrl",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 236,
+      "note": null
+    },
+    {
+      "action_id": "external_feeds.get_external_feed_uuid",
+      "status": "skipped",
+      "reason": "no fixture for {uuid}"
+    },
+    {
+      "action_id": "external_feeds.get_external_feeds",
+      "status": "plan_gated",
+      "method": "GET",
+      "path": "/feeds?limit=1&offset=0&sort=desc",
+      "http_status": 403,
+      "ok": false,
+      "plan_gated": true,
+      "duration_ms": 269,
+      "note": "{\"code\":\"permission_denied\",\"message\":\"This feature is only available to customers with an Enterprise plan. To enable it, please contact your customer success manager.\"}\n"
+    },
+    {
+      "action_id": "inbound.get_inbound_attachment",
+      "status": "skipped",
+      "reason": "no fixture for {downloadToken}"
+    },
+    {
+      "action_id": "inbound.get_inbound_events",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/inbound/events?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 255,
+      "note": null
+    },
+    {
+      "action_id": "inbound.get_inbound_events_by_uuid",
+      "status": "skipped",
+      "reason": "no fixture for {uuid}"
+    },
+    {
+      "action_id": "processes.get_process",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/processes/3",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 224,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.get_ips",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/senders/ips",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 236,
+      "note": null
+    },
+    {
+      "action_id": "senders_and_domains.get_ips_from_sender",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/senders/1/ips",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 2052,
+      "note": null
+    },
+    {
+      "action_id": "templates.get_smstemplates",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/transactionalSMS/templates?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 333,
+      "note": null
+    },
+    {
+      "action_id": "transactional_email.get_aggregated_smtp_report",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/smtp/statistics/aggregatedReport",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 247,
+      "note": null
+    },
+    {
+      "action_id": "transactional_email.get_blocked_domains",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/smtp/blockedDomains",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 229,
+      "note": null
+    },
+    {
+      "action_id": "transactional_email.get_email_event_report",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/smtp/statistics/events?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 367,
+      "note": null
+    },
+    {
+      "action_id": "transactional_email.get_scheduled_email_by_id",
+      "status": "reachable_400",
+      "method": "GET",
+      "path": "/smtp/emailStatus/{email}?limit=1&offset=0&sort=desc",
+      "http_status": 400,
+      "ok": false,
+      "plan_gated": false,
+      "duration_ms": 235,
+      "note": "{\"code\":\"invalid_parameter\",\"message\":\"Please enter valid UUIDv4 batch ID or message ID\"}\n"
+    },
+    {
+      "action_id": "transactional_email.get_smtp_report",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/smtp/statistics/reports?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 292,
+      "note": null
+    },
+    {
+      "action_id": "transactional_email.get_transac_blocked_contacts",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/smtp/blockedContacts?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 621,
+      "note": null
+    },
+    {
+      "action_id": "transactional_email.get_transac_email_content",
+      "status": "skipped",
+      "reason": "no fixture for {uuid}"
+    },
+    {
+      "action_id": "transactional_email.get_transac_emails_list",
+      "status": "reachable_400",
+      "method": "GET",
+      "path": "/smtp/emails?limit=1&offset=0&sort=desc",
+      "http_status": 400,
+      "ok": false,
+      "plan_gated": false,
+      "duration_ms": 238,
+      "note": "{\"code\":\"missing_parameter\",\"message\":\"Please pass atleast one of the following filters: email, messageId, templateId\"}"
+    },
+    {
+      "action_id": "contacts.get_consent_group",
+      "status": "skipped",
+      "reason": "no fixture for {id}"
+    },
+    {
+      "action_id": "contacts.get_consent_groups",
+      "status": "reachable_403",
+      "method": "GET",
+      "path": "/contacts/consent-groups?limit=1&offset=0",
+      "http_status": 403,
+      "ok": false,
+      "plan_gated": false,
+      "duration_ms": 780,
+      "note": "{\"code\":\"CONSENT_GROUP_NOT_ENABLED\",\"message\":\"consent group is not enabled for this client\"}\n"
+    },
+    {
+      "action_id": "contacts.get_contact_stats",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/contacts/{email}/campaignStats",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 269,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_folder",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/contacts/folders/1",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 247,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_folder_lists",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/contacts/folders/1/lists?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 240,
+      "note": null
+    },
+    {
+      "action_id": "contacts.get_segments",
+      "status": "reachable_2xx",
+      "method": "GET",
+      "path": "/contacts/segments?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "ok": true,
+      "plan_gated": false,
+      "duration_ms": 231,
+      "note": null
+    },
+    {
+      "action_id": "account_admin.get_admin_user_permissions",
+      "status": "skipped",
+      "reason": "no fixture for {email}"
+    },
+    {
+      "action_id": "account_admin.get_master_account",
+      "status": "plan_gated",
+      "method": "GET",
+      "path": "/corporate/masterAccount",
+      "http_status": 403,
+      "ok": false,
+      "plan_gated": true,
+      "duration_ms": 638,
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n"
+    },
+    {
+      "action_id": "account_admin.get_sub_account",
+      "status": "skipped",
+      "reason": "no fixture for {id}"
+    },
+    {
+      "action_id": "account_admin.get_sub_account_group",
+      "status": "skipped",
+      "reason": "no fixture for {id}"
+    },
+    {
+      "action_id": "account_admin.list_corporate_invited_users",
+      "status": "plan_gated",
+      "method": "GET",
+      "path": "/corporate/invited/users?limit=1&offset=0",
+      "http_status": 403,
+      "ok": false,
+      "plan_gated": true,
+      "duration_ms": 258,
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n"
+    },
+    {
+      "action_id": "account_admin.list_corporate_ips",
+      "status": "plan_gated",
+      "method": "GET",
+      "path": "/corporate/ip",
+      "http_status": 403,
+      "ok": false,
+      "plan_gated": true,
+      "duration_ms": 250,
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n"
+    },
+    {
+      "action_id": "account_admin.list_sub_account_groups",
+      "status": "plan_gated",
+      "method": "GET",
+      "path": "/corporate/groups",
+      "http_status": 403,
+      "ok": false,
+      "plan_gated": true,
+      "duration_ms": 254,
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n"
+    },
+    {
+      "action_id": "account_admin.list_sub_accounts",
+      "status": "plan_gated",
+      "method": "GET",
+      "path": "/corporate/subAccount?limit=1&offset=0",
+      "http_status": 403,
+      "ok": false,
+      "plan_gated": true,
+      "duration_ms": 256,
+      "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n"
+    },
+    {
+      "action_id": "coupons.get_coupon_collection",
+      "status": "skipped",
+      "reason": "no fixture for {id}"
+    },
+    {
+      "action_id": "ecommerce.get_attributed_product_sales",
+      "status": "skipped",
+      "reason": "no fixture for {conversionSourceId}"
+    },
+    {
+      "action_id": "ecommerce.get_attribution_metrics",
+      "status": "reachable_403",
+      "method": "GET",
+      "path": "/ecommerce/attribution/metrics",
+      "http_status": 403,
+      "ok": false,
+      "plan_gated": false,
+      "duration_ms": 264,
+      "note": "{\"message\":\"Forbidden\"}\n"
+    },
+    {
+      "action_id": "ecommerce.get_category",
+      "status": "skipped",
+      "reason": "no fixture for {id}"
+    },
+    {
+      "action_id": "ecommerce.get_detailed_attribution_metrics",
+      "status": "skipped",
+      "reason": "no fixture for {conversionSourceId}"
+    },
+    {
+      "action_id": "ecommerce.get_display_currency",
+      "status": "reachable_403",
+      "method": "GET",
+      "path": "/ecommerce/config/displayCurrency",
+      "http_status": 403,
+      "ok": false,
+      "plan_gated": false,
+      "duration_ms": 269,
+      "note": "{\"message\":\"Forbidden\"}\n"
+    },
+    {
+      "action_id": "ecommerce.get_product",
+      "status": "skipped",
+      "reason": "no fixture for {id}"
+    },
+    {
+      "action_id": "ecommerce.list_categories",
+      "status": "plan_gated",
+      "method": "GET",
+      "path": "/categories?limit=1&offset=0&sort=desc",
+      "http_status": 403,
+      "ok": false,
+      "plan_gated": true,
+      "duration_ms": 364,
+      "note": "{\"message\":\"Your eCommerce section is not yet activated.\",\"code\":\"permission_denied\"}\n"
+    },
+    {
+      "action_id": "loyalty.get_active_balances_api",
+      "status": "skipped",
+      "reason": "no fixture for {pid}"
+    },
+    {
+      "action_id": "loyalty.get_balance_definition",
+      "status": "skipped",
+      "reason": "no fixture for {bdid}"
+    },
+    {
+      "action_id": "loyalty.get_balance_limit",
+      "status": "skipped",
+      "reason": "no fixture for {blid}"
+    },
+    {
+      "action_id": "loyalty.get_code_count",
+      "status": "skipped",
+      "reason": "no fixture for {cpid}"
+    },
+    {
+      "action_id": "loyalty.get_contact_balances",
+      "status": "skipped",
+      "reason": "no fixture for {pid}"
+    },
+    {
+      "action_id": "loyalty.get_list_tier_groups",
+      "status": "skipped",
+      "reason": "no fixture for {pid}"
+    },
+    {
+      "action_id": "loyalty.get_loyalty_program_info",
+      "status": "skipped",
+      "reason": "no fixture for {pid}"
+    },
+    {
+      "action_id": "loyalty.get_loyalty_program_tier",
+      "status": "skipped",
+      "reason": "no fixture for {pid}"
+    },
+    {
+      "action_id": "loyalty.get_parameter_subscription_info",
+      "status": "skipped",
+      "reason": "no fixture for {pid}"
+    },
+    {
+      "action_id": "loyalty.get_reward_information",
+      "status": "skipped",
+      "reason": "no fixture for {rid}"
+    },
+    {
+      "action_id": "loyalty.get_reward_page_api",
+      "status": "skipped",
+      "reason": "no fixture for {pid}"
+    },
+    {
+      "action_id": "loyalty.get_subscription_balances",
+      "status": "skipped",
+      "reason": "no fixture for {cid}"
+    },
+    {
+      "action_id": "loyalty.get_tier_group",
+      "status": "skipped",
+      "reason": "no fixture for {gid}"
+    },
+    {
+      "action_id": "loyalty.get_transaction_history_api",
+      "status": "skipped",
+      "reason": "no fixture for {pid}"
+    },
+    {
+      "action_id": "loyalty.get_voucher_contact",
+      "status": "skipped",
+      "reason": "no fixture for {pid}"
+    },
+    {
+      "action_id": "loyalty.get_wallet_pass_install_url",
+      "status": "skipped",
+      "reason": "no fixture for {contactId}"
+    },
+    {
+      "action_id": "loyalty.list_balance_definitions",
+      "status": "skipped",
+      "reason": "no fixture for {pid}"
+    },
+    {
+      "action_id": "payments.get_payment_request",
+      "status": "skipped",
+      "reason": "no fixture for {id}"
+    }
+  ]
+}

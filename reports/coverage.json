@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T03:13:47.686Z",
+  "generated_at": "2026-11-21T03:55:50.536Z",
   "spec": {
     "file": "sources/brevo-openapi.yml",
     "sha256": "cc2890ed25d8a00e9248d4ad78936ef368179b13eb4f92e1d82d80a31b62db72",
@@ -16,10 +16,11 @@
     "high_risk_actions": 103,
     "actions_requiring_confirmation": 103,
     "actions_with_observed_ui": 21,
-    "observed_internal_endpoints": 137,
+    "observed_internal_endpoints": 168,
     "write_verified_actions": 20,
     "transactional_verified_actions": 1,
-    "plan_gated_actions": 1
+    "event_verified_actions": 1,
+    "plan_gated_actions": 8
   },
   "ui_coverage": {
     "total_ui_actions_catalogued": 203,
@@ -37,13 +38,14 @@
     "actions_with_examples": 111,
     "actions_with_ui_path": 202,
     "actions_with_observed_ui": 21,
-    "observed_internal_endpoints": 137,
-    "live_verified_actions": 67,
+    "observed_internal_endpoints": 168,
+    "live_verified_actions": 87,
     "write_verified_actions": 20,
     "transactional_verified_actions": 1,
-    "plan_gated_actions": 1,
+    "event_verified_actions": 1,
+    "plan_gated_actions": 8,
     "live_failed_actions": 0,
-    "spec_only_actions": 224
+    "spec_only_actions": 197
   },
   "confidence_distribution": {
     "0.90-1.00": 251,
@@ -89,7 +91,7 @@
       "ui_only": 3,
       "high_risk": 8,
       "requires_confirmation": 8,
-      "live_verified": 12,
+      "live_verified": 16,
       "total": 40
     },
     "conversations": {
@@ -119,7 +121,7 @@
       "ui_only": 3,
       "high_risk": 6,
       "requires_confirmation": 6,
-      "live_verified": 21,
+      "live_verified": 25,
       "total": 41
     },
     "custom_objects": {
@@ -159,7 +161,7 @@
       "ui_only": 1,
       "high_risk": 6,
       "requires_confirmation": 6,
-      "live_verified": 8,
+      "live_verified": 9,
       "total": 17
     },
     "events": {
@@ -169,7 +171,7 @@
       "ui_only": 0,
       "high_risk": 0,
       "requires_confirmation": 0,
-      "live_verified": 1,
+      "live_verified": 2,
       "total": 3
     },
     "external_feeds": {
@@ -199,7 +201,7 @@
       "ui_only": 0,
       "high_risk": 0,
       "requires_confirmation": 0,
-      "live_verified": 0,
+      "live_verified": 1,
       "total": 3
     },
     "integrations": {
@@ -279,7 +281,7 @@
       "ui_only": 0,
       "high_risk": 0,
       "requires_confirmation": 0,
-      "live_verified": 1,
+      "live_verified": 2,
       "total": 2
     },
     "push_popups": {
@@ -299,7 +301,7 @@
       "ui_only": 0,
       "high_risk": 2,
       "requires_confirmation": 2,
-      "live_verified": 5,
+      "live_verified": 7,
       "total": 12
     },
     "sms_campaigns": {
@@ -319,7 +321,7 @@
       "ui_only": 1,
       "high_risk": 2,
       "requires_confirmation": 2,
-      "live_verified": 4,
+      "live_verified": 5,
       "total": 8
     },
     "transactional_email": {
@@ -329,7 +331,7 @@
       "ui_only": 0,
       "high_risk": 6,
       "requires_confirmation": 6,
-      "live_verified": 1,
+      "live_verified": 6,
       "total": 18
     },
     "transactional_sms": {

@@ -776,11 +776,14 @@
       "create",
       "event"
     ],
-    "confidence": 0.97,
+    "confidence": 0.99,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:50:12.084Z",
+      "method": "events: POST /events",
+      "http_status": 204,
+      "note": "custom event ingested (event_date omitted to avoid clock skew)",
+      "kind": "event_flow"
     }
   },
   {

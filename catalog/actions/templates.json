@@ -722,11 +722,15 @@
       "read",
       "sms_templates"
     ],
-    "confidence": 0.94,
+    "confidence": 0.97,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /transactionalSMS/templates?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "account_entitlement": null,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
     }
   },
   {

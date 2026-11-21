@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-21T02:57:48.563Z",
+  "generated_at": "2026-11-21T04:00:14.287Z",
   "note": "Comparison between endpoints observed in the Brevo UI (internal services) and the public-API actions that provide the same business capability. Equivalence is not wire compatibility.",
   "counts": {
-    "observed_endpoints": 137,
+    "observed_endpoints": 168,
     "mapped_endpoints": 23,
-    "internal_only_endpoints": 114,
+    "internal_only_endpoints": 145,
     "catalog_api_actions": 292,
     "mapped_catalog_actions": 21,
     "mapped_public_actions": 20,

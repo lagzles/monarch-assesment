@@ -310,10 +310,14 @@ const verificationFile = path.join(ROOT, 'reports', 'live', 'verification.json')
 const flowVerificationFile = path.join(ROOT, 'reports', 'live', 'flow-verification.json');
 const advancedVerificationFile = path.join(ROOT, 'reports', 'live', 'advanced-flow-verification.json');
 const transactionalFile = path.join(ROOT, 'reports', 'live', 'transactional-delivery.json');
+const specOnlyOverlayFile = path.join(ROOT, 'reports', 'live', 'spec-only-overlay.json');
+const eventsFile = path.join(ROOT, 'reports', 'live', 'events-webhooks.json');
 let verificationCheckedAt = null;
 let flowCheckedAt = null;
 let advancedCheckedAt = null;
 let transactionalCheckedAt = null;
+let sweepCheckedAt = null;
+let eventsCheckedAt = null;
 let observedGeneratedAt = null;
 if (fs.existsSync(verificationFile)) {
   const overlay = JSON.parse(fs.readFileSync(verificationFile, 'utf8'));
@@ -408,6 +412,49 @@ if (fs.existsSync(transactionalFile)) {
   }
 }
 
+if (fs.existsSync(specOnlyOverlayFile)) {
+  const overlay = JSON.parse(fs.readFileSync(specOnlyOverlayFile, 'utf8'));
+  sweepCheckedAt = overlay.checked_at || null;
+  for (const action of actions) {
+    if (action.verification.status !== 'spec_only') continue;
+    const result = overlay.verification?.[action.id];
+    if (!result) continue;
+    action.verification = {
+      status: result.status,
+      checked_at: result.checked_at,
+      method: result.method,
+      http_status: result.http_status ?? null,
+      account_entitlement: result.account_entitlement ?? null,
+      note: result.note ?? null,
+      kind: 'read_check',
+    };
+    if (result.status === 'live_verified') {
+      action.confidence = Math.min(0.99, Number((action.confidence + 0.03).toFixed(2)));
+    }
+  }
+}
+
+if (fs.existsSync(eventsFile)) {
+  const overlay = JSON.parse(fs.readFileSync(eventsFile, 'utf8'));
+  eventsCheckedAt = overlay.checked_at || null;
+  for (const action of actions) {
+    if (action.verification.status !== 'spec_only') continue;
+    const result = overlay.verification?.[action.id];
+    if (!result) continue;
+    action.verification = {
+      status: result.status,
+      checked_at: result.checked_at,
+      method: result.method,
+      http_status: result.http_status ?? null,
+      note: result.note ?? null,
+      kind: 'event_flow',
+    };
+    if (result.status === 'live_verified') {
+      action.confidence = Math.min(0.99, Number((action.confidence + 0.03).toFixed(2)));
+    }
+  }
+}
+
 // Attach observed UI evidence (browser capture -> internal endpoint) to public actions.
 const observedFile = path.join(ROOT, 'curated', 'observed-endpoints.json');
 const observedMappingFile = path.join(ROOT, 'curated', 'observed-to-public.json');
@@ -454,11 +501,12 @@ const counts = {
   observed_internal_endpoints: observedEndpointCount,
   write_verified_actions: actions.filter((action) => action.verification?.kind === 'write_flow' && action.verification.status === 'live_verified').length,
   transactional_verified_actions: actions.filter((action) => action.verification?.kind === 'transactional_flow' && action.verification.status === 'live_verified').length,
+  event_verified_actions: actions.filter((action) => action.verification?.kind === 'event_flow' && action.verification.status === 'live_verified').length,
   plan_gated_actions: actions.filter((action) => action.verification?.status === 'plan_gated').length,
 };
 
 const specStat = fs.statSync(SPEC_PATH);
-const generatedAt = [verificationCheckedAt, flowCheckedAt, advancedCheckedAt, transactionalCheckedAt, observedGeneratedAt, new Date(Number(process.env.SOURCE_DATE_EPOCH) * 1000 || specStat.mtimeMs).toISOString()]
+const generatedAt = [verificationCheckedAt, flowCheckedAt, advancedCheckedAt, transactionalCheckedAt, sweepCheckedAt, eventsCheckedAt, observedGeneratedAt, new Date(Number(process.env.SOURCE_DATE_EPOCH) * 1000 || specStat.mtimeMs).toISOString()]
   .filter(Boolean)
   .sort()
   .pop();

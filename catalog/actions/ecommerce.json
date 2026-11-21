@@ -3337,9 +3337,13 @@
     ],
     "confidence": 0.94,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:47:22.615Z",
+      "method": "sweep: GET /categories?limit=1&offset=0&sort=desc",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"message\":\"Your eCommerce section is not yet activated.\",\"code\":\"permission_denied\"}\n",
+      "kind": "read_check"
     }
   },
   {

@@ -4524,11 +4524,15 @@
       "contacts",
       "read"
     ],
-    "confidence": 0.94,
+    "confidence": 0.97,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:47:08.623Z",
+      "method": "sweep: GET /contacts/{email}/campaignStats",
+      "http_status": 200,
+      "account_entitlement": null,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
     }
   },
   {
@@ -5234,11 +5238,15 @@
       "contacts",
       "read"
     ],
-    "confidence": 0.94,
+    "confidence": 0.97,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:47:08.624Z",
+      "method": "sweep: GET /contacts/folders/1",
+      "http_status": 200,
+      "account_entitlement": null,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
     }
   },
   {
@@ -5423,11 +5431,15 @@
       "contacts",
       "read"
     ],
-    "confidence": 0.94,
+    "confidence": 0.97,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:47:08.624Z",
+      "method": "sweep: GET /contacts/folders/1/lists?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "account_entitlement": null,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
     }
   },
   {
@@ -6262,11 +6274,15 @@
       "contacts",
       "read"
     ],
-    "confidence": 0.94,
+    "confidence": 0.97,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:47:08.624Z",
+      "method": "sweep: GET /contacts/segments?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "account_entitlement": null,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
     }
   },
   {

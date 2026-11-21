@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Agent-ready catalog of Brevo business actions, derived from the public OpenAPI spec and public product documentation (no logged-in session or network capture).",
+  "description": "Agent-ready catalog of Brevo business actions, derived from the public OpenAPI spec, public product documentation and browser-captured UI evidence.",
   "scripts": {
     "fetch:spec": "node scripts/fetch-openapi.mjs",
     "build": "node scripts/build-catalog.mjs",
@@ -18,6 +18,8 @@
     "verify:negative": "node scripts/verify-negative-contracts.mjs",
     "diagnose:delivery": "node scripts/diagnose-delivery.mjs",
     "verify:transactional": "node scripts/verify-transactional-delivery.mjs",
+    "verify:spec-only": "node scripts/verify-spec-only.mjs",
+    "verify:events": "node scripts/verify-events-webhooks.mjs",
     "all": "npm run build && npm run validate && npm run report"
   },
   "dependencies": {

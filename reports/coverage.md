@@ -1,6 +1,6 @@
 # Coverage report
 
-Generated from spec cc2890ed25d8… on 2026-11-21T03:13:47.686Z.
+Generated from spec cc2890ed25d8… on 2026-11-21T03:55:50.536Z.
 
 ## Headline
 
@@ -16,8 +16,8 @@ Generated from spec cc2890ed25d8… on 2026-11-21T03:13:47.686Z.
 - 292 API actions document at least one error
 - 111 API actions ship a request or response example
 - 202 actions are linked to a UI path
-- 21 public actions have an observed internal UI link; 137 internal endpoints captured
-- Live verified: 67 · write-flow verified: 20 · transactional verified: 1 · plan-gated: 1 · spec-only: 224 · failed: 0
+- 21 public actions have an observed internal UI link; 168 internal endpoints captured
+- Live verified: 87 · write-flow verified: 20 · transactional verified: 1 · event verified: 1 · plan-gated: 8 · spec-only: 197 · failed: 0
 
 ## Confidence
 

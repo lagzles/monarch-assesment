@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T03:13:47.686Z",
+  "generated_at": "2026-11-21T03:55:50.536Z",
   "counts": {
     "total_actions": 358,
     "api_actions": 292,
@@ -9,10 +9,11 @@
     "high_risk_actions": 103,
     "actions_requiring_confirmation": 103,
     "actions_with_observed_ui": 21,
-    "observed_internal_endpoints": 137,
+    "observed_internal_endpoints": 168,
     "write_verified_actions": 20,
     "transactional_verified_actions": 1,
-    "plan_gated_actions": 1
+    "event_verified_actions": 1,
+    "plan_gated_actions": 8
   },
   "domains": {
     "account_admin": {
@@ -1045,7 +1046,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "contacts.get_contacts": {
       "domain": "contacts",
@@ -1069,7 +1070,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "contacts.get_folder_lists": {
       "domain": "contacts",
@@ -1077,7 +1078,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "contacts.get_folders": {
       "domain": "contacts",
@@ -1109,7 +1110,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "contacts.import_contacts": {
       "domain": "contacts",
@@ -1541,7 +1542,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "crm.list_deal_attributes": {
       "domain": "crm",
@@ -1549,7 +1550,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "crm.list_deals": {
       "domain": "crm",
@@ -1565,7 +1566,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "crm.list_notes": {
       "domain": "crm",
@@ -1581,7 +1582,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "crm.list_pipelines": {
       "domain": "crm",
@@ -1925,7 +1926,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "email_campaigns.list_email_campaigns": {
       "domain": "email_campaigns",
@@ -2013,7 +2014,7 @@
       "action_type": "create",
       "risk_level": "medium",
       "execution": "api",
-      "confidence": 0.97
+      "confidence": 0.99
     },
     "events.get_events": {
       "domain": "events",
@@ -2133,7 +2134,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.95
+      "confidence": 0.98
     },
     "inbound.get_inbound_events_by_uuid": {
       "domain": "inbound",
@@ -2813,7 +2814,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "processes.get_processes": {
       "domain": "processes",
@@ -2925,7 +2926,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.95
+      "confidence": 0.98
     },
     "senders_and_domains.get_ips_from_sender": {
       "domain": "senders_and_domains",
@@ -2933,7 +2934,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "senders_and_domains.get_senders": {
       "domain": "senders_and_domains",
@@ -3077,7 +3078,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "templates.get_smtp_template": {
       "domain": "templates",
@@ -3165,7 +3166,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "transactional_email.get_blocked_domains": {
       "domain": "transactional_email",
@@ -3173,7 +3174,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "transactional_email.get_email_event_report": {
       "domain": "transactional_email",
@@ -3181,7 +3182,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.95
+      "confidence": 0.98
     },
     "transactional_email.get_scheduled_email_by_id": {
       "domain": "transactional_email",
@@ -3197,7 +3198,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "transactional_email.get_transac_blocked_contacts": {
       "domain": "transactional_email",
@@ -3205,7 +3206,7 @@
       "action_type": "read",
       "risk_level": "low",
       "execution": "api",
-      "confidence": 0.94
+      "confidence": 0.97
     },
     "transactional_email.get_transac_email_content": {
       "domain": "transactional_email",

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T03:13:47.686Z",
+  "generated_at": "2026-11-21T03:55:50.536Z",
   "generator": "scripts/build-catalog.mjs",
   "catalog_version": "1.0.0",
   "spec": {
@@ -22,10 +22,11 @@
     "high_risk_actions": 103,
     "actions_requiring_confirmation": 103,
     "actions_with_observed_ui": 21,
-    "observed_internal_endpoints": 137,
+    "observed_internal_endpoints": 168,
     "write_verified_actions": 20,
     "transactional_verified_actions": 1,
-    "plan_gated_actions": 1
+    "event_verified_actions": 1,
+    "plan_gated_actions": 8
   },
   "unmatched_ui_references": []
 }

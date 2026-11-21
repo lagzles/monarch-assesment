@@ -967,9 +967,13 @@
     ],
     "confidence": 0.94,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "plan_gated",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /feeds?limit=1&offset=0&sort=desc",
+      "http_status": 403,
+      "account_entitlement": "not_eligible_on_plan",
+      "note": "{\"code\":\"permission_denied\",\"message\":\"This feature is only available to customers with an Enterprise plan. To enable it, please contact your customer success manager.\"}\n",
+      "kind": "read_check"
     }
   },
   {

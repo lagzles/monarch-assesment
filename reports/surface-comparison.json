@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-11-21T02:57:48.563Z",
+  "generated_at": "2026-11-21T04:00:14.287Z",
   "note": "Comparison between endpoints observed in the Brevo UI (internal services) and the public-API actions that provide the same business capability. Equivalence is not wire compatibility.",
   "counts": {
-    "observed_endpoints": 137,
+    "observed_endpoints": 168,
     "mapped_endpoints": 23,
-    "internal_only_endpoints": 114,
+    "internal_only_endpoints": 145,
     "catalog_api_actions": 292,
     "mapped_catalog_actions": 21,
     "mapped_public_actions": 20,
@@ -1412,6 +1412,56 @@
       "classification": "app_backend"
     },
     {
+      "id": "observed.app.get_ecommerce_overview",
+      "host": "app.brevo.com",
+      "method": "GET",
+      "path": "/ecommerce/overview",
+      "statuses": [
+        200
+      ],
+      "classification": "app_backend"
+    },
+    {
+      "id": "observed.app.get_loyalty",
+      "host": "app.brevo.com",
+      "method": "GET",
+      "path": "/loyalty",
+      "statuses": [
+        200
+      ],
+      "classification": "app_backend"
+    },
+    {
+      "id": "observed.app.get_marketing_landing_pages",
+      "host": "app.brevo.com",
+      "method": "GET",
+      "path": "/marketing/landing-pages",
+      "statuses": [
+        200
+      ],
+      "classification": "app_backend"
+    },
+    {
+      "id": "observed.app.get_payments",
+      "host": "app.brevo.com",
+      "method": "GET",
+      "path": "/payments",
+      "statuses": [
+        200
+      ],
+      "classification": "app_backend"
+    },
+    {
+      "id": "observed.app.get_sms_campaign_listing",
+      "host": "app.brevo.com",
+      "method": "GET",
+      "path": "/sms-campaign/listing",
+      "statuses": [
+        200
+      ],
+      "classification": "app_backend"
+    },
+    {
       "id": "observed.app.get_templates_listing",
       "host": "app.brevo.com",
       "method": "GET",
@@ -1430,6 +1480,16 @@
         200
       ],
       "classification": "app_backend"
+    },
+    {
+      "id": "observed.account_management_backend.get_api_settings",
+      "host": "account-management-backend.brevo.com",
+      "method": "GET",
+      "path": "/api/settings",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
     },
     {
       "id": "observed.account_management_backend.get_api_settings_list_timezone",
@@ -1472,6 +1532,16 @@
       "classification": "internal_api"
     },
     {
+      "id": "observed.analytics_api.get_settings",
+      "host": "analytics-api.brevo.com",
+      "method": "GET",
+      "path": "/settings",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
       "id": "observed.app_store_backend.get_extensibility_integrations",
       "host": "app-store-backend.brevo.com",
       "method": "GET",
@@ -1498,6 +1568,26 @@
       "path": "/dependency/check/list",
       "statuses": [
         200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.automation_engine_http_public.get_processing_details",
+      "host": "automation-engine-http-public.brevo.com",
+      "method": "GET",
+      "path": "/processing-details",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.automation.post_web_activate",
+      "host": "automation.brevo.com",
+      "method": "POST",
+      "path": "/web/activate",
+      "statuses": [
+        201
       ],
       "classification": "internal_api"
     },
@@ -1708,6 +1798,96 @@
       "path": "/feApi/orgFeaturesAndChannels",
       "statuses": [
         200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.conversations_app.get_sockjs_info",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/sockjs/info",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_castanets_mp3",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/castanets.mp3",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_clogtick_mp3",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/clogtick.mp3",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_maraca_mp3",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/maraca.mp3",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_sleighbells_mp3",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/sleighbells.mp3",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_triangle_mp3",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/triangle.mp3",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_washboard_mp3",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/washboard.mp3",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_windchimes_mp3",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/windchimes.mp3",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.conversions_backend.get_conversions_goals_all",
+      "host": "conversions-backend.brevo.com",
+      "method": "GET",
+      "path": "/conversions-goals/all",
+      "statuses": [
+        422
       ],
       "classification": "internal_api"
     },
@@ -1992,6 +2172,16 @@
       "classification": "internal_api"
     },
     {
+      "id": "observed.email_campaigns_backend.get_email_campaign_api_campaigns_stats",
+      "host": "email-campaigns-backend.brevo.com",
+      "method": "GET",
+      "path": "/email-campaign/api/campaigns/stats",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
       "id": "observed.email_campaigns_backend.get_email_campaign_api_config",
       "host": "email-campaigns-backend.brevo.com",
       "method": "GET",
@@ -2142,6 +2332,26 @@
       "classification": "internal_api"
     },
     {
+      "id": "observed.loyalty_api.get_loyalty_get_user_permissions",
+      "host": "loyalty-api.brevo.com",
+      "method": "GET",
+      "path": "/loyalty/get-user-permissions",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.loyalty_api.get_loyalty_programs",
+      "host": "loyalty-api.brevo.com",
+      "method": "GET",
+      "path": "/loyalty/programs",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
       "id": "observed.marketing_campaign_api.get_marketing_campaign_api_client_config",
       "host": "marketing-campaign-api.brevo.com",
       "method": "GET",
@@ -2246,6 +2456,16 @@
       "host": "metrics.brevo.com",
       "method": "GET",
       "path": "/g/collect",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.onboarding_api_v2.get_dashboard_information",
+      "host": "onboarding-api-v2.brevo.com",
+      "method": "GET",
+      "path": "/dashboard-information",
       "statuses": [
         200
       ],
@@ -2366,6 +2586,16 @@
       "host": "sidebar-backend.brevo.com",
       "method": "GET",
       "path": "/sidebar/api/header/info",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.sidebar_backend.get_sidebar_api_metainfo",
+      "host": "sidebar-backend.brevo.com",
+      "method": "GET",
+      "path": "/sidebar/api/metaInfo",
       "statuses": [
         200
       ],
@@ -2508,6 +2738,87 @@
       "path": "/v1/contact/{id}/workflows",
       "statuses": [
         404
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_sidebar_contactcount",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/sidebar/contactCount",
+      "statuses": [
+        200,
+        202
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_sidebar_deferredcount",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/sidebar/deferredCount",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_workflow_bannerdetails",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/workflow/bannerDetails",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_workflow_listing",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/workflow/listing",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_workflow_metainfo",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/workflow/metaInfo",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_workflow_option_info",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/workflow/option-info",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.workflow_apis.post_v1_workflow_sendevent",
+      "host": "workflow-apis.brevo.com",
+      "method": "POST",
+      "path": "/v1/workflow/sendEvent",
+      "statuses": [
+        200
+      ],
+      "classification": "internal_api"
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_workflow_showdeferrednotification",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/workflow/showDeferredNotification",
+      "statuses": [
+        202
       ],
       "classification": "internal_api"
     }

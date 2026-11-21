@@ -9,6 +9,8 @@ This file is the machine-first entry point. It tells an AI agent what to load, h
 3. `catalog/agent-tools.json` — 292 OpenAI-style tool definitions with `x-brevo` metadata.
 4. `catalog/catalog.json` — full catalog with metadata.
 5. `catalog/observed-links.json` — observed UI endpoint → catalog action comparison.
+6. `catalog/webhook-events.json` — 18 webhook event names and type compatibility.
+7. `catalog/automation-triggers.json` — 66 UI-only automation triggers, plan requirements and API support.
 
 Do not load the 1.17 MB OpenAPI spec at runtime unless you are debugging a schema. The catalog already contains resolved, flattened inputs.
 
@@ -79,7 +81,7 @@ Interpret results with `outputs.success_status`, `outputs.schema`, and `errors`.
 | `verification.status` | Meaning |
 |---|---|
 | `spec_only` | Documented in the pinned OpenAPI spec; not called live. |
-| `live_verified` | Called live. `verification.kind` says how: `read_check`, `write_flow`, `advanced_flow`, `transactional_flow`. |
+| `live_verified` | Called live. `verification.kind` says how: `read_check`, `write_flow`, `advanced_flow`, `transactional_flow`, `event_flow`. |
 | `plan_gated` | Endpoint exists, but the account plan does not include it. Do not blind-retry; report the plan limitation. |
 | `live_failed` | The live call failed. Inspect `note`; treat with low confidence. |
 | `unverified` | UI-derived action without live confirmation (usually `ui_only`). |
@@ -88,7 +90,8 @@ Important caveats:
 
 - `transactional_flow` means `POST /smtp/email` was **accepted** (201) but delivery was not confirmed. Do not claim inbox delivery.
 - `advanced_flow` for `sendTest`/`sendNow` also has a delivery caveat (`sent=0`, campaign suspended).
-- `plan_gated` is not a failure of the endpoint; it is an account entitlement limit.
+- `event_flow` means `POST /events` was accepted (204); it does **not** prove that a webhook or automation received the event. The one-shot webhook test observed 0 requests.
+- `plan_gated` is not a failure of the endpoint; it is an account entitlement limit. 8 actions are plan-gated on this account.
 
 ## 6. `observed_ui` is evidence, not an execution path
 
@@ -143,14 +146,26 @@ These are **internal, session-authenticated** endpoints. Do not call them with a
 ### Webhooks
 
 1. `webhooks.create_webhook` with a URL you control, `type: "transactional"`, `events: ["delivered"]`.
-2. `webhooks.get_webhook`, `webhooks.update_webhook`, `webhooks.delete_webhook`.
+2. Choose event names from `catalog/webhook-events.json` (18 names, grouped by type).
+3. `webhooks.get_webhook`, `webhooks.update_webhook`, `webhooks.delete_webhook`.
+4. Do not claim event delivery without a real receiver observation; the validation test received 0 requests.
+
+### Custom events and automations
+
+1. `events.create_event` with `identifiers.email_id` (not `email`) and an `event_name` of letters/numbers/`-`/`_`.
+2. Omit `event_date` unless you have a reliable clock; a future timestamp is rejected.
+3. Automation workflow CRUD is UI-only. Use `catalog/automation-triggers.json` to explain the trigger, its plan requirement and whether an API/webhook path can feed it.
+4. `api_support: "public_api"` with `feed_action: "events.create_event"` is the verified path; `ui_only` means escalate to a human.
 
 ## 9. Known blockers and gaps
 
 - **Delivery diagnosis:** the account has 300 credits and an active sender, but the sender domain is `gmail.com` and there is no authenticated sending domain. Campaigns are suspended with `sent=0`/`delivered=0`. Likely blocker: free-mail sender without domain authentication. Use a domain you control and authenticate it.
 - **Account admin mutations** were not executed. See `docs/gaps.md`.
+- **Webhook event delivery is not confirmed.** Webhook CRUD works; one transactional send produced 0 webhook requests in 20s.
+- **Remaining UI domains are inaccessible on this account.** SMS, eCommerce, landing pages and payments return error pages; loyalty requires Enterprise; automations stop at onboarding; conversations load without interactive elements.
+- **`POST /events` needs `identifiers.email_id`.** `identifiers.email` is rejected; omit `event_date` to avoid clock-skew rejection.
 - **Test campaigns** 12/14/15 are archived and cannot be deleted via API/UI after scheduling; they cannot send.
-- **UI inventory** outside contacts, lists, companies, campaigns, forms and templates is documentation-derived, not live-observed.
+- **UI inventory** outside the captured flows and module access probes is documentation-derived, not live-observed.
 - **Internal request bodies** for some UI creates were not captured (`bodySize=0`).
 
 ## 10. Reproduce / refresh
@@ -160,8 +175,10 @@ npm install
 npm run all          # build, validate, coverage
 npm run compare      # observed UI vs public API
 npm run verify       # read-only GET checks
+npm run verify:spec-only -- --domains=contacts,crm --limit=30
 npm run verify:flows # public write flows with cleanup
 npm run verify:advanced -- --only=all --confirm-send --email=...
+npm run verify:events -- --to=... --confirm-send
 npm run verify:negative
 npm run diagnose:delivery
 npm run verify:transactional -- --to=... --confirm-send

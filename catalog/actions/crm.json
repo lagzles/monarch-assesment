@@ -4432,11 +4432,15 @@
       "read",
       "companies"
     ],
-    "confidence": 0.94,
+    "confidence": 0.97,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.694Z",
+      "method": "sweep: GET /crm/attributes/companies",
+      "http_status": 200,
+      "account_entitlement": null,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
     },
     "observed_ui": [
       {
@@ -4591,11 +4595,15 @@
       "read",
       "deals"
     ],
-    "confidence": 0.94,
+    "confidence": 0.97,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /crm/attributes/deals",
+      "http_status": 200,
+      "account_entitlement": null,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
     },
     "observed_ui": [
       {
@@ -5049,11 +5057,15 @@
       "read",
       "files"
     ],
-    "confidence": 0.94,
+    "confidence": 0.97,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /crm/files?limit=1&offset=0&sort=desc",
+      "http_status": 200,
+      "account_entitlement": null,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
     }
   },
   {
@@ -5410,11 +5422,15 @@
       "read",
       "deals"
     ],
-    "confidence": 0.94,
+    "confidence": 0.97,
     "verification": {
-      "status": "spec_only",
-      "checked_at": null,
-      "method": null
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:46:37.696Z",
+      "method": "sweep: GET /crm/pipeline/details",
+      "http_status": 200,
+      "account_entitlement": null,
+      "note": "reachability sweep: HTTP 2xx",
+      "kind": "read_check"
     }
   },
   {

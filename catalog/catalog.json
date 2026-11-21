@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-21T03:13:47.686Z",
+  "generated_at": "2026-11-21T03:55:50.536Z",
   "about": {
     "name": "Brevo business action catalog",
     "purpose": "Agent-consumable inventory of business actions a user can perform in Brevo, with API execution details where the public API supports them.",
@@ -19,10 +19,11 @@
     "high_risk_actions": 103,
     "actions_requiring_confirmation": 103,
     "actions_with_observed_ui": 21,
-    "observed_internal_endpoints": 137,
+    "observed_internal_endpoints": 168,
     "write_verified_actions": 20,
     "transactional_verified_actions": 1,
-    "plan_gated_actions": 1
+    "event_verified_actions": 1,
+    "plan_gated_actions": 8
   },
   "domains": {
     "contacts": {
@@ -2905,9 +2906,13 @@
       ],
       "confidence": 0.94,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "plan_gated",
+        "checked_at": "2026-11-21T03:47:22.613Z",
+        "method": "sweep: GET /corporate/masterAccount",
+        "http_status": 403,
+        "account_entitlement": "not_eligible_on_plan",
+        "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+        "kind": "read_check"
       }
     },
     {
@@ -4797,9 +4802,13 @@
       ],
       "confidence": 0.94,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "plan_gated",
+        "checked_at": "2026-11-21T03:47:22.615Z",
+        "method": "sweep: GET /corporate/invited/users?limit=1&offset=0",
+        "http_status": 403,
+        "account_entitlement": "not_eligible_on_plan",
+        "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+        "kind": "read_check"
       }
     },
     {
@@ -4914,9 +4923,13 @@
       ],
       "confidence": 0.94,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "plan_gated",
+        "checked_at": "2026-11-21T03:47:22.615Z",
+        "method": "sweep: GET /corporate/ip",
+        "http_status": 403,
+        "account_entitlement": "not_eligible_on_plan",
+        "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+        "kind": "read_check"
       }
     },
     {
@@ -5224,9 +5237,13 @@
       ],
       "confidence": 0.94,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "plan_gated",
+        "checked_at": "2026-11-21T03:47:22.615Z",
+        "method": "sweep: GET /corporate/groups",
+        "http_status": 403,
+        "account_entitlement": "not_eligible_on_plan",
+        "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+        "kind": "read_check"
       }
     },
     {
@@ -5434,9 +5451,13 @@
       ],
       "confidence": 0.94,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "plan_gated",
+        "checked_at": "2026-11-21T03:47:22.615Z",
+        "method": "sweep: GET /corporate/subAccount?limit=1&offset=0",
+        "http_status": 403,
+        "account_entitlement": "not_eligible_on_plan",
+        "note": "{\"message\":\"Current account is not a corporate user\",\"code\":\"permission_denied\"}\n",
+        "kind": "read_check"
       }
     },
     {
@@ -12569,11 +12590,15 @@
         "contacts",
         "read"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:47:08.623Z",
+        "method": "sweep: GET /contacts/{email}/campaignStats",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -13279,11 +13304,15 @@
         "contacts",
         "read"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:47:08.624Z",
+        "method": "sweep: GET /contacts/folders/1",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -13468,11 +13497,15 @@
         "contacts",
         "read"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:47:08.624Z",
+        "method": "sweep: GET /contacts/folders/1/lists?limit=1&offset=0&sort=desc",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -14307,11 +14340,15 @@
         "contacts",
         "read"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:47:08.624Z",
+        "method": "sweep: GET /contacts/segments?limit=1&offset=0&sort=desc",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -25822,11 +25859,15 @@
         "read",
         "companies"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.694Z",
+        "method": "sweep: GET /crm/attributes/companies",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       },
       "observed_ui": [
         {
@@ -25981,11 +26022,15 @@
         "read",
         "deals"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /crm/attributes/deals",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       },
       "observed_ui": [
         {
@@ -26439,11 +26484,15 @@
         "read",
         "files"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /crm/files?limit=1&offset=0&sort=desc",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -26800,11 +26849,15 @@
         "read",
         "deals"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /crm/pipeline/details",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -33558,9 +33611,13 @@
       ],
       "confidence": 0.94,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "plan_gated",
+        "checked_at": "2026-11-21T03:47:22.615Z",
+        "method": "sweep: GET /categories?limit=1&offset=0&sort=desc",
+        "http_status": 403,
+        "account_entitlement": "not_eligible_on_plan",
+        "note": "{\"message\":\"Your eCommerce section is not yet activated.\",\"code\":\"permission_denied\"}\n",
+        "kind": "read_check"
       }
     },
     {
@@ -36519,11 +36576,15 @@
         "email_campaigns",
         "read"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /emailCampaigns/12/sharedUrl",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -39500,11 +39561,14 @@
         "create",
         "event"
       ],
-      "confidence": 0.97,
+      "confidence": 0.99,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:50:12.084Z",
+        "method": "events: POST /events",
+        "http_status": 204,
+        "note": "custom event ingested (event_date omitted to avoid clock skew)",
+        "kind": "event_flow"
       }
     },
     {
@@ -40714,9 +40778,13 @@
       ],
       "confidence": 0.94,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "plan_gated",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /feeds?limit=1&offset=0&sort=desc",
+        "http_status": 403,
+        "account_entitlement": "not_eligible_on_plan",
+        "note": "{\"code\":\"permission_denied\",\"message\":\"This feature is only available to customers with an Enterprise plan. To enable it, please contact your customer success manager.\"}\n",
+        "kind": "read_check"
       }
     },
     {
@@ -41794,11 +41862,15 @@
         "read",
         "inbound_parsing"
       ],
-      "confidence": 0.95,
+      "confidence": 0.98,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /inbound/events?limit=1&offset=0&sort=desc",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -58204,11 +58276,15 @@
         "read",
         "process"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /processes/3",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -60414,11 +60490,15 @@
         "read",
         "senders"
       ],
-      "confidence": 0.95,
+      "confidence": 0.98,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /senders/ips",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -60576,11 +60656,15 @@
         "read",
         "senders"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /senders/1/ips",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -63968,11 +64052,15 @@
         "read",
         "sms_templates"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /transactionalSMS/templates?limit=1&offset=0&sort=desc",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -65975,11 +66063,15 @@
         "read",
         "transactional_emails"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /smtp/statistics/aggregatedReport",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -66089,11 +66181,15 @@
         "read",
         "transactional_emails"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /smtp/blockedDomains",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -66409,11 +66505,15 @@
         "read",
         "transactional_emails"
       ],
-      "confidence": 0.95,
+      "confidence": 0.98,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /smtp/statistics/events?limit=1&offset=0&sort=desc",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -66976,11 +67076,15 @@
         "read",
         "transactional_emails"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /smtp/statistics/reports?limit=1&offset=0&sort=desc",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {
@@ -67208,11 +67312,15 @@
         "read",
         "transactional_emails"
       ],
-      "confidence": 0.94,
+      "confidence": 0.97,
       "verification": {
-        "status": "spec_only",
-        "checked_at": null,
-        "method": null
+        "status": "live_verified",
+        "checked_at": "2026-11-21T03:46:37.696Z",
+        "method": "sweep: GET /smtp/blockedContacts?limit=1&offset=0&sort=desc",
+        "http_status": 200,
+        "account_entitlement": null,
+        "note": "reachability sweep: HTTP 2xx",
+        "kind": "read_check"
       }
     },
     {

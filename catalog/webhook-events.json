@@ -1,0 +1,36 @@
+{
+  "version": "1.0.0",
+  "source": "sources/brevo-openapi.yml#/components/schemas/createWebhook",
+  "note": "Event names accepted by POST /webhooks. Type compatibility is taken from the OpenAPI description. Webhook CRUD was verified live; event delivery was not observed in the one-shot test.",
+  "by_type": {
+    "transactional": ["sent", "request", "delivered", "hardBounce", "softBounce", "blocked", "spam", "invalid", "deferred", "click", "opened", "uniqueOpened", "unsubscribed"],
+    "marketing": ["spam", "opened", "click", "hardBounce", "softBounce", "unsubscribed", "listAddition", "delivered", "contactUpdated", "contactDeleted"],
+    "inbound": ["inboundEmailProcessed"]
+  },
+  "other": ["reply"],
+  "events": [
+    { "name": "sent", "types": ["transactional"], "meaning": "Message accepted/sent." },
+    { "name": "request", "types": ["transactional"], "meaning": "Message request received." },
+    { "name": "delivered", "types": ["transactional", "marketing"], "meaning": "Message delivered to the recipient server." },
+    { "name": "hardBounce", "types": ["transactional", "marketing"], "meaning": "Permanent delivery failure." },
+    { "name": "softBounce", "types": ["transactional", "marketing"], "meaning": "Temporary delivery failure." },
+    { "name": "blocked", "types": ["transactional"], "meaning": "Message blocked." },
+    { "name": "spam", "types": ["transactional", "marketing"], "meaning": "Recipient marked the message as spam." },
+    { "name": "invalid", "types": ["transactional"], "meaning": "Invalid recipient." },
+    { "name": "deferred", "types": ["transactional"], "meaning": "Delivery deferred." },
+    { "name": "click", "types": ["transactional", "marketing"], "meaning": "Link clicked." },
+    { "name": "opened", "types": ["transactional", "marketing"], "meaning": "Email opened." },
+    { "name": "uniqueOpened", "types": ["transactional"], "meaning": "First open by a recipient." },
+    { "name": "unsubscribed", "types": ["transactional", "marketing"], "meaning": "Recipient unsubscribed." },
+    { "name": "listAddition", "types": ["marketing"], "meaning": "Contact added to a list." },
+    { "name": "contactUpdated", "types": ["marketing"], "meaning": "Contact updated." },
+    { "name": "contactDeleted", "types": ["marketing"], "meaning": "Contact deleted." },
+    { "name": "inboundEmailProcessed", "types": ["inbound"], "meaning": "Inbound email parsed." },
+    { "name": "reply", "types": ["other"], "meaning": "Reply event present in the enum; type compatibility not documented." }
+  ],
+  "validation": {
+    "webhook_crud": "live_verified",
+    "event_delivery": "not_confirmed",
+    "evidence": "reports/events-webhooks.md"
+  }
+}

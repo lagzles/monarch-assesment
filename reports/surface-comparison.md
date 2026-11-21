@@ -1,12 +1,12 @@
 # Public API vs observed UI surface
 
-Generated 2026-11-21T02:57:48.563Z from 4963 HAR entries across 2 capture(s).
+Generated 2026-11-21T04:00:14.287Z from 6119 HAR entries across 3 capture(s).
 
 ## Headline
 
-- Observed first-party endpoints: **137**
+- Observed first-party endpoints: **168**
 - Mapped to a public-API business action: **23**
-- Internal-only endpoints (no public equivalent recorded): **114**
+- Internal-only endpoints (no public equivalent recorded): **145**
 - Public API actions catalogued: **292**
 - Public actions with an observed UI link: **20**
 - UI-only actions with an observed UI link: **1**
@@ -281,15 +281,24 @@ These were observed in the UI but have no public-API equivalent recorded in this
 - `GET app.brevo.com/contact/forms-app/subscription` (200) — app_backend
 - `GET app.brevo.com/contact/list` (200) — app_backend
 - `GET app.brevo.com/contact/list-listing` (200) — app_backend
+- `GET app.brevo.com/ecommerce/overview` (200) — app_backend
+- `GET app.brevo.com/loyalty` (200) — app_backend
+- `GET app.brevo.com/marketing/landing-pages` (200) — app_backend
+- `GET app.brevo.com/payments` (200) — app_backend
+- `GET app.brevo.com/sms-campaign/listing` (200) — app_backend
 - `GET app.brevo.com/templates/listing` (200) — app_backend
 - `GET app.brevo.com/undefined/` (200) — app_backend
+- `GET account-management-backend.brevo.com/api/settings` (200) — internal_api
 - `GET account-management-backend.brevo.com/api/settings/list-timezone` (200) — internal_api
 - `GET agent-insight.brevo.com/api/agent/chats` (200) — internal_api
 - `GET agent-insight.brevo.com/api/agent/organization` (200) — internal_api
 - `GET ai-assistant-backend.brevo.com/organization` (200) — internal_api
+- `GET analytics-api.brevo.com/settings` (200) — internal_api
 - `GET app-store-backend.brevo.com/extensibility/integrations` (200) — internal_api
 - `GET asset-sharing.brevo.com/api/notifications` (200) — internal_api
 - `GET automation-engine-http-public.brevo.com/dependency/check/list` (200) — internal_api
+- `GET automation-engine-http-public.brevo.com/processing-details` (200) — internal_api
+- `POST automation.brevo.com/web/activate` (201) — internal_api
 - `GET billing.brevo.com/billing/api/organization/currency` (200) — internal_api
 - `GET campaign-common-api.brevo.com/feature-toggle/unleash` (200) — internal_api
 - `GET campaign-common-api.brevo.com/getTotalUsersConfig` (200) — internal_api
@@ -311,6 +320,15 @@ These were observed in the UI but have no public-API equivalent recorded in this
 - `GET conversations-app.brevo.com/feApi/chatWidgetLoader` (200) — internal_api
 - `GET conversations-app.brevo.com/feApi/liveUpdatesToken` (200) — internal_api
 - `GET conversations-app.brevo.com/feApi/orgFeaturesAndChannels` (200) — internal_api
+- `GET conversations-app.brevo.com/sockjs/info` (200) — internal_api
+- `GET conversations-app.brevo.com/static/sounds/castanets.mp3` (200) — internal_api
+- `GET conversations-app.brevo.com/static/sounds/clogtick.mp3` (200) — internal_api
+- `GET conversations-app.brevo.com/static/sounds/maraca.mp3` (200) — internal_api
+- `GET conversations-app.brevo.com/static/sounds/sleighbells.mp3` (200) — internal_api
+- `GET conversations-app.brevo.com/static/sounds/triangle.mp3` (200) — internal_api
+- `GET conversations-app.brevo.com/static/sounds/washboard.mp3` (200) — internal_api
+- `GET conversations-app.brevo.com/static/sounds/windchimes.mp3` (200) — internal_api
+- `GET conversions-backend.brevo.com/conversions-goals/all` (422) — internal_api
 - `GET crm-backend-api.brevo.com/crm/backend/account-settings` (200) — internal_api
 - `GET crm-backend-api.brevo.com/crm/backend/accounts` (200) — internal_api
 - `GET crm-backend-api.brevo.com/crm/backend/attributes` (200) — internal_api
@@ -339,6 +357,7 @@ These were observed in the UI but have no public-API equivalent recorded in this
 - `GET email-campaigns-backend.brevo.com/email-campaign/api/campaign-count` (200) — internal_api
 - `GET email-campaigns-backend.brevo.com/email-campaign/api/campaign/{id}` (200) — internal_api
 - `GET email-campaigns-backend.brevo.com/email-campaign/api/campaigns` (200) — internal_api
+- `GET email-campaigns-backend.brevo.com/email-campaign/api/campaigns/stats` (200) — internal_api
 - `GET email-campaigns-backend.brevo.com/email-campaign/api/config` (200) — internal_api
 - `GET email-campaigns-backend.brevo.com/email-campaign/api/sending-health` (200) — internal_api
 - `GET email-campaigns-backend.brevo.com/email-template/api/templates` (200) — internal_api
@@ -354,6 +373,8 @@ These were observed in the UI but have no public-API equivalent recorded in this
 - `GET forms-api.brevo.com/forms-api/forms/{id}/data` (200) — internal_api
 - `GET get.brevo.com/pr/grc/pk_z9jboYytP0N5B7cMeEtQDnTnhLgsbw5s` (200) — internal_api
 - `GET get.brevo.com/pr/js` (200) — internal_api
+- `GET loyalty-api.brevo.com/loyalty/get-user-permissions` (200) — internal_api
+- `GET loyalty-api.brevo.com/loyalty/programs` (200) — internal_api
 - `GET marketing-campaign-api.brevo.com/marketing-campaign/api/client/config` (200) — internal_api
 - `GET marketing-campaign-api.brevo.com/marketing-campaign/api/client/info` (200) — internal_api
 - `GET marketing-campaign-api.brevo.com/marketing-campaign/api/client/toggle-features` (200) — internal_api
@@ -365,6 +386,7 @@ These were observed in the UI but have no public-API equivalent recorded in this
 - `GET marketing-common-api.brevo.com/settings/utm-settings` (200) — internal_api
 - `GET metrics.brevo.com/_/service_worker/6b40/sw_iframe.html` (200) — internal_api
 - `GET metrics.brevo.com/g/collect` (200) — internal_api
+- `GET onboarding-api-v2.brevo.com/dashboard-information` (200) — internal_api
 - `GET onboarding-backend-api.brevo.com/phone/call-enabled` (200) — internal_api
 - `GET onboarding-backend-api.brevo.com/settings/ai/agents` (200) — internal_api
 - `GET onboarding-backend-api.brevo.com/sms/countries` (200) — internal_api
@@ -377,6 +399,7 @@ These were observed in the UI but have no public-API equivalent recorded in this
 - `POST segments-api.brevo.com/segment/paginated_count` (200) — internal_api
 - `GET segments-api.brevo.com/segment/unified_object/paths/contact/associations` (200) — internal_api
 - `GET sidebar-backend.brevo.com/sidebar/api/header/info` (200) — internal_api
+- `GET sidebar-backend.brevo.com/sidebar/api/metaInfo` (200) — internal_api
 - `GET sidebar-backend.brevo.com/sidebar/api/v2/brevo/config/listing` (200) — internal_api
 - `GET sidebar-backend.brevo.com/sidebar/api/v2/credit` (200) — internal_api
 - `GET sidebar-backend.brevo.com/sidebar/api/v4/brevo/listing` (200) — internal_api
@@ -391,6 +414,14 @@ These were observed in the UI but have no public-API equivalent recorded in this
 - `GET wallet-app.brevo.com/passes/active` (200) — internal_api
 - `GET whatsapp-api.brevo.com/whatsapp-campaign/api/client/info` (200) — internal_api
 - `GET workflow-apis.brevo.com/v1/contact/{id}/workflows` (404) — internal_api
+- `GET workflow-apis.brevo.com/v1/sidebar/contactCount` (200/202) — internal_api
+- `GET workflow-apis.brevo.com/v1/sidebar/deferredCount` (200) — internal_api
+- `GET workflow-apis.brevo.com/v1/workflow/bannerDetails` (200) — internal_api
+- `GET workflow-apis.brevo.com/v1/workflow/listing` (200) — internal_api
+- `GET workflow-apis.brevo.com/v1/workflow/metaInfo` (200) — internal_api
+- `GET workflow-apis.brevo.com/v1/workflow/option-info` (200) — internal_api
+- `POST workflow-apis.brevo.com/v1/workflow/sendEvent` (200) — internal_api
+- `GET workflow-apis.brevo.com/v1/workflow/showDeferredNotification` (202) — internal_api
 
 ## Public-only actions (sample)
 

@@ -1,0 +1,32 @@
+{
+  "checked_at": "2026-11-21T03:48:28.598Z",
+  "base_url": "https://api.brevo.com/v3",
+  "contact_created": true,
+  "custom_event_status": 204,
+  "event_list_status": 200,
+  "webhook_created": true,
+  "transactional_status": 201,
+  "transactional_accepted": true,
+  "webhook_requests": 0,
+  "event_names": [],
+  "delivery_confirmed": false,
+  "note": "custom event ingested; webhook created/deleted; no webhook request observed within 20s (delivery not confirmed)",
+  "verification": {
+    "events.create_event": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:50:12.084Z",
+      "method": "events: POST /events",
+      "http_status": 204,
+      "note": "custom event ingested (event_date omitted to avoid clock skew)",
+      "kind": "event_flow"
+    },
+    "events.get_events": {
+      "status": "live_verified",
+      "checked_at": "2026-11-21T03:50:12.084Z",
+      "method": "events: GET /events",
+      "http_status": 200,
+      "note": "event query reachable",
+      "kind": "event_flow"
+    }
+  }
+}

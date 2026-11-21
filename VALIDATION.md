@@ -7,13 +7,16 @@ Consolidated results from the live verification scripts. Raw reports are in `rep
 | Suite | Result |
 |---|---|
 | Read-only GET checks | **23/23 reachable**, 4 plan-gated |
+| Spec-only read sweep | **19** 2xx, **7** plan-gated, 3 reachable 400s, 0 rate-limited |
 | Public write flows | **28/28 steps**, 20 actions |
 | Advanced flows | **68 ok**, 0 unexpected failures, 1 plan-gated, 5 prerequisite skips |
+| Events and webhooks | `POST /events` **204**, `GET /events` **200**, webhook CRUD ok, 1 transactional **201**, 0 webhook requests |
 | Negative contracts | **25/25 passed**, no data created |
 | Transactional send | **201 accepted**, delivery not confirmed |
+| Remaining UI domains | Captured; all inaccessible or plan-gated on this account |
 | Live failures | **0** |
 
-Catalog state: **67 live-verified**, **20 write-flow**, **1 transactional**, **1 plan-gated**, **224 spec-only**.
+Catalog state: **87 live-verified**, **20 write-flow**, **1 transactional**, **1 event**, **8 plan-gated**, **197 spec-only**.
 
 ## Read-only checks
 
@@ -52,6 +55,50 @@ Report: `reports/live/flow-verification.json`.
 - Account admin read-only: account, invited users, user permissions, processes; account activity plan-gated (Enterprise-only).
 
 Report: `reports/live/advanced-flow-verification.json`.
+
+## Spec-only read sweep
+
+`npm run verify:spec-only` — safe GETs for actions still `spec_only`, with fixture IDs resolved from collections and defaults for paging:
+
+- **32 GETs executed** across contacts, CRM, transactional email, templates, senders/domains, inbound, processes, email campaigns, account admin, eCommerce, loyalty, coupons and payments.
+- **19 returned 2xx** and were promoted to `live_verified` / `read_check`.
+- **7 returned 403** and were marked `plan_gated`: account admin/sub-accounts, eCommerce categories and external feeds (Enterprise).
+- **3 returned 403 for a feature flag/permission** (`CONSENT_GROUP_NOT_ENABLED`, eCommerce `Forbidden`); recorded as `reachable_403`, not promoted.
+- **3 returned validation 400s** (`A/B test` campaign mismatch, invalid UUID batch id, missing `email`/`messageId`/`templateId` filter); the endpoints are reachable but remain `spec_only`.
+- **0 rate-limited**; the script stops on 429 and records skipped actions.
+- **7 GETs skipped** because no fixture ID existed (companies/deals/tasks/notes/files/domain names).
+
+Report: `reports/live/spec-only-sweep.json`; overlay: `reports/live/spec-only-overlay.json`.
+
+## Events and webhooks
+
+`npm run verify:events -- --to=... --confirm-send`:
+
+- Test contact created and deleted.
+- `POST /events` with `event_name: agent_catalog_verify` and `identifiers: { email_id }` returned **204**.
+- `POST /events` initially returned 400 for two reasons, both documented: `identifiers.email` is invalid (use `email_id`), and `event_date` later than Brevo's clock is rejected. Omitting `event_date` is the safe path.
+- `GET /events?event_name=...` returned **200**.
+- Webhook create/delete succeeded against a disposable `webhook.site` URL.
+- One transactional email returned **201** (accepted), but **0 webhook requests** arrived within 20s; event delivery is **not confirmed**.
+
+`catalog/webhook-events.json` documents 18 event types and type compatibility. `catalog/automation-triggers.json` documents 66 UI-only automation triggers, their plan requirements and whether an API/webhook path can feed them.
+
+Report: `reports/events-webhooks.md`, `reports/live/events-webhooks.json`.
+
+## Remaining UI domains
+
+A third browser capture session probed the domains not covered by the first two:
+
+- **SMS:** `/sms-campaign/listing` returned a generic error page; the campaigns listing exposes only the E-mail tab.
+- **eCommerce:** `/ecommerce/overview` returned “Não foi possível exibir esta página”.
+- **Landing pages:** `/marketing/landing-pages` returned an error page.
+- **Payments:** `/payments` returned an error page.
+- **Loyalty:** accessible only as an Enterprise upgrade page.
+- **Automations:** onboarding page loaded, but “Criar sua primeira automação” was disabled; no editor flow captured.
+- **Conversations:** the conversations app loaded, but the accessibility snapshot had no interactive elements.
+- **HAR result:** 1,156 requests → **168 first-party endpoints** (157 internal + 11 app backend), merged into `curated/observed-endpoints.json`. **0** new public-action matches; 23 mappings remain (21 actions), 145 internal-only.
+
+These are access/plan limitations, not failed assertions. No SMS/WhatsApp message, automation, landing page, payment or loyalty object was created.
 
 ## Negative contracts
 
@@ -92,6 +139,7 @@ Report: `reports/delivery-diagnosis.md`.
 - Contacts, lists, companies, deals, tasks, notes, templates and domains: **zero test matches** on a follow-up GET.
 - Senders: personal sender was pre-existing and untouched; professional sender was never created.
 - Webhooks: deleted; disposable `webhook.site` token removed.
+- Event test contact: deleted; no event data retained in the repository.
 - Campaigns 12/14/15: **archived**; the API/UI do not allow deleting scheduled/sent campaigns. They cannot send.
 - No account-admin mutation was executed.
 
@@ -101,6 +149,8 @@ Report: `reports/delivery-diagnosis.md`.
 npm run verify
 npm run verify:flows
 npm run verify:advanced -- --only=all --confirm-send --email=...
+npm run verify:spec-only -- --domains=contacts,crm --limit=30
+npm run verify:events -- --to=... --confirm-send
 npm run verify:negative
 npm run diagnose:delivery
 npm run verify:transactional -- --to=... --confirm-send

@@ -1,23 +1,24 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-11-21T02:13:17.204Z",
+  "generated_at": "2026-11-21T03:55:50.536Z",
   "note": "Redacted, normalized endpoints observed in a real browser session. Raw HAR is never committed. Internal endpoints are not part of the public API and are unstable.",
   "source": {
     "har_files": [
       ".capture/brevo-writes.har",
-      ".capture/brevo-pass2.har"
+      ".capture/brevo-pass2.har",
+      ".capture/ui-remaining.har"
     ],
-    "captured_at": "2026-11-21T02:09:55.429Z",
-    "total_entries": 4963,
-    "first_party_endpoints": 137
+    "captured_at": "2026-11-21T03:55:49.947Z",
+    "total_entries": 6119,
+    "first_party_endpoints": 168
   },
   "counts": {
-    "total": 137,
+    "total": 168,
     "public_api": 0,
-    "internal_api": 131,
-    "app_backend": 6,
+    "internal_api": 157,
+    "app_backend": 11,
     "matched_catalog_actions": 0,
-    "unmatched": 137
+    "unmatched": 168
   },
   "endpoints": [
     {
@@ -125,6 +126,136 @@
       }
     },
     {
+      "id": "observed.app.get_ecommerce_overview",
+      "classification": "app_backend",
+      "host": "app.brevo.com",
+      "method": "GET",
+      "path": "/ecommerce/overview",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.app.get_loyalty",
+      "classification": "app_backend",
+      "host": "app.brevo.com",
+      "method": "GET",
+      "path": "/loyalty",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.app.get_marketing_landing_pages",
+      "classification": "app_backend",
+      "host": "app.brevo.com",
+      "method": "GET",
+      "path": "/marketing/landing-pages",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.app.get_payments",
+      "classification": "app_backend",
+      "host": "app.brevo.com",
+      "method": "GET",
+      "path": "/payments",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.app.get_sms_campaign_listing",
+      "classification": "app_backend",
+      "host": "app.brevo.com",
+      "method": "GET",
+      "path": "/sms-campaign/listing",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
       "id": "observed.app.get_templates_listing",
       "classification": "app_backend",
       "host": "app.brevo.com",
@@ -164,15 +295,79 @@
         200
       ],
       "response_schema": null,
-      "observed_count": 4,
+      "observed_count": 5,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
+      }
+    },
+    {
+      "id": "observed.account_management_backend.get_api_settings",
+      "classification": "internal_api",
+      "host": "account-management-backend.brevo.com",
+      "method": "GET",
+      "path": "/api/settings",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "account_timezone": {
+            "type": "string"
+          },
+          "organization_timezone": {
+            "type": "string"
+          },
+          "time_format": {
+            "type": "string"
+          },
+          "date_format": {
+            "type": "string"
+          },
+          "invoices_renewal": {
+            "type": "boolean"
+          },
+          "disable_notification_email": {
+            "type": "boolean"
+          },
+          "is_user_accessible": {
+            "type": "boolean"
+          },
+          "sms_notification_enable": {
+            "type": "boolean"
+          },
+          "sms_limit": {
+            "type": "integer"
+          },
+          "account_locale": {
+            "type": "string"
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true
       }
     },
@@ -242,16 +437,20 @@
           }
         }
       },
-      "observed_count": 3,
+      "observed_count": 4,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -286,16 +485,20 @@
           }
         }
       },
-      "observed_count": 5,
+      "observed_count": 6,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -349,6 +552,72 @@
         "source": "network_capture",
         "har_file": ".capture/brevo-writes.har",
         "captured_at": "2026-11-21T01:47:15.039Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.analytics_api.get_settings",
+      "classification": "internal_api",
+      "host": "analytics-api.brevo.com",
+      "method": "GET",
+      "path": "/settings",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "ecommerce": {
+            "type": "object",
+            "properties": {
+              "ecommerce_enabled": {
+                "type": "boolean"
+              }
+            }
+          },
+          "account": {
+            "type": "object",
+            "properties": {}
+          },
+          "integration": {
+            "type": "object",
+            "properties": {
+              "sync": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          "permissions": {
+            "type": "array",
+            "items": {}
+          },
+          "plan": {
+            "type": "object",
+            "properties": {
+              "v5": {
+                "type": "boolean"
+              },
+              "free": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true
       }
     },
@@ -477,6 +746,90 @@
       }
     },
     {
+      "id": "observed.automation_engine_http_public.get_processing_details",
+      "classification": "internal_api",
+      "host": "automation-engine-http-public.brevo.com",
+      "method": "GET",
+      "path": "/processing-details",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "processingStatus": {
+            "type": "string"
+          },
+          "pendingActionsCount": {
+            "type": "integer"
+          },
+          "pendingEventsCount": {
+            "type": "integer"
+          },
+          "pendingTriggersCount": {
+            "type": "integer"
+          },
+          "actionsRateLimit": {
+            "type": "integer"
+          },
+          "eventsRateLimit": {
+            "type": "integer"
+          }
+        }
+      },
+      "observed_count": 3,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.automation.post_web_activate",
+      "classification": "internal_api",
+      "host": "automation.brevo.com",
+      "method": "POST",
+      "path": "/web/activate",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "The HAR exporter did not capture a request body for this call (empty bodySize).",
+      "response_statuses": [
+        201
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "high",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
       "id": "observed.billing.get_billing_api_organization_currency",
       "classification": "internal_api",
       "host": "billing.brevo.com",
@@ -550,16 +903,20 @@
           }
         }
       },
-      "observed_count": 4,
+      "observed_count": 7,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -633,16 +990,20 @@
           }
         }
       },
-      "observed_count": 4,
+      "observed_count": 5,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -666,26 +1027,27 @@
           "feature_toggle": {
             "type": "object",
             "properties": {
-              "is-webpush-enabled": {
-                "type": "boolean"
-              },
-              "sms-templates": {
+              "deliv-center-fe": {
                 "type": "boolean"
               }
             }
           }
         }
       },
-      "observed_count": 2,
+      "observed_count": 4,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -2550,19 +2912,20 @@
         200
       ],
       "response_schema": null,
-      "observed_count": 5,
+      "observed_count": 10,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
       }
     },
@@ -2587,19 +2950,20 @@
           }
         }
       },
-      "observed_count": 5,
+      "observed_count": 10,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
       }
     },
@@ -2675,6 +3039,261 @@
         "source": "network_capture",
         "har_file": ".capture/brevo-writes.har",
         "captured_at": "2026-11-21T01:47:15.039Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.conversations_app.get_sockjs_info",
+      "classification": "internal_api",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/sockjs/info",
+      "query_params": [
+        "t"
+      ],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "websocket": {
+            "type": "boolean"
+          },
+          "origins": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cookie_needed": {
+            "type": "boolean"
+          },
+          "entropy": {
+            "type": "integer"
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_castanets_mp3",
+      "classification": "internal_api",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/castanets.mp3",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_clogtick_mp3",
+      "classification": "internal_api",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/clogtick.mp3",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_maraca_mp3",
+      "classification": "internal_api",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/maraca.mp3",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_sleighbells_mp3",
+      "classification": "internal_api",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/sleighbells.mp3",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_triangle_mp3",
+      "classification": "internal_api",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/triangle.mp3",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_washboard_mp3",
+      "classification": "internal_api",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/washboard.mp3",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.conversations_app.get_static_sounds_windchimes_mp3",
+      "classification": "internal_api",
+      "host": "conversations-app.brevo.com",
+      "method": "GET",
+      "path": "/static/sounds/windchimes.mp3",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.conversions_backend.get_conversions_goals_all",
+      "classification": "internal_api",
+      "host": "conversions-backend.brevo.com",
+      "method": "GET",
+      "path": "/conversions-goals/all",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        422
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true
       }
     },
@@ -4947,16 +5566,20 @@
           }
         }
       },
-      "observed_count": 5,
+      "observed_count": 6,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -5273,7 +5896,62 @@
         "properties": {
           "campaigns": {
             "type": "array",
-            "items": {}
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "lastModifiedDate": {
+                  "type": "string"
+                },
+                "sentDate": {
+                  "type": "string"
+                },
+                "embargo": {
+                  "type": "string"
+                },
+                "displayDate": {
+                  "type": "string"
+                },
+                "timezoneOffset": {
+                  "type": "integer"
+                },
+                "isAbTesting": {
+                  "type": "boolean"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "campaignType": {
+                  "type": "string"
+                },
+                "winner": {
+                  "type": "integer"
+                },
+                "sendInTime": {
+                  "type": "boolean"
+                },
+                "useOldPDFProcess": {
+                  "type": "boolean"
+                },
+                "isMultilingual": {
+                  "type": "boolean"
+                },
+                "resendEligible": {
+                  "type": "boolean"
+                },
+                "subject": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "total_records": {
             "type": "integer"
@@ -5283,16 +5961,20 @@
           }
         }
       },
-      "observed_count": 14,
+      "observed_count": 17,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -5325,6 +6007,42 @@
         "source": "network_capture",
         "har_file": ".capture/brevo-pass2.har",
         "captured_at": "2026-11-21T02:09:55.429Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.email_campaigns_backend.get_email_campaign_api_campaigns_stats",
+      "classification": "internal_api",
+      "host": "email-campaigns-backend.brevo.com",
+      "method": "GET",
+      "path": "/email-campaign/api/campaigns/stats",
+      "query_params": [
+        "campaignIds"
+      ],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "campaignClickStats": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true
       }
     },
@@ -5564,16 +6282,20 @@
           }
         }
       },
-      "observed_count": 6,
+      "observed_count": 7,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -5647,16 +6369,20 @@
           }
         }
       },
-      "observed_count": 3,
+      "observed_count": 4,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -5828,16 +6554,20 @@
         204
       ],
       "response_schema": null,
-      "observed_count": 6,
+      "observed_count": 7,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -6423,19 +7153,20 @@
         200
       ],
       "response_schema": null,
-      "observed_count": 5,
+      "observed_count": 6,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
       }
     },
@@ -6453,20 +7184,94 @@
         200
       ],
       "response_schema": null,
-      "observed_count": 5,
+      "observed_count": 6,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
+      }
+    },
+    {
+      "id": "observed.loyalty_api.get_loyalty_get_user_permissions",
+      "classification": "internal_api",
+      "host": "loyalty-api.brevo.com",
+      "method": "GET",
+      "path": "/loyalty/get-user-permissions",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "is_owner": {
+            "type": "boolean"
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.loyalty_api.get_loyalty_programs",
+      "classification": "internal_api",
+      "host": "loyalty-api.brevo.com",
+      "method": "GET",
+      "path": "/loyalty/programs",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
       }
     },
     {
@@ -7063,16 +7868,20 @@
           }
         }
       },
-      "observed_count": 4,
+      "observed_count": 5,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -7130,16 +7939,20 @@
           }
         }
       },
-      "observed_count": 4,
+      "observed_count": 5,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -7263,19 +8076,20 @@
         200
       ],
       "response_schema": null,
-      "observed_count": 5,
+      "observed_count": 6,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
       }
     },
@@ -7348,20 +8162,167 @@
         200
       ],
       "response_schema": null,
-      "observed_count": 26,
+      "observed_count": 29,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
+      }
+    },
+    {
+      "id": "observed.onboarding_api_v2.get_dashboard_information",
+      "classification": "internal_api",
+      "host": "onboarding-api-v2.brevo.com",
+      "method": "GET",
+      "path": "/dashboard-information",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "userInfo": {
+            "type": "object",
+            "properties": {
+              "accountId": {
+                "type": "string"
+              },
+              "fname": {
+                "type": "string"
+              },
+              "lname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "isProfileComplete": {
+                "type": "boolean"
+              },
+              "activatedApplications": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "timezone": {
+                "type": "string"
+              },
+              "isResellerParent": {
+                "type": "boolean"
+              },
+              "enterprise": {
+                "type": "boolean"
+              },
+              "organizationId": {
+                "type": "integer"
+              },
+              "isUnengagedSaved": {
+                "type": "boolean"
+              },
+              "gtmEvent": {
+                "type": "object",
+                "properties": {
+                  "1": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "userUnvalidationStatus": {
+                "type": "integer"
+              },
+              "isDedicatedIpUser": {
+                "type": "boolean"
+              },
+              "isContactImportAllowed": {
+                "type": "boolean"
+              },
+              "plan": {
+                "type": "string"
+              },
+              "isManagePlanAllowed": {
+                "type": "boolean"
+              },
+              "isOwner": {
+                "type": "boolean"
+              },
+              "isPhoneOnboarded": {
+                "type": "boolean"
+              },
+              "isPhoneVerified": {
+                "type": "boolean"
+              }
+            }
+          },
+          "profileSkipped": {
+            "type": "boolean"
+          },
+          "conversionCurrency": {
+            "type": "string"
+          },
+          "isConversionSetup": {
+            "type": "boolean"
+          },
+          "isMeetingsActive": {
+            "type": "boolean"
+          },
+          "isDealsActive": {
+            "type": "boolean"
+          },
+          "isContactsListAllowed": {
+            "type": "boolean"
+          },
+          "isContactsFormAllowed": {
+            "type": "boolean"
+          },
+          "mppOpenExcluded": {
+            "type": "boolean"
+          },
+          "isCampaignActive": {
+            "type": "boolean"
+          },
+          "zendeskSupportWidget": {
+            "type": "boolean"
+          },
+          "salesWidgetBanner": {
+            "type": "boolean"
+          },
+          "showMeetingsTipCard": {
+            "type": "boolean"
+          },
+          "showEverAfterCard": {
+            "type": "boolean"
+          },
+          "showAttributionModal": {
+            "type": "boolean"
+          }
+        }
+      },
+      "observed_count": 2,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
       }
     },
     {
@@ -7444,19 +8405,20 @@
           }
         }
       },
-      "observed_count": 12,
+      "observed_count": 13,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
       }
     },
@@ -7705,19 +8667,20 @@
           }
         }
       },
-      "observed_count": 5,
+      "observed_count": 6,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
       }
     },
@@ -8461,20 +9424,54 @@
           }
         }
       },
-      "observed_count": 8,
+      "observed_count": 16,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
+      }
+    },
+    {
+      "id": "observed.sidebar_backend.get_sidebar_api_metainfo",
+      "classification": "internal_api",
+      "host": "sidebar-backend.brevo.com",
+      "method": "GET",
+      "path": "/sidebar/api/metaInfo",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "backlogCount": {
+            "type": "integer"
+          }
+        }
+      },
+      "observed_count": 2,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
       }
     },
     {
@@ -8691,19 +9688,20 @@
           }
         }
       },
-      "observed_count": 5,
+      "observed_count": 10,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
       }
     },
@@ -8740,31 +9738,19 @@
           "pricingSubVersion": {
             "type": "integer"
           },
-          "email": {
+          "automation": {
             "type": "object",
             "properties": {
               "planName": {
                 "type": "string"
               },
-              "remainingEmailPd": {
+              "remainingCredit": {
                 "type": "integer"
               },
-              "emailMaxLimit": {
+              "remainingPagCredits": {
                 "type": "integer"
               },
-              "smsCredits": {
-                "type": "integer"
-              },
-              "whatsappCredits": {
-                "type": "integer"
-              },
-              "impressionsLimit": {
-                "type": "integer"
-              },
-              "consumptionQuotaHour": {
-                "type": "integer"
-              },
-              "impressionsConsumed": {
+              "renewalTime": {
                 "type": "integer"
               },
               "timezone": {
@@ -8773,17 +9759,14 @@
               "dateFormat": {
                 "type": "string"
               },
-              "remainingPagCredits": {
+              "consumptionQuotaHour": {
                 "type": "integer"
               },
-              "renewalTime": {
+              "planType": {
+                "type": "string"
+              },
+              "emailMaxLimit": {
                 "type": "integer"
-              },
-              "smsEnabled": {
-                "type": "boolean"
-              },
-              "whatsappEnabled": {
-                "type": "boolean"
               },
               "planStatus": {
                 "type": "string"
@@ -8822,19 +9805,20 @@
           }
         }
       },
-      "observed_count": 11,
+      "observed_count": 19,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
       }
     },
@@ -8923,19 +9907,20 @@
           }
         }
       },
-      "observed_count": 5,
+      "observed_count": 11,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true,
         "har_files": [
           ".capture/brevo-writes.har",
-          ".capture/brevo-pass2.har"
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
         ]
       }
     },
@@ -9001,16 +9986,20 @@
         "type": "array",
         "items": {}
       },
-      "observed_count": 4,
+      "observed_count": 6,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -9047,16 +10036,20 @@
           }
         }
       },
-      "observed_count": 4,
+      "observed_count": 6,
       "stability": "internal",
       "auth": "session_cookie",
       "risk_level": "low",
       "catalog_action": null,
       "evidence": {
         "source": "network_capture",
-        "har_file": ".capture/brevo-pass2.har",
-        "captured_at": "2026-11-21T02:09:55.429Z",
-        "redacted": true
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true,
+        "har_files": [
+          ".capture/brevo-pass2.har",
+          ".capture/ui-remaining.har"
+        ]
       }
     },
     {
@@ -9632,6 +10625,425 @@
         "source": "network_capture",
         "har_file": ".capture/brevo-writes.har",
         "captured_at": "2026-11-21T01:47:15.039Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_sidebar_contactcount",
+      "classification": "internal_api",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/sidebar/contactCount",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200,
+        202
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "observed_count": 3,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_sidebar_deferredcount",
+      "classification": "internal_api",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/sidebar/deferredCount",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "processingStatus": {
+            "type": "string"
+          },
+          "deferredEmailCount": {
+            "type": "integer"
+          },
+          "rateLimit": {
+            "type": "integer"
+          },
+          "maxDelay": {
+            "type": "integer"
+          },
+          "delay": {
+            "type": "object",
+            "properties": {
+              "hours": {
+                "type": "integer"
+              },
+              "minutes": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_workflow_bannerdetails",
+      "classification": "internal_api",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/workflow/bannerDetails",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "marketing_email_status": {
+            "type": "string"
+          },
+          "is_profile_complete": {
+            "type": "integer"
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_workflow_listing",
+      "classification": "internal_api",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/workflow/listing",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_workflow_metainfo",
+      "classification": "internal_api",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/workflow/metaInfo",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "privileges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "is_ent_or_agency": {
+            "type": "boolean"
+          },
+          "is_ma_db_created": {
+            "type": "boolean"
+          },
+          "user_info": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "client_id": {
+                "type": "integer"
+              },
+              "organization_id": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              }
+            }
+          },
+          "is_premium": {
+            "type": "boolean"
+          },
+          "is_enabled_object_based_workflow": {
+            "type": "boolean"
+          },
+          "is_classic_user_active": {
+            "type": "boolean"
+          },
+          "is_classic_editor_hidden": {
+            "type": "boolean"
+          },
+          "is_user_on_classic_editor": {
+            "type": "boolean"
+          },
+          "automation_templates_management": {
+            "type": "boolean"
+          },
+          "sales_sequences": {
+            "type": "boolean"
+          },
+          "is_bispa_enabled": {
+            "type": "boolean"
+          },
+          "is_back_in_stock_premade_enabled": {
+            "type": "boolean"
+          },
+          "is_price_drop_premade_enabled": {
+            "type": "boolean"
+          },
+          "is_preview_trigger_events_enabled": {
+            "type": "boolean"
+          },
+          "is_bis_restock_minimum_enabled": {
+            "type": "boolean"
+          },
+          "is_fue_vert_account_enabled": {
+            "type": "boolean"
+          },
+          "pure_object_source": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "is_user_on_v5": {
+            "type": "boolean"
+          },
+          "active_pro_user": {
+            "type": "boolean"
+          },
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "plan_cf_category": {
+            "type": "string"
+          },
+          "ai-prompt-to-workflow-enabled": {
+            "type": "boolean"
+          },
+          "hide-email-tpl-ma": {
+            "type": "boolean"
+          },
+          "is_enhanced_branches_enabled": {
+            "type": "boolean"
+          },
+          "max_multi_branches_allowed": {
+            "type": "integer"
+          },
+          "is_classic_workflow_active": {
+            "type": "boolean"
+          },
+          "contact_privileges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "asset-sharing-automation-workflow": {
+            "type": "boolean"
+          },
+          "prebuilt-channel-selector-enabled": {
+            "type": "boolean"
+          },
+          "is_new_modal_enabled": {
+            "type": "boolean"
+          },
+          "is_ai_edit_assistant_enabled": {
+            "type": "boolean"
+          },
+          "is_workflow_step_replay_enabled": {
+            "type": "boolean"
+          },
+          "is_new_reports_page_enabled": {
+            "type": "boolean"
+          },
+          "is_new_reports_export_enabled": {
+            "type": "boolean"
+          },
+          "is_linked_saved_templates_enabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "observed_count": 7,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_workflow_option_info",
+      "classification": "internal_api",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/workflow/option-info",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        200
+      ],
+      "response_schema": null,
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.workflow_apis.post_v1_workflow_sendevent",
+      "classification": "internal_api",
+      "host": "workflow-apis.brevo.com",
+      "method": "POST",
+      "path": "/v1/workflow/sendEvent",
+      "query_params": [],
+      "request_body": {
+        "type": "object",
+        "properties": {
+          "event_name": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "event_description": {
+            "type": "string"
+          }
+        }
+      },
+      "request_body_captured": true,
+      "request_body_note": null,
+      "response_statuses": [
+        200
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "high",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
+        "redacted": true
+      }
+    },
+    {
+      "id": "observed.workflow_apis.get_v1_workflow_showdeferrednotification",
+      "classification": "internal_api",
+      "host": "workflow-apis.brevo.com",
+      "method": "GET",
+      "path": "/v1/workflow/showDeferredNotification",
+      "query_params": [],
+      "request_body": null,
+      "request_body_captured": false,
+      "request_body_note": "No request body expected for this method.",
+      "response_statuses": [
+        202
+      ],
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "observed_count": 1,
+      "stability": "internal",
+      "auth": "session_cookie",
+      "risk_level": "low",
+      "catalog_action": null,
+      "evidence": {
+        "source": "network_capture",
+        "har_file": ".capture/ui-remaining.har",
+        "captured_at": "2026-11-21T03:55:49.947Z",
         "redacted": true
       }
     }

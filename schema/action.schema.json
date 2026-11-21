@@ -93,7 +93,7 @@
         "http_status": { "type": ["integer", "null"] },
         "account_entitlement": { "enum": ["ok", "not_eligible_on_plan", null] },
         "note": { "type": ["string", "null"] },
-        "kind": { "enum": ["read_check", "write_flow", "advanced_flow", "transactional_flow", null] }
+        "kind": { "enum": ["read_check", "write_flow", "advanced_flow", "transactional_flow", "event_flow", null] }
       }
     }
   }

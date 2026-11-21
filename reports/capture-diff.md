@@ -1,15 +1,15 @@
 # Browser capture diff
 
-Sources: `.capture/brevo-writes.har`, `.capture/brevo-pass2.har` (2809 HAR entries in the latest capture, captured 2026-11-21T02:09:55.429Z).
+Sources: `.capture/brevo-writes.har`, `.capture/brevo-pass2.har`, `.capture/ui-remaining.har` (1156 HAR entries in the latest capture, captured 2026-11-21T03:55:49.947Z).
 
 ## Summary
 
-- First-party endpoints observed: **137**
+- First-party endpoints observed: **168**
 - Public API (`api.brevo.com`): 0
-- Internal APIs: 131
-- App backend: 6
+- Internal APIs: 157
+- App backend: 11
 - Matched to catalog actions: 0
-- Unmatched: 137
+- Unmatched: 168
 
 ## Matched to existing catalog actions
 
@@ -21,15 +21,24 @@ Sources: `.capture/brevo-writes.har`, `.capture/brevo-pass2.har` (2809 HAR entri
 - GET `/contact/forms-app/subscription` (app_backend)
 - GET `/contact/list` (app_backend)
 - GET `/contact/list-listing` (app_backend)
+- GET `/ecommerce/overview` (app_backend)
+- GET `/loyalty` (app_backend)
+- GET `/marketing/landing-pages` (app_backend)
+- GET `/payments` (app_backend)
+- GET `/sms-campaign/listing` (app_backend)
 - GET `/templates/listing` (app_backend)
 - GET `/undefined/` (app_backend)
+- GET `/api/settings` (internal_api)
 - GET `/api/settings/list-timezone` (internal_api)
 - GET `/api/agent/chats` (internal_api)
 - GET `/api/agent/organization` (internal_api)
 - GET `/organization` (internal_api)
+- GET `/settings` (internal_api)
 - GET `/extensibility/integrations` (internal_api)
 - GET `/api/notifications` (internal_api)
 - GET `/dependency/check/list` (internal_api)
+- GET `/processing-details` (internal_api)
+- POST `/web/activate` (internal_api)
 - GET `/billing/api/organization/currency` (internal_api)
 - GET `/feature-toggle/unleash` (internal_api)
 - GET `/getTotalUsersConfig` (internal_api)
@@ -61,6 +70,15 @@ Sources: `.capture/brevo-writes.har`, `.capture/brevo-pass2.har` (2809 HAR entri
 - GET `/feApi/chatWidgetLoader` (internal_api)
 - GET `/feApi/liveUpdatesToken` (internal_api)
 - GET `/feApi/orgFeaturesAndChannels` (internal_api)
+- GET `/sockjs/info` (internal_api)
+- GET `/static/sounds/castanets.mp3` (internal_api)
+- GET `/static/sounds/clogtick.mp3` (internal_api)
+- GET `/static/sounds/maraca.mp3` (internal_api)
+- GET `/static/sounds/sleighbells.mp3` (internal_api)
+- GET `/static/sounds/triangle.mp3` (internal_api)
+- GET `/static/sounds/washboard.mp3` (internal_api)
+- GET `/static/sounds/windchimes.mp3` (internal_api)
+- GET `/conversions-goals/all` (internal_api)
 - GET `/crm/backend/account-settings` (internal_api)
 - GET `/crm/backend/accounts` (internal_api)
 - GET `/crm/backend/attribute/companies` (internal_api)
@@ -96,6 +114,7 @@ Sources: `.capture/brevo-writes.har`, `.capture/brevo-pass2.har` (2809 HAR entri
 - GET `/email-campaign/api/campaign/{id}` (internal_api)
 - GET `/email-campaign/api/campaigns` (internal_api)
 - DELETE `/email-campaign/api/campaigns` (internal_api)
+- GET `/email-campaign/api/campaigns/stats` (internal_api)
 - GET `/email-campaign/api/config` (internal_api)
 - POST `/email-campaign/api/regular/setup` (internal_api)
 - GET `/email-campaign/api/sending-health` (internal_api)
@@ -114,6 +133,8 @@ Sources: `.capture/brevo-writes.har`, `.capture/brevo-pass2.har` (2809 HAR entri
 - GET `/forms-api/forms/{id}/data` (internal_api)
 - GET `/pr/grc/pk_z9jboYytP0N5B7cMeEtQDnTnhLgsbw5s` (internal_api)
 - GET `/pr/js` (internal_api)
+- GET `/loyalty/get-user-permissions` (internal_api)
+- GET `/loyalty/programs` (internal_api)
 - GET `/marketing-campaign/api/client/config` (internal_api)
 - GET `/marketing-campaign/api/client/info` (internal_api)
 - GET `/marketing-campaign/api/client/toggle-features` (internal_api)
@@ -125,6 +146,7 @@ Sources: `.capture/brevo-writes.har`, `.capture/brevo-pass2.har` (2809 HAR entri
 - GET `/settings/utm-settings` (internal_api)
 - GET `/_/service_worker/6b40/sw_iframe.html` (internal_api)
 - GET `/g/collect` (internal_api)
+- GET `/dashboard-information` (internal_api)
 - GET `/phone/call-enabled` (internal_api)
 - GET `/settings/ai/agents` (internal_api)
 - GET `/sms/countries` (internal_api)
@@ -139,6 +161,7 @@ Sources: `.capture/brevo-writes.har`, `.capture/brevo-pass2.har` (2809 HAR entri
 - POST `/segment/query` (internal_api)
 - GET `/segment/unified_object/paths/contact/associations` (internal_api)
 - GET `/sidebar/api/header/info` (internal_api)
+- GET `/sidebar/api/metaInfo` (internal_api)
 - GET `/sidebar/api/v2/brevo/config/listing` (internal_api)
 - GET `/sidebar/api/v2/credit` (internal_api)
 - GET `/sidebar/api/v4/brevo/listing` (internal_api)
@@ -154,4 +177,12 @@ Sources: `.capture/brevo-writes.har`, `.capture/brevo-pass2.har` (2809 HAR entri
 - GET `/passes/active` (internal_api)
 - GET `/whatsapp-campaign/api/client/info` (internal_api)
 - GET `/v1/contact/{id}/workflows` (internal_api)
+- GET `/v1/sidebar/contactCount` (internal_api)
+- GET `/v1/sidebar/deferredCount` (internal_api)
+- GET `/v1/workflow/bannerDetails` (internal_api)
+- GET `/v1/workflow/listing` (internal_api)
+- GET `/v1/workflow/metaInfo` (internal_api)
+- GET `/v1/workflow/option-info` (internal_api)
+- POST `/v1/workflow/sendEvent` (internal_api)
+- GET `/v1/workflow/showDeferredNotification` (internal_api)
 

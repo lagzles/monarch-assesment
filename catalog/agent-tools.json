@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T03:13:47.686Z",
+  "generated_at": "2026-11-21T03:55:50.536Z",
   "tool_count": 292,
   "tools": [
     {
@@ -3621,7 +3621,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -3864,7 +3864,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -3940,7 +3940,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -4193,7 +4193,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -7650,7 +7650,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -7686,7 +7686,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -7874,7 +7874,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -7994,7 +7994,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -11518,7 +11518,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -12706,7 +12706,7 @@
         "idempotency": "non_idempotent",
         "risk_level": "medium",
         "confirmation_required": false,
-        "confidence": 0.97,
+        "confidence": 0.99,
         "errors": [
           {
             "status": 400,
@@ -13380,7 +13380,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.95,
+        "confidence": 0.98,
         "errors": [
           {
             "status": 400,
@@ -18744,7 +18744,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -19213,7 +19213,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.95,
+        "confidence": 0.98,
         "errors": [
           {
             "status": 400,
@@ -19259,7 +19259,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -20464,7 +20464,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -21183,7 +21183,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -21219,7 +21219,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -21342,7 +21342,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.95,
+        "confidence": 0.98,
         "errors": [
           {
             "status": 400,
@@ -21524,7 +21524,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
@@ -21605,7 +21605,7 @@
         "idempotency": "idempotent",
         "risk_level": "low",
         "confirmation_required": false,
-        "confidence": 0.94,
+        "confidence": 0.97,
         "errors": [
           {
             "status": 400,
